@@ -2,7 +2,7 @@ import axios from "axios";
 
 const appData = {
   app: {
-    APP_API_URL: "http://localhost:3001",
+    APP_API_URL: "https://citta-db-strapi.herokuapp.com/",
   },
 };
 
