@@ -60,7 +60,7 @@ const Layout = () => {
               <MenuIcon />
             </IconButton>
             <img
-              src={require("../../../assets/images/chitta_logo.png").default}
+              src={require("../../../assets/images/nerkathir_logo.png").default}
               alt="chitta logo"
               className={classes.chitta_logo}
             />

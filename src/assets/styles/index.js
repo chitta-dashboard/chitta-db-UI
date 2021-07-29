@@ -4,8 +4,7 @@ const drawerWidth = 240;
 
 export const useStyles = makeStyles((theme) => ({
   chitta_logo: {
-    height: "7vh",
-    width: "12rem",
+    width: "6rem",
   },
 
   Layout_root: {
