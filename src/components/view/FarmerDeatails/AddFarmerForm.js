@@ -10,6 +10,7 @@ import SurveyInput from "./SurveyInput";
 import { customToast } from "../../widgets/Toast";
 import { uuid } from "../../../constants";
 import config, { uploadFile } from "../../../constants/config";
+import { colors } from "../../../theme";
 
 const initialFormValue = {
   surveyNoList: {
@@ -222,8 +223,8 @@ const AddFarmerForm = () => {
               autoComplete="off"
               style={{
                 padding: "1rem",
-                color: "#E8FCFF52",
-                backgroundColor: "#202c3a",
+                color: "#111B2B",
+                backgroundColor: "#131e2f0d",
               }}
               onChange={_onProfilePicChange}
             />
@@ -240,7 +241,7 @@ const AddFarmerForm = () => {
                 placeholder="பிறந்த தேதி"
                 ref={DOB}
                 autoComplete="off"
-                style={{ color: "#E8FCFF52" }}
+                style={{ color: colors.text2 }}
               />
             </Grid>
             <Grid item xs={8}>
@@ -311,7 +312,7 @@ const AddFarmerForm = () => {
                 name="பாலினம்"
                 id="பாலினம்"
                 className="farmer-input"
-                style={{ color: "#E8FCFF52" }}
+                style={{ color: "#111B2B" }}
                 value={formValue.gender}
                 onChange={(e) =>
                   setFormValue({ ...formValue, gender: e.target.value })

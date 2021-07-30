@@ -7,8 +7,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color:#E8FCFF52;
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #111b2ba1;
   opacity: 1; /* Firefox */
 }
 

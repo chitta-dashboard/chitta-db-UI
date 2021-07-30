@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { colors } from "../../theme";
 
 const drawerWidth = 240;
 
@@ -9,6 +10,9 @@ export const useStyles = makeStyles((theme) => ({
 
   Layout_root: {
     display: "flex",
+    //     background: `linear-gradient(
+    // 252.44deg
+    // ,#7dd6d3,#fff 49.27%,#7dd6d3)`,
   },
 
   appBar: {
@@ -16,8 +20,8 @@ export const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    backgroundColor: "#111B2B",
-    boxShadow: "none",
+    boxShadow: "1px 1px 7px #3333",
+    background: "#ffdb3c",
   },
 
   appBarShift: {
@@ -31,6 +35,7 @@ export const useStyles = makeStyles((theme) => ({
 
   menuButton: {
     marginRight: theme.spacing(2),
+    color: colors.text2,
   },
 
   hide: {
@@ -44,7 +49,9 @@ export const useStyles = makeStyles((theme) => ({
 
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: "#111B2B",
+    background: "#085c49",
+    // backgroundColor: ,
+    color: colors.text1,
     border: 0,
   },
 
@@ -65,9 +72,10 @@ export const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
-    backgroundColor: "#111B2B",
+    backgroundColor: "transparent",
     height: "100%",
     minHeight: "100vh",
+    paddingTop: "100px",
   },
   contentShift: {
     transition: theme.transitions.create("margin", {
@@ -87,7 +95,7 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   add_btn_container: {
-    backgroundColor: "#111E2F",
+    backgroundColor: colors.bg2,
     boxShadow: "20px 20px 60px #0e1725,-20px -20px 60px #141f31",
     height: "10vh",
     display: "flex",
@@ -113,9 +121,9 @@ export const useStyles = makeStyles((theme) => ({
     height: "2.2rem",
     padding: "0 12px",
     width: "20rem",
-    background: "#131E2F",
+    background: colors.bg3,
     border: "none",
-    color: "#E8FCFF",
+    color: colors.text2,
     borderRadius: "4px",
     "&:hover": {
       background: "rgba(0, 0, 0, 0.13)",
@@ -144,34 +152,38 @@ export const useStyles = makeStyles((theme) => ({
 
   addDetails_btn: {
     border: 0,
-    backgroundColor: "#6CCDFE",
+    backgroundColor: colors.primary,
     opacity: 0.8,
-    color: "#111B2B",
+    color: colors.text1,
     height: "2rem",
     width: "8rem",
     borderRadius: "5px",
     cursor: "pointer",
+    fontWeight: "600",
     "&:hover": {
-      backgroundColor: "#131E2F",
-      border: "1px solid #6CCDFE",
-      color: "#6CCDFE",
+      backgroundColor: colors.bg3,
+      border: `1px solid ${colors.primary}`,
+      color: colors.text2,
     },
   },
 
   exportDetails_btn: {
     border: 0,
-    backgroundColor: "#6CCDFE",
+    backgroundColor: colors.primary,
     opacity: 0.8,
-    color: "#111B2B",
+    color: colors.text1,
     height: "2rem",
     width: "8rem",
     borderRadius: "5px",
     cursor: "pointer",
     marginRight: "1rem",
+    fontWeight: "600",
+
     "&:hover": {
-      backgroundColor: "#131E2F",
-      border: "1px solid #6CCDFE",
-      color: "#6CCDFE",
+      backgroundColor: colors.bg3,
+      border: `1px solid ${colors.primary}`,
+
+      color: colors.text2,
     },
   },
 
@@ -183,42 +195,45 @@ export const useStyles = makeStyles((theme) => ({
   tab_container: {
     maxHeight: 440,
     height: "65vh",
-    backgroundColor: "#111B2B",
+    backgroundColor: colors.bg1,
+    borderRadius: "10px",
+    boxShadow: "1px 1px 7px 0px #3333334a",
   },
 
   tab_cell: {
-    color: "white",
+    color: colors.text2,
     border: "none",
     width: "150px",
     minWidth: "150px",
     maxWidth: "150px",
     overflow: "auto",
-    borderBottom: " 0.5px solid rgba(86, 105, 132, 0.2)",
+    // border-bottom: 0.5px solid #e0e0e0;
+    borderBottom: " 0.5px solid #e0e0e0",
   },
 
   tab_headercell: {
-    backgroundColor: "#111E2F",
-    color: "#E8FCFF",
+    backgroundColor: colors.bg3,
+    color: colors.text2,
     width: "150px",
     minWidth: "150px",
     maxWidth: "150px",
     overflow: "auto",
-    borderBottom: "0.5px solid rgba(86, 105, 132, 0.8)",
+    // borderBottom: "0.5px solid rgba(86, 105, 132, 0.8)",
   },
 
   tab_headericoncell: {
-    backgroundColor: "#111E2F",
-    color: "#E8FCFF",
+    backgroundColor: colors.bg3,
+    color: colors.text2,
     width: "50px",
     textAlign: "center",
-    borderBottom: "0.5px solid rgba(86, 105, 132, 0.8)",
+    // borderBottom: "0.5px solid rgba(86, 105, 132, 0.8)",
   },
 
   icontab_cell: {
     color: "white",
     width: "50px",
     textAlign: "center",
-    borderBottom: "0.5px solid rgba(86, 105, 132, 0.2)",
+    // borderBottom: "0.5px solid rgba(86, 105, 132, 0.2)",
   },
 
   tab_user_logo: {
@@ -228,11 +243,12 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   tab_row: {
-    backgroundColor: "#111E2F",
+    backgroundColor: colors.bg1,
+    color: colors.text2,
     textDecoration: "none",
     "&:hover": {
       cursor: "pointer",
-      backgroundColor: "#111B2B",
+      backgroundColor: colors.bg1,
     },
   },
 
@@ -252,7 +268,8 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   iconbtn: {
-    color: "white",
+    color: colors.text2,
+
     fontSize: "2rem",
   },
 
@@ -260,7 +277,7 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     cursor: "pointer",
-    color: "white",
+    color: colors.text2,
     textDecoration: "none",
   },
 
@@ -286,7 +303,7 @@ export const useStyles = makeStyles((theme) => ({
   drpdown: {
     color: "#606365",
     border: 0,
-    backgroundColor: "#131E2F",
+    backgroundColor: colors.bg3,
     "&:hover": {
       backgroundColor: "red",
     },
@@ -307,17 +324,18 @@ export const useStyles = makeStyles((theme) => ({
 
   submit_btn: {
     border: 0,
-    backgroundColor: "#6CCDFE",
-    color: "#131E2E",
+    backgroundColor: colors.primary,
+    color: colors.text1,
     height: "3rem",
     width: "12rem",
     borderRadius: "5px",
     cursor: "pointer",
 
     "&:hover": {
-      backgroundColor: "#131E2F",
-      border: "1px solid #6CCDFE",
-      color: "#6CCDFE",
+      backgroundColor: colors.bg3,
+      border: `1px solid ${colors.primary}`,
+
+      color: colors.text2,
     },
   },
 
@@ -338,11 +356,13 @@ export const useStyles = makeStyles((theme) => ({
 
   //user details
   userdetail_container: {
-    backgroundColor: "#111E2F",
-    color: "#E8FCFF",
+    backgroundColor: colors.bg1,
+    color: colors.text2,
     height: "842px",
     paddingTop: "2rem",
     padding: 30,
+    borderRadius: "10px",
+    boxShadow: "1px 1px 7px 0px #3333334a",
   },
 
   user_btncontainer: {
@@ -350,26 +370,32 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     marginBottom: "1rem",
     marginRight: "2rem",
+    marginTop: "1rem",
   },
 
   export_btn: {
     height: "2rem",
     width: "5rem",
     border: 0,
-    backgroundColor: "#6CCDFE",
-    color: "#131E2F",
+    backgroundColor: colors.primary,
+    color: colors.text1,
     borderRadius: "5px",
     cursor: "pointer",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     textDecoration: "none!important",
+    fontWeight: "600",
 
     "&:hover": {
-      backgroundColor: "#131E2F",
-      border: "1px solid #6CCDFE",
-      color: "#6CCDFE",
-      textDecoration: "none",
+      // backgroundColor: colors.bg3,
+      // border: "1px solid #6CCDFE",
+      // color: colors.primary,
+      // textDecoration: "none",
+      backgroundColor: colors.bg3,
+      border: `1px solid ${colors.primary}`,
+
+      color: colors.text2,
     },
   },
 
@@ -481,6 +507,7 @@ export const useStyles = makeStyles((theme) => ({
     width: "100%",
     position: "relative",
     overflow: "scroll",
+    fontSize: "20px",
   },
 
   contentrow_container: {

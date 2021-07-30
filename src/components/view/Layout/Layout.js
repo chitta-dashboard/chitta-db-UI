@@ -25,6 +25,7 @@ import FarmerDeatilForm from "../FarmerDeatails/FarmerDeatilForm";
 import { ListItems } from "../../../constants";
 import { useStyles } from "../../../assets/styles";
 import Dashboard from "../Dashboard";
+import { colors } from "../../../theme";
 
 const Layout = () => {
   const classes = useStyles();
@@ -64,6 +65,7 @@ const Layout = () => {
               alt="chitta logo"
               className={classes.chitta_logo}
             />
+            <h2>NERKATHIR FARMER PRODUCER COMPANY LIMITED</h2>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -76,7 +78,10 @@ const Layout = () => {
           }}
         >
           <div className={classes.drawerHeader}>
-            <IconButton onClick={handleDrawerClose} style={{ color: "white" }}>
+            <IconButton
+              onClick={handleDrawerClose}
+              style={{ color: colors.text2 }}
+            >
               {theme.direction === "ltr" ? (
                 <ChevronLeftIcon />
               ) : (
@@ -90,7 +95,7 @@ const Layout = () => {
                 <NavLink
                   key={list.id}
                   to={`${list.Router}`}
-                  style={{ textDecoration: "none", color: "white" }}
+                  style={{ textDecoration: "none", color: "inherit" }}
                 >
                   <ListItem key={list.id} button>
                     <ListItemText primary={list.name} />
@@ -105,7 +110,7 @@ const Layout = () => {
             [classes.contentShift]: open,
           })}
         >
-          <div className={classes.drawerHeader} />
+          {/* <div className={classes.drawerHeader} /> */}
           <Switch>
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/addfarmer" component={AddFarmerForm} />

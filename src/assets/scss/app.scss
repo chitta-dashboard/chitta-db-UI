@@ -2,9 +2,10 @@
   height: 50px;
   padding: 0 12px;
   width: 100%;
-  background: #202c3a;
-  border: none;
-  color: #fff;
+  background: #131e2f0d;
+  border: 1px solid #3333331f;
+  // border: none;
+  color: #111b2b;
   border-radius: 4px;
   &:hover {
     background: rgba(0, 0, 0, 0.13);
@@ -16,5 +17,3 @@
     outline: none;
   }
 }
-
-
