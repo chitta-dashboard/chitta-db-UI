@@ -46,7 +46,7 @@ const FarmerGroups = () => {
             {groups.map((data) => {
               return (
                 <TableRow
-                  key={data.id ? data.id : ""}
+                  key={data.id}
                   role="checkbox"
                   tabIndex={-1}
                   className={classes.tab_row}

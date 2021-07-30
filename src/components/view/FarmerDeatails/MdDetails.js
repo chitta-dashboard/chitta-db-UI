@@ -65,7 +65,7 @@ const MdDetails = () => {
                     {data.phoneNumber}
                   </TableCell>
                   <TableCell className={classes.tab_cell}>
-                    {data.description ? data.description : "description"}
+                    {data.description ? data.description : ""}
                   </TableCell>
                 </TableRow>
               );

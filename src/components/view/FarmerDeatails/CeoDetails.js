@@ -65,7 +65,7 @@ const CeoDetails = () => {
                     {data.phoneNumber}
                   </TableCell>
                   <TableCell className={classes.tab_cell}>
-                    "ceo description"
+                    {data.description ? data.description : ""}
                   </TableCell>
                 </TableRow>
               );

@@ -248,7 +248,11 @@ const AddFarmerForm = () => {
                 </option>
                 {farmerGroups.map((farmerGroup) => {
                   return (
-                    <option value={farmerGroup.id} className={classes.drpdown}>
+                    <option
+                      key={farmerGroup.id}
+                      value={farmerGroup.id}
+                      className={classes.drpdown}
+                    >
                       {farmerGroup.groupName}
                     </option>
                   );
