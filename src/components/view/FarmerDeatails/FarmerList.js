@@ -103,6 +103,9 @@ const FarmerList = (props) => {
               <TableCell className={classes.tab_headericoncell}>#</TableCell>
               <TableCell className={classes.tab_headercell}>பெயர்</TableCell>
               <TableCell className={classes.tab_headercell}>
+                GroupName
+              </TableCell>
+              <TableCell className={classes.tab_headercell}>
                 கைபேசி எண்
               </TableCell>
               <TableCell className={classes.tab_headercell}>ஏக்கர்</TableCell>
@@ -137,6 +140,9 @@ const FarmerList = (props) => {
                   </TableCell>
                   <TableCell className={classes.tab_cell}>
                     {farmer.name}
+                  </TableCell>
+                  <TableCell className={classes.tab_cell}>
+                    {farmer.farmer_group.groupName}
                   </TableCell>
                   <TableCell className={classes.tab_cell}>
                     {farmer.phoneNumber}
