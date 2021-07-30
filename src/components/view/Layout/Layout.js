@@ -113,11 +113,15 @@ const Layout = () => {
             {ListItems.map((list) => {
               return (
                 <NavLink
+                  activeClassName="nav-active"
                   key={list.id}
                   to={`${list.Router}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                  }}
                 >
-                  <ListItem key={list.id} button>
+                  <ListItem key={list.id} className="list-item" button>
                     <ListItemText primary={list.name} />
                   </ListItem>
                 </NavLink>

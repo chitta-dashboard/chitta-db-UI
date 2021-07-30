@@ -47,17 +47,17 @@ export const ListItems = [
   {
     id: "2",
     name: "MD Details",
-    Router: "/dashboard",
+    Router: "/mdDetails",
   },
   {
     id: "3",
     name: "CEO Details",
-    Router: "/dashboard",
+    Router: "/ceoDetails",
   },
   {
     id: "4",
     name: "Farmer Groups",
-    Router: "/dashboard",
+    Router: "/farmerGroups",
   },
   {
     id: "5",
@@ -67,12 +67,12 @@ export const ListItems = [
   {
     id: "6",
     name: "Register",
-    Router: "/dashboard",
+    Router: "/register",
   },
   {
     id: "7",
     name: "Decision",
-    Router: "/dashboard",
+    Router: "/decision",
   },
 ];
 

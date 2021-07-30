@@ -40,3 +40,12 @@ button:disabled {
 ::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
+
+.nav-active{
+  .list-item{
+    background:white;
+    color:#000;
+    margin-left: 0.5rem;
+    border-radius: 10px;
+  }
+}

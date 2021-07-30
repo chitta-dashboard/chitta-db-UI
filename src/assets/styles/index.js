@@ -87,6 +87,10 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
 
+  selected: {
+    background: "red",
+  },
+
   drawerHeader: {
     display: "flex",
     alignItems: "center",
