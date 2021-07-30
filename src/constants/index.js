@@ -46,8 +46,33 @@ export const ListItems = [
   },
   {
     id: "2",
-    name: "Farmer Details",
+    name: "MD Details",
+    Router: "/dashboard",
+  },
+  {
+    id: "3",
+    name: "CEO Details",
+    Router: "/dashboard",
+  },
+  {
+    id: "4",
+    name: "Farmer Groups",
+    Router: "/dashboard",
+  },
+  {
+    id: "5",
+    name: "Farmers Details",
     Router: "/farmersdetails",
+  },
+  {
+    id: "6",
+    name: "Register",
+    Router: "/dashboard",
+  },
+  {
+    id: "7",
+    name: "Decision",
+    Router: "/dashboard",
   },
 ];
 
@@ -60,7 +85,9 @@ export const toGetTamilGender = (gender) => {
 export const getFormattedDate = (date) => {
   const formatedDate = date && new Date(date);
 
-  return `${formatedDate?.getDate()}/${formatedDate?.getMonth() + 1}/${formatedDate?.getFullYear()}`;
+  return `${formatedDate?.getDate()}/${
+    formatedDate?.getMonth() + 1
+  }/${formatedDate?.getFullYear()}`;
 };
 
 export const FarmerDetailsList = [

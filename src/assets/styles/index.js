@@ -5,7 +5,12 @@ const drawerWidth = 240;
 
 export const useStyles = makeStyles((theme) => ({
   chitta_logo: {
-    width: "6rem",
+    width: "3rem",
+    marginLeft: "1rem",
+  },
+
+  chitta_logo_drawer: {
+    width: "3rem",
   },
 
   Layout_root: {
@@ -36,6 +41,24 @@ export const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
     color: colors.text2,
+    padding: 0,
+  },
+
+  navbarContent: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-end",
+  },
+
+  MainTitle: {
+    margin: 0,
+  },
+
+  navbarSubContent: {
+    display: "flex",
+    margin: 0,
+    fontSize: "1rem",
   },
 
   hide: {
@@ -55,13 +78,21 @@ export const useStyles = makeStyles((theme) => ({
     border: 0,
   },
 
+  drawerIconBtn: {},
+
+  drawerIcon_container: {
+    background: "white",
+  },
+
   drawerHeader: {
     display: "flex",
     alignItems: "center",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
+    boxShadow: "0px 6px 1px #3333",
+    background: "#ffdb3c",
   },
 
   content: {

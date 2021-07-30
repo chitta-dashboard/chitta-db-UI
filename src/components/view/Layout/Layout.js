@@ -56,16 +56,27 @@ const Layout = () => {
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               edge="start"
+              disableRipple
+              style={{ backgroundColor: "transparent" }}
               className={clsx(classes.menuButton, open && classes.hide)}
             >
               <MenuIcon />
+              <img
+                src={
+                  require("../../../assets/images/nerkathir_logo.png").default
+                }
+                alt="chitta logo"
+                className={classes.chitta_logo}
+              />
             </IconButton>
-            <img
-              src={require("../../../assets/images/nerkathir_logo.png").default}
-              alt="chitta logo"
-              className={classes.chitta_logo}
-            />
-            <h2>NERKATHIR FARMER PRODUCER COMPANY LIMITED</h2>
+            <div className={classes.navbarContent}>
+              <h2 className={classes.MainTitle}>
+                NERKATHIR FARMER PRODUCER COMPANY LIMITED
+              </h2>
+              <div className={classes.navbarSubContent}>
+                Kallakurichi | Regd No: 139086 | CIN: U01409TN2020PTC139086
+              </div>
+            </div>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -78,16 +89,25 @@ const Layout = () => {
           }}
         >
           <div className={classes.drawerHeader}>
-            <IconButton
-              onClick={handleDrawerClose}
-              style={{ color: colors.text2 }}
-            >
-              {theme.direction === "ltr" ? (
-                <ChevronLeftIcon />
-              ) : (
-                <ChevronRightIcon />
-              )}
-            </IconButton>
+            <img
+              src={require("../../../assets/images/nerkathir_logo.png").default}
+              alt="chitta logo"
+              className={classes.chitta_logo_drawer}
+            />
+            <div className={classes.drawerIcon_container}>
+              <IconButton
+                disableRipple
+                onClick={handleDrawerClose}
+                style={{ color: colors.text2 }}
+                className={classes.drawerIconBtn}
+              >
+                {theme.direction === "ltr" ? (
+                  <ChevronLeftIcon />
+                ) : (
+                  <ChevronRightIcon />
+                )}
+              </IconButton>
+            </div>
           </div>
           <List>
             {ListItems.map((list) => {
