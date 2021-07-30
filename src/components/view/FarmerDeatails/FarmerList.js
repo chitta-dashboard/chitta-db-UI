@@ -102,9 +102,7 @@ const FarmerList = (props) => {
             <TableRow>
               <TableCell className={classes.tab_headericoncell}>#</TableCell>
               <TableCell className={classes.tab_headercell}>பெயர்</TableCell>
-              <TableCell className={classes.tab_headercell}>
-                GroupName
-              </TableCell>
+              <TableCell className={classes.tab_headercell}>குழு</TableCell>
               <TableCell className={classes.tab_headercell}>
                 கைபேசி எண்
               </TableCell>
