@@ -49,6 +49,8 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-end",
+    color: colors.text2,
+    fontSize: "smaller",
   },
 
   MainTitle: {
@@ -58,7 +60,7 @@ export const useStyles = makeStyles((theme) => ({
   navbarSubContent: {
     display: "flex",
     margin: 0,
-    fontSize: "1rem",
+    fontSize: "small",
   },
 
   hide: {
@@ -78,10 +80,11 @@ export const useStyles = makeStyles((theme) => ({
     border: 0,
   },
 
-  drawerIconBtn: {},
-
-  drawerIcon_container: {
-    background: "white",
+  drawerIconBtn: {
+    background: "#fff",
+    "&:hover": {
+      background: "#fff",
+    },
   },
 
   drawerHeader: {
