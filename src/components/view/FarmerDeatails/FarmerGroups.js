@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -7,9 +8,25 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { useStyles } from "../../../assets/styles";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
+import axios from "axios";
+import config from "../../../constants/config";
+import tempImg from "../../../assets/images/male.svg";
 
 const FarmerGroups = () => {
   const classes = useStyles();
+  const [groups, setGroups] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`${config.app.APP_API_URL}/farmer-groups`)
+      .then((res) => {
+        setGroups(() => {
+          return res.data;
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <>
@@ -27,25 +44,30 @@ const FarmerGroups = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow role="checkbox" tabIndex={-1} className={classes.tab_row}>
-              <TableCell padding="none" className={classes.icontab_cell}>
-                <img
-                  alt=""
-                  // src={
-                  //   farmer.userImg?.url
-                  //     ? `${config.app.APP_API_URL}${farmer.userImg.url}`
-                  //     : farmer.gender === "male"
-                  //     ? require("../../../assets/images/male.svg").default
-                  //     : require("../../../assets/images/female.svg").default
-                  // }
-                  className={classes.tab_user_logo}
-                />
-              </TableCell>
-              <TableCell className={classes.tab_cell}>"Group name"</TableCell>
-              <TableCell className={classes.tab_cell}>
-                "Group description"
-              </TableCell>
-            </TableRow>
+            {groups.map((data) => {
+              return (
+                <TableRow
+                  key={data.id ? data.id : ""}
+                  role="checkbox"
+                  tabIndex={-1}
+                  className={classes.tab_row}
+                >
+                  <TableCell padding="none" className={classes.icontab_cell}>
+                    <img
+                      alt=""
+                      src={tempImg}
+                      className={classes.tab_user_logo}
+                    />
+                  </TableCell>
+                  <TableCell className={classes.tab_cell}>
+                    {data.groupName ? data.groupName : ""}
+                  </TableCell>
+                  <TableCell className={classes.tab_cell}>
+                    {data.description ? data.description : ""}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
         <div className={classes.no_data}>

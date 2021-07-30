@@ -9,6 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import config from "../../../constants/config";
 import { useStyles } from "../../../assets/styles";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
+import tempImg from "../../../assets/images/male.svg";
 
 const MdDetails = () => {
   const classes = useStyles();
@@ -53,13 +54,7 @@ const MdDetails = () => {
                   <TableCell padding="none" className={classes.icontab_cell}>
                     <img
                       alt=""
-                      // src={
-                      //   farmer.userImg?.url
-                      //     ? `${config.app.APP_API_URL}${farmer.userImg.url}`
-                      //     : farmer.gender === "male"
-                      //     ? require("../../../assets/images/male.svg").default
-                      //     : require("../../../assets/images/female.svg").default
-                      // }
+                      src={tempImg}
                       className={classes.tab_user_logo}
                     />
                   </TableCell>
