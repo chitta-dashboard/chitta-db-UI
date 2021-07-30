@@ -34,7 +34,6 @@ const FarmerGroups = () => {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              <TableCell className={classes.tab_headericoncell}>#</TableCell>
               <TableCell className={classes.tab_headercell}>
                 Group name
               </TableCell>
@@ -52,13 +51,6 @@ const FarmerGroups = () => {
                   tabIndex={-1}
                   className={classes.tab_row}
                 >
-                  <TableCell padding="none" className={classes.icontab_cell}>
-                    <img
-                      alt=""
-                      src={tempImg}
-                      className={classes.tab_user_logo}
-                    />
-                  </TableCell>
                   <TableCell className={classes.tab_cell}>
                     {data.groupName ? data.groupName : ""}
                   </TableCell>
