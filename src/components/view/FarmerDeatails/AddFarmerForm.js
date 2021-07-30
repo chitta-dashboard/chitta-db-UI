@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
@@ -38,6 +38,19 @@ const AddFarmerForm = () => {
   const pincode = useRef("");
   const [formValue, setFormValue] = useState(initialFormValue);
   const [farmerPhoto, setFarmerPhoto] = useState(null);
+  const [farmerGroups, setFarmerGroups] = useState([]);
+  const [farmerGroupId, setFarmerGroupId] = useState();
+
+  useEffect(() => {
+    axios
+      .get(`${config.app.APP_API_URL}/farmer-groups`)
+      .then((res) => {
+        setFarmerGroups(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const _onProfilePicChange = (e) => {
     const file = e.target.files[0];
@@ -118,6 +131,7 @@ const AddFarmerForm = () => {
         name: farmerName.current.value,
         fatherName: fatherName.current.value,
         husbandName: husbandName.current.value,
+        farmer_group: farmerGroupId,
         DOB: DOB.current.value,
         phoneNumber: phoneNumber.current.value,
         aadharNumber: aadharNumber.current.value,
@@ -206,14 +220,41 @@ const AddFarmerForm = () => {
               />
             </Grid>
           </Grid>
-          <Grid className={classes.forminput_container} item xs={12}>
-            <input
-              className="farmer-input tamil"
-              type="text"
-              placeholder="கணவரின் பெயர்"
-              ref={husbandName}
-              autoComplete="off"
-            />
+          <Grid
+            className={classes.forminput_containerrow}
+            container
+            spacing={3}
+          >
+            <Grid item xs={6}>
+              <input
+                className="farmer-input tamil"
+                type="text"
+                placeholder="கணவரின் பெயர்"
+                ref={husbandName}
+                autoComplete="off"
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <select
+                name="குழு"
+                id="குழு"
+                className="farmer-input"
+                style={{ color: "#111B2B" }}
+                value={formValue.farmer_group}
+                onChange={(e) => setFarmerGroupId(e.target.value)}
+              >
+                <option value="" disabled selected hidden>
+                  குழு
+                </option>
+                {farmerGroups.map((farmerGroup) => {
+                  return (
+                    <option value={farmerGroup.id} className={classes.drpdown}>
+                      {farmerGroup.groupName}
+                    </option>
+                  );
+                })}
+              </select>
+            </Grid>
           </Grid>
           <Grid className={classes.forminput_container} item xs={12}>
             <input
