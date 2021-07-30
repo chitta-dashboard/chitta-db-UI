@@ -158,7 +158,8 @@ export const useStyles = makeStyles((theme) => ({
   _search: {
     height: "2.2rem",
     padding: "0 12px",
-    width: "20rem",
+    width: "100%",
+    maxWidth: "310px",
     background: colors.bg3,
     border: "none",
     color: colors.text2,
@@ -241,9 +242,9 @@ export const useStyles = makeStyles((theme) => ({
   tab_cell: {
     color: colors.text2,
     border: "none",
-    width: "150px",
-    minWidth: "150px",
-    maxWidth: "150px",
+    // width: "150px",
+    // minWidth: "150px",
+    // maxWidth: "150px",
     overflow: "auto",
     // border-bottom: 0.5px solid #e0e0e0;
     borderBottom: " 0.5px solid #e0e0e0",
@@ -252,9 +253,9 @@ export const useStyles = makeStyles((theme) => ({
   tab_headercell: {
     backgroundColor: colors.bg3,
     color: colors.text2,
-    width: "150px",
-    minWidth: "150px",
-    maxWidth: "150px",
+    // width: "150px",
+    // minWidth: "150px",
+    // maxWidth: "150px",
     overflow: "auto",
     // borderBottom: "0.5px solid rgba(86, 105, 132, 0.8)",
   },
