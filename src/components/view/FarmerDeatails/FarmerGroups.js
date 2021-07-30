@@ -27,7 +27,6 @@ const FarmerGroups = () => {
         console.log(err);
       });
   }, []);
-  console.log(groups);
 
   return (
     <>
