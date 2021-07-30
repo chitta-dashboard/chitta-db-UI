@@ -1,9 +1,16 @@
 import React from "react";
-import {Page,Text,View,Image,Document,StyleSheet} from "@react-pdf/renderer";
+import {
+  Page,
+  Text,
+  View,
+  Image,
+  Document,
+  StyleSheet,
+} from "@react-pdf/renderer";
 import { Font } from "@react-pdf/renderer";
 import config from "../../../constants/config";
-import { FarmerDetailsList,getFormattedDate} from '../../../constants';
-import font from '../../../assets/fonts/Baloo_Thambi_2/BalooThambi2-Regular.ttf';
+import { FarmerDetailsList, getFormattedDate } from "../../../constants";
+import font from "../../../assets/fonts/Baloo_Thambi_2/BalooThambi2-Regular.ttf";
 
 //Register styles
 Font.register({
@@ -91,7 +98,7 @@ const styles = StyleSheet.create({
 
 // Create Document Component
 const FarmerDetailsToPdf = (props) => {
-  const {getFarmerData,farmerData}=props;
+  const { getFarmerData, farmerData } = props;
 
   return (
     <Document>
@@ -105,13 +112,13 @@ const FarmerDetailsToPdf = (props) => {
             src={
               farmerData?.userImg?.url
                 ? `${config.app.APP_API_URL}${farmerData.userImg.url}`
-                : require('../../../assets/images/ProfileImg.jpg').default
+                : require("../../../assets/images/ProfileImg.jpg").default
             }
             alt=""
             cache
             style={styles.profileimg}
           ></Image>
-          <Text style={styles.formsubtitle}>ஊர் பெயர் : கோவை</Text>
+          <Text style={styles.formsubtitle}>ஊர் பெயர் : கோவை </Text>
           <Text style={styles.address}>
             ஒருங்கிணைப்பாளர்:மஹிமா பசுமை அறக்கட்டளை, எண்.66/c, கிழக்கு தெரு,
             கச்சிராயப்பாளையம் - 606207
@@ -122,7 +129,10 @@ const FarmerDetailsToPdf = (props) => {
           <View style={styles.formnumbercontainer}>
             <Text style={styles.formnumber}>விண்ணப்ப எண் :12343</Text>
             <Text style={styles.date}>
-              நாள் {farmerData.created_at ? getFormattedDate(farmerData.created_at) : ":"}{" "}
+              நாள்{" "}
+              {farmerData.created_at
+                ? getFormattedDate(farmerData.created_at)
+                : ":"}{" "}
             </Text>
           </View>
           <Text style={styles.hr}>hellllo</Text>
@@ -131,7 +141,10 @@ const FarmerDetailsToPdf = (props) => {
               <View style={styles.formdatacontainer} key={user.id}>
                 <Text style={styles.formkey}>{user.key}</Text>
                 <Text style={styles.separator}>:</Text>
-                <Text style={styles.formvalue}> {getFarmerData(user.name)}</Text>
+                <Text style={styles.formvalue}>
+                  {" "}
+                  {getFarmerData(user.name)}
+                </Text>
               </View>
             );
           })}

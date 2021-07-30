@@ -46,13 +46,13 @@ export const ListItems = [
   },
   {
     id: "2",
-    name: "MD Details",
-    Router: "/mdDetails",
+    name: "CEO Details",
+    Router: "/ceoDetails",
   },
   {
     id: "3",
-    name: "CEO Details",
-    Router: "/ceoDetails",
+    name: "MD Details",
+    Router: "/mdDetails",
   },
   {
     id: "4",

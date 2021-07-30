@@ -26,6 +26,9 @@ import { ListItems } from "../../../constants";
 import { useStyles } from "../../../assets/styles";
 import Dashboard from "../Dashboard";
 import { colors } from "../../../theme";
+import CeoDetails from "../FarmerDeatails/CeoDetails";
+import MdDetails from "../FarmerDeatails/MdDetails";
+import FarmerGroups from "../FarmerDeatails/FarmerGroups";
 
 const Layout = () => {
   const classes = useStyles();
@@ -139,6 +142,9 @@ const Layout = () => {
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/addfarmer" component={AddFarmerForm} />
             <Route exact path="/farmersdetails" component={FarmersDetails} />
+            <Route path="/ceodetails" component={CeoDetails} />
+            <Route path="/mddetails" component={MdDetails} />
+            <Route path="/farmergroups" component={FarmerGroups} />
             <Route
               exact
               path="/farmersdetails/:id"
