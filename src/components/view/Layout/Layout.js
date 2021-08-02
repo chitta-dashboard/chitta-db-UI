@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import { useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -30,28 +30,33 @@ import CeoDetails from "../FarmerDeatails/CeoDetails";
 import MdDetails from "../FarmerDeatails/MdDetails";
 import FarmerGroups from "../FarmerDeatails/FarmerGroups";
 import { Button } from "@material-ui/core";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const Layout = () => {
   const classes = useStyles();
   const theme = useTheme();
+  const matches = useMediaQuery("(min-width:700px)");
   const [open, setOpen] = React.useState(true);
-  const [OpenNav, setOpenNav] = React.useState(true);
+
+  useEffect(() => {
+    !matches ? setOpen(false) : setOpen(true);
+  }, [matches]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
-    setOpenNav(false);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
-    setOpenNav(true);
   };
+
+  console.log(open);
 
   return (
     <Router>
       <div className={classes.Layout_root}>
         <CssBaseline />
-        {!OpenNav && (
+        {!open && (
           <AppBar
             position="fixed"
             className={clsx(classes.appBar, {
@@ -68,19 +73,7 @@ const Layout = () => {
                 className={clsx(classes.menuButton, open && classes.hide)}
               >
                 <MenuIcon />
-                <img
-                  src={
-                    require("../../../assets/images/nerkathir_logo.png").default
-                  }
-                  alt="chitta logo"
-                  className={classes.chitta_logo}
-                />
               </IconButton>
-              <div className={classes.navbarContent}>
-                <h2 className={classes.MainTitle}>
-                  NERKATHIR FARMER PRODUCER COMPANY LIMITED
-                </h2>
-              </div>
             </Toolbar>
           </AppBar>
         )}
@@ -99,18 +92,20 @@ const Layout = () => {
               alt="chitta logo"
               className={classes.chitta_logo_drawer}
             />
-            <IconButton
-              disableRipple
-              onClick={handleDrawerClose}
-              style={{ color: colors.text2 }}
-              className={classes.drawerIconBtn}
-            >
-              {theme.direction === "ltr" ? (
-                <ChevronLeftIcon />
-              ) : (
-                <ChevronRightIcon />
-              )}
-            </IconButton>
+            {!matches && (
+              <IconButton
+                disableRipple
+                onClick={handleDrawerClose}
+                style={{ color: colors.text2 }}
+                className={classes.drawerIconBtn}
+              >
+                {theme.direction === "ltr" ? (
+                  <ChevronLeftIcon />
+                ) : (
+                  <ChevronRightIcon />
+                )}
+              </IconButton>
+            )}
             <h2 className={classes.HeaderTitle}>
               NERKATHIR FARMER PRODUCER COMPANY LIMITED
             </h2>

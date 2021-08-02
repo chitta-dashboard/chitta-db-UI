@@ -77,6 +77,7 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     padding: "1rem",
+    maxHeight: "100vh",
   },
 
   drawerIconBtn: {
@@ -148,7 +149,9 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: "transparent",
     height: "100%",
     minHeight: "100vh",
-    paddingTop: "100px",
+    "@media (max-width: 700px)": {
+      paddingTop: "80px",
+    },
   },
   contentShift: {
     transition: theme.transitions.create("margin", {
