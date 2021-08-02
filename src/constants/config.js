@@ -1,16 +1,14 @@
 import axios from "axios";
+import { HttpClient } from "./httpClient";
 
 const appData = {
   app: {
     APP_API_URL: "https://citta-db-strapi.herokuapp.com",
   },
 };
-
+let httpClient = new HttpClient();
 export const getCEO = () => {
-  return axios
-    .get(`${appData.app.APP_API_URL}/ceos`)
-    .then((res) => res.data)
-    .catch((e) => e);
+  return httpClient.get("ceos");
 };
 
 export const getMD = () => {
