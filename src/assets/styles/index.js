@@ -618,8 +618,8 @@ export const useStyles = makeStyles((theme) => ({
     placeItems: "center",
   },
   footer: {
+    width: "calc(100% - 288px)",
     fontSize: "0.8rem",
-    width: "100%",
     bottom: "0",
     position: "fixed",
     padding: "0rem 0.5rem",
@@ -635,5 +635,13 @@ export const useStyles = makeStyles((theme) => ({
   },
   footeractions: {
     display: "flex",
+    // justifyContent: "flex-end",
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
+  footeractions_list: {
+    // listStyleType: "none",
+    // padding: 10,
+    // borderRight: "1px solid",
   },
 }));

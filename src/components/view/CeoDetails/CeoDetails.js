@@ -8,9 +8,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { useStyles } from "../../../assets/styles";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
-import config from "../../../constants/config";
+import { getCEO } from "../../../constants/config";
 import tempImg from "../../../assets/images/male.svg";
-import axios from "axios";
 import { NavLink } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
@@ -19,11 +18,8 @@ const CeoDetails = () => {
   const classes = useStyles();
   const [ceoDetails, setCeoDetails] = useState([]);
   useEffect(() => {
-    axios
-      .get(`${config.app.APP_API_URL}/ceos`)
-      .then((res) => {
-        setCeoDetails(res.data);
-      })
+    getCEO()
+      .then((res) => setCeoDetails(res))
       .catch((err) => {
         console.log(err);
       });

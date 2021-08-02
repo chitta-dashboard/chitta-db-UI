@@ -10,10 +10,14 @@ export default function Footer() {
         <p>CIN:UO1409TN2020PTC139086</p>
       </div>
       <div className={classes.footeractions}>
-        <p>About |&nbsp;</p>
-        <p>Help |&nbsp;</p>
-        <p>Blog |&nbsp;</p>
-        <p>Terms & Conditions</p>
+        <div className={classes.footeractions_list}>About </div>
+        <div>|</div>
+        <div className={classes.footeractions_list}>Help </div>
+        <div>|</div>
+
+        <div className={classes.footeractions_list}>Blog </div>
+        <div>|</div>
+        <div className={classes.footeractions_list}>Terms & Conditions</div>
       </div>
     </div>
   );

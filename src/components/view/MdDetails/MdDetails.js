@@ -6,7 +6,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import config from "../../../constants/config";
+import config, { getMD } from "../../../constants/config";
 import { useStyles } from "../../../assets/styles";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import tempImg from "../../../assets/images/male.svg";
@@ -18,10 +18,9 @@ const MdDetails = () => {
   const [mdDetails, setMdDetails] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`${config.app.APP_API_URL}/mds`)
+    getMD()
       .then((res) => {
-        setMdDetails(res.data);
+        setMdDetails(res);
       })
       .catch((err) => {
         console.log(err);
