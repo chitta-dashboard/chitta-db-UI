@@ -16,7 +16,6 @@ import {
 } from "../../../constants";
 import config from "../../../constants/config";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
-import clsx from "clsx";
 
 const FarmerList = (props) => {
   const { farmersData } = props;
