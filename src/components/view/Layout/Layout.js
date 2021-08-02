@@ -11,7 +11,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
+import Logo from "../../../assets/images/dashboard.svg";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -29,11 +29,12 @@ import { colors } from "../../../theme";
 import CeoDetails from "../FarmerDeatails/CeoDetails";
 import MdDetails from "../FarmerDeatails/MdDetails";
 import FarmerGroups from "../FarmerDeatails/FarmerGroups";
+import { Button } from "@material-ui/core";
 
 const Layout = () => {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const [OpenNav, setOpenNav] = React.useState(true);
 
   const handleDrawerOpen = () => {
@@ -50,7 +51,7 @@ const Layout = () => {
     <Router>
       <div className={classes.Layout_root}>
         <CssBaseline />
-        {OpenNav && (
+        {!OpenNav && (
           <AppBar
             position="fixed"
             className={clsx(classes.appBar, {
@@ -110,25 +111,38 @@ const Layout = () => {
                 <ChevronRightIcon />
               )}
             </IconButton>
+            <h2 className={classes.HeaderTitle}>
+              NERKATHIR FARMER PRODUCER COMPANY LIMITED
+            </h2>
           </div>
-          <List>
+          <List className={classes.SidebarList}>
             {ListItems.map((list) => {
               return (
-                <NavLink
-                  activeClassName="nav-active"
-                  key={list.id}
-                  to={`${list.Router}`}
-                  style={{
-                    textDecoration: "none",
-                    color: "inherit",
-                  }}
-                >
-                  <ListItem key={list.id} className="list-item" button>
-                    <ListItemText primary={list.name} />
-                  </ListItem>
-                </NavLink>
+                <>
+                  <NavLink
+                    activeClassName="nav-active"
+                    key={list.id}
+                    to={`${list.Router}`}
+                    style={{
+                      textDecoration: "none",
+                      color: "inherit",
+                    }}
+                  >
+                    <ListItem key={list.id} className="list-item" button>
+                      <div className={classes.listItemContainer}>
+                        <img
+                          src={Logo}
+                          className={classes.sideBarLogo}
+                          alt="logo"
+                        />
+                        <p className={classes.listText}>{list.name}</p>
+                      </div>
+                    </ListItem>
+                  </NavLink>
+                </>
               );
             })}
+            <Button className={classes.logoutBtn}>Logout</Button>
           </List>
         </Drawer>
         <main

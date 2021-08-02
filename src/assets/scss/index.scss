@@ -43,14 +43,13 @@ button:disabled {
 
 .nav-active{
   .list-item{
-    background:white;
-    color:#000;
-    margin-left: 0.5rem;
-    border-radius: 10px;
+    color:yellow;
+    border-left:5px solid yellow;
   }
   .list-item:hover{
-    background:white;
+    // background:white;
   }
 }
+
 
 
