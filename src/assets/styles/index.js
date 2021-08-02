@@ -194,14 +194,14 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   _search: {
-    height: "2.2rem",
+    height: "3rem",
     padding: "0 12px",
     width: "100%",
     maxWidth: "310px",
     background: colors.bg3,
     border: "none",
     color: colors.text2,
-    borderRadius: "4px",
+    borderRadius: "30px",
     "&:hover": {
       background: "rgba(0, 0, 0, 0.13)",
     },
@@ -261,6 +261,9 @@ export const useStyles = makeStyles((theme) => ({
       border: `1px solid ${colors.primary}`,
 
       color: colors.text2,
+    },
+    "&:disabled": {
+      opacity: "0.5",
     },
   },
 
@@ -625,5 +628,18 @@ export const useStyles = makeStyles((theme) => ({
     width: "100%",
     display: "grid",
     placeItems: "center",
+  },
+  footer: {
+    width: "100%",
+    bottom: "0",
+    position: "fixed",
+    fontsize: "small",
+    padding: "1rem",
+    backgroundcolor: "#f2f4f4",
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  footercontent: {
+    display: "flex",
   },
 }));

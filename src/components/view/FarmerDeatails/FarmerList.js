@@ -16,6 +16,7 @@ import {
 } from "../../../constants";
 import config from "../../../constants/config";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
+import clsx from "clsx";
 
 const FarmerList = (props) => {
   const { farmersData } = props;
@@ -23,6 +24,7 @@ const FarmerList = (props) => {
   const classes = useStyles();
   const [searchValue, setSearchValue] = useState("");
   const [filteredList, setFilteredList] = useState([]);
+  const [disableBtn, setDisableBtn] = useState("false");
 
   useEffect(() => {
     let filteredList = [];
@@ -54,6 +56,11 @@ const FarmerList = (props) => {
     : !searchValue.length
     ? farmersData
     : [];
+  useEffect(() => {
+    if (FormData.length > 0) {
+      setDisableBtn(false);
+    }
+  }, [FormData]);
 
   return (
     <>
@@ -69,26 +76,27 @@ const FarmerList = (props) => {
           />
         </Box>
         <Box className={classes.farmerdetails_boxcontainer}>
-          {FormData.length && (
-            <Workbook
-              filename="Farmers.xlsx"
-              element={
-                <button className={classes.exportDetails_btn}>
-                  Export Farmers
-                </button>
-              }
-            >
-              <Workbook.Sheet data={customisedData} name="Sheet A">
-                {FarmerDetailsList.map((item) => (
-                  <Workbook.Column
-                    key={item.id}
-                    label={item.key}
-                    value={item.name}
-                  />
-                ))}
-              </Workbook.Sheet>
-            </Workbook>
-          )}
+          <Workbook
+            filename="Farmers.xlsx"
+            element={
+              <button
+                disabled={disableBtn}
+                className={classes.exportDetails_btn}
+              >
+                Export Farmers
+              </button>
+            }
+          >
+            <Workbook.Sheet data={customisedData} name="Sheet A">
+              {FarmerDetailsList.map((item) => (
+                <Workbook.Column
+                  key={item.id}
+                  label={item.key}
+                  value={item.name}
+                />
+              ))}
+            </Workbook.Sheet>
+          </Workbook>
           <Box>
             <NavLink to="/addfarmer" className={classes.addDetails_link}>
               <button className={classes.addDetails_btn}>Add Farmer</button>
