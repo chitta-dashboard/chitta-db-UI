@@ -6,13 +6,13 @@ export default function Footer() {
   return (
     <div className={classes.footer}>
       <div className={classes.footercontent}>
-        <p>Reg No:139086 | </p>
+        <p>Reg No:139086 |&nbsp;</p>
         <p>CIN:UO1409TN2020PTC139086</p>
       </div>
       <div className={classes.footeractions}>
-        <p>About | </p>
-        <p>Help | </p>
-        <p>Blog | </p>
+        <p>About |&nbsp;</p>
+        <p>Help |&nbsp;</p>
+        <p>Blog |&nbsp;</p>
         <p>Terms & Conditions</p>
       </div>
     </div>

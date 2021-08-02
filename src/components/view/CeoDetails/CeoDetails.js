@@ -13,6 +13,7 @@ import tempImg from "../../../assets/images/male.svg";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 import Box from "@material-ui/core/Box";
+import AddIcon from "@material-ui/icons/Add";
 
 const CeoDetails = () => {
   const classes = useStyles();
@@ -45,7 +46,10 @@ const CeoDetails = () => {
           {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
           <Box>
             <NavLink to="/addceo" className={classes.addDetails_link}>
-              <button className={classes.addDetails_btn}>Add Farmer</button>
+              <button className={classes.addDetails_btn}>
+                <AddIcon />
+                Add
+              </button>
             </NavLink>
           </Box>
         </Box>

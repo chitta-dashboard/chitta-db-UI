@@ -12,7 +12,7 @@ import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import tempImg from "../../../assets/images/male.svg";
 import { NavLink } from "react-router-dom";
 import Box from "@material-ui/core/Box";
-
+import AddIcon from "@material-ui/icons/Add";
 const MdDetails = () => {
   const classes = useStyles();
   const [mdDetails, setMdDetails] = useState([]);
@@ -45,7 +45,10 @@ const MdDetails = () => {
           {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
           <Box>
             <NavLink to="/addMd" className={classes.addDetails_link}>
-              <button className={classes.addDetails_btn}>Add MD</button>
+              <button className={classes.addDetails_btn}>
+                <AddIcon />
+                Add
+              </button>
             </NavLink>
           </Box>
         </Box>

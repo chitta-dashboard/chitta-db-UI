@@ -16,6 +16,7 @@ import {
 } from "../../../constants";
 import config from "../../../constants/config";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
+import AddIcon from "@material-ui/icons/Add";
 
 const FarmerList = (props) => {
   const { farmersData } = props;
@@ -98,7 +99,10 @@ const FarmerList = (props) => {
           </Workbook>
           <Box>
             <NavLink to="/addfarmer" className={classes.addDetails_link}>
-              <button className={classes.addDetails_btn}>Add Farmer</button>
+              <button className={classes.addDetails_btn}>
+                <AddIcon />
+                Add
+              </button>
             </NavLink>
           </Box>
         </Box>
