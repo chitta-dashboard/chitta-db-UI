@@ -15,9 +15,6 @@ export const useStyles = makeStyles((theme) => ({
 
   Layout_root: {
     display: "flex",
-    //     background: `linear-gradient(
-    // 252.44deg
-    // ,#7dd6d3,#fff 49.27%,#7dd6d3)`,
   },
 
   appBar: {
@@ -131,15 +128,6 @@ export const useStyles = makeStyles((theme) => ({
     height: "0.8rem",
   },
 
-  // logoutBtn: {
-  //   width: "85%",
-  //   height: "50px",
-  //   backgroundColor: "white",
-  //   // color: colors.text1,
-  //   alignSelf: "center",
-  //   borderRadius: "10px",
-  // },
-
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -148,7 +136,7 @@ export const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
-    backgroundColor: "transparent",
+    backgroundColor: "#f2f4f4",
     height: "100%",
     minHeight: "100vh",
     "@media (max-width: 700px)": {
@@ -200,15 +188,15 @@ export const useStyles = makeStyles((theme) => ({
     padding: "0 12px",
     width: "100%",
     maxWidth: "310px",
-    background: colors.bg3,
+    background: "rgba(0, 0, 0, 0.13)",
     border: "none",
     color: colors.text2,
     borderRadius: "30px",
     "&:hover": {
-      background: "rgba(0, 0, 0, 0.13)",
+      background: "rgba(0, 0, 0, 0.20)",
     },
     "&:focus": {
-      background: "rgba(0, 0, 0, 0.13))",
+      background: "rgba(0, 0, 0, 0.20))",
     },
     "&:focus-visible": {
       outline: "none",
@@ -239,6 +227,9 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: "5px",
     cursor: "pointer",
     fontWeight: "600",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     "&:hover": {
       backgroundColor: colors.bg3,
       border: `1px solid ${colors.primary}`,
@@ -275,6 +266,7 @@ export const useStyles = makeStyles((theme) => ({
 
   //table
   tab_container: {
+    padding: "1rem",
     maxHeight: 440,
     height: "65vh",
     backgroundColor: colors.bg1,
@@ -285,22 +277,13 @@ export const useStyles = makeStyles((theme) => ({
   tab_cell: {
     color: colors.text2,
     border: "none",
-    // width: "150px",
-    // minWidth: "150px",
-    // maxWidth: "150px",
     overflow: "auto",
-    // border-bottom: 0.5px solid #e0e0e0;
-    borderBottom: " 0.5px solid #e0e0e0",
   },
 
   tab_headercell: {
     backgroundColor: colors.bg3,
     color: colors.text2,
-    // width: "150px",
-    // minWidth: "150px",
-    // maxWidth: "150px",
     overflow: "auto",
-    // borderBottom: "0.5px solid rgba(86, 105, 132, 0.8)",
   },
 
   tab_headericoncell: {
@@ -308,14 +291,13 @@ export const useStyles = makeStyles((theme) => ({
     color: colors.text2,
     width: "50px",
     textAlign: "center",
-    // borderBottom: "0.5px solid rgba(86, 105, 132, 0.8)",
+    borderBottom: "0",
   },
 
   icontab_cell: {
     color: "white",
     width: "50px",
     textAlign: "center",
-    // borderBottom: "0.5px solid rgba(86, 105, 132, 0.2)",
   },
 
   tab_user_logo: {
@@ -325,6 +307,7 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   tab_row: {
+    border: "none",
     backgroundColor: colors.bg1,
     color: colors.text2,
     textDecoration: "none",
@@ -633,11 +616,11 @@ export const useStyles = makeStyles((theme) => ({
   },
   footer: {
     width: "calc(100% - 288px)",
+    fontSize: "0.8rem",
     bottom: "0",
     position: "fixed",
-    fontsize: "small",
-    padding: "1rem",
-    backgroundcolor: "#f2f4f4",
+    padding: "0rem 0.5rem",
+    background: "#f2f4f4",
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
     "@media (max-width: 762px)": {

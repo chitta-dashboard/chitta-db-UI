@@ -9,21 +9,18 @@ import TableRow from "@material-ui/core/TableRow";
 import { useStyles } from "../../../assets/styles";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import axios from "axios";
-import config from "../../../constants/config";
-import tempImg from "../../../assets/images/male.svg";
+import config, { getFarmersGroup } from "../../../constants/config";
 import { NavLink } from "react-router-dom";
 import Box from "@material-ui/core/Box";
+import AddIcon from "@material-ui/icons/Add";
 
 const FarmerGroups = () => {
   const classes = useStyles();
   const [groups, setGroups] = useState([]);
   useEffect(() => {
-    axios
-      .get(`${config.app.APP_API_URL}/farmer-groups`)
+    getFarmersGroup()
       .then((res) => {
-        setGroups(() => {
-          return res.data;
-        });
+        setGroups(res);
       })
       .catch((err) => {
         console.log(err);
@@ -47,7 +44,10 @@ const FarmerGroups = () => {
           {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
           <Box>
             <NavLink to="/addfarmer" className={classes.addDetails_link}>
-              <button className={classes.addDetails_btn}>Add Farmer</button>
+              <button className={classes.addDetails_btn}>
+                <AddIcon />
+                Add
+              </button>
             </NavLink>
           </Box>
         </Box>

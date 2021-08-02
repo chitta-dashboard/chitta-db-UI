@@ -6,6 +6,34 @@ const appData = {
   },
 };
 
+export const getCEO = () => {
+  return axios
+    .get(`${appData.app.APP_API_URL}/ceos`)
+    .then((res) => res.data)
+    .catch((e) => e);
+};
+
+export const getMD = () => {
+  return axios
+    .get(`${appData.app.APP_API_URL}/mds`)
+    .then((res) => res.data)
+    .catch((e) => e);
+};
+
+export const getFarmers = () => {
+  return axios
+    .get(`${appData.app.APP_API_URL}/farmers`)
+    .then((res) => res.data)
+    .catch((e) => e);
+};
+
+export const getFarmersGroup = () => {
+  return axios
+    .get(`${appData.app.APP_API_URL}/farmer-groups`)
+    .then((res) => res.data)
+    .catch((e) => e);
+};
+
 export const uploadFile = (data) => {
   const formData = new FormData();
   formData.append("ref", data.ref);
