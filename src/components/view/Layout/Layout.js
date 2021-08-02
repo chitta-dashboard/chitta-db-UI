@@ -33,6 +33,8 @@ import { Button } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Footer from "../Footer/Footer";
 import AddMd from "../MdDetails/AddMdForm";
+import AddCeo from "../CeoDetails/AddCeoForm";
+import AddFarmerGroup from "../FarmerGroups/AddFarmerGroup";
 
 const Layout = () => {
   const classes = useStyles();
@@ -177,6 +179,8 @@ const Layout = () => {
               component={FarmerDeatilForm}
             />
             <Route path="/addMd" component={AddMd} />
+            <Route path="/addCeo" component={AddCeo} />
+            <Route path="/addFarmerGroup" component={AddFarmerGroup} />
             <Redirect exact from="/" to="/farmersdetails" />
           </Switch>
           <Footer />

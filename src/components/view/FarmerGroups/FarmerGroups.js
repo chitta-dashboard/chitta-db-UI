@@ -46,7 +46,7 @@ const FarmerGroups = () => {
         <Box className={classes.farmerdetails_boxcontainer}>
           {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
           <Box>
-            <NavLink to="/addfarmer" className={classes.addDetails_link}>
+            <NavLink to="/addfarmerGroup" className={classes.addDetails_link}>
               <button className={classes.addDetails_btn}>Add Farmer</button>
             </NavLink>
           </Box>
