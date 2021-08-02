@@ -110,7 +110,7 @@ const FarmerList = (props) => {
       <TableContainer className={classes.tab_container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
-            <TableRow>
+            <TableRow style={{ borderRadius: "20px" }}>
               <TableCell className={classes.tab_headericoncell}>#</TableCell>
               <TableCell className={classes.tab_headercell}>பெயர்</TableCell>
               <TableCell className={classes.tab_headercell}>குழு</TableCell>

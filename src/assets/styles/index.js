@@ -98,8 +98,8 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   HeaderTitle: {
-    color: "#111B2B",
-    fontSize: "0.8rem",
+    color: "#085c49",
+    fontSize: "0.9rem",
     margin: 0,
   },
 
@@ -113,7 +113,7 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   listText: {
-    fontSize: "0.8rem",
+    fontSize: "0.7rem",
     margin: "0",
   },
 
@@ -180,7 +180,6 @@ export const useStyles = makeStyles((theme) => ({
       marginBottom: "2rem",
     },
     alignItems: "center",
-    marginTop: "1rem",
   },
 
   _search: {
@@ -270,8 +269,8 @@ export const useStyles = makeStyles((theme) => ({
     maxHeight: 440,
     height: "65vh",
     backgroundColor: colors.bg1,
-    borderRadius: "10px",
-    boxShadow: "1px 1px 7px 0px #3333334a",
+    borderRadius: "20px",
+    // boxShadow: "1px 1px 7px 0px #3333334a",
   },
 
   tab_cell: {
@@ -284,6 +283,8 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: colors.bg3,
     color: colors.text2,
     overflow: "auto",
+    border: "none",
+    padding: "0.2rem 1rem",
   },
 
   tab_headericoncell: {
@@ -292,12 +293,14 @@ export const useStyles = makeStyles((theme) => ({
     width: "50px",
     textAlign: "center",
     borderBottom: "0",
+    padding: "0.2rem 1rem",
   },
 
   icontab_cell: {
     color: "white",
     width: "50px",
     textAlign: "center",
+    border: "none",
   },
 
   tab_user_logo: {

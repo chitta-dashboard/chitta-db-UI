@@ -151,7 +151,7 @@ const Layout = () => {
                 alignSelf: "center",
                 borderRadius: "10px",
                 textTransform: "none",
-                fontSize: "0.8rem",
+                fontSize: "0.7rem",
                 color: "#fff",
               }}
             >
