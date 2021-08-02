@@ -72,14 +72,17 @@ export const useStyles = makeStyles((theme) => ({
 
   drawerPaper: {
     width: drawerWidth,
-    background: "#085c49",
-    // backgroundColor: ,
     color: colors.text1,
     border: 0,
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "1rem",
   },
 
   drawerIconBtn: {
     background: "#fff",
+    position: "absolute",
+    right: 0,
     "&:hover": {
       background: "#fff",
     },
@@ -90,12 +93,48 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   drawerHeader: {
-    display: "flex",
-    alignItems: "center",
+    textAlign: "center",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: "space-between",
+  },
+
+  HeaderTitle: {
+    color: "#111B2B",
+    fontSize: "0.8rem",
+    margin: 0,
+  },
+
+  SidebarList: {
+    background: "#085c49",
+    borderRadius: "20px",
+    display: "flex",
+    flexDirection: "column",
+    padding: "1rem 0",
+  },
+
+  listText: {
+    fontSize: "1rem",
+    margin: "0",
+  },
+
+  listItemContainer: {
+    display: "flex",
+  },
+
+  sideBarLogo: {
+    marginRight: "1rem",
+    width: "0.8rem",
+    height: "0.8rem",
+  },
+
+  logoutBtn: {
+    width: "85%",
+    height: "50px",
+    backgroundColor: "white",
+    // color: colors.text1,
+    alignSelf: "center",
+    borderRadius: "10px",
   },
 
   content: {
