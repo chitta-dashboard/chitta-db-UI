@@ -184,7 +184,7 @@ export const useStyles = makeStyles((theme) => ({
 
   _search: {
     height: "3rem",
-    padding: "0 12px",
+    padding: "0 50px",
     width: "100%",
     maxWidth: "310px",
     background: "rgba(0, 0, 0, 0.13)",
@@ -214,6 +214,10 @@ export const useStyles = makeStyles((theme) => ({
       justifyContent: "flex-end",
       marginBottom: "1rem",
     },
+  },
+
+  searchBox: {
+    display: "flex",
   },
 
   addDetails_btn: {

@@ -30,16 +30,7 @@ const FarmerGroups = () => {
   return (
     <>
       <Box className={classes.farmerdetails_subheader} xs={12}>
-        <Box className={classes.farmerdetails_searchcontainer}>
-          <input
-            id="filled-basic"
-            className={classes._search}
-            autoComplete={"off"}
-            placeholder="Search using Name or AadharNo or contact No"
-            // value={searchValue}
-            // onChange={(e) => setSearchValue(e.target.value)}
-          />
-        </Box>
+        <Box className={classes.farmerdetails_searchcontainer}></Box>
         <Box className={classes.farmerdetails_boxcontainer}>
           {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
           <Box>

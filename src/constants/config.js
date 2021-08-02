@@ -12,26 +12,20 @@ export const getCEO = () => {
 };
 
 export const getMD = () => {
-  return axios
-    .get(`${appData.app.APP_API_URL}/mds`)
-    .then((res) => res.data)
-    .catch((e) => e);
+  return httpClient.get("mds");
 };
 
 export const getFarmers = () => {
-  return axios
-    .get(`${appData.app.APP_API_URL}/farmers`)
-    .then((res) => res.data)
-    .catch((e) => e);
+  return httpClient.get("farmers");
 };
 
 export const getFarmersGroup = () => {
-  return axios
-    .get(`${appData.app.APP_API_URL}/farmer-groups`)
-    .then((res) => res.data)
-    .catch((e) => e);
+  return httpClient.get("farmer-groups");
 };
 
+export const postMd = () => {
+  return httpClient.post("mds");
+};
 export const uploadFile = (data) => {
   const formData = new FormData();
   formData.append("ref", data.ref);

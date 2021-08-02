@@ -66,14 +66,17 @@ const FarmerList = (props) => {
     <>
       <Box className={classes.farmerdetails_subheader} xs={12}>
         <Box className={classes.farmerdetails_searchcontainer}>
-          <input
-            id="filled-basic"
-            className={classes._search}
-            autoComplete={"off"}
-            placeholder="Search using Name or AadharNo or contact No"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-          />
+          <div className={classes.searchBox}>
+            <input
+              id="filled-basic"
+              className={classes._search}
+              autoComplete={"off"}
+              placeholder="Search"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+            <i className="fa fa-search searchIcon"></i>
+          </div>
         </Box>
         <Box className={classes.farmerdetails_boxcontainer}>
           <Workbook

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import config, { getMD } from "../../../constants/config";
+import { getMD } from "../../../constants/config";
 import { useStyles } from "../../../assets/styles";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import tempImg from "../../../assets/images/male.svg";
@@ -30,16 +29,7 @@ const MdDetails = () => {
   return (
     <>
       <Box className={classes.farmerdetails_subheader} xs={12}>
-        <Box className={classes.farmerdetails_searchcontainer}>
-          <input
-            id="filled-basic"
-            className={classes._search}
-            autoComplete={"off"}
-            placeholder="Search using Name or AadharNo or contact No"
-            // value={searchValue}
-            // onChange={(e) => setSearchValue(e.target.value)}
-          />
-        </Box>
+        <Box className={classes.farmerdetails_searchcontainer}></Box>
         <Box className={classes.farmerdetails_boxcontainer}>
           {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
           <Box>
