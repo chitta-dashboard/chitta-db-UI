@@ -107,37 +107,53 @@ const Layout = () => {
               </IconButton>
             )}
             <h2 className={classes.HeaderTitle}>
-              NERKATHIR FARMER PRODUCER COMPANY LIMITED
+              Nerkathir Farmer Producer Company Limited
             </h2>
           </div>
           <List className={classes.SidebarList}>
-            {ListItems.map((list) => {
-              return (
-                <>
-                  <NavLink
-                    activeClassName="nav-active"
-                    key={list.id}
-                    to={`${list.Router}`}
-                    style={{
-                      textDecoration: "none",
-                      color: "inherit",
-                    }}
-                  >
-                    <ListItem key={list.id} className="list-item" button>
-                      <div className={classes.listItemContainer}>
-                        <img
-                          src={Logo}
-                          className={classes.sideBarLogo}
-                          alt="logo"
-                        />
-                        <p className={classes.listText}>{list.name}</p>
-                      </div>
-                    </ListItem>
-                  </NavLink>
-                </>
-              );
-            })}
-            <Button className={classes.logoutBtn}>Logout</Button>
+            <div>
+              {ListItems.map((list) => {
+                return (
+                  <>
+                    <NavLink
+                      activeClassName="nav-active"
+                      key={list.id}
+                      to={`${list.Router}`}
+                      style={{
+                        textDecoration: "none",
+                        color: "inherit",
+                      }}
+                    >
+                      <ListItem key={list.id} className="list-item" button>
+                        <div className={classes.listItemContainer}>
+                          <img
+                            src={Logo}
+                            className={classes.sideBarLogo}
+                            alt="logo"
+                          />
+                          <p className={classes.listText}>{list.name}</p>
+                        </div>
+                      </ListItem>
+                    </NavLink>
+                  </>
+                );
+              })}
+            </div>
+            <Button
+              style={{
+                width: "85%",
+                height: "50px",
+                backgroundColor: "rgba(255,255,255,0.3)",
+                alignSelf: "center",
+                borderRadius: "10px",
+                textTransform: "none",
+                fontSize: "0.8rem",
+                color: "#fff",
+              }}
+            >
+              <img src={Logo} className={classes.sideBarLogo} alt="logo" />
+              Logout
+            </Button>
           </List>
         </Drawer>
         <main

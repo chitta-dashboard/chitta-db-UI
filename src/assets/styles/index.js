@@ -74,8 +74,8 @@ export const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     color: colors.text1,
     border: 0,
-    display: "flex",
-    justifyContent: "space-between",
+    display: "grid",
+    gridTemplateRows: "40% 60%",
     padding: "1rem",
     maxHeight: "100vh",
   },
@@ -110,17 +110,19 @@ export const useStyles = makeStyles((theme) => ({
     background: "#085c49",
     borderRadius: "20px",
     display: "flex",
+    justifyContent: "space-between",
     flexDirection: "column",
     padding: "1rem 0",
   },
 
   listText: {
-    fontSize: "1rem",
+    fontSize: "0.8rem",
     margin: "0",
   },
 
   listItemContainer: {
     display: "flex",
+    alignItems: "center",
   },
 
   sideBarLogo: {
@@ -129,14 +131,14 @@ export const useStyles = makeStyles((theme) => ({
     height: "0.8rem",
   },
 
-  logoutBtn: {
-    width: "85%",
-    height: "50px",
-    backgroundColor: "white",
-    // color: colors.text1,
-    alignSelf: "center",
-    borderRadius: "10px",
-  },
+  // logoutBtn: {
+  //   width: "85%",
+  //   height: "50px",
+  //   backgroundColor: "white",
+  //   // color: colors.text1,
+  //   alignSelf: "center",
+  //   borderRadius: "10px",
+  // },
 
   content: {
     flexGrow: 1,
