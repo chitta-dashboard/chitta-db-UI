@@ -34,54 +34,55 @@ const Layout = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [OpenNav, setOpenNav] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
+    setOpenNav(false);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
+    setOpenNav(true);
   };
 
   return (
     <Router>
       <div className={classes.Layout_root}>
         <CssBaseline />
-        <AppBar
-          position="fixed"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: open,
-          })}
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              disableRipple
-              style={{ backgroundColor: "transparent" }}
-              className={clsx(classes.menuButton, open && classes.hide)}
-            >
-              <MenuIcon />
-              <img
-                src={
-                  require("../../../assets/images/nerkathir_logo.png").default
-                }
-                alt="chitta logo"
-                className={classes.chitta_logo}
-              />
-            </IconButton>
-            <div className={classes.navbarContent}>
-              <h2 className={classes.MainTitle}>
-                NERKATHIR FARMER PRODUCER COMPANY LIMITED
-              </h2>
-              <div className={classes.navbarSubContent}>
-                Kallakurichi | Regd No: 139086 | CIN: U01409TN2020PTC139086
+        {OpenNav && (
+          <AppBar
+            position="fixed"
+            className={clsx(classes.appBar, {
+              [classes.appBarShift]: open,
+            })}
+          >
+            <Toolbar>
+              <IconButton
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
+                disableRipple
+                style={{ backgroundColor: "transparent" }}
+                className={clsx(classes.menuButton, open && classes.hide)}
+              >
+                <MenuIcon />
+                <img
+                  src={
+                    require("../../../assets/images/nerkathir_logo.png").default
+                  }
+                  alt="chitta logo"
+                  className={classes.chitta_logo}
+                />
+              </IconButton>
+              <div className={classes.navbarContent}>
+                <h2 className={classes.MainTitle}>
+                  NERKATHIR FARMER PRODUCER COMPANY LIMITED
+                </h2>
               </div>
-            </div>
-          </Toolbar>
-        </AppBar>
+            </Toolbar>
+          </AppBar>
+        )}
         <Drawer
           className={classes.drawer}
           variant="persistent"
@@ -97,20 +98,18 @@ const Layout = () => {
               alt="chitta logo"
               className={classes.chitta_logo_drawer}
             />
-            <div className={classes.drawerIcon_container}>
-              <IconButton
-                disableRipple
-                onClick={handleDrawerClose}
-                style={{ color: colors.text2 }}
-                className={classes.drawerIconBtn}
-              >
-                {theme.direction === "ltr" ? (
-                  <ChevronLeftIcon />
-                ) : (
-                  <ChevronRightIcon />
-                )}
-              </IconButton>
-            </div>
+            <IconButton
+              disableRipple
+              onClick={handleDrawerClose}
+              style={{ color: colors.text2 }}
+              className={classes.drawerIconBtn}
+            >
+              {theme.direction === "ltr" ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
           </div>
           <List>
             {ListItems.map((list) => {

@@ -10,7 +10,7 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   chitta_logo_drawer: {
-    width: "3rem",
+    width: "8rem",
   },
 
   Layout_root: {
@@ -26,7 +26,7 @@ export const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     boxShadow: "1px 1px 7px #3333",
-    background: "#ffdb3c",
+    background: "#085c49",
   },
 
   appBarShift: {
@@ -40,16 +40,14 @@ export const useStyles = makeStyles((theme) => ({
 
   menuButton: {
     marginRight: theme.spacing(2),
-    color: colors.text2,
+    // color: colors.text2,
+    color: "white",
     padding: 0,
   },
 
   navbarContent: {
     width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-end",
-    color: colors.text2,
+    textAlign: "right",
     fontSize: "smaller",
   },
 
@@ -98,8 +96,6 @@ export const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: "space-between",
-    boxShadow: "0px 6px 1px #3333",
-    background: "#ffdb3c",
   },
 
   content: {
