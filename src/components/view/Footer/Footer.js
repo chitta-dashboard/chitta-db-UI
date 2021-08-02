@@ -5,16 +5,11 @@ export default function Footer() {
   const classes = useStyles();
   return (
     <div className={classes.footer}>
-      {/* <p className="address">Reg No:139086 | CIN:UO1409TN2020PTC139086</p> */}
-      {/* <ul>
-        <li>Reg No:139086 | CIN:UO1409TN2020PTC139086</li>
-        <li>About | </li>
-        <li>Help | </li>
-        <li>Blog | </li>
-        <li>Terms & Conditions </li>
-      </ul> */}
-      <p>Reg No:139086 | CIN:UO1409TN2020PTC139086</p>
       <div className={classes.footercontent}>
+        <p>Reg No:139086 | </p>
+        <p>CIN:UO1409TN2020PTC139086</p>
+      </div>
+      <div className={classes.footeractions}>
         <p>About | </p>
         <p>Help | </p>
         <p>Blog | </p>

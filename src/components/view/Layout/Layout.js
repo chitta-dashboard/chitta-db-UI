@@ -31,6 +31,7 @@ import MdDetails from "../MdDetails/MdDetails";
 import FarmerGroups from "../FarmerGroups/FarmerGroups";
 import { Button } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import Footer from "../Footer/Footer";
 
 const Layout = () => {
   const classes = useStyles();
@@ -176,6 +177,7 @@ const Layout = () => {
             />
             <Redirect exact from="/" to="/farmersdetails" />
           </Switch>
+          <Footer />
         </main>
       </div>
     </Router>

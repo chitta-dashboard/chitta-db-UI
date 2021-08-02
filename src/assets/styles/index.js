@@ -638,10 +638,16 @@ export const useStyles = makeStyles((theme) => ({
     fontsize: "small",
     padding: "1rem",
     backgroundcolor: "#f2f4f4",
-    display: "flex",
-    justifyContent: "space-between",
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    "@media (max-width: 762px)": {
+      gridTemplateColumns: "1fr",
+    },
   },
   footercontent: {
+    display: "flex",
+  },
+  footeractions: {
     display: "flex",
   },
 }));

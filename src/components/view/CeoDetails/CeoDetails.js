@@ -11,6 +11,8 @@ import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import config from "../../../constants/config";
 import tempImg from "../../../assets/images/male.svg";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
+import Box from "@material-ui/core/Box";
 
 const CeoDetails = () => {
   const classes = useStyles();
@@ -28,6 +30,26 @@ const CeoDetails = () => {
 
   return (
     <>
+      <Box className={classes.farmerdetails_subheader} xs={12}>
+        <Box className={classes.farmerdetails_searchcontainer}>
+          <input
+            id="filled-basic"
+            className={classes._search}
+            autoComplete={"off"}
+            placeholder="Search using Name or AadharNo or contact No"
+            // value={searchValue}
+            // onChange={(e) => setSearchValue(e.target.value)}
+          />
+        </Box>
+        <Box className={classes.farmerdetails_boxcontainer}>
+          {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
+          <Box>
+            <NavLink to="/addfarmer" className={classes.addDetails_link}>
+              <button className={classes.addDetails_btn}>Add Farmer</button>
+            </NavLink>
+          </Box>
+        </Box>
+      </Box>
       <TableContainer className={classes.tab_container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
