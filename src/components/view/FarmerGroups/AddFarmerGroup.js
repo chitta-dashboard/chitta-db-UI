@@ -6,6 +6,7 @@ import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import config from "../../../constants/config";
+import { postFarmerGroup } from "../../../constants/config";
 
 const AddFarmerGroup = () => {
   const classes = useStyles();
@@ -18,11 +19,9 @@ const AddFarmerGroup = () => {
       groupName: groupName.current.value,
       description: Description.current.value,
     };
-    axios
-      .post(`${config.app.APP_API_URL}/farmer-groups`, params, {
-        headers: { "content-type": "application/json" },
-      })
-      .then(console.log(params));
+    postFarmerGroup(params)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   return (

@@ -54,8 +54,6 @@ const Layout = () => {
     setOpen(false);
   };
 
-  console.log(open);
-
   return (
     <Router>
       <div className={classes.Layout_root}>

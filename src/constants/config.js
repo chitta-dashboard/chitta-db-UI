@@ -27,6 +27,14 @@ export const postMd = (params) => {
   return httpClient.post("mds", params);
 };
 
+export const postCeo = (params) => {
+  return httpClient.post("ceos", params);
+};
+
+export const postFarmerGroup = (params) => {
+  return httpClient.post("farmer-groups", params);
+};
+
 export const uploadFile = (data) => {
   const formData = new FormData();
   formData.append("ref", data.ref);
