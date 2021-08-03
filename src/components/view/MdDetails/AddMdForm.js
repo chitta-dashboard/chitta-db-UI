@@ -5,6 +5,7 @@ import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import { postMd } from "../../../constants/config";
+import { customToast } from "../../widgets/Toast";
 
 const AddMd = () => {
   const classes = useStyles();
@@ -18,8 +19,8 @@ const AddMd = () => {
       phoneNumber: phoneNumber.current.value,
     };
     postMd(params)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then(customToast("success", "Form submitted successfully."))
+      .catch((err) => customToast("error", err.message));
   };
 
   return (
