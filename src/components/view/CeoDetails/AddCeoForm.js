@@ -6,6 +6,7 @@ import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import config from "../../../constants/config";
+import { customToast } from "../../widgets/Toast";
 
 const AddCeo = () => {
   const classes = useStyles();
@@ -22,7 +23,8 @@ const AddCeo = () => {
       .post(`${config.app.APP_API_URL}/ceos`, params, {
         headers: { "content-type": "application/json" },
       })
-      .then(console.log(params));
+      .then(customToast("success", "Form submitted successfully."))
+      .catch((err) => customToast("error", err.message));
   };
 
   return (

@@ -226,12 +226,12 @@ export const useStyles = makeStyles((theme) => ({
     opacity: 0.8,
     color: colors.text1,
     height: "2rem",
-    width: "8rem",
+    width: "5rem",
     borderRadius: "5px",
     cursor: "pointer",
     fontWeight: "600",
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     alignItems: "center",
     "&:hover": {
       backgroundColor: colors.bg3,
@@ -392,6 +392,7 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     marginTop: "1rem",
+    marginBottom: "7vh",
   },
 
   submit_btn: {
