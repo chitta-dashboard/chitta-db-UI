@@ -72,7 +72,7 @@ export const useStyles = makeStyles((theme) => ({
     color: colors.text1,
     border: 0,
     display: "grid",
-    gridTemplateRows: "40% 60%",
+    gridTemplateRows: "30% 70%",
     padding: "1rem",
     maxHeight: "100vh",
   },
@@ -98,18 +98,21 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   HeaderTitle: {
-    color: "#085c49",
+    color: "#36574C",
     fontSize: "0.9rem",
     margin: 0,
   },
 
   SidebarList: {
-    background: "#085c49",
+    background: "#36574C",
     borderRadius: "20px",
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "column",
-    padding: "1.6rem 0",
+    padding: "1.5rem 0",
+  },
+  listContent: {
+    margin: "0.5rem 0",
   },
 
   listText: {
@@ -136,7 +139,7 @@ export const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
-    backgroundColor: "#f2f4f4",
+    backgroundColor: "#EEF2F5;",
     height: "100%",
     minHeight: "100vh",
     "@media (max-width: 700px)": {
@@ -172,7 +175,7 @@ export const useStyles = makeStyles((theme) => ({
   farmerdetails_subheader: {
     height: "10vh",
     width: "100%",
-    marginBottom: "1rem",
+    // marginBottom: "1rem",
     display: "Grid",
     gridTemplateColumns: "70% 30%",
     "@media (max-width: 700px)": {
@@ -181,21 +184,27 @@ export const useStyles = makeStyles((theme) => ({
     },
     alignItems: "center",
   },
-
+  searchIcon: {
+    position: "relative",
+    top: "0.8rem",
+    left: "-16rem",
+    width: "1rem",
+    height: "1rem",
+  },
   _search: {
-    height: "3rem",
+    height: "2.5rem",
     padding: "0 50px",
     width: "100%",
     maxWidth: "310px",
-    background: "rgba(0, 0, 0, 0.13)",
+    background: "rgba(0, 0, 0, 0.09)",
     border: "none",
     color: colors.text2,
     borderRadius: "30px",
     "&:hover": {
-      background: "rgba(0, 0, 0, 0.20)",
+      background: "rgba(0, 0, 0, 0.15)",
     },
     "&:focus": {
-      background: "rgba(0, 0, 0, 0.20))",
+      background: "rgba(0, 0, 0, 0.15))",
     },
     "&:focus-visible": {
       outline: "none",
@@ -282,10 +291,17 @@ export const useStyles = makeStyles((theme) => ({
     border: "none",
     overflow: "auto",
   },
+  tab_usercell: {
+    border: "none",
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center",
+    padding: "1rem 0rem",
+  },
 
   tab_headercell: {
-    backgroundColor: colors.bg3,
-    color: colors.text2,
+    backgroundColor: "#F3F6F9",
+    color: "#B5B5C3",
     overflow: "auto",
     border: "none",
     padding: "0.2rem 1rem",
@@ -623,12 +639,13 @@ export const useStyles = makeStyles((theme) => ({
     placeItems: "center",
   },
   footer: {
+    color: "#5A776E",
     width: "calc(100% - 288px)",
     fontSize: "0.8rem",
     bottom: "0",
     position: "fixed",
     padding: "0rem 0.5rem",
-    background: "#f2f4f4",
+    background: "#FAFAFA",
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
     "@media (max-width: 762px)": {

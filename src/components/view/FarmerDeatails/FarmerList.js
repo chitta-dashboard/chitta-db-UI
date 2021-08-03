@@ -17,6 +17,7 @@ import {
 import config from "../../../constants/config";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import AddIcon from "@material-ui/icons/Add";
+import searchLogo from "../../../assets/images/search.svg";
 
 const FarmerList = (props) => {
   const { farmersData } = props;
@@ -24,7 +25,7 @@ const FarmerList = (props) => {
   const classes = useStyles();
   const [searchValue, setSearchValue] = useState("");
   const [filteredList, setFilteredList] = useState([]);
-  const [disableBtn, setDisableBtn] = useState("false");
+  const [disableBtn, setDisableBtn] = useState(true);
 
   useEffect(() => {
     let filteredList = [];
@@ -71,11 +72,11 @@ const FarmerList = (props) => {
               id="filled-basic"
               className={classes._search}
               autoComplete={"off"}
-              placeholder="Search"
+              placeholder="search"
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
             />
-            <i className="fa fa-search searchIcon"></i>
+            <img src={searchLogo} className={classes.searchIcon} />
           </div>
         </Box>
         <Box className={classes.farmerdetails_boxcontainer}>
@@ -115,7 +116,9 @@ const FarmerList = (props) => {
           <TableHead>
             <TableRow style={{ borderRadius: "20px" }}>
               <TableCell className={classes.tab_headericoncell}>#</TableCell>
-              <TableCell className={classes.tab_headercell}>பெயர்</TableCell>
+              <TableCell className={classes.tab_headericoncell}>
+                பெயர்
+              </TableCell>
               <TableCell className={classes.tab_headercell}>குழு</TableCell>
               <TableCell className={classes.tab_headercell}>
                 கைபேசி எண்
@@ -137,7 +140,11 @@ const FarmerList = (props) => {
                     props.history.push(`farmersdetails/${farmer.id}`)
                   }
                 >
-                  <TableCell padding="none" className={classes.icontab_cell}>
+                  <TableCell
+                    padding="none"
+                    className={classes.icontab_cell}
+                  ></TableCell>
+                  <TableCell className={classes.tab_usercell}>
                     <img
                       alt=""
                       src={
@@ -149,8 +156,6 @@ const FarmerList = (props) => {
                       }
                       className={classes.tab_user_logo}
                     />
-                  </TableCell>
-                  <TableCell className={classes.tab_cell}>
                     {farmer.name}
                   </TableCell>
                   <TableCell className={classes.tab_cell}>

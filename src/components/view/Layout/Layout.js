@@ -119,7 +119,7 @@ const Layout = () => {
                   ? require(`../../../assets/images/${list.icon}.svg`).default
                   : "";
                 return (
-                  <>
+                  <div className={classes.listContent}>
                     <NavLink
                       activeClassName="nav-active"
                       key={list.id}
@@ -140,7 +140,7 @@ const Layout = () => {
                         </div>
                       </ListItem>
                     </NavLink>
-                  </>
+                  </div>
                 );
               })}
             </div>

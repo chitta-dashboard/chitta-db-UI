@@ -43,14 +43,16 @@ button:disabled {
 
 .nav-active {
   .list-item {
-    color: yellow;
-    border-left: 5px solid yellow;
+    color: #f1dc67;
+    border-left: 5px solid #f1dc67;
     height: 1.2rem;
   }
 }
 
-.searchIcon {
-  position: absolute;
-  top: 25px;
-  left: 10px;
-}
+// @media only screen and (max-width: 700px) {
+//   .searchIcon {
+//     position: absolute;
+//     top: 16px;
+//     left: 300px;
+//   }
+// }
