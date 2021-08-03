@@ -19,8 +19,8 @@ const AddCeo = () => {
       phoneNumber: phoneNumber.current.value,
     };
     postCeo(params)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then(customToast("success", "Form submitted successfully."))
+      .catch((err) => customToast("error", err.message));
   };
 
   return (

@@ -1,12 +1,11 @@
 import React, { useRef } from "react";
-import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
-import config from "../../../constants/config";
 import { postFarmerGroup } from "../../../constants/config";
+import { customToast } from "../../widgets/Toast";
 
 const AddFarmerGroup = () => {
   const classes = useStyles();
@@ -20,8 +19,8 @@ const AddFarmerGroup = () => {
       description: Description.current.value,
     };
     postFarmerGroup(params)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then(customToast("success", "Form submitted successfully."))
+      .catch((err) => customToast("error", err.message));
   };
 
   return (
