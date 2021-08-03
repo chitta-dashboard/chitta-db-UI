@@ -43,36 +43,43 @@ export const ListItems = [
     id: "1",
     name: "Dashboard",
     Router: "/dashboard",
+    icon: "dashboard",
   },
   {
     id: "2",
     name: "CEO Details",
     Router: "/ceoDetails",
+    icon: "ceoDetails",
   },
   {
     id: "3",
     name: "MD Details",
     Router: "/mdDetails",
+    icon: "mdDetails",
   },
   {
     id: "4",
     name: "Farmer Groups",
     Router: "/farmerGroups",
+    icon: "farmerGroups",
   },
   {
     id: "5",
     name: "Farmers Details",
     Router: "/farmersdetails",
+    icon: "farmerDetails",
   },
   {
     id: "6",
     name: "Register",
     Router: "/register",
+    icon: "register",
   },
   {
     id: "7",
     name: "Decision",
     Router: "/decision",
+    icon: "decision",
   },
 ];
 

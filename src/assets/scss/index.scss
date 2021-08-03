@@ -41,15 +41,15 @@ button:disabled {
 //   filter: invert(1);
 // }
 
-.nav-active{
-  .list-item{
-    color:yellow;
-    border-left:5px solid yellow;
+.nav-active {
+  .list-item {
+    color: yellow;
+    border-left: 5px solid yellow;
+    height: 1.2rem;
   }
 }
 
-
-.searchIcon{
+.searchIcon {
   position: absolute;
   top: 25px;
   left: 10px;

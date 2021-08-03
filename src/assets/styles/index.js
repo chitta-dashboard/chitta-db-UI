@@ -109,7 +109,7 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "column",
-    padding: "1rem 0",
+    padding: "1.6rem 0",
   },
 
   listText: {

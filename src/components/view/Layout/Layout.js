@@ -11,7 +11,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
-import Logo from "../../../assets/images/dashboard.svg";
+import logoutLogo from "../../../assets/images/logout.svg";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -115,6 +115,9 @@ const Layout = () => {
           <List className={classes.SidebarList}>
             <div>
               {ListItems.map((list) => {
+                const logo = list.icon
+                  ? require(`../../../assets/images/${list.icon}.svg`).default
+                  : "";
                 return (
                   <>
                     <NavLink
@@ -129,7 +132,7 @@ const Layout = () => {
                       <ListItem key={list.id} className="list-item" button>
                         <div className={classes.listItemContainer}>
                           <img
-                            src={Logo}
+                            src={logo}
                             className={classes.sideBarLogo}
                             alt="logo"
                           />
@@ -153,7 +156,11 @@ const Layout = () => {
                 color: "#fff",
               }}
             >
-              <img src={Logo} className={classes.sideBarLogo} alt="logo" />
+              <img
+                src={logoutLogo}
+                className={classes.sideBarLogo}
+                alt="logo"
+              />
               Logout
             </Button>
           </List>
