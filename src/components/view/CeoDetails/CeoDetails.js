@@ -88,7 +88,7 @@ const CeoDetails = () => {
           </TableBody>
         </Table>
         <div className={classes.no_data}>
-          {!FormData.length && <NoRecordsFound />}
+          {!ceoDetails.length && <NoRecordsFound />}
         </div>
       </TableContainer>
     </>

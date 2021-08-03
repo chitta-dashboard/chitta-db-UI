@@ -87,7 +87,7 @@ const MdDetails = () => {
           </TableBody>
         </Table>
         <div className={classes.no_data}>
-          {!FormData.length && <NoRecordsFound />}
+          {!mdDetails.length && <NoRecordsFound />}
         </div>
       </TableContainer>
     </>

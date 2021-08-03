@@ -1,11 +1,10 @@
 import React, { useRef } from "react";
-import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
-import config from "../../../constants/config";
+import { postMd } from "../../../constants/config";
 
 const AddMd = () => {
   const classes = useStyles();
@@ -18,11 +17,9 @@ const AddMd = () => {
       name: mdName.current.value,
       phoneNumber: phoneNumber.current.value,
     };
-    axios
-      .post(`${config.app.APP_API_URL}/mds`, params, {
-        headers: { "content-type": "application/json" },
-      })
-      .then(console.log(params));
+    postMd(params)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   return (

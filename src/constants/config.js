@@ -23,9 +23,10 @@ export const getFarmersGroup = () => {
   return httpClient.get("farmer-groups");
 };
 
-export const postMd = () => {
-  return httpClient.post("mds");
+export const postMd = (params) => {
+  return httpClient.post("mds", params);
 };
+
 export const uploadFile = (data) => {
   const formData = new FormData();
   formData.append("ref", data.ref);

@@ -76,7 +76,7 @@ const FarmerGroups = () => {
           </TableBody>
         </Table>
         <div className={classes.no_data}>
-          {!FormData.length && <NoRecordsFound />}
+          {!groups.length && <NoRecordsFound />}
         </div>
       </TableContainer>
     </>
