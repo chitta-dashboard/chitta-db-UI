@@ -6,20 +6,25 @@ import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import { postMd } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
+import { useHistory } from "react-router";
 
 const AddMd = () => {
   const classes = useStyles();
   const mdName = useRef("");
   const phoneNumber = useRef("");
+  const description = useRef("");
+  const history = useHistory();
 
   const postMdData = (e) => {
     e.preventDefault();
     const params = {
       name: mdName.current.value,
       phoneNumber: phoneNumber.current.value,
+      description: description.current.value,
     };
     postMd(params)
       .then(customToast("success", "Form submitted successfully."))
+      .then(history.push("/mddetails"))
       .catch((err) => customToast("error", err.message));
   };
 
@@ -60,6 +65,18 @@ const AddMd = () => {
                 placeholder="Phone number"
                 ref={phoneNumber}
                 autoComplete="off"
+              />
+            </Grid>
+            <Grid className={classes.forminput_container} item xs={12}>
+              <textarea
+                className="farmer-input tamil"
+                placeholder="Description"
+                rows="4"
+                cols="50"
+                type="text"
+                autoComplete="off"
+                ref={description}
+                style={{ padding: "15px", height: "6rem" }}
               />
             </Grid>
           </Grid>

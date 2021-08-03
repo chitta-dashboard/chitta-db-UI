@@ -6,20 +6,25 @@ import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import { customToast } from "../../widgets/Toast";
 import { postCeo } from "../../../constants/config";
+import { useHistory } from "react-router";
 
 const AddCeo = () => {
   const classes = useStyles();
   const ceoName = useRef("");
   const phoneNumber = useRef("");
+  const description = useRef("");
+  const history = useHistory();
 
   const postCeoData = (e) => {
     e.preventDefault();
     const params = {
       name: ceoName.current.value,
       phoneNumber: phoneNumber.current.value,
+      description: description.current.value,
     };
     postCeo(params)
       .then(customToast("success", "Form submitted successfully."))
+      .then(history.push("/ceodetails"))
       .catch((err) => customToast("error", err.message));
   };
 
@@ -60,6 +65,18 @@ const AddCeo = () => {
                 placeholder="Phone number"
                 ref={phoneNumber}
                 autoComplete="off"
+              />
+            </Grid>
+            <Grid className={classes.forminput_container} item xs={12}>
+              <textarea
+                className="farmer-input tamil"
+                placeholder="Description"
+                rows="4"
+                cols="50"
+                type="text"
+                autoComplete="off"
+                ref={description}
+                style={{ padding: "15px", height: "6rem" }}
               />
             </Grid>
           </Grid>

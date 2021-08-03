@@ -6,11 +6,13 @@ import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import { postFarmerGroup } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
+import { useHistory } from "react-router";
 
 const AddFarmerGroup = () => {
   const classes = useStyles();
   const groupName = useRef("");
   const Description = useRef("");
+  const history = useHistory();
 
   const postGroupData = (e) => {
     e.preventDefault();
@@ -20,6 +22,7 @@ const AddFarmerGroup = () => {
     };
     postFarmerGroup(params)
       .then(customToast("success", "Form submitted successfully."))
+      .then(history.push("/farmergroups"))
       .catch((err) => customToast("error", err.message));
   };
 
