@@ -13,10 +13,13 @@ import { NavLink } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import searchLogo from "../../../assets/images/search.svg";
+import { searchWord } from "../../../constants";
 
 const FarmerGroups = () => {
   const classes = useStyles();
   const [groups, setGroups] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+  const [filteredList, setFilteredList] = useState([]);
   useEffect(() => {
     getFarmersGroup()
       .then((res) => {
@@ -26,6 +29,22 @@ const FarmerGroups = () => {
         console.log(err);
       });
   }, []);
+
+  useEffect(() => {
+    let filteredList = [];
+
+    if (searchValue.trim().length > 0)
+      filteredList = groups.filter((e) => {
+        return searchWord(e.groupName, searchValue);
+      });
+
+    setFilteredList(filteredList);
+  }, [searchValue, groups]);
+  const groupsData = filteredList.length
+    ? filteredList
+    : !searchValue.length
+    ? groups
+    : [];
 
   return (
     <>
@@ -37,6 +56,8 @@ const FarmerGroups = () => {
               className={classes._search}
               autoComplete={"off"}
               placeholder="search"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
             />
             <img src={searchLogo} className={classes.searchIcon} />
           </div>
@@ -69,7 +90,7 @@ const FarmerGroups = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {groups.map((data) => {
+            {groupsData.map((data) => {
               return (
                 <TableRow
                   key={data.id}
