@@ -12,6 +12,7 @@ import { getFarmersGroup } from "../../../constants/config";
 import { NavLink } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
+import searchLogo from "../../../assets/images/search.svg";
 
 const FarmerGroups = () => {
   const classes = useStyles();
@@ -29,7 +30,17 @@ const FarmerGroups = () => {
   return (
     <>
       <Box className={classes.farmerdetails_subheader} xs={12}>
-        <Box className={classes.farmerdetails_searchcontainer}></Box>
+        <Box className={classes.farmerdetails_searchcontainer}>
+          <div className={classes.searchBox}>
+            <input
+              id="filled-basic"
+              className={classes._search}
+              autoComplete={"off"}
+              placeholder="search"
+            />
+            <img src={searchLogo} className={classes.searchIcon} />
+          </div>
+        </Box>
         <Box className={classes.farmerdetails_boxcontainer}>
           {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
           <Box>
