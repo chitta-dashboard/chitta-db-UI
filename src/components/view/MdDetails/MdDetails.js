@@ -47,7 +47,12 @@ const MdDetails = () => {
           <TableHead>
             <TableRow>
               <TableCell className={classes.tab_headericoncell}>#</TableCell>
-              <TableCell className={classes.tab_headercell}>name</TableCell>
+              <TableCell
+                className={classes.tab_headercell}
+                style={{ color: "#464E5F" }}
+              >
+                name
+              </TableCell>
               <TableCell className={classes.tab_headercell}>
                 Phone number
               </TableCell>

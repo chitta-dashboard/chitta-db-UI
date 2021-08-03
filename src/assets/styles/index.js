@@ -187,7 +187,7 @@ export const useStyles = makeStyles((theme) => ({
   searchIcon: {
     position: "relative",
     top: "0.8rem",
-    left: "-16rem",
+    left: "-15rem",
     width: "1rem",
     height: "1rem",
   },
@@ -290,13 +290,6 @@ export const useStyles = makeStyles((theme) => ({
     color: colors.text2,
     border: "none",
     overflow: "auto",
-  },
-  tab_usercell: {
-    border: "none",
-    display: "flex",
-    justifyContent: "space-around",
-    alignItems: "center",
-    padding: "1rem 0rem",
   },
 
   tab_headercell: {

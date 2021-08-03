@@ -46,7 +46,10 @@ const FarmerGroups = () => {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              <TableCell className={classes.tab_headercell}>
+              <TableCell
+                className={classes.tab_headercell}
+                style={{ color: "#464E5F" }}
+              >
                 Group name
               </TableCell>
               <TableCell className={classes.tab_headercell}>

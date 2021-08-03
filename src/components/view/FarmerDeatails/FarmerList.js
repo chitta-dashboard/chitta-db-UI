@@ -129,7 +129,7 @@ const FarmerList = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {FormData.map((farmer, index) => {
+            {FormData.map((farmer) => {
               return (
                 <TableRow
                   role="checkbox"
@@ -141,9 +141,6 @@ const FarmerList = (props) => {
                   }
                 >
                   <TableCell padding="none" className={classes.icontab_cell}>
-                    {index + 1}
-                  </TableCell>
-                  <TableCell className={classes.tab_usercell}>
                     <img
                       alt=""
                       src={
@@ -155,6 +152,11 @@ const FarmerList = (props) => {
                       }
                       className={classes.tab_user_logo}
                     />
+                  </TableCell>
+                  <TableCell
+                    className={classes.tab_cell}
+                    style={{ color: "#464E5F" }}
+                  >
                     {farmer.name}
                   </TableCell>
                   <TableCell className={classes.tab_cell}>
