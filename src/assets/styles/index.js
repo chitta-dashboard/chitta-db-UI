@@ -72,7 +72,7 @@ export const useStyles = makeStyles((theme) => ({
     color: colors.text1,
     border: 0,
     display: "grid",
-    gridTemplateRows: "30% 70%",
+    gridTemplateRows: "35% 65%",
     padding: "1rem",
     maxHeight: "100vh",
   },
@@ -317,7 +317,7 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   icontab_cell: {
-    color: "white",
+    color: colors.text2,
     width: "50px",
     textAlign: "center",
     border: "none",

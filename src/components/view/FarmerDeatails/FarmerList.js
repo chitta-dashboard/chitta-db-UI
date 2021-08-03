@@ -129,7 +129,7 @@ const FarmerList = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {FormData.map((farmer) => {
+            {FormData.map((farmer, index) => {
               return (
                 <TableRow
                   role="checkbox"
@@ -140,10 +140,9 @@ const FarmerList = (props) => {
                     props.history.push(`farmersdetails/${farmer.id}`)
                   }
                 >
-                  <TableCell
-                    padding="none"
-                    className={classes.icontab_cell}
-                  ></TableCell>
+                  <TableCell padding="none" className={classes.icontab_cell}>
+                    {index + 1}
+                  </TableCell>
                   <TableCell className={classes.tab_usercell}>
                     <img
                       alt=""

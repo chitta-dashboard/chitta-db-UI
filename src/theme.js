@@ -4,7 +4,7 @@ export const colors = {
   bg3: "#f2f4f4", //"#131E2F",
 
   text1: "#fff",
-  text2: "#111B2B",
+  text2: "#464E5F",
   text3: "#E8FCFF",
 
   primary: "#085c49",
