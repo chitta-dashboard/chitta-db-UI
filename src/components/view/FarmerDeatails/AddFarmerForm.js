@@ -468,8 +468,14 @@ const AddFarmerForm = () => {
                 <option value="wetland" className={classes.drpdown}>
                   ஈரமான நிலம்
                 </option>
-                <option value="rainfield" className={classes.drpdown}>
+                <option value="rainfed" className={classes.drpdown}>
                   மானாவாரி
+                </option>
+                <option value="well" className={classes.drpdown}>
+                  கிணறு
+                </option>
+                <option value="dryland" className={classes.drpdown}>
+                  வறண்ட நிலம்
                 </option>
               </select>
             </Grid>
@@ -487,8 +493,8 @@ const AddFarmerForm = () => {
                 <option value="dripIrrigation" className={classes.drpdown}>
                   சொட்டு நீர் பாசனம்
                 </option>
-                <option value="rain" className={classes.drpdown}>
-                  மழை
+                <option value="rainfed" className={classes.drpdown}>
+                  மானாவாரி
                 </option>
                 <option value="well" className={classes.drpdown}>
                   கிணறு
