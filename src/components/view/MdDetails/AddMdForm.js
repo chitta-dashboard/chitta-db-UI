@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Typography } from "@material-ui/core";
@@ -8,13 +8,22 @@ import { postMd } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router";
 import { colors } from "../../../theme";
+import { uploadFile } from "../../../constants/config";
 
 const AddMd = () => {
   const classes = useStyles();
   const mdName = useRef("");
   const phoneNumber = useRef("");
   const description = useRef("");
+  const dob = useRef("");
+  const qualification = useRef("");
+  const [mdPhoto, setMdPhoto] = useState(null);
   const history = useHistory();
+
+  const _onProfilePicChange = (e) => {
+    const file = e.target.files[0];
+    setMdPhoto(file);
+  };
 
   const postMdData = (e) => {
     e.preventDefault();
@@ -22,8 +31,22 @@ const AddMd = () => {
       name: mdName.current.value,
       phoneNumber: phoneNumber.current.value,
       description: description.current.value,
+      dob: dob.current.value,
+      qualification: qualification.current.value,
     };
     postMd(params)
+      .then((res) => {
+        console.log(res);
+        if (mdPhoto) {
+          console.log(res.data.id);
+          uploadFile({
+            ref: "Md",
+            refId: res.data.id,
+            field: "mdImg",
+            files: mdPhoto,
+          });
+        }
+      })
       .then(customToast("success", "Form submitted successfully."))
       .then(history.push("/mddetails"))
       .catch((err) => customToast("error", err.message));
@@ -91,6 +114,7 @@ const AddMd = () => {
                   color: "#111B2B",
                   backgroundColor: "#131e2f0d",
                 }}
+                onChange={_onProfilePicChange}
               />
             </Grid>
             <Grid item xs={4}>
@@ -99,6 +123,7 @@ const AddMd = () => {
                 type="date"
                 placeholder="பிறந்த தேதி"
                 autoComplete="off"
+                ref={dob}
                 style={{ color: colors.text2 }}
               />
             </Grid>
@@ -108,6 +133,7 @@ const AddMd = () => {
                 type="number"
                 placeholder="Qualification"
                 autoComplete="off"
+                ref={qualification}
               />
             </Grid>
           </Grid>

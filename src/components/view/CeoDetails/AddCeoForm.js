@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Typography } from "@material-ui/core";
@@ -8,13 +8,22 @@ import { customToast } from "../../widgets/Toast";
 import { postCeo } from "../../../constants/config";
 import { useHistory } from "react-router";
 import { colors } from "../../../theme";
+import { uploadFile } from "../../../constants/config";
 
 const AddCeo = () => {
   const classes = useStyles();
   const ceoName = useRef("");
   const phoneNumber = useRef("");
   const description = useRef("");
+  const dob = useRef("");
+  const qualification = useRef("");
+  const [ceoPhoto, setCeoPhoto] = useState(null);
   const history = useHistory();
+
+  const _onProfilePicChange = (e) => {
+    const file = e.target.files[0];
+    setCeoPhoto(file);
+  };
 
   const postCeoData = (e) => {
     e.preventDefault();
@@ -22,8 +31,22 @@ const AddCeo = () => {
       name: ceoName.current.value,
       phoneNumber: phoneNumber.current.value,
       description: description.current.value,
+      dob: dob.current.value,
+      qualification: qualification.current.value,
     };
     postCeo(params)
+      .then((res) => {
+        console.log(res);
+        if (ceoPhoto) {
+          console.log(res.data.id);
+          uploadFile({
+            ref: "ceo",
+            refId: res.data.id,
+            field: "ceoImg",
+            files: ceoPhoto,
+          });
+        }
+      })
       .then(customToast("success", "Form submitted successfully."))
       .then(history.push("/ceodetails"))
       .catch((err) => customToast("error", err.message));
@@ -91,6 +114,7 @@ const AddCeo = () => {
                   color: "#111B2B",
                   backgroundColor: "#131e2f0d",
                 }}
+                onChange={_onProfilePicChange}
               />
             </Grid>
             <Grid item xs={4}>
@@ -99,6 +123,7 @@ const AddCeo = () => {
                 type="date"
                 placeholder="பிறந்த தேதி"
                 autoComplete="off"
+                ref={dob}
                 style={{ color: colors.text2 }}
               />
             </Grid>
@@ -108,6 +133,7 @@ const AddCeo = () => {
                 type="number"
                 placeholder="Qualification"
                 autoComplete="off"
+                ref={qualification}
               />
             </Grid>
           </Grid>

@@ -17,6 +17,9 @@ const initialFormValue = {
     "38997518-1bdc-28b5-2781-98baec87ffcd": { id: "", value: "" },
   },
   gender: "male",
+  landType: "wetland",
+  irrigationType: "dripIrrigation",
+  farmerType: "small",
 };
 
 const AddFarmerForm = () => {
@@ -36,11 +39,11 @@ const AddFarmerForm = () => {
   const circle = useRef("");
   const district = useRef("");
   const pincode = useRef("");
-  const landType = useRef();
-  const irrigationType = useRef();
-  const farmerType = useRef();
-  const cropType = useRef();
-  const cattle = useRef();
+  // const landType = useRef("");
+  // const irrigationType = useRef("");
+  // const farmerType = useRef("");
+  const cropType = useRef("");
+  const cattle = useRef("");
   const [formValue, setFormValue] = useState(initialFormValue);
   const [farmerPhoto, setFarmerPhoto] = useState(null);
   const [farmerGroups, setFarmerGroups] = useState([]);
@@ -150,9 +153,9 @@ const AddFarmerForm = () => {
         circle: circle.current.value,
         district: district.current.value,
         pincode: pincode.current.value,
-        landType: landType.current.value,
-        irrigationType: irrigationType.current.value,
-        farmerType: farmerType.current.value,
+        landType: formValue.landType,
+        irrigationType: formValue.irrigationType,
+        farmerType: formValue.farmerType,
         cropType: cropType.current.value,
         cattle: cattle.current.value,
       };
@@ -189,7 +192,6 @@ const AddFarmerForm = () => {
 
     isExistSurveyNumber(lastSurveyUuid, postData);
   };
-
   return (
     <div>
       <form>
@@ -456,9 +458,12 @@ const AddFarmerForm = () => {
               <select
                 name="நில வகை"
                 id="நில வகை"
-                ref={landType}
                 className="farmer-input"
                 style={{ color: "#111B2B" }}
+                value={formValue.landType}
+                onChange={(e) =>
+                  setFormValue({ ...formValue, landType: e.target.value })
+                }
               >
                 <option value="wetland" className={classes.drpdown}>
                   ஈரமான நிலம்
@@ -472,9 +477,12 @@ const AddFarmerForm = () => {
               <select
                 name="நீர்ப்பாசன வகை"
                 id="நீர்ப்பாசன வகை"
-                ref={irrigationType}
                 className="farmer-input"
                 style={{ color: "#111B2B" }}
+                value={formValue.irrigationType}
+                onChange={(e) =>
+                  setFormValue({ ...formValue, irrigationType: e.target.value })
+                }
               >
                 <option value="dripIrrigation" className={classes.drpdown}>
                   சொட்டு நீர் பாசனம்
@@ -493,7 +501,10 @@ const AddFarmerForm = () => {
                 id="விவசாயி வகை"
                 className="farmer-input"
                 style={{ color: "#111B2B" }}
-                ref={farmerType}
+                value={formValue.farmerType}
+                onChange={(e) =>
+                  setFormValue({ ...formValue, farmerType: e.target.value })
+                }
               >
                 <option value="small" className={classes.drpdown}>
                   சிறிய
