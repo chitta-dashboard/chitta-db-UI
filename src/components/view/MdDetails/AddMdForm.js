@@ -38,17 +38,18 @@ const AddMd = () => {
       .then((res) => {
         console.log(res);
         if (mdPhoto) {
-          console.log(res.data.id);
+          console.log(res.id);
           uploadFile({
-            ref: "Md",
-            refId: res.data.id,
-            field: "mdImg",
+            ref: "md",
+            refId: res.id,
+            field: "picture",
             files: mdPhoto,
+          }).then((data) => {
+            customToast("success", "Form submitted successfully.");
+            history.push("/mddetails");
           });
         }
       })
-      .then(customToast("success", "Form submitted successfully."))
-      .then(history.push("/mddetails"))
       .catch((err) => customToast("error", err.message));
   };
 
