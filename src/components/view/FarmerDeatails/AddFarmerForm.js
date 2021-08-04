@@ -36,6 +36,11 @@ const AddFarmerForm = () => {
   const circle = useRef("");
   const district = useRef("");
   const pincode = useRef("");
+  const landType = useRef();
+  const irrigationType = useRef();
+  const farmerType = useRef();
+  const cropType = useRef();
+  const cattle = useRef();
   const [formValue, setFormValue] = useState(initialFormValue);
   const [farmerPhoto, setFarmerPhoto] = useState(null);
   const [farmerGroups, setFarmerGroups] = useState([]);
@@ -145,6 +150,11 @@ const AddFarmerForm = () => {
         circle: circle.current.value,
         district: district.current.value,
         pincode: pincode.current.value,
+        landType: landType.current.value,
+        irrigationType: irrigationType.current.value,
+        farmerType: farmerType.current.value,
+        cropType: cropType.current.value,
+        cattle: cattle.current.value,
       };
 
       axios
@@ -446,6 +456,7 @@ const AddFarmerForm = () => {
               <select
                 name="நில வகை"
                 id="நில வகை"
+                ref={landType}
                 className="farmer-input"
                 style={{ color: "#111B2B" }}
               >
@@ -461,6 +472,7 @@ const AddFarmerForm = () => {
               <select
                 name="நீர்ப்பாசன வகை"
                 id="நீர்ப்பாசன வகை"
+                ref={irrigationType}
                 className="farmer-input"
                 style={{ color: "#111B2B" }}
               >
@@ -481,6 +493,7 @@ const AddFarmerForm = () => {
                 id="விவசாயி வகை"
                 className="farmer-input"
                 style={{ color: "#111B2B" }}
+                ref={farmerType}
               >
                 <option value="small" className={classes.drpdown}>
                   சிறிய
@@ -495,6 +508,7 @@ const AddFarmerForm = () => {
                 className="farmer-input tamil"
                 type="text"
                 autoComplete="off"
+                ref={cropType}
                 placeholder="
                 பயிர் வகை"
               />
@@ -503,6 +517,7 @@ const AddFarmerForm = () => {
               <input
                 className="farmer-input tamil"
                 type="text"
+                ref={cattle}
                 autoComplete="off"
                 placeholder="கால்நடைகள்"
               />
