@@ -12,9 +12,15 @@ import tempImg from "../../../assets/images/male.svg";
 import { NavLink } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
+import config from "../../../constants/config";
+
 const MdDetails = () => {
   const classes = useStyles();
   const [mdDetails, setMdDetails] = useState([]);
+
+  function addDefaultSrc(ev) {
+    ev.target.src = tempImg;
+  }
 
   useEffect(() => {
     getMD()
@@ -73,7 +79,12 @@ const MdDetails = () => {
                   <TableCell padding="none" className={classes.icontab_cell}>
                     <img
                       alt=""
-                      src={tempImg}
+                      src={
+                        data?.picture[0]
+                          ? `${config.app.APP_API_URL}${data.picture[0].url}`
+                          : tempImg
+                      }
+                      onError={addDefaultSrc}
                       className={classes.tab_user_logo}
                     />
                   </TableCell>

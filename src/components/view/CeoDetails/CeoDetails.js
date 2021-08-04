@@ -13,6 +13,7 @@ import tempImg from "../../../assets/images/male.svg";
 import { NavLink } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
+import config from "../../../constants/config";
 
 const CeoDetails = () => {
   const classes = useStyles();
@@ -25,6 +26,9 @@ const CeoDetails = () => {
       });
   }, []);
 
+  function addDefaultSrc(ev) {
+    ev.target.src = tempImg;
+  }
   return (
     <>
       <Box className={classes.farmerdetails_subheader} xs={12}>
@@ -74,7 +78,12 @@ const CeoDetails = () => {
                   <TableCell padding="none" className={classes.icontab_cell}>
                     <img
                       alt=""
-                      src={tempImg}
+                      src={
+                        data?.picture
+                          ? `${config.app.APP_API_URL}${data.picture.url}`
+                          : tempImg
+                      }
+                      onError={addDefaultSrc}
                       className={classes.tab_user_logo}
                     />
                   </TableCell>
