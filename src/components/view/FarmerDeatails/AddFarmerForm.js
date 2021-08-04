@@ -527,7 +527,7 @@ const AddFarmerForm = () => {
             <Grid item xs={6}>
               <input
                 className="farmer-input tamil"
-                type="text"
+                type="number"
                 ref={cattle}
                 autoComplete="off"
                 placeholder="கால்நடைகள்"

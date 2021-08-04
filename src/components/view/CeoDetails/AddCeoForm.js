@@ -130,7 +130,7 @@ const AddCeo = () => {
             <Grid item xs={8}>
               <input
                 className="farmer-input"
-                type="number"
+                type="text"
                 placeholder="Qualification"
                 autoComplete="off"
                 ref={qualification}
