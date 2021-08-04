@@ -17,9 +17,9 @@ const initialFormValue = {
     "38997518-1bdc-28b5-2781-98baec87ffcd": { id: "", value: "" },
   },
   gender: "male",
-  landType: "wetland",
-  irrigationType: "dripIrrigation",
-  farmerType: "small",
+  landType: "WETLAND",
+  irrigationType: "TRIPIRRIGATION",
+  farmerType: "SMALL",
 };
 
 const AddFarmerForm = () => {
@@ -465,16 +465,16 @@ const AddFarmerForm = () => {
                   setFormValue({ ...formValue, landType: e.target.value })
                 }
               >
-                <option value="wetland" className={classes.drpdown}>
+                <option value="WETLAND" className={classes.drpdown}>
                   ஈரமான நிலம்
                 </option>
-                <option value="rainfed" className={classes.drpdown}>
+                <option value="RAINFED" className={classes.drpdown}>
                   மானாவாரி
                 </option>
-                <option value="well" className={classes.drpdown}>
+                <option value="WELL" className={classes.drpdown}>
                   கிணறு
                 </option>
-                <option value="dryland" className={classes.drpdown}>
+                <option value="DRYLAND" className={classes.drpdown}>
                   வறண்ட நிலம்
                 </option>
               </select>
@@ -490,13 +490,13 @@ const AddFarmerForm = () => {
                   setFormValue({ ...formValue, irrigationType: e.target.value })
                 }
               >
-                <option value="dripIrrigation" className={classes.drpdown}>
+                <option value="TRIPIRRIGATION" className={classes.drpdown}>
                   சொட்டு நீர் பாசனம்
                 </option>
-                <option value="rainfed" className={classes.drpdown}>
+                <option value="RAINFED" className={classes.drpdown}>
                   மானாவாரி
                 </option>
-                <option value="well" className={classes.drpdown}>
+                <option value="WELL" className={classes.drpdown}>
                   கிணறு
                 </option>
               </select>
@@ -512,10 +512,10 @@ const AddFarmerForm = () => {
                   setFormValue({ ...formValue, farmerType: e.target.value })
                 }
               >
-                <option value="small" className={classes.drpdown}>
+                <option value="SMALL" className={classes.drpdown}>
                   சிறிய
                 </option>
-                <option value="marginal" className={classes.drpdown}>
+                <option value="MARGINAL" className={classes.drpdown}>
                   ஓரளவு
                 </option>
               </select>
