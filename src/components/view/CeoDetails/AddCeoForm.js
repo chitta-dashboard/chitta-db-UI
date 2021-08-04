@@ -38,17 +38,18 @@ const AddCeo = () => {
       .then((res) => {
         console.log(res);
         if (ceoPhoto) {
-          console.log(res.data.id);
+          console.log(res.id);
           uploadFile({
             ref: "ceo",
-            refId: res.data.id,
-            field: "ceoImg",
+            refId: res.id,
+            field: "picture",
             files: ceoPhoto,
+          }).then((data) => {
+            customToast("success", "Form submitted successfully.");
+            history.push("/ceodetails");
           });
         }
       })
-      .then(customToast("success", "Form submitted successfully."))
-      .then(history.push("/ceodetails"))
       .catch((err) => customToast("error", err.message));
   };
 
