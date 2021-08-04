@@ -469,7 +469,7 @@ const AddFarmerForm = () => {
                   ஈரமான நிலம்
                 </option>
                 <option value="rainfield" className={classes.drpdown}>
-                  மழைக்களம்
+                  மானாவாரி
                 </option>
               </select>
             </Grid>
