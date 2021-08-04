@@ -342,7 +342,7 @@ const AddFarmerForm = () => {
             <input
               className="farmer-input"
               type="number"
-              placeholder="ஏக்கர்"
+              placeholder="சென்ட் "
               ref={acre}
               autoComplete="off"
             />
@@ -432,6 +432,7 @@ const AddFarmerForm = () => {
                 placeholder="மாவடஂடமஂ"
               />
             </Grid>
+
             <Grid item xs={4}>
               <input
                 className="farmer-input"
@@ -439,6 +440,71 @@ const AddFarmerForm = () => {
                 placeholder="பினஂகோடு"
                 ref={pincode}
                 autoComplete="off"
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <select
+                name="நில வகை"
+                id="நில வகை"
+                className="farmer-input"
+                style={{ color: "#111B2B" }}
+              >
+                <option value="wetland" className={classes.drpdown}>
+                  ஈரமான நிலம்
+                </option>
+                <option value="rainfield" className={classes.drpdown}>
+                  மழைக்களம்
+                </option>
+              </select>
+            </Grid>
+            <Grid item xs={4}>
+              <select
+                name="நீர்ப்பாசன வகை"
+                id="நீர்ப்பாசன வகை"
+                className="farmer-input"
+                style={{ color: "#111B2B" }}
+              >
+                <option value="dripIrrigation" className={classes.drpdown}>
+                  சொட்டு நீர் பாசனம்
+                </option>
+                <option value="rain" className={classes.drpdown}>
+                  மழை
+                </option>
+                <option value="well" className={classes.drpdown}>
+                  கிணறு
+                </option>
+              </select>
+            </Grid>
+            <Grid item xs={4}>
+              <select
+                name="விவசாயி வகை"
+                id="விவசாயி வகை"
+                className="farmer-input"
+                style={{ color: "#111B2B" }}
+              >
+                <option value="small" className={classes.drpdown}>
+                  சிறிய
+                </option>
+                <option value="marginal" className={classes.drpdown}>
+                  ஓரளவு
+                </option>
+              </select>
+            </Grid>
+            <Grid item xs={6}>
+              <input
+                className="farmer-input tamil"
+                type="text"
+                autoComplete="off"
+                placeholder="
+                பயிர் வகை"
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <input
+                className="farmer-input tamil"
+                type="text"
+                autoComplete="off"
+                placeholder="கால்நடைகள்"
               />
             </Grid>
           </Grid>

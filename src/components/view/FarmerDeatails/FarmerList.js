@@ -123,7 +123,7 @@ const FarmerList = (props) => {
               <TableCell className={classes.tab_headercell}>
                 கைபேசி எண்
               </TableCell>
-              <TableCell className={classes.tab_headercell}>ஏக்கர்</TableCell>
+              <TableCell className={classes.tab_headercell}>சென்ட்</TableCell>
               <TableCell className={classes.tab_headercell}>ஊர் </TableCell>
               <TableCell className={classes.tab_headercell}>மாவட்டம்</TableCell>
             </TableRow>

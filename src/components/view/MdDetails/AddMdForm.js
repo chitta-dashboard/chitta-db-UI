@@ -7,6 +7,7 @@ import { useStyles } from "../../../assets/styles";
 import { postMd } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router";
+import { colors } from "../../../theme";
 
 const AddMd = () => {
   const classes = useStyles();
@@ -77,6 +78,36 @@ const AddMd = () => {
                 autoComplete="off"
                 ref={description}
                 style={{ padding: "15px", height: "6rem" }}
+              />
+            </Grid>
+            <Grid className={classes.forminput_container} item xs={12}>
+              <input
+                className="farmer-input tamil"
+                type="file"
+                accept="image/*"
+                autoComplete="off"
+                style={{
+                  padding: "1rem",
+                  color: "#111B2B",
+                  backgroundColor: "#131e2f0d",
+                }}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <input
+                className="farmer-input"
+                type="date"
+                placeholder="பிறந்த தேதி"
+                autoComplete="off"
+                style={{ color: colors.text2 }}
+              />
+            </Grid>
+            <Grid item xs={8}>
+              <input
+                className="farmer-input"
+                type="number"
+                placeholder="Qualification"
+                autoComplete="off"
               />
             </Grid>
           </Grid>
