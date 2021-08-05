@@ -229,23 +229,9 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   filterBtn: {
-    border: 0,
-    backgroundColor: colors.primary,
-    opacity: 0.8,
-    color: colors.text1,
     height: "2rem",
-    width: "5rem",
-    borderRadius: "5px",
-    cursor: "pointer",
-    fontWeight: "600",
-    display: "flex",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    "&:hover": {
-      backgroundColor: colors.bg3,
-      border: `1px solid ${colors.primary}`,
-      color: colors.text2,
-    },
+    marginRight: "1rem",
+    textDecoration: "none",
   },
 
   addDetails_btn: {

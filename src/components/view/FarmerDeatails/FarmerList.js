@@ -14,10 +14,12 @@ import {
   searchWord,
   FarmerDetailsList,
 } from "../../../constants";
-import config from "../../../constants/config";
+import config, { getFarmers } from "../../../constants/config";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import AddIcon from "@material-ui/icons/Add";
 import searchLogo from "../../../assets/images/search.svg";
+import SelectSearch, { fuzzySearch } from "react-select-search";
+import axios from "axios";
 
 const FarmerList = (props) => {
   const { farmersData } = props;
@@ -28,6 +30,20 @@ const FarmerList = (props) => {
   const [disableBtn, setDisableBtn] = useState(true);
   const [farmerList, setFarmerList] = useState();
 
+  const [farmerGrp, setFarmerGrp] = useState([]);
+  const [farmerGrpId, setFarmerGrpId] = useState("");
+  useEffect(() => {
+    axios
+      .get("https://citta-db-strapi.herokuapp.com/farmer-groups")
+      .then((res) =>
+        res.data.map((data) => ({
+          name: data.groupName,
+          value: data.groupName,
+        }))
+      )
+      .then((res) => setFarmerGrp(res))
+      .catch((err) => console.log(err));
+  }, []);
   useEffect(() => {
     let filteredList = [];
 
@@ -66,6 +82,25 @@ const FarmerList = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filteredList, farmersData, searchValue]);
 
+  useEffect(() => {
+    // console.log(farmerGrpId);
+    // getFarmers(`${farmerGrpId}`).then((res) => console.log(res));
+    if (farmerGrpId !== "") {
+      let updated = farmerList.filter((item) => {
+        return item.farmerGroup === farmerGrpId;
+      });
+      console.log(updated);
+      setFarmerList(updated);
+    } else {
+      const FormData = filteredList.length
+        ? filteredList
+        : !searchValue.length
+        ? farmersData
+        : [];
+      setFarmerList(FormData);
+    }
+  }, [farmerGrpId, farmerList, filteredList, farmersData, searchValue]);
+
   return (
     <>
       <Box className={classes.farmerdetails_subheader} xs={12}>
@@ -79,10 +114,18 @@ const FarmerList = (props) => {
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
             />
-            <img src={searchLogo} className={classes.searchIcon} />
+            <img src={searchLogo} alt="" className={classes.searchIcon} />
           </div>
         </Box>
         <Box className={classes.farmerdetails_boxcontainer}>
+          <SelectSearch
+            className={classes.filterBtn}
+            search
+            filterOptions={fuzzySearch}
+            options={farmerGrp}
+            placeholder="Choose a size"
+            onChange={setFarmerGrpId}
+          />
           <Workbook
             filename="Farmers.xlsx"
             element={
