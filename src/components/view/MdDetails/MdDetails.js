@@ -57,13 +57,15 @@ const MdDetails = () => {
                 className={classes.tab_headercell}
                 style={{ color: "#464E5F" }}
               >
-                name
+                பெயர்
               </TableCell>
               <TableCell className={classes.tab_headercell}>
-                Phone number
+                கைபேசி எண்
               </TableCell>
+              <TableCell className={classes.tab_headercell}>விளக்கம்</TableCell>
+              <TableCell className={classes.tab_headercell}>தகுதி</TableCell>
               <TableCell className={classes.tab_headercell}>
-                Description
+                கையொப்பம்
               </TableCell>
             </TableRow>
           </TableHead>
