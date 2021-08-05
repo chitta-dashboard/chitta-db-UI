@@ -18,11 +18,16 @@ const AddCeo = () => {
   const dob = useRef("");
   const qualification = useRef("");
   const [ceoPhoto, setCeoPhoto] = useState(null);
+  const [ceoSign, setCeoSign] = useState(null);
   const history = useHistory();
 
   const _onProfilePicChange = (e) => {
     const file = e.target.files[0];
     setCeoPhoto(file);
+  };
+  const _onSignPicChange = (e) => {
+    const file = e.target.files[0];
+    setCeoSign(file);
   };
 
   const postCeoData = (e) => {
@@ -44,6 +49,12 @@ const AddCeo = () => {
             refId: res.id,
             field: "picture",
             files: ceoPhoto,
+          })
+          uploadFile({
+            ref: "ceo",
+            refId: res.id,
+            field: "signature",
+            files: ceoSign,
           }).then((data) => {
             customToast("success", "Form submitted successfully.");
             history.push("/ceodetails");
@@ -116,6 +127,20 @@ const AddCeo = () => {
                   backgroundColor: "#131e2f0d",
                 }}
                 onChange={_onProfilePicChange}
+              />
+            </Grid>
+            <Grid className={classes.forminput_container} item xs={12}>
+              <input
+                className="farmer-input tamil"
+                type="file"
+                accept="image/*"
+                autoComplete="off"
+                style={{
+                  padding: "1rem",
+                  color: "#111B2B",
+                  backgroundColor: "#131e2f0d",
+                }}
+                onChange={_onSignPicChange}
               />
             </Grid>
             <Grid item xs={4}>
