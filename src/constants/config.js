@@ -23,7 +23,7 @@ export const getFarmers = (filter) => {
 };
 
 export const getFarmersGroup = () => {
-  return httpClient.get("farmer-groups");
+  return httpClient.get("farmer-groups?_limit=350");
 };
 
 export const postMd = (params) => {

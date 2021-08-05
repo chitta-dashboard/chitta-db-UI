@@ -14,7 +14,7 @@ import {
   searchWord,
   FarmerDetailsList,
 } from "../../../constants";
-import config, { getFarmers } from "../../../constants/config";
+import config, { getFarmers, getFarmersGroup } from "../../../constants/config";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import AddIcon from "@material-ui/icons/Add";
 import searchLogo from "../../../assets/images/search.svg";
@@ -35,10 +35,9 @@ const FarmerList = (props) => {
   const [farmerGrp, setFarmerGrp] = useState([]);
   const [farmerGrpId, setFarmerGrpId] = useState("");
   useEffect(() => {
-    axios
-      .get("https://citta-db-strapi.herokuapp.com/farmer-groups")
+    getFarmersGroup()
       .then((res) =>
-        res.data.map((data) => ({
+        res.map((data) => ({
           name: data.groupName,
           value: data.groupName,
         }))
