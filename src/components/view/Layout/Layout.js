@@ -75,6 +75,18 @@ const Layout = () => {
                 className={clsx(classes.menuButton, open && classes.hide)}
               >
                 <MenuIcon />
+                <img
+                  src={
+                    require("../../../assets/images/nerkathir_logo.png").default
+                  }
+                  alt="chitta logo"
+                  className={classes.chitta_logo_drawer}
+                  style={{
+                    width: "3rem",
+                    height: "3rem",
+                    marginLeft: "0.5rem",
+                  }}
+                />
               </IconButton>
             </Toolbar>
           </AppBar>

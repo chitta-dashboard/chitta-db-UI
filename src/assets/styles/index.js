@@ -187,7 +187,7 @@ export const useStyles = makeStyles((theme) => ({
   searchIcon: {
     position: "relative",
     top: "0.8rem",
-    left: "-15rem",
+    left: "-16rem",
     width: "1rem",
     height: "1rem",
   },

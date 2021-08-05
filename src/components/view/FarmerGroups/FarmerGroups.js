@@ -82,10 +82,10 @@ const FarmerGroups = () => {
                 className={classes.tab_headercell}
                 style={{ color: "#464E5F" }}
               >
-                Group name
+                குழு பெயர்
               </TableCell>
               <TableCell className={classes.tab_headercell}>
-                Group Description
+                குழு விளக்கம்
               </TableCell>
             </TableRow>
           </TableHead>
