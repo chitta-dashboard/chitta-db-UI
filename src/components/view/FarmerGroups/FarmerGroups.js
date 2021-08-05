@@ -59,7 +59,7 @@ const FarmerGroups = () => {
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
             />
-            <img src={searchLogo} className={classes.searchIcon} />
+            <img src={searchLogo} alt="" className={classes.searchIcon} />
           </div>
         </Box>
         <Box className={classes.farmerdetails_boxcontainer}>

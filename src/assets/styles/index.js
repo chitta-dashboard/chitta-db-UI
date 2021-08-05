@@ -322,6 +322,11 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: "50%",
   },
 
+  tab_user_signature: {
+    width: "auto",
+    height: "35px",
+  },
+
   tab_row: {
     border: "none",
     backgroundColor: colors.bg1,

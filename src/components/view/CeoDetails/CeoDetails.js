@@ -10,6 +10,7 @@ import { useStyles } from "../../../assets/styles";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import { getCEO } from "../../../constants/config";
 import tempImg from "../../../assets/images/male.svg";
+import tempSign from "../../../assets/images/default_sign.png";
 import { NavLink } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
@@ -28,6 +29,10 @@ const CeoDetails = () => {
 
   function addDefaultSrc(ev) {
     ev.target.src = tempImg;
+  }
+
+  function addDefaultSign(ev) {
+    ev.target.src = tempSign;
   }
   return (
     <>
@@ -97,6 +102,21 @@ const CeoDetails = () => {
                   </TableCell>
                   <TableCell className={classes.tab_cell}>
                     {data.description ? data.description : ""}
+                  </TableCell>
+                  <TableCell className={classes.tab_cell}>
+                    {data.qualification ? data.qualification : ""}
+                  </TableCell>
+                  <TableCell padding="none" className={classes.icontab_cell}>
+                    <img
+                      alt=""
+                      src={
+                        data?.signature
+                          ? `${config.app.APP_API_URL}${data.signature.url}`
+                          : tempSign
+                      }
+                      onError={addDefaultSign}
+                      className={classes.tab_user_signature}
+                    />
                   </TableCell>
                 </TableRow>
               );

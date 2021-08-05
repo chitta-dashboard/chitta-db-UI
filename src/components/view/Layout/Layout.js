@@ -131,10 +131,9 @@ const Layout = () => {
                   ? require(`../../../assets/images/${list.icon}.svg`).default
                   : "";
                 return (
-                  <div className={classes.listContent}>
+                  <div className={classes.listContent} key={list.id}>
                     <NavLink
                       activeClassName="nav-active"
-                      key={list.id}
                       to={`${list.Router}`}
                       style={{
                         textDecoration: "none",
