@@ -16,10 +16,10 @@ export const getMD = () => {
 };
 
 export const getFarmers = (filter) => {
-  let qs = filter.farmerGroup
-    ? `?_limit=350&_sort=farmerGroup:ASC,name:ASC&farmerGroup=${filter}`
+  let qs = filter?.farmerGroup
+    ? `?_limit=350&_sort=farmerGroup:ASC,name:ASC&farmerGroup=${filter.farmerGroup}`
     : "?_limit=350&_sort=farmerGroup:ASC,name:ASC";
-  if (filter.limit && filter.start) {
+  if (filter?.limit && filter?.start) {
     qs.concat(`&_start=${filter.start}&_limit=${filter.limit}`);
   }
   return httpClient.get(`farmers${qs}`);
