@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Table from "@material-ui/core/Table";
 import Workbook from "react-excel-workbook";
 import TableBody from "@material-ui/core/TableBody";
@@ -19,9 +19,11 @@ import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import AddIcon from "@material-ui/icons/Add";
 import searchLogo from "../../../assets/images/search.svg";
 import SelectSearch, { fuzzySearch } from "react-select-search";
-import { TableFooter } from "@material-ui/core";
-import TablePagination from "@material-ui/core/TablePagination";
-import axios from "axios";
+// import { TableFooter } from "@material-ui/core";
+// import TablePagination from "@material-ui/core/TablePagination";
+// import axios from "axios";
+import ClearIcon from "@material-ui/icons/Clear";
+import { TableFooter, TablePagination } from "@material-ui/core";
 
 const FarmerList = (props) => {
   const { farmersData } = props;
@@ -105,6 +107,8 @@ const FarmerList = (props) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  const clearGrp = () => {};
+
   return (
     <>
       <Box className={classes.farmerdetails_subheader} xs={12}>
@@ -126,11 +130,14 @@ const FarmerList = (props) => {
             className={"filter-btn"}
             search
             filterOptions={fuzzySearch}
-            options={[{ name: "Select All" }, ...farmerGrp]}
+            options={farmerGrp}
             placeholder="Choose a size"
             onChange={setFarmerGrpId}
             // printOptions="always"
           />
+          <div onClick={clearGrp}>
+            <ClearIcon className={classes.closeIcon} />
+          </div>
           <Workbook
             filename="Farmers.xlsx"
             element={
