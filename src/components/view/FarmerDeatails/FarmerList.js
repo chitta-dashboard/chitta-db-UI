@@ -18,6 +18,7 @@ import config from "../../../constants/config";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import AddIcon from "@material-ui/icons/Add";
 import searchLogo from "../../../assets/images/search.svg";
+import SelectSearch, { fuzzySearch } from "react-select-search";
 
 const FarmerList = (props) => {
   const { farmersData } = props;
@@ -80,6 +81,17 @@ const FarmerList = (props) => {
           </div>
         </Box>
         <Box className={classes.farmerdetails_boxcontainer}>
+          <SelectSearch
+            className={classes.filterBtn}
+            search
+            filterOptions={fuzzySearch}
+            options={[
+              { value: "s", name: "Small" },
+              { value: "m", name: "Medium" },
+              { value: "l", name: "Large" },
+            ]}
+            placeholder="Choose a size"
+          />
           <Workbook
             filename="Farmers.xlsx"
             element={
