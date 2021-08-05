@@ -13,6 +13,7 @@ import { NavLink } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import config from "../../../constants/config";
+import tempSign from "../../../assets/images/default_sign.png";
 
 const MdDetails = () => {
   const classes = useStyles();
@@ -31,6 +32,9 @@ const MdDetails = () => {
         console.log(err);
       });
   }, []);
+  function addDefaultSign(ev) {
+    ev.target.src = tempSign;
+  }
 
   return (
     <>
@@ -102,18 +106,18 @@ const MdDetails = () => {
                   <TableCell className={classes.tab_cell}>
                     {data.qualification ? data.qualification : ""}
                   </TableCell>
-                  {/* <TableCell padding="none" className={classes.icontab_cell}>
+                  <TableCell padding="none" className={classes.icontab_cell}>
                     <img
                       alt=""
                       src={
-                        data?.picture
-                          ? `${config.app.APP_API_URL}${data.picture.url}`
-                          : tempImg
+                        data?.signature
+                          ? `${config.app.APP_API_URL}${data.signature.url}`
+                          : tempSign
                       }
-                      onError={addDefaultSrc}
-                      className={classes.tab_user_logo}
+                      onError={addDefaultSign}
+                      className={classes.tab_user_signature}
                     />
-                  </TableCell> */}
+                  </TableCell>
                 </TableRow>
               );
             })}
