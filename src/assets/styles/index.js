@@ -232,6 +232,10 @@ export const useStyles = makeStyles((theme) => ({
     height: "2rem",
     marginRight: "1rem",
     textDecoration: "none",
+    zIndex: "10",
+    input: {
+      color: "red",
+    },
   },
 
   addDetails_btn: {

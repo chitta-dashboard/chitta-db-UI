@@ -65,75 +65,83 @@ const AddFarmerForm = () => {
     setFarmerPhoto(file);
   };
 
-  const isExistSurveyNumber = (surveyUuid, cb) => {
-    const surveyNo = formValue.surveyNoList[surveyUuid].value;
-    console.log();
-    if (formValue.surveyNoList[surveyUuid]?.value?.length)
-      axios
-        .post(`${config.app.APP_API_URL}/survey-numbers`, { surveyNo })
-        .then((res) => {
-          if (cb) cb(surveyUuid, res.data.id);
-        })
-        .catch((err) => {
-          customToast("error", "Survey number already exist.");
-        });
-    else if (cb) cb(surveyUuid);
-  };
+  // const isExistSurveyNumber = (surveyUuid, cb) => {
+  //   const surveyNo = formValue.surveyNoList[surveyUuid].value;
+  //   console.log();
+  //   if (formValue.surveyNoList[surveyUuid]?.value?.length)
+  //     axios
+  //       .post(`${config.app.APP_API_URL}/survey-numbers`, { surveyNo })
+  //       .then((res) => {
+  //         if (cb) cb(surveyUuid, res.data.id);
+  //       })
+  //       .catch((err) => {
+  //         customToast("error", "Survey number already exist.");
+  //       });
+  //   else if (cb) cb(surveyUuid);
+  // };
 
-  const handleSurveyChange = (surveyUuid, e) => {
-    setFormValue({
-      ...formValue,
-      surveyNoList: {
-        ...formValue.surveyNoList,
-        [surveyUuid]: {
-          ...formValue.surveyNoList[surveyUuid],
-          value: e.target.value,
-        },
-      },
-    });
-  };
+  // const handleSurveyChange = (surveyUuid, e) => {
+  //   setFormValue({
+  //     ...formValue,
+  //     surveyNoList: {
+  //       ...formValue.surveyNoList,
+  //       [surveyUuid]: {
+  //         ...formValue.surveyNoList[surveyUuid],
+  //         value: e.target.value,
+  //       },
+  //     },
+  //   });
+  // };
 
-  const handleAddSurveyNumber = (surveyUuid) => {
-    const addRow = (surveyId, resId) =>
-      setFormValue({
-        ...formValue,
-        surveyNoList: {
-          ...formValue.surveyNoList,
-          [surveyId]: { ...formValue.surveyNoList[surveyId], id: resId },
-          [uuid()]: { id: "", value: "" },
-        },
-      });
+  // const handleAddSurveyNumber = (surveyUuid) => {
+  //   const addRow = (surveyId, resId) =>
+  //     setFormValue({
+  //       ...formValue,
+  //       surveyNoList: {
+  //         ...formValue.surveyNoList,
+  //         [surveyId]: { ...formValue.surveyNoList[surveyId], id: resId },
+  //         [uuid()]: { id: "", value: "" },
+  //       },
+  //     });
 
-    isExistSurveyNumber(surveyUuid, addRow);
-  };
+  //   isExistSurveyNumber(surveyUuid, addRow);
+  // };
 
-  const handleRemoveSurveyNumber = (surveyUuid) => {
-    const surveyList = formValue.surveyNoList;
-    delete surveyList[surveyUuid];
-    setFormValue({ ...formValue, surveyNoList: surveyList });
-  };
+  // const handleRemoveSurveyNumber = (surveyUuid) => {
+  //   const surveyList = formValue.surveyNoList;
+  //   delete surveyList[surveyUuid];
+  //   setFormValue({ ...formValue, surveyNoList: surveyList });
+  // };
 
   const handleActions = (isAddable, id, e) => {
     e.preventDefault();
-    if (isAddable) handleAddSurveyNumber(id);
-    else handleRemoveSurveyNumber(id);
+    console.log(id);
+    console.log(e);
+    // if (isAddable) handleAddSurveyNumber(id);
+    // else handleRemoveSurveyNumber(id);
+    console.log(isAddable);
+    if (isAddable) {
+      //addrow
+    } else {
+      //remmove row
+    }
   };
 
   const postFarmerData = (e) => {
     e.preventDefault();
-    const lastSurveyUuid = Object.keys(formValue.surveyNoList).reverse()[0];
+    // const lastSurveyUuid = Object.keys(formValue.surveyNoList).reverse()[0];
 
-    const postData = (lastSurveyUuid, resId) => {
-      let finalSurveyList = formValue.surveyNoList;
-      if (resId)
-        finalSurveyList[lastSurveyUuid] = {
-          ...finalSurveyList[lastSurveyUuid],
-          id: resId,
-        };
+    const postData = () => {
+      // let finalSurveyList = formValue.surveyNoList;
+      // if (resId)
+      //   finalSurveyList[lastSurveyUuid] = {
+      //     ...finalSurveyList[lastSurveyUuid],
+      //     id: resId,
+      //   };
 
-      const FinalSurveyNoIds = Object.values(finalSurveyList)
-        .filter((e1) => e1.id)
-        .map((e2) => e2.id);
+      // const FinalSurveyNoIds = Object.values(finalSurveyList)
+      //   .filter((e1) => e1.id)
+      //   .map((e2) => e2.id);
 
       const params = {
         name: farmerName.current.value,
@@ -144,7 +152,7 @@ const AddFarmerForm = () => {
         phoneNumber: phoneNumber.current.value,
         aadharNumber: aadharNumber.current.value,
         voterIdNumber: voterIdNumber.current.value,
-        surveyArray: [{ survey_numbers: FinalSurveyNoIds }],
+        // surveyArray: [{ survey_numbers: FinalSurveyNoIds }],
         acre: +acre.current.value,
         gender: formValue.gender,
         education: education.current.value,
@@ -190,7 +198,7 @@ const AddFarmerForm = () => {
         .catch((err) => customToast("error", err.message));
     };
 
-    isExistSurveyNumber(lastSurveyUuid, postData);
+    // isExistSurveyNumber(lastSurveyUuid, postData);
   };
   return (
     <div>
@@ -343,8 +351,8 @@ const AddFarmerForm = () => {
                   key={`${id}_${i}`}
                   id={id}
                   isAddable={isAddable}
-                  value={numberList[id].value}
-                  handleChange={(id, e) => handleSurveyChange(id, e)}
+                  // value={numberList[id].value}
+                  // handleChange={(id, e) => handleSurveyChange(id, e)}
                   handleActions={(e) => handleActions(isAddable, id, e)}
                 />
               );
