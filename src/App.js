@@ -6,7 +6,7 @@ import Layout from "./components/view/Layout/Layout";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import Footer from "./components/view/Footer/Footer";
-
+import "./app.css";
 const App = () => {
   return (
     <div>

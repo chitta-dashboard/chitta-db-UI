@@ -93,14 +93,8 @@ const FarmerList = (props) => {
       console.log(updated);
       setFarmerList(updated);
     } else {
-      const FormData = filteredList.length
-        ? filteredList
-        : !searchValue.length
-        ? farmersData
-        : [];
-      setFarmerList(FormData);
     }
-  }, [farmerGrpId, farmerList, filteredList, farmersData, searchValue]);
+  }, [farmerGrpId, filteredList, farmersData, searchValue]);
 
   return (
     <>
@@ -120,12 +114,13 @@ const FarmerList = (props) => {
         </Box>
         <Box className={classes.farmerdetails_boxcontainer}>
           <SelectSearch
-            className={classes.filterBtn}
+            className={"filter-btn"}
             search
             filterOptions={fuzzySearch}
             options={[{ name: "Select All" }, ...farmerGrp]}
             placeholder="Choose a size"
             onChange={setFarmerGrpId}
+            printOptions="always"
           />
           <Workbook
             filename="Farmers.xlsx"

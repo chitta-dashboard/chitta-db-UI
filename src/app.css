@@ -1,0 +1,13 @@
+.filter-btn {
+  height: 2rem;
+  margin-right: 1rem;
+  text-decoration: none;
+  z-index: 10;
+}
+.filter-btn input {
+  /* color: red; */
+}
+
+.filter-btn__select {
+  min-width: 300px;
+}
