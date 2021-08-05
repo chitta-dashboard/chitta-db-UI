@@ -4,10 +4,32 @@
   text-decoration: none;
   z-index: 10;
 }
-.filter-btn input {
-  /* color: red; */
-}
-
 .filter-btn__select {
-  min-width: 300px;
+  background-color: #f3f6f9;
+  min-width: 250px;
+  height: 50vh;
+  overflow: auto;
+  border-radius: 5px;
+}
+.filter-btn__options {
+  padding: 0;
+  list-style-type: none;
+}
+.filter-btn__option {
+  border: none;
+  background-color: inherit;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem;
+}
+.filter-btn__option:hover {
+  background-color: #085c49;
+  color: white;
+}
+.filter-btn input {
+  padding: 0rem 0.6rem;
+  height: 2rem;
+  width: 15rem;
+  border-radius: 5px;
+  border: none;
 }

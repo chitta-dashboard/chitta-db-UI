@@ -222,7 +222,7 @@ const FarmerList = (props) => {
                 );
               })}
           </TableBody>
-          <TableFooter>
+          {/* <TableFooter>
             <TableRow>
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
@@ -239,7 +239,7 @@ const FarmerList = (props) => {
                 // ActionsComponent={TablePaginationActions}
               />
             </TableRow>
-          </TableFooter>
+          </TableFooter> */}
         </Table>
         <div className={classes.no_data}>
           {!FormData.length && <NoRecordsFound />}
