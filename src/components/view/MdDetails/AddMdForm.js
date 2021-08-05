@@ -18,11 +18,16 @@ const AddMd = () => {
   const dob = useRef("");
   const qualification = useRef("");
   const [mdPhoto, setMdPhoto] = useState(null);
+  const [mdSign, setSignPhoto] = useState(null);
   const history = useHistory();
 
   const _onProfilePicChange = (e) => {
     const file = e.target.files[0];
     setMdPhoto(file);
+  };
+  const _onSignPicChange = (e) => {
+    const file = e.target.files[0];
+    setSignPhoto(file);
   };
 
   const postMdData = (e) => {
@@ -37,13 +42,19 @@ const AddMd = () => {
     postMd(params)
       .then((res) => {
         console.log(res);
-        if (mdPhoto) {
+        if (mdPhoto && mdSign) {
           console.log(res.id);
           uploadFile({
             ref: "md",
             refId: res.id,
             field: "picture",
             files: mdPhoto,
+          })
+          uploadFile({
+            ref: "md",
+            refId: res.id,
+            field: "signature",
+            files: mdSign,
           }).then((data) => {
             customToast("success", "Form submitted successfully.");
             history.push("/mddetails");
@@ -116,6 +127,20 @@ const AddMd = () => {
                   backgroundColor: "#131e2f0d",
                 }}
                 onChange={_onProfilePicChange}
+              />
+            </Grid>
+            <Grid className={classes.forminput_container} item xs={12}>
+              <input
+                className="farmer-input tamil"
+                type="file"
+                accept="image/*"
+                autoComplete="off"
+                style={{
+                  padding: "1rem",
+                  color: "#111B2B",
+                  backgroundColor: "#131e2f0d",
+                }}
+                onChange={_onSignPicChange}
               />
             </Grid>
             <Grid item xs={4}>
