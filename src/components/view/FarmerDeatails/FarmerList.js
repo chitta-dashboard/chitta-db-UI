@@ -19,6 +19,8 @@ import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import AddIcon from "@material-ui/icons/Add";
 import searchLogo from "../../../assets/images/search.svg";
 import SelectSearch, { fuzzySearch } from "react-select-search";
+import { TableFooter } from "@material-ui/core";
+import TablePagination from "@material-ui/core/TablePagination";
 import axios from "axios";
 
 const FarmerList = (props) => {
@@ -36,7 +38,7 @@ const FarmerList = (props) => {
       .then((res) =>
         res.data.map((data) => ({
           name: data.groupName,
-          value: data.id,
+          value: data.groupName,
         }))
       )
       .then((res) => setFarmerGrp(res))
@@ -53,8 +55,7 @@ const FarmerList = (props) => {
           searchWord(e.phoneNumber, searchValue)
         );
       });
-
-    setFilteredList(filteredList);
+    else setFilteredList(filteredList);
   }, [searchValue, farmersData]);
 
   const customisedData = farmersData.map((item) => {
@@ -77,8 +78,10 @@ const FarmerList = (props) => {
       setDisableBtn(false);
     }
   }, [FormData]);
-  console.log(farmerGrpId);
-  getFarmers(farmerGrpId);
+  useEffect(() => {
+    getFarmers(farmerGrpId);
+    console.log(farmerGrpId);
+  }, [farmerGrpId]);
 
   return (
     <>
@@ -93,7 +96,7 @@ const FarmerList = (props) => {
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
             />
-            <img src={searchLogo} className={classes.searchIcon} />
+            <img src={searchLogo} alt="logo" className={classes.searchIcon} />
           </div>
         </Box>
         <Box className={classes.farmerdetails_boxcontainer}>
@@ -101,7 +104,7 @@ const FarmerList = (props) => {
             className={classes.filterBtn}
             search
             filterOptions={fuzzySearch}
-            options={farmerGrp}
+            options={[{ name: "Select All" }, ...farmerGrp]}
             placeholder="Choose a size"
             onChange={setFarmerGrpId}
           />
@@ -203,6 +206,24 @@ const FarmerList = (props) => {
               );
             })}
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                colSpan={3}
+                // count={rows.length}
+                // rowsPerPage={rowsPerPage}
+                // page={page}
+                SelectProps={{
+                  inputProps: { "aria-label": "rows per page" },
+                  native: true,
+                }}
+                // onPageChange={handleChangePage}
+                // onRowsPerPageChange={handleChangeRowsPerPage}
+                // ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
         </Table>
         <div className={classes.no_data}>
           {!FormData.length && <NoRecordsFound />}
