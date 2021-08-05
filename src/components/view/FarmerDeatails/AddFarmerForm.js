@@ -262,7 +262,7 @@ const AddFarmerForm = () => {
                   return (
                     <option
                       key={farmerGroup.id}
-                      value={farmerGroup.id}
+                      value={farmerGroup.groupName}
                       className={classes.drpdown}
                     >
                       {farmerGroup.groupName}

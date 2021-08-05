@@ -26,6 +26,7 @@ const FarmerList = (props) => {
   const [searchValue, setSearchValue] = useState("");
   const [filteredList, setFilteredList] = useState([]);
   const [disableBtn, setDisableBtn] = useState(true);
+  const [farmerList, setFarmerList] = useState();
 
   useEffect(() => {
     let filteredList = [];
@@ -52,16 +53,18 @@ const FarmerList = (props) => {
     };
   });
 
-  const FormData = filteredList.length
-    ? filteredList
-    : !searchValue.length
-    ? farmersData
-    : [];
   useEffect(() => {
+    const FormData = filteredList.length
+      ? filteredList
+      : !searchValue.length
+      ? farmersData
+      : [];
+    setFarmerList(FormData);
     if (FormData.length > 0) {
       setDisableBtn(false);
     }
-  }, [FormData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filteredList, farmersData, searchValue]);
 
   return (
     <>
@@ -129,54 +132,57 @@ const FarmerList = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {FormData.map((farmer) => {
-              return (
-                <TableRow
-                  role="checkbox"
-                  tabIndex={-1}
-                  key={farmer.id}
-                  className={classes.tab_row}
-                  onClick={() =>
-                    props.history.push(`farmersdetails/${farmer.id}`)
-                  }
-                >
-                  <TableCell padding="none" className={classes.icontab_cell}>
-                    <img
-                      alt=""
-                      src={
-                        farmer.userImg?.url
-                          ? `${config.app.APP_API_URL}${farmer.userImg.url}`
-                          : farmer.gender === "male"
-                          ? require("../../../assets/images/male.svg").default
-                          : require("../../../assets/images/female.svg").default
-                      }
-                      className={classes.tab_user_logo}
-                    />
-                  </TableCell>
-                  <TableCell
-                    className={classes.tab_cell}
-                    style={{ color: "#464E5F" }}
+            {farmerList &&
+              farmerList.map((farmer) => {
+                return (
+                  <TableRow
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={farmer.id}
+                    className={classes.tab_row}
+                    onClick={() =>
+                      props.history.push(`farmersdetails/${farmer.id}`)
+                    }
                   >
-                    {farmer.name}
-                  </TableCell>
-                  <TableCell className={classes.tab_cell}>
-                    {farmer.farmer_group.groupName}
-                  </TableCell>
-                  <TableCell className={classes.tab_cell}>
-                    {farmer.phoneNumber}
-                  </TableCell>
-                  <TableCell className={classes.tab_cell}>
-                    {farmer.acre}
-                  </TableCell>
-                  <TableCell className={classes.tab_cell}>
-                    {farmer.village}
-                  </TableCell>
-                  <TableCell className={classes.tab_cell}>
-                    {farmer.district}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+                    <TableCell padding="none" className={classes.icontab_cell}>
+                      <img
+                        alt=""
+                        src={
+                          farmer.userImg?.url
+                            ? `${config.app.APP_API_URL}${farmer.userImg.url}`
+                            : farmer.gender === "male"
+                            ? require("../../../assets/images/male.svg").default
+                            : require("../../../assets/images/female.svg")
+                                .default
+                        }
+                        className={classes.tab_user_logo}
+                      />
+                    </TableCell>
+                    <TableCell
+                      className={classes.tab_cell}
+                      style={{ color: "#464E5F" }}
+                    >
+                      {farmer.name}
+                    </TableCell>
+                    <TableCell className={classes.tab_cell}>
+                      {/* {farmer?.farmer_group?.groupName} */}
+                      {farmer?.farmerGroup}
+                    </TableCell>
+                    <TableCell className={classes.tab_cell}>
+                      {farmer.phoneNumber}
+                    </TableCell>
+                    <TableCell className={classes.tab_cell}>
+                      {farmer.acre}
+                    </TableCell>
+                    <TableCell className={classes.tab_cell}>
+                      {farmer.village}
+                    </TableCell>
+                    <TableCell className={classes.tab_cell}>
+                      {farmer.district}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
           </TableBody>
         </Table>
         <div className={classes.no_data}>

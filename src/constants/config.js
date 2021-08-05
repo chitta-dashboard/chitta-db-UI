@@ -17,8 +17,8 @@ export const getMD = () => {
 
 export const getFarmers = (filter) => {
   let qs = filter
-    ? `?_sort=farmer_group:ASC,name:ASC&farmer_group=${filter}`
-    : "?_sort=farmer_group:ASC,name:ASC";
+    ? `?_limit=350&_sort=farmer_group:ASC,name:ASC&farmer_group=${filter}`
+    : "?_limit=350&_sort=farmer_group:ASC,name:ASC";
   return httpClient.get(`farmers${qs}`);
 };
 
