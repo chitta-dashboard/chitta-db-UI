@@ -232,9 +232,9 @@ export const useStyles = makeStyles((theme) => ({
     height: "1.3rem",
     width: "1.3rem",
     position: "relative",
-    top: "0.4rem",
-    left: "-3.5rem",
-    zIndex: "11",
+    top: "0.6rem",
+    left: "-2rem",
+    zIndex: "10",
     "&:hover": {
       cursor: "pointer",
     },

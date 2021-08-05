@@ -36,6 +36,7 @@ const FarmerList = (props) => {
   const [filteredList, setFilteredList] = useState([]);
   const [disableBtn, setDisableBtn] = useState(true);
   const [farmerList, setFarmerList] = useState();
+  const [closeIcon, setCloseIcon] = useState(false);
 
   const [farmerGrp, setFarmerGrp] = useState([]);
   const [farmerGrpId, setFarmerGrpId] = useState("");
@@ -120,7 +121,9 @@ const FarmerList = (props) => {
       });
       console.log(updated);
       setFarmerList(updated);
+      setCloseIcon(true);
     } else {
+      setFarmerList(farmersData);
     }
   }, [farmerGrpId, filteredList, farmersData, searchValue]);
   const handleChangePage = (event, newPage) => {
@@ -130,7 +133,10 @@ const FarmerList = (props) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const clearGrp = () => {};
+  const clearGrp = () => {
+    setFarmerGrpId("");
+    setCloseIcon(false);
+  };
 
   return (
     <>
@@ -158,9 +164,13 @@ const FarmerList = (props) => {
             onChange={setFarmerGrpId}
             // printOptions="always"
           />
-          <div onClick={clearGrp}>
-            <ClearIcon className={classes.closeIcon} />
-          </div>
+          {closeIcon ? (
+            <div onClick={clearGrp}>
+              <ClearIcon className={classes.closeIcon} />
+            </div>
+          ) : (
+            <div style={{ margin: "0.9rem" }}></div>
+          )}
           <Workbook
             filename="Farmers.xlsx"
             element={
