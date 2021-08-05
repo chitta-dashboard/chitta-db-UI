@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
-import axios from "axios";
 import FarmerList from "./FarmerList";
-import config, { getFarmers } from "../../../constants/config";
+import { getFarmers } from "../../../constants/config";
 import { useStyles } from "../../../assets/styles";
 
 const FarmersDetails = (props) => {
   const classes = useStyles();
   const [farmersData, setFarmersData] = useState([]);
-
+  const [filterGroup, setFilterGroup] = useState();
   useEffect(() => {
     getFarmers()
       .then((res) => {

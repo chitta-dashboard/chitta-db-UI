@@ -15,8 +15,11 @@ export const getMD = () => {
   return httpClient.get("mds");
 };
 
-export const getFarmers = () => {
-  return httpClient.get("farmers");
+export const getFarmers = (filter) => {
+  let qs = filter
+    ? `?_sort=farmer_group:ASC,name:ASC&farmer_group=${filter}`
+    : "?_sort=farmer_group:ASC,name:ASC";
+  return httpClient.get(`farmers${qs}`);
 };
 
 export const getFarmersGroup = () => {
