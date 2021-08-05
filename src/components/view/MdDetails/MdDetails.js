@@ -26,7 +26,6 @@ const MdDetails = () => {
     getMD()
       .then((res) => {
         setMdDetails(res);
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);
