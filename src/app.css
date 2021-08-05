@@ -30,6 +30,12 @@
   padding: 0rem 0.6rem;
   height: 2rem;
   width: 15rem;
-  border-radius: 5px;
+  border-radius: 15px;
   border: none;
+  background-color: rgba(0, 0, 0, 0.09);
+}
+.filter-btn input:hover,
+.filter-btn input:focus,
+.filter-btn input:active {
+  outline: 0;
 }

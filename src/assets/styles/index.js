@@ -228,13 +228,15 @@ export const useStyles = makeStyles((theme) => ({
   searchBox: {
     display: "flex",
   },
-  filterBtn: {
-    height: "2rem",
-    marginRight: "1rem",
-    textDecoration: "none",
-    zIndex: "10",
-    input: {
-      color: "red",
+  closeIcon: {
+    height: "1.3rem",
+    width: "1.3rem",
+    position: "relative",
+    top: "0.4rem",
+    left: "-3.5rem",
+    zIndex: "11",
+    "&:hover": {
+      cursor: "pointer",
     },
   },
 
