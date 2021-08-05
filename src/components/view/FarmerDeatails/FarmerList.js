@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from "react";
 import Table from "@material-ui/core/Table";
 import Workbook from "react-excel-workbook";
@@ -14,7 +15,11 @@ import {
   searchWord,
   FarmerDetailsList,
 } from "../../../constants";
-import config, { getFarmers, getFarmersGroup } from "../../../constants/config";
+import config, {
+  getFarmers,
+  getFarmersCount,
+  getFarmersGroup,
+} from "../../../constants/config";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import AddIcon from "@material-ui/icons/Add";
 import searchLogo from "../../../assets/images/search.svg";
@@ -26,8 +31,6 @@ import ClearIcon from "@material-ui/icons/Clear";
 import { TableFooter, TablePagination } from "@material-ui/core";
 
 const FarmerList = (props) => {
-  const { farmersData } = props;
-
   const classes = useStyles();
   const [searchValue, setSearchValue] = useState("");
   const [filteredList, setFilteredList] = useState([]);
@@ -36,9 +39,27 @@ const FarmerList = (props) => {
 
   const [farmerGrp, setFarmerGrp] = useState([]);
   const [farmerGrpId, setFarmerGrpId] = useState("");
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(15);
   const [page, setPage] = useState(1);
+  const [farmersData, setFarmersData] = useState([]);
+  const [filterGroup, setFilterGroup] = useState();
+  const [totalFarmers, setTotalFarmers] = useState("0");
   useEffect(() => {
+    let filter = {
+      farmerGroup: null,
+      start: page * rowsPerPage,
+      limit: rowsPerPage,
+    };
+    getFarmers(filter)
+      .then((res) => {
+        setFarmersData(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [page, rowsPerPage]);
+  useEffect(() => {
+    getFarmersCount().then((res) => setTotalFarmers(res));
     getFarmersGroup()
       .then((res) =>
         res.map((data) => ({
@@ -49,6 +70,7 @@ const FarmerList = (props) => {
       .then((res) => setFarmerGrp(res))
       .catch((err) => console.log(err));
   }, []);
+
   useEffect(() => {
     let filteredList = [];
 
@@ -72,9 +94,11 @@ const FarmerList = (props) => {
         item.surveyArray[0].survey_numbers.map((e) => e.surveyNo).join(),
     };
   });
+
   useEffect(() => {
     console.log((page + 1) * rowsPerPage);
   }, [page, rowsPerPage]);
+
   useEffect(() => {
     const FormData = filteredList.length
       ? filteredList
@@ -85,7 +109,6 @@ const FarmerList = (props) => {
     if (FormData.length > 0) {
       setDisableBtn(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filteredList, farmersData, searchValue]);
 
   useEffect(() => {
@@ -242,9 +265,9 @@ const FarmerList = (props) => {
           <TableFooter className={classes.t_Footer}>
             {/* <TableRow> */}
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+              rowsPerPageOptions={[15, 30, 100, { label: "All", value: -1 }]}
               colSpan={3}
-              count={farmerList?.length}
+              count={totalFarmers}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{

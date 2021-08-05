@@ -6,22 +6,11 @@ import { useStyles } from "../../../assets/styles";
 
 const FarmersDetails = (props) => {
   const classes = useStyles();
-  const [farmersData, setFarmersData] = useState([]);
-  const [filterGroup, setFilterGroup] = useState();
-  useEffect(() => {
-    getFarmers()
-      .then((res) => {
-        setFarmersData(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   return (
     <div className={classes.farmerdetails_root}>
       <Grid container spacing={3} className={classes.Detailscard_container}>
-        <FarmerList farmersData={farmersData} history={props.history} />
+        <FarmerList history={props.history} />
       </Grid>
     </div>
   );
