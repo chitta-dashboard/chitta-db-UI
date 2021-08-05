@@ -134,8 +134,8 @@ const FarmerList = (props) => {
     setPage(0);
   };
   const clearGrp = () => {
-    setFarmerGrpId("");
     setCloseIcon(false);
+    setFarmerGrpId("");
   };
 
   return (
@@ -162,6 +162,7 @@ const FarmerList = (props) => {
             options={farmerGrp}
             placeholder="Choose a size"
             onChange={setFarmerGrpId}
+            value={farmerGrpId}
             // printOptions="always"
           />
           {closeIcon ? (
