@@ -34,6 +34,8 @@ const FarmerList = (props) => {
 
   const [farmerGrp, setFarmerGrp] = useState([]);
   const [farmerGrpId, setFarmerGrpId] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [page, setPage] = useState(1);
   useEffect(() => {
     getFarmersGroup()
       .then((res) =>
@@ -68,7 +70,9 @@ const FarmerList = (props) => {
         item.surveyArray[0].survey_numbers.map((e) => e.surveyNo).join(),
     };
   });
-
+  useEffect(() => {
+    console.log((page + 1) * rowsPerPage);
+  }, [page, rowsPerPage]);
   useEffect(() => {
     const FormData = filteredList.length
       ? filteredList
@@ -94,7 +98,13 @@ const FarmerList = (props) => {
     } else {
     }
   }, [farmerGrpId, filteredList, farmersData, searchValue]);
-
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
   return (
     <>
       <Box className={classes.farmerdetails_subheader} xs={12}>
@@ -119,7 +129,7 @@ const FarmerList = (props) => {
             options={[{ name: "Select All" }, ...farmerGrp]}
             placeholder="Choose a size"
             onChange={setFarmerGrpId}
-            printOptions="always"
+            // printOptions="always"
           />
           <Workbook
             filename="Farmers.xlsx"
@@ -222,23 +232,23 @@ const FarmerList = (props) => {
                 );
               })}
           </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                colSpan={3}
-                // count={rows.length}
-                // rowsPerPage={rowsPerPage}
-                // page={page}
-                SelectProps={{
-                  inputProps: { "aria-label": "rows per page" },
-                  native: true,
-                }}
-                // onPageChange={handleChangePage}
-                // onRowsPerPageChange={handleChangeRowsPerPage}
-                // ActionsComponent={TablePaginationActions}
-              />
-            </TableRow>
+          <TableFooter className={classes.t_Footer}>
+            {/* <TableRow> */}
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+              colSpan={3}
+              count={farmerList?.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              SelectProps={{
+                inputProps: { "aria-label": "rows per page" },
+                native: true,
+              }}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              // ActionsComponent={TablePaginationActions}
+            />
+            {/* </TableRow> */}
           </TableFooter>
         </Table>
         <div className={classes.no_data}>

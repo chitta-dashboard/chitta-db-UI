@@ -659,6 +659,14 @@ export const useStyles = makeStyles((theme) => ({
       gridTemplateColumns: "1fr",
     },
   },
+  t_Footer: {
+    position: "absolute",
+    bottom: "0",
+    width: "100%",
+    background: "white",
+    display: "flex !important",
+    justifyContent: "flex-end",
+  },
   footercontent: {
     display: "flex",
   },

@@ -136,7 +136,7 @@ export const FarmerDetailsList = [
   {
     id: "8",
     key: "சர்வே எண் ",
-    name: "surveyArray",
+    name: "surveyNo",
   },
   {
     id: "9",
