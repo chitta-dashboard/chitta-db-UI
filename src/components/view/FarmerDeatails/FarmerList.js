@@ -14,11 +14,12 @@ import {
   searchWord,
   FarmerDetailsList,
 } from "../../../constants";
-import config from "../../../constants/config";
+import config, { getFarmers } from "../../../constants/config";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import AddIcon from "@material-ui/icons/Add";
 import searchLogo from "../../../assets/images/search.svg";
 import SelectSearch, { fuzzySearch } from "react-select-search";
+import axios from "axios";
 
 const FarmerList = (props) => {
   const { farmersData } = props;
@@ -27,7 +28,20 @@ const FarmerList = (props) => {
   const [searchValue, setSearchValue] = useState("");
   const [filteredList, setFilteredList] = useState([]);
   const [disableBtn, setDisableBtn] = useState(true);
-
+  const [farmerGrp, setFarmerGrp] = useState([]);
+  const [farmerGrpId, setFarmerGrpId] = useState("");
+  useEffect(() => {
+    axios
+      .get("https://citta-db-strapi.herokuapp.com/farmer-groups")
+      .then((res) =>
+        res.data.map((data) => ({
+          name: data.groupName,
+          value: data.id,
+        }))
+      )
+      .then((res) => setFarmerGrp(res))
+      .catch((err) => console.log(err));
+  }, []);
   useEffect(() => {
     let filteredList = [];
 
@@ -63,6 +77,8 @@ const FarmerList = (props) => {
       setDisableBtn(false);
     }
   }, [FormData]);
+  console.log(farmerGrpId);
+  getFarmers(farmerGrpId);
 
   return (
     <>
@@ -85,12 +101,9 @@ const FarmerList = (props) => {
             className={classes.filterBtn}
             search
             filterOptions={fuzzySearch}
-            options={[
-              { value: "s", name: "Small" },
-              { value: "m", name: "Medium" },
-              { value: "l", name: "Large" },
-            ]}
+            options={farmerGrp}
             placeholder="Choose a size"
+            onChange={setFarmerGrpId}
           />
           <Workbook
             filename="Farmers.xlsx"
@@ -172,7 +185,7 @@ const FarmerList = (props) => {
                     {farmer.name}
                   </TableCell>
                   <TableCell className={classes.tab_cell}>
-                    {farmer.farmer_group.groupName}
+                    {farmer.farmerGroup}
                   </TableCell>
                   <TableCell className={classes.tab_cell}>
                     {farmer.phoneNumber}

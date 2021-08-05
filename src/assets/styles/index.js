@@ -231,6 +231,7 @@ export const useStyles = makeStyles((theme) => ({
   filterBtn: {
     height: "2rem",
     marginRight: "1rem",
+    textDecoration: "none",
   },
 
   addDetails_btn: {
