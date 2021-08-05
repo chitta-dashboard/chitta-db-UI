@@ -1,7 +1,5 @@
 .filter-btn {
-  height: 2rem;
-  margin-right: 1rem;
-  text-decoration: none;
+  height: 2.5rem;
   z-index: 10;
 }
 .filter-btn__select {
@@ -27,10 +25,10 @@
   color: white;
 }
 .filter-btn input {
-  padding: 0rem 0.6rem;
-  height: 2rem;
+  padding: 0rem 1rem;
+  height: 2.5rem;
   width: 15rem;
-  border-radius: 15px;
+  border-radius: 20px;
   border: none;
   background-color: rgba(0, 0, 0, 0.09);
 }
