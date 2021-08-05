@@ -93,9 +93,12 @@ const FarmerList = (props) => {
       console.log(updated);
       setFarmerList(updated);
     } else {
+      setFarmerList(farmersData);
     }
   }, [farmerGrpId, filteredList, farmersData, searchValue]);
-  const clearGrp = () => {};
+  const clearGrp = () => {
+    setFarmerGrpId("");
+  };
 
   return (
     <>
@@ -121,7 +124,7 @@ const FarmerList = (props) => {
             options={farmerGrp}
             placeholder="Choose a size"
             onChange={setFarmerGrpId}
-            printOptions="always"
+            // printOptions="always"
           />
           <div onClick={clearGrp}>
             <ClearIcon className={classes.closeIcon} />
