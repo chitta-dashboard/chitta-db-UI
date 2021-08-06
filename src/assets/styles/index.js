@@ -298,6 +298,7 @@ export const useStyles = makeStyles((theme) => ({
   tab_container: {
     margin: "1.5rem 1.5rem 0rem 1.5rem",
     padding: "1rem",
+    paddingBottom: "3rem",
     height: "80vh",
     backgroundColor: colors.bg1,
     borderRadius: "20px",

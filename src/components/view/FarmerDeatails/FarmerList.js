@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Table from "@material-ui/core/Table";
 import Workbook from "react-excel-workbook";
 import TableBody from "@material-ui/core/TableBody";
@@ -15,11 +15,7 @@ import {
   searchWord,
   FarmerDetailsList,
 } from "../../../constants";
-import config, {
-  getFarmers,
-  getFarmersCount,
-  getFarmersGroup,
-} from "../../../constants/config";
+import config, { getFarmers, getFarmersGroup } from "../../../constants/config";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import AddIcon from "@material-ui/icons/Add";
 import searchLogo from "../../../assets/images/search.svg";
@@ -43,8 +39,6 @@ const FarmerList = (props) => {
   const [rowsPerPage, setRowsPerPage] = useState(15);
   const [page, setPage] = useState(1);
   const [farmersData, setFarmersData] = useState([]);
-  const [filterGroup, setFilterGroup] = useState();
-  const [totalFarmers, setTotalFarmers] = useState("0");
   const [pagedFarmer, setPagedFarmer] = useState([]);
   useEffect(() => {
     // let filter = {
@@ -62,7 +56,6 @@ const FarmerList = (props) => {
   }, []);
   useEffect(() => {});
   useEffect(() => {
-    getFarmersCount().then((res) => setTotalFarmers(res));
     getFarmersGroup()
       .then((res) =>
         res.map((data) => ({
