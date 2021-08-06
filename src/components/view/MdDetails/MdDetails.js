@@ -66,7 +66,6 @@ const MdDetails = () => {
               <TableCell className={classes.tab_headercell}>
                 கைபேசி எண்
               </TableCell>
-              <TableCell className={classes.tab_headercell}>விளக்கம்</TableCell>
               <TableCell className={classes.tab_headercell}>தகுதி</TableCell>
               <TableCell className={classes.tab_headercell}>
                 கையொப்பம்
@@ -99,9 +98,6 @@ const MdDetails = () => {
                   </TableCell>
                   <TableCell className={classes.tab_cell}>
                     {data.phoneNumber}
-                  </TableCell>
-                  <TableCell className={classes.tab_cell}>
-                    {data.description ? data.description : ""}
                   </TableCell>
                   <TableCell className={classes.tab_cell}>
                     {data.qualification ? data.qualification : ""}
