@@ -119,6 +119,7 @@ const FarmerList = (props) => {
 
   useEffect(() => {
     if (farmerGrpId !== "") {
+      setPage(0);
       let updated = farmerList.filter((item) => {
         return item.farmerGroup === farmerGrpId;
       });
@@ -281,7 +282,7 @@ const FarmerList = (props) => {
             <TablePagination
               rowsPerPageOptions={[15, 30, 100, { label: "All", value: -1 }]}
               colSpan={3}
-              count={totalFarmers}
+              count={farmerList?.length}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{
