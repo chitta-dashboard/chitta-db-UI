@@ -49,6 +49,10 @@ export const postCeo = (params) => {
   return httpClient.post("ceos", params);
 };
 
+export const putCeo = (id,params) => {
+  return httpClient.put(`ceos/${id}`,params);
+};
+
 export const postFarmerGroup = (params) => {
   return httpClient.post("farmer-groups", params);
 };
@@ -76,27 +80,27 @@ export const uploadFile = (data) => {
   });
 };
 
-// export const updateFile = (data) => {
-//   const formData = new FormData();
-//   formData.append("ref", data.ref);
-//   formData.append("refId", data.refId);
-//   formData.append("field", data.field);
-//   formData.append("files", data.files);
+export const updateFile = (data) => {
+  const formData = new FormData();
+  formData.append("ref", data.ref);
+  formData.append("refId", data.refId);
+  formData.append("field", data.field);
+  formData.append("files", data.files);
 
-//   if (data.source) {
-//     formData.append("source", data.source);
-//   }
+  if (data.source) {
+    formData.append("source", data.source);
+  }
 
-//   return axios(`${appData.app.APP_API_URL}/upload`, {
-//     method: "PUT",
-//     url: ``,
-//     data: formData,
-//     headers: {
-//       "Content-Type": "multipart/form-data",
-//     },
-//   }).then(({ data }) => {
-//     return data;
-//   });
-// };
+  return axios(`${appData.app.APP_API_URL}/upload`, {
+    method: "PUT",
+    url: ``,
+    data: formData,
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  }).then(({ data }) => {
+    return data;
+  });
+};
 
 export default appData;

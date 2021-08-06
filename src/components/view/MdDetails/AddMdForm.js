@@ -4,7 +4,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
-import { postMd, putMd } from "../../../constants/config";
+import { postMd, putMd, updateFile } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router";
 import { colors } from "../../../theme";
@@ -63,13 +63,13 @@ const AddMd = (Props) => {
           console.log(res.id);
           uploadFile({
             ref: "md",
-            refId: res.id,
+            refId: mdData.id ? res.data.id : res.id,
             field: "picture",
             files: mdPhoto,
           });
           uploadFile({
             ref: "md",
-            refId: res.id,
+            refId: mdData.id ? res.data.id : res.id,
             field: "signature",
             files: mdSign,
           }).then((data) => {
@@ -85,8 +85,9 @@ const AddMd = (Props) => {
   };
 
   console.log(mdData);
+  console.log("mdPHoto", mdPhoto);
   return (
-    <div className={classes.form}>
+    <div>
       <form>
         <Grid className={classes.form_container} container spacing={3}>
           <Grid className={classes.adddetails_header} item xs={12}>
