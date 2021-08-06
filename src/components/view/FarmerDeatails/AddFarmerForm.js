@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import SurveyInput from "./SurveyInput";
 import { customToast } from "../../widgets/Toast";
-import { uuid } from "../../../constants";
+// import { uuid } from "../../../constants";
 import config, { uploadFile } from "../../../constants/config";
 import { colors } from "../../../theme";
 
@@ -39,9 +39,6 @@ const AddFarmerForm = () => {
   const circle = useRef("");
   const district = useRef("");
   const pincode = useRef("");
-  // const landType = useRef("");
-  // const irrigationType = useRef("");
-  // const farmerType = useRef("");
   const cropType = useRef("");
   const cattle = useRef("");
   const [formValue, setFormValue] = useState(initialFormValue);
@@ -103,6 +100,7 @@ const AddFarmerForm = () => {
   //         [uuid()]: { id: "", value: "" },
   //       },
   //     });
+  //   console.log(addRow);
 
   //   isExistSurveyNumber(surveyUuid, addRow);
   // };
@@ -113,19 +111,19 @@ const AddFarmerForm = () => {
   //   setFormValue({ ...formValue, surveyNoList: surveyList });
   // };
 
-  const handleActions = (isAddable, id, e) => {
-    e.preventDefault();
-    console.log(id);
-    console.log(e);
-    // if (isAddable) handleAddSurveyNumber(id);
-    // else handleRemoveSurveyNumber(id);
-    console.log(isAddable);
-    if (isAddable) {
-      //addrow
-    } else {
-      //remmove row
-    }
-  };
+  // const handleActions = (isAddable, id, e) => {
+  //   e.preventDefault();
+  //   console.log(id);
+  //   console.log(e);
+  //   if (isAddable) handleAddSurveyNumber(id);
+  //   else handleRemoveSurveyNumber(id);
+  //   console.log(isAddable);
+  //   if (isAddable) {
+
+  //   } else {
+
+  //   }
+  // };
 
   const postFarmerData = (e) => {
     e.preventDefault();
@@ -342,7 +340,7 @@ const AddFarmerForm = () => {
             container
             spacing={3}
           >
-            {Object.keys(formValue.surveyNoList).map((id, i) => {
+            {/* {Object.keys(formValue.surveyNoList).map((id, i) => {
               const numberList = formValue.surveyNoList;
               const isAddable = Object.keys(numberList).length === i + 1;
 
@@ -351,12 +349,13 @@ const AddFarmerForm = () => {
                   key={`${id}_${i}`}
                   id={id}
                   isAddable={isAddable}
-                  // value={numberList[id].value}
-                  // handleChange={(id, e) => handleSurveyChange(id, e)}
+                  value={numberList[id].value}
+                  handleChange={(id, e) => handleSurveyChange(id, e)}
                   handleActions={(e) => handleActions(isAddable, id, e)}
                 />
               );
-            })}
+            })} */}
+            <SurveyInput />
           </Grid>
           <Grid className={classes.forminput_container} item xs={12}>
             <input

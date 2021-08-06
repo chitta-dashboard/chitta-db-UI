@@ -49,7 +49,7 @@ const AddMd = () => {
             refId: res.id,
             field: "picture",
             files: mdPhoto,
-          })
+          });
           uploadFile({
             ref: "md",
             refId: res.id,
@@ -57,8 +57,11 @@ const AddMd = () => {
             files: mdSign,
           }).then((data) => {
             customToast("success", "Form submitted successfully.");
-            history.push("/mddetails");
+            history.goBack();
           });
+        } else {
+          customToast("success", "Form submitted successfully.");
+          history.goBack();
         }
       })
       .catch((err) => customToast("error", err.message));

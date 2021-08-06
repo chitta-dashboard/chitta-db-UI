@@ -214,6 +214,7 @@ export const useStyles = makeStyles((theme) => ({
   farmerdetails_boxcontainer: {
     display: "flex",
     justifyContent: "flex-end",
+    alignItems: "center",
   },
 
   farmerdetails_searchcontainer: {

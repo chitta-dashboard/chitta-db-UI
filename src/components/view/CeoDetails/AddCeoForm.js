@@ -49,7 +49,7 @@ const AddCeo = () => {
             refId: res.id,
             field: "picture",
             files: ceoPhoto,
-          })
+          });
           uploadFile({
             ref: "ceo",
             refId: res.id,
@@ -57,8 +57,11 @@ const AddCeo = () => {
             files: ceoSign,
           }).then((data) => {
             customToast("success", "Form submitted successfully.");
-            history.push("/ceodetails");
+            history.goBack();
           });
+        } else {
+          customToast("success", "Form submitted successfully.");
+          history.goBack();
         }
       })
       .catch((err) => customToast("error", err.message));

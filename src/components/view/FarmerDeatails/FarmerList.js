@@ -160,7 +160,7 @@ const FarmerList = (props) => {
             search
             filterOptions={fuzzySearch}
             options={farmerGrp}
-            placeholder="Choose a size"
+            placeholder="Select a group"
             onChange={setFarmerGrpId}
             value={farmerGrpId}
             // printOptions="always"
