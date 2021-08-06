@@ -20,9 +20,6 @@ import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import AddIcon from "@material-ui/icons/Add";
 import searchLogo from "../../../assets/images/search.svg";
 import SelectSearch, { fuzzySearch } from "react-select-search";
-// import { TableFooter } from "@material-ui/core";
-// import TablePagination from "@material-ui/core/TablePagination";
-// import axios from "axios";
 import ClearIcon from "@material-ui/icons/Clear";
 import { TableFooter, TablePagination } from "@material-ui/core";
 

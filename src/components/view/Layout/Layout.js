@@ -124,7 +124,7 @@ const Layout = () => {
               Nerkathir Farmer Producer Company Limited
             </h2>
             <div className={classes.HeaderSub}>
-              <p>Reg No:139086 |&nbsp;</p>
+              <p>Reg No:139086</p>
               <p>CIN:UO1409TN2020PTC139086</p>
             </div>
           </div>
@@ -198,6 +198,7 @@ const Layout = () => {
               path="/farmersdetails/:id"
               component={FarmerDeatilForm}
             />
+            <Route exact path="/editMd/:id" component={AddMd} />
             <Route path="/addMd" component={AddMd} />
             <Route path="/addCeo" component={AddCeo} />
             <Route path="/editCeo/:id" component={AddCeo} />
