@@ -123,6 +123,10 @@ const Layout = () => {
             <h2 className={classes.HeaderTitle}>
               Nerkathir Farmer Producer Company Limited
             </h2>
+            <div className={classes.HeaderSub}>
+              <p>Reg No:139086 |&nbsp;</p>
+              <p>CIN:UO1409TN2020PTC139086</p>
+            </div>
           </div>
           <List className={classes.SidebarList}>
             <div>

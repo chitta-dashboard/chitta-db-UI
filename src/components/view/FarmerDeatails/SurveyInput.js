@@ -3,9 +3,7 @@ import Grid from "@material-ui/core/Grid";
 
 const SurveyInput = (props) => {
   // const { id, value, isAddable, handleChange, handleActions } = props;
-  const handler = (event) => {
-    event.preventDefault();
-  };
+  const { isAddable } = props;
 
   return (
     <Fragment>
@@ -20,9 +18,9 @@ const SurveyInput = (props) => {
         />
         <button
           className="farmer-input"
-          onClick={handler}
           // disabled={value === null || value === ""}
           // onClick={(e) => handleActions(e)}
+          onClick={isAddable}
           style={{
             width: "8%",
             minWidth: "80px",
@@ -32,6 +30,7 @@ const SurveyInput = (props) => {
           }}
         >
           {/* <h2 style={{ margin: 0 }}>{isAddable ? "+" : "-"}</h2> */}
+          <h2 style={{ margin: 0 }}>+</h2>
         </button>
       </Grid>
     </Fragment>
