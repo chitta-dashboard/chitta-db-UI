@@ -72,4 +72,8 @@ export const uploadFile = (data) => {
   });
 };
 
+export const putCeo = (id,params) => {
+  return httpClient.put(`ceos/${id}`,params);
+};
+
 export default appData;

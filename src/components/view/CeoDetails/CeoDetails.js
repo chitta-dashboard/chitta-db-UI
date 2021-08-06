@@ -16,7 +16,7 @@ import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import config from "../../../constants/config";
 
-const CeoDetails = () => {
+const CeoDetails = (props) => {
   const classes = useStyles();
   const [ceoDetails, setCeoDetails] = useState([]);
   useEffect(() => {
@@ -80,6 +80,9 @@ const CeoDetails = () => {
                   role="checkbox"
                   tabIndex={-1}
                   className={classes.tab_row}
+                  onClick={() =>
+                    props.history.push(`editCeo/${data.id}`)
+                  }
                 >
                   <TableCell padding="none" className={classes.icontab_cell}>
                     <img
@@ -115,6 +118,7 @@ const CeoDetails = () => {
                     />
                   </TableCell>
                 </TableRow>
+                
               );
             })}
           </TableBody>

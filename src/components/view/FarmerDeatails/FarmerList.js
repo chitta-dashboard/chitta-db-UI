@@ -221,13 +221,15 @@ const FarmerList = (props) => {
             {pagedFarmer &&
               pagedFarmer.map((farmer) => {
                 return (
+                  
                   <TableRow
                     role="checkbox"
                     tabIndex={-1}
                     key={farmer.id}
                     className={classes.tab_row}
                     onClick={() =>
-                      props.history.push(`farmersdetails/${farmer.id}`)
+                      props.history.push(`farmersdetails/${farmer.id}`
+                      )
                     }
                   >
                     <TableCell padding="none" className={classes.icontab_cell}>
