@@ -14,8 +14,9 @@ import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import config from "../../../constants/config";
 import tempSign from "../../../assets/images/default_sign.png";
+import { Grid } from "@material-ui/core";
 
-const MdDetails = () => {
+const MdDetails = (props) => {
   const classes = useStyles();
   const [mdDetails, setMdDetails] = useState([]);
 
@@ -38,91 +39,106 @@ const MdDetails = () => {
 
   return (
     <>
-      <Box className={classes.farmerdetails_subheader} xs={12}>
-        <Box className={classes.farmerdetails_searchcontainer}></Box>
-        <Box className={classes.farmerdetails_boxcontainer}>
-          {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
-          <Box>
-            <NavLink to="/addMd" className={classes.addDetails_link}>
-              <button className={classes.addDetails_btn}>
-                <AddIcon />
-                Add
-              </button>
-            </NavLink>
+      <div className={classes.farmerdetails_root}>
+        <Grid container spacing={3} className={classes.Detailscard_container}>
+          <Box className={classes.farmerdetails_subheader} xs={12}>
+            <Box className={classes.farmerdetails_searchcontainer}></Box>
+            <Box className={classes.farmerdetails_boxcontainer}>
+              {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
+              <Box>
+                <NavLink to="/addMd" className={classes.addDetails_link}>
+                  <button className={classes.addDetails_btn}>
+                    <AddIcon />
+                    Add
+                  </button>
+                </NavLink>
+              </Box>
+            </Box>
           </Box>
-        </Box>
-      </Box>
-      <TableContainer className={classes.tab_container}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              <TableCell className={classes.tab_headericoncell}>#</TableCell>
-              <TableCell
-                className={classes.tab_headercell}
-                style={{ color: "#464E5F" }}
-              >
-                பெயர்
-              </TableCell>
-              <TableCell className={classes.tab_headercell}>
-                கைபேசி எண்
-              </TableCell>
-              <TableCell className={classes.tab_headercell}>தகுதி</TableCell>
-              <TableCell className={classes.tab_headercell}>
-                கையொப்பம்
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {mdDetails.map((data) => {
-              return (
-                <TableRow
-                  role="checkbox"
-                  tabIndex={-1}
-                  className={classes.tab_row}
-                  key={data.id}
-                >
-                  <TableCell padding="none" className={classes.icontab_cell}>
-                    <img
-                      alt=""
-                      src={
-                        data?.picture[0]
-                          ? `${config.app.APP_API_URL}${data.picture[0].url}`
-                          : tempImg
-                      }
-                      onError={addDefaultSrc}
-                      className={classes.tab_user_logo}
-                    />
+          <TableContainer className={classes.tab_container}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  <TableCell className={classes.tab_headericoncell}>
+                    #
                   </TableCell>
-                  <TableCell className={classes.tab_cell}>
-                    {data.name}
+                  <TableCell
+                    className={classes.tab_headercell}
+                    style={{ color: "#464E5F" }}
+                  >
+                    பெயர்
                   </TableCell>
-                  <TableCell className={classes.tab_cell}>
-                    {data.phoneNumber}
+                  <TableCell className={classes.tab_headercell}>
+                    கைபேசி எண்
                   </TableCell>
-                  <TableCell className={classes.tab_cell}>
-                    {data.qualification ? data.qualification : ""}
+                  <TableCell className={classes.tab_headercell}>
+                    தகுதி
                   </TableCell>
-                  <TableCell padding="none" className={classes.icontab_cell}>
-                    <img
-                      alt=""
-                      src={
-                        data?.signature
-                          ? `${config.app.APP_API_URL}${data.signature.url}`
-                          : tempSign
-                      }
-                      onError={addDefaultSign}
-                      className={classes.tab_user_signature}
-                    />
+                  <TableCell className={classes.tab_headercell}>
+                    கையொப்பம்
                   </TableCell>
                 </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-        <div className={classes.no_data}>
-          {!mdDetails.length && <NoRecordsFound />}
-        </div>
-      </TableContainer>
+              </TableHead>
+              <TableBody>
+                {mdDetails.map((data) => {
+                  return (
+                    <TableRow
+                      role="checkbox"
+                      tabIndex={-1}
+                      className={classes.tab_row}
+                      key={data.id}
+                      onClick={() => props.history.push(`editMd/${data.id}`)}
+                    >
+                      <TableCell
+                        padding="none"
+                        className={classes.icontab_cell}
+                      >
+                        <img
+                          alt=""
+                          src={
+                            data?.picture
+                              ? `${config.app.APP_API_URL}${data.picture[0]?.url}`
+                              : tempImg
+                          }
+                          onError={addDefaultSrc}
+                          className={classes.tab_user_logo}
+                        />
+                      </TableCell>
+                      <TableCell className={classes.tab_cell}>
+                        {data.name}
+                      </TableCell>
+                      <TableCell className={classes.tab_cell}>
+                        {data.phoneNumber}
+                      </TableCell>
+                      <TableCell className={classes.tab_cell}>
+                        {data.qualification ? data.qualification : ""}
+                      </TableCell>
+                      <TableCell
+                        padding="none"
+                        className={classes.icontab_cell}
+                      >
+                        <img
+                          alt=""
+                          src={
+                            data?.signature
+                              ? `${config.app.APP_API_URL}${data.signature.url}`
+                              : tempSign
+                          }
+                          onError={addDefaultSign}
+                          className={classes.tab_user_signature}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+            <div className={classes.no_data}>
+              {!mdDetails.length && <NoRecordsFound />}
+            </div>
+          </TableContainer>
+        </Grid>
+      </div>
     </>
   );
 };

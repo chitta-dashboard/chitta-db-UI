@@ -198,6 +198,7 @@ const Layout = () => {
               path="/farmersdetails/:id"
               component={FarmerDeatilForm}
             />
+            <Route exact path="/editMd/:id" component={AddMd} />
             <Route path="/addMd" component={AddMd} />
             <Route path="/addCeo" component={AddCeo} />
             <Route path="/addFarmerGroup" component={AddFarmerGroup} />

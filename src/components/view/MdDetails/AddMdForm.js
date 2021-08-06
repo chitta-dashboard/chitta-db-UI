@@ -1,25 +1,43 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
-import { postMd } from "../../../constants/config";
+import { postMd, putMd } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router";
 import { colors } from "../../../theme";
 import { uploadFile } from "../../../constants/config";
+import axios from "axios";
+import config from "../../../constants/config";
+import MdDetails from "./MdDetails";
 
-const AddMd = () => {
+const AddMd = (Props) => {
   const classes = useStyles();
-  const mdName = useRef("");
-  const phoneNumber = useRef("");
-  const description = useRef("");
-  const dob = useRef("");
-  const qualification = useRef("");
   const [mdPhoto, setMdPhoto] = useState(null);
   const [mdSign, setSignPhoto] = useState(null);
+  const [mdData, setMdData] = useState({});
   const history = useHistory();
+  const { match } = Props;
+  const mdName = useRef(mdData.name);
+  const phoneNumber = useRef(mdData.phoneNumber);
+  const dob = useRef(mdData.DOB);
+  const qualification = useRef(mdData.qualification);
+
+  useEffect(() => {
+    if (match.params.id) {
+      axios
+        .get(`${config.app.APP_API_URL}/mds/${match.params.id}`)
+        .then((res) => {
+          if (res && res.status === 200) {
+            setMdData(res.data);
+            // setLoader(false);
+          }
+        })
+        .catch((err) => customToast("error", err.message));
+    }
+  }, [match.params.id]);
 
   const _onProfilePicChange = (e) => {
     const file = e.target.files[0];
@@ -35,11 +53,10 @@ const AddMd = () => {
     const params = {
       name: mdName.current.value,
       phoneNumber: phoneNumber.current.value,
-      description: description.current.value,
-      dob: dob.current.value,
+      DOB: dob.current.value,
       qualification: qualification.current.value,
     };
-    postMd(params)
+    (mdData.id ? putMd(params, mdData.id) : postMd(params))
       .then((res) => {
         console.log(res);
         if (mdPhoto && mdSign) {
@@ -67,8 +84,9 @@ const AddMd = () => {
       .catch((err) => customToast("error", err.message));
   };
 
+  console.log(mdData);
   return (
-    <div>
+    <div className={classes.form}>
       <form>
         <Grid className={classes.form_container} container spacing={3}>
           <Grid className={classes.adddetails_header} item xs={12}>
@@ -79,7 +97,7 @@ const AddMd = () => {
                 style={{ textDecoration: "none" }}
               >
                 <ChevronLeftIcon className={classes.iconbtn} />
-                Add MD Details
+                {!match.params.id ? "Add" : "Edit"} MD Details
               </Typography>
             </Link>
           </Grid>
@@ -93,6 +111,7 @@ const AddMd = () => {
                 className="farmer-input tamil"
                 type="text"
                 placeholder="name"
+                defaultValue={mdData?.name}
                 ref={mdName}
                 autoComplete="off"
               />
@@ -102,20 +121,9 @@ const AddMd = () => {
                 className="farmer-input tamil"
                 type="text"
                 placeholder="Phone number"
+                defaultValue={mdData?.phoneNumber}
                 ref={phoneNumber}
                 autoComplete="off"
-              />
-            </Grid>
-            <Grid className={classes.forminput_container} item xs={12}>
-              <textarea
-                className="farmer-input tamil"
-                placeholder="Description"
-                rows="4"
-                cols="50"
-                type="text"
-                autoComplete="off"
-                ref={description}
-                style={{ padding: "15px", height: "6rem" }}
               />
             </Grid>
             <Grid className={classes.forminput_container} item xs={12}>
@@ -152,6 +160,7 @@ const AddMd = () => {
                 type="date"
                 placeholder="பிறந்த தேதி"
                 autoComplete="off"
+                defaultValue={mdData.DOB}
                 ref={dob}
                 style={{ color: colors.text2 }}
               />
@@ -162,6 +171,7 @@ const AddMd = () => {
                 type="text"
                 placeholder="Qualification"
                 autoComplete="off"
+                defaultValue={mdData?.qualification}
                 ref={qualification}
               />
             </Grid>
