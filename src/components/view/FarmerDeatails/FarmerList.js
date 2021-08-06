@@ -297,7 +297,7 @@ const FarmerList = (props) => {
           </TableFooter>
         </Table>
         <div className={classes.no_data}>
-          {!FormData.length && <NoRecordsFound />}
+          {!pagedFarmer?.length && <NoRecordsFound />}
         </div>
       </TableContainer>
     </>

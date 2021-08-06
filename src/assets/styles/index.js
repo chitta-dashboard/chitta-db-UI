@@ -102,6 +102,11 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: "0.9rem",
     margin: 0,
   },
+  HeaderSub: {
+    color: "#36574C",
+    fontSize: "0.7rem",
+    fontWeight: "bold",
+  },
 
   SidebarList: {
     background: "#36574C",
@@ -133,7 +138,7 @@ export const useStyles = makeStyles((theme) => ({
 
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    // padding: theme.spacing(3),
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -173,6 +178,7 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   farmerdetails_subheader: {
+    padding: "2rem 1.5rem 0rem 1.5rem",
     height: "10vh",
     width: "100%",
     // marginBottom: "1rem",
@@ -290,9 +296,9 @@ export const useStyles = makeStyles((theme) => ({
 
   //table
   tab_container: {
+    margin: "1.5rem 1.5rem 0rem 1.5rem",
     padding: "1rem",
-    maxHeight: 440,
-    height: "65vh",
+    height: "80vh",
     backgroundColor: colors.bg1,
     borderRadius: "20px",
     // boxShadow: "1px 1px 7px 0px #3333334a",
@@ -649,8 +655,9 @@ export const useStyles = makeStyles((theme) => ({
     placeItems: "center",
   },
   footer: {
+    minHeight: "2rem",
     color: "#5A776E",
-    width: "calc(100% - 288px)",
+    width: "83%",
     fontSize: "0.8rem",
     bottom: "0",
     position: "fixed",
@@ -665,7 +672,7 @@ export const useStyles = makeStyles((theme) => ({
   t_Footer: {
     position: "absolute",
     bottom: "0",
-    width: "100%",
+    width: "93%",
     background: "white",
     display: "flex !important",
     justifyContent: "flex-end",

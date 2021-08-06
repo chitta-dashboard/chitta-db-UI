@@ -6,8 +6,8 @@ export default function Footer() {
   return (
     <div className={classes.footer}>
       <div className={classes.footercontent}>
-        <p>Reg No:139086 |&nbsp;</p>
-        <p>CIN:UO1409TN2020PTC139086</p>
+        {/* <p>Reg No:139086 |&nbsp;</p>
+        <p>CIN:UO1409TN2020PTC139086</p> */}
       </div>
       <div className={classes.footeractions}>
         <div className={classes.footeractions_list}>About </div>

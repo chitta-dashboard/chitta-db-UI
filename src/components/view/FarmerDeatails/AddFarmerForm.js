@@ -13,8 +13,9 @@ import config, { uploadFile } from "../../../constants/config";
 import { colors } from "../../../theme";
 
 const initialFormValue = {
-  surveyNoList: {
-    "38997518-1bdc-28b5-2781-98baec87ffcd": { id: "", value: "" },
+  surveyList: {
+    id: "",
+    string: "",
   },
   gender: "male",
   landType: "WETLAND",
@@ -45,6 +46,7 @@ const AddFarmerForm = () => {
   const [farmerPhoto, setFarmerPhoto] = useState(null);
   const [farmerGroups, setFarmerGroups] = useState([]);
   const [farmerGroupId, setFarmerGroupId] = useState();
+  const [surveyField, setSurveyField] = useState([]);
 
   useEffect(() => {
     axios
@@ -124,6 +126,11 @@ const AddFarmerForm = () => {
 
   //   }
   // };
+
+  const isAddable = (e) => {
+    e.preventDefault();
+    console.log("add a bar");
+  };
 
   const postFarmerData = (e) => {
     e.preventDefault();
@@ -355,7 +362,9 @@ const AddFarmerForm = () => {
                 />
               );
             })} */}
-            <SurveyInput />
+            {Object.keys(formValue.surveyList).map((id, i) => {
+              return <SurveyInput isAddable={isAddable} />;
+            })}
           </Grid>
           <Grid className={classes.forminput_container} item xs={12}>
             <input
