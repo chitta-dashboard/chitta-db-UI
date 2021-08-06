@@ -45,20 +45,22 @@ const FarmerList = (props) => {
   const [farmersData, setFarmersData] = useState([]);
   const [filterGroup, setFilterGroup] = useState();
   const [totalFarmers, setTotalFarmers] = useState("0");
+  const [pagedFarmer, setPagedFarmer] = useState([]);
   useEffect(() => {
-    let filter = {
-      farmerGroup: null,
-      start: page * rowsPerPage,
-      limit: rowsPerPage,
-    };
-    getFarmers(filter)
+    // let filter = {
+    //   farmerGroup: null,
+    //   start: page * rowsPerPage,
+    //   limit: rowsPerPage,
+    // };
+    getFarmers()
       .then((res) => {
         setFarmersData(res);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [page, rowsPerPage]);
+  }, []);
+  useEffect(() => {});
   useEffect(() => {
     getFarmersCount().then((res) => setTotalFarmers(res));
     getFarmersGroup()
@@ -97,8 +99,11 @@ const FarmerList = (props) => {
   });
 
   useEffect(() => {
-    console.log((page + 1) * rowsPerPage);
-  }, [page, rowsPerPage]);
+    let newFarmersList =
+      farmerList &&
+      farmerList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+    setPagedFarmer(newFarmersList);
+  }, [page, rowsPerPage, farmerList]);
 
   useEffect(() => {
     const FormData = filteredList.length
@@ -113,8 +118,6 @@ const FarmerList = (props) => {
   }, [filteredList, farmersData, searchValue]);
 
   useEffect(() => {
-    // console.log(farmerGrpId);
-    // getFarmers(`${farmerGrpId}`).then((res) => console.log(res));
     if (farmerGrpId !== "") {
       let updated = farmerList.filter((item) => {
         return item.farmerGroup === farmerGrpId;
@@ -220,8 +223,8 @@ const FarmerList = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {farmerList &&
-              farmerList.map((farmer) => {
+            {pagedFarmer &&
+              pagedFarmer.map((farmer) => {
                 return (
                   <TableRow
                     role="checkbox"
