@@ -15,7 +15,7 @@ import AddIcon from "@material-ui/icons/Add";
 import config from "../../../constants/config";
 import tempSign from "../../../assets/images/default_sign.png";
 
-const MdDetails = () => {
+const MdDetails = (props) => {
   const classes = useStyles();
   const [mdDetails, setMdDetails] = useState([]);
 
@@ -80,6 +80,7 @@ const MdDetails = () => {
                   tabIndex={-1}
                   className={classes.tab_row}
                   key={data.id}
+                  onClick={() => props.history.push(`editMd/${data.id}`)}
                 >
                   <TableCell padding="none" className={classes.icontab_cell}>
                     <img
