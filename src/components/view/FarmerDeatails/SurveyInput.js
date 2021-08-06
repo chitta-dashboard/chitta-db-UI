@@ -2,8 +2,7 @@ import React, { Fragment } from "react";
 import Grid from "@material-ui/core/Grid";
 
 const SurveyInput = (props) => {
-  // const { id, value, isAddable, handleChange, handleActions } = props;
-  const { isAddable } = props;
+  const { id, value, isAddable, handleChange, handleActions } = props;
 
   return (
     <Fragment>
@@ -13,14 +12,13 @@ const SurveyInput = (props) => {
           autoComplete="off"
           placeholder="கணக்கெடுப்பு எண்"
           className="farmer-input"
-          // value={value}
-          // onChange={(e) => handleChange(id, e)}
+          value={value}
+          onChange={(e) => handleChange(id, e)}
         />
         <button
           className="farmer-input"
-          // disabled={value === null || value === ""}
-          // onClick={(e) => handleActions(e)}
-          onClick={isAddable}
+          disabled={value === null || value === ""}
+          onClick={(e) => handleActions(e)}
           style={{
             width: "8%",
             minWidth: "80px",
@@ -29,8 +27,8 @@ const SurveyInput = (props) => {
             placeItems: "center",
           }}
         >
-          {/* <h2 style={{ margin: 0 }}>{isAddable ? "+" : "-"}</h2> */}
-          <h2 style={{ margin: 0 }}>+</h2>
+          <h2 style={{ margin: 0 }}>{isAddable ? "+" : "-"}</h2>
+          {/* <h2 style={{ margin: 0 }}>+</h2> */}
         </button>
       </Grid>
     </Fragment>

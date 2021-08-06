@@ -49,6 +49,10 @@ export const postCeo = (params) => {
   return httpClient.post("ceos", params);
 };
 
+export const putCeo = (id,params) => {
+  return httpClient.put(`ceos/${id}`,params);
+};
+
 export const postFarmerGroup = (params) => {
   return httpClient.post("farmer-groups", params);
 };

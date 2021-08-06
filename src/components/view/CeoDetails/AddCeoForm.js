@@ -1,16 +1,19 @@
-import React, { useRef, useState } from "react";
+import React, {useEffect, useRef, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import { customToast } from "../../widgets/Toast";
-import { postCeo } from "../../../constants/config";
+import { postCeo,putCeo } from "../../../constants/config";
 import { useHistory } from "react-router";
 import { colors } from "../../../theme";
 import { uploadFile } from "../../../constants/config";
+import config from "../../../constants/config";
+import axios from "axios";
 
-const AddCeo = () => {
+const AddCeo = (Props) => {
+  const { match } = Props;
   const classes = useStyles();
   const ceoName = useRef("");
   const phoneNumber = useRef("");
@@ -21,6 +24,25 @@ const AddCeo = () => {
   const [ceoSign, setCeoSign] = useState(null);
   const history = useHistory();
 
+  useEffect(() => {
+    if (match.params.id) {
+      axios
+        .get(`${config.app.APP_API_URL}/ceos/${match.params.id}`)
+        .then((res) => {
+          if (res && res.status === 200) {
+            ceoName.current.value = res.data.name;
+            phoneNumber.current.value = res.data.phoneNumber;
+            description.current.value = res.data.description;
+            qualification.current.value = res.data.qualification;
+            dob.current.value = res.data.DOB;
+            // setCeoPhoto(res.data.picture.url),
+            // setCeoSign(res.data.signature.url)
+          }
+        })
+        .catch((err) => customToast("error", err.message));
+    }
+  }, [match.params.id]);
+  
   const _onProfilePicChange = (e) => {
     const file = e.target.files[0];
     setCeoPhoto(file);
@@ -36,10 +58,11 @@ const AddCeo = () => {
       name: ceoName.current.value,
       phoneNumber: phoneNumber.current.value,
       description: description.current.value,
-      dob: dob.current.value,
+      DOB: dob.current.value,
       qualification: qualification.current.value,
     };
-    postCeo(params)
+    if(match.params.id){
+      putCeo(match.params.id,params)
       .then((res) => {
         console.log(res);
         if (ceoPhoto) {
@@ -65,6 +88,35 @@ const AddCeo = () => {
         }
       })
       .catch((err) => customToast("error", err.message));
+    }
+    else{
+      postCeo(params)
+      .then((res) => {
+        console.log(res);
+        if (ceoPhoto) {
+          console.log(res.id);
+          uploadFile({
+            ref: "ceo",
+            refId: res.id,
+            field: "picture",
+            files: ceoPhoto,
+          });
+          uploadFile({
+            ref: "ceo",
+            refId: res.id,
+            field: "signature",
+            files: ceoSign,
+          }).then((data) => {
+            customToast("success", "Form submitted successfully.");
+            history.goBack();
+          });
+        } else {
+          customToast("success", "Form submitted successfully.");
+          history.goBack();
+        }
+      })
+      .catch((err) => customToast("error", err.message));
+    }
   };
 
   return (
@@ -79,7 +131,7 @@ const AddCeo = () => {
                 style={{ textDecoration: "none" }}
               >
                 <ChevronLeftIcon className={classes.iconbtn} />
-                Add CEO Details
+                {match.params.id?'Edit CEO Details':'Add CEO Details'}
               </Typography>
             </Link>
           </Grid>
