@@ -49,7 +49,7 @@ export const postCeo = (params) => {
   return httpClient.post("ceos", params);
 };
 
-export const putCeo = (id,params) => {
+export const putCeo = (params,id) => {
   return httpClient.put(`ceos/${id}`,params);
 };
 

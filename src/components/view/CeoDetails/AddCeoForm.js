@@ -61,21 +61,20 @@ const AddCeo = (Props) => {
       DOB: dob.current.value,
       qualification: qualification.current.value,
     };
-    if(match.params.id){
-      putCeo(match.params.id,params)
+    (match.params.id ? putCeo(params, match.params.id) : postCeo(params))
       .then((res) => {
         console.log(res);
-        if (ceoPhoto) {
+        if (ceoPhoto || ceoSign) {
           console.log(res.id);
           uploadFile({
             ref: "ceo",
-            refId: res.id,
+            refId: match.params.id ? res.data.id : res.id,
             field: "picture",
             files: ceoPhoto,
           });
           uploadFile({
             ref: "ceo",
-            refId: res.id,
+            refId: match.params.id ? res.data.id : res.id,
             field: "signature",
             files: ceoSign,
           }).then((data) => {
@@ -87,36 +86,32 @@ const AddCeo = (Props) => {
           history.goBack();
         }
       })
+    // (match.params.id ? putCeo(params, match.params.id) : postCeo(params))
+    //   .then((res) => {
+    //     console.log(res);
+    //     if (ceoPhoto && ceoSign) {
+    //       console.log(res.id);
+    //       uploadFile({
+    //         ref: "ceo",
+    //         refId: match.params.id ? res.data.id : res.id,
+    //         field: "picture",
+    //         files: ceoPhoto,
+    //       });
+    //       uploadFile({
+    //         ref: "ceo",
+    //         refId: match.params.id ? res.data.id : res.id,
+    //         field: "signature",
+    //         files: ceoSign,
+    //       }).then((data) => {
+    //         customToast("success", "Form submitted successfully.");
+    //         history.goBack();
+    //       });
+    //     } else {
+    //       customToast("success", "Form submitted successfully.");
+    //       history.goBack();
+    //     }
+    //   })
       .catch((err) => customToast("error", err.message));
-    }
-    else{
-      postCeo(params)
-      .then((res) => {
-        console.log(res);
-        if (ceoPhoto) {
-          console.log(res.id);
-          uploadFile({
-            ref: "ceo",
-            refId: res.id,
-            field: "picture",
-            files: ceoPhoto,
-          });
-          uploadFile({
-            ref: "ceo",
-            refId: res.id,
-            field: "signature",
-            files: ceoSign,
-          }).then((data) => {
-            customToast("success", "Form submitted successfully.");
-            history.goBack();
-          });
-        } else {
-          customToast("success", "Form submitted successfully.");
-          history.goBack();
-        }
-      })
-      .catch((err) => customToast("error", err.message));
-    }
   };
 
   return (

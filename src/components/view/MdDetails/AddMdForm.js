@@ -4,14 +4,13 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
-import { postMd, putMd, updateFile } from "../../../constants/config";
+import { postMd, putMd } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router";
 import { colors } from "../../../theme";
 import { uploadFile } from "../../../constants/config";
 import axios from "axios";
 import config from "../../../constants/config";
-import MdDetails from "./MdDetails";
 
 const AddMd = (Props) => {
   const classes = useStyles();
@@ -59,7 +58,7 @@ const AddMd = (Props) => {
     (mdData.id ? putMd(params, mdData.id) : postMd(params))
       .then((res) => {
         console.log(res);
-        if (mdPhoto && mdSign) {
+        if (mdPhoto || mdSign) {
           console.log(res.id);
           uploadFile({
             ref: "md",
