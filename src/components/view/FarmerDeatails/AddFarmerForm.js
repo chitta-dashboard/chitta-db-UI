@@ -25,7 +25,7 @@ let tempArray = {
   name: [],
   id: [],
 };
-const AddFarmerForm = () => {
+const AddFarmerForm = (Props) => {
   const history = useHistory();
   const classes = useStyles();
   const fatherName = useRef("");
@@ -49,7 +49,22 @@ const AddFarmerForm = () => {
   const [farmerGroups, setFarmerGroups] = useState([]);
   const [farmerGroupId, setFarmerGroupId] = useState();
   const [surveyNumber, setSurveyNumber] = useState("");
+  const [farmerData, setFarmerData] = useState({});
+  const { match } = Props;
 
+  useEffect(() => {
+    if (match.params.id) {
+      axios
+        .get(`${config.app.APP_API_URL}/farmers/${match.params.id}`)
+        .then((res) => {
+          if (res && res.status === 200) {
+            setFarmerData(res.data);
+            // setLoader(false);
+          }
+        })
+        .catch((err) => customToast("error", err.message));
+    }
+  }, [match.params.id]);
   useEffect(() => {
     axios
       .get(`${config.app.APP_API_URL}/farmer-groups`)
@@ -214,6 +229,7 @@ const AddFarmerForm = () => {
                 placeholder="பெயர்"
                 ref={farmerName}
                 autoComplete="off"
+                defaultValue={farmerData.name}
               />
             </Grid>
             <Grid item xs={6}>
@@ -223,6 +239,7 @@ const AddFarmerForm = () => {
                 placeholder="தந்தையின் பெயர்"
                 ref={fatherName}
                 autoComplete="off"
+                defaultValue={farmerData.fatherName}
               />
             </Grid>
           </Grid>
@@ -238,6 +255,7 @@ const AddFarmerForm = () => {
                 placeholder="கணவரின் பெயர்"
                 ref={husbandName}
                 autoComplete="off"
+                defaultValue={farmerData.husbandName}
               />
             </Grid>
             <Grid item xs={6}>
@@ -293,6 +311,7 @@ const AddFarmerForm = () => {
                 ref={DOB}
                 autoComplete="off"
                 style={{ color: colors.text2 }}
+                defaultValue={farmerData.DOB}
               />
             </Grid>
             <Grid item xs={8}>
@@ -302,6 +321,7 @@ const AddFarmerForm = () => {
                 placeholder="கைபேசி எண்"
                 ref={phoneNumber}
                 autoComplete="off"
+                defaultValue={farmerData.phoneNumber}
               />
             </Grid>
           </Grid>
@@ -312,6 +332,7 @@ const AddFarmerForm = () => {
               placeholder="ஆதார் எண்"
               ref={aadharNumber}
               autoComplete="off"
+              defaultValue={farmerData.aadharNumber}
             />
           </Grid>
           <Grid className={classes.forminput_container} item xs={12}>
@@ -321,6 +342,7 @@ const AddFarmerForm = () => {
               placeholder="வாக்காளர் அடையாள எண்"
               autoComplete="off"
               ref={voterIdNumber}
+              defaultValue={farmerData.voterIdNumber}
             />
           </Grid>
           <Grid
@@ -351,6 +373,7 @@ const AddFarmerForm = () => {
               placeholder="சென்ட் "
               ref={acre}
               autoComplete="off"
+              defaultValue={farmerData.acre}
             />
           </Grid>
           <Grid
@@ -385,6 +408,7 @@ const AddFarmerForm = () => {
                 type="text"
                 autoComplete="off"
                 ref={education}
+                defaultValue={farmerData.education}
               />
             </Grid>
           </Grid>
@@ -398,6 +422,7 @@ const AddFarmerForm = () => {
               autoComplete="off"
               ref={address}
               style={{ padding: "15px" }}
+              defaultValue={farmerData.address}
             />
           </Grid>
           <Grid
@@ -412,6 +437,7 @@ const AddFarmerForm = () => {
                 type="text"
                 autoComplete="off"
                 ref={village}
+                defaultValue={farmerData.village}
               />
             </Grid>
             <Grid item xs={6}>
@@ -421,6 +447,7 @@ const AddFarmerForm = () => {
                 autoComplete="off"
                 ref={circle}
                 placeholder="வட்டம்"
+                defaultValue={farmerData.circle}
               />
             </Grid>
           </Grid>
@@ -436,6 +463,7 @@ const AddFarmerForm = () => {
                 autoComplete="off"
                 ref={district}
                 placeholder="மாவடஂடமஂ"
+                defaultValue={farmerData.district}
               />
             </Grid>
 
@@ -446,6 +474,7 @@ const AddFarmerForm = () => {
                 placeholder="பினஂகோடு"
                 ref={pincode}
                 autoComplete="off"
+                defaultValue={farmerData.pincode}
               />
             </Grid>
             <Grid item xs={4}>
@@ -522,6 +551,7 @@ const AddFarmerForm = () => {
                 ref={cropType}
                 placeholder="
                 பயிர் வகை"
+                defaultValue={farmerData.cropType}
               />
             </Grid>
             <Grid item xs={6}>
@@ -531,6 +561,7 @@ const AddFarmerForm = () => {
                 ref={cattle}
                 autoComplete="off"
                 placeholder="கால்நடைகள்"
+                defaultValue={farmerData.cattle}
               />
             </Grid>
           </Grid>

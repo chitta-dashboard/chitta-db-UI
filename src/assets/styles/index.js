@@ -176,6 +176,32 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-end",
     alignItems: "center",
   },
+  btnContainer_custom: {
+    display: "flex",
+    justifyContent: "space-around",
+    width: "100%",
+  },
+  editDetails_btn: {
+    textAlign: "right",
+    border: 0,
+    backgroundColor: colors.primary,
+    opacity: 0.8,
+    color: colors.text1,
+    height: "2rem",
+    width: "5rem",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontWeight: "600",
+    display: "flex",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    "&:hover": {
+      backgroundColor: colors.bg3,
+      border: `1px solid ${colors.primary}`,
+      color: colors.text2,
+      textDecoration: "none",
+    },
+  },
 
   farmerdetails_subheader: {
     padding: "2rem 1.5rem 0rem 1.5rem",
@@ -477,7 +503,9 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   user_btncontainer: {
-    display: "flex",
+    // display: "flex",
+    display: "grid",
+    gridTemplateColumns: "60% 40%",
     justifyContent: "space-between",
     // marginBottom: "1rem",
     // marginRight: "2rem",

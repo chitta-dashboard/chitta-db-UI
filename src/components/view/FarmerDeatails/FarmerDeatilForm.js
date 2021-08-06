@@ -65,37 +65,46 @@ const FarmerDeatilForm = (Props) => {
             Back
           </Typography>
         </Link>
-        <PDFDownloadLink
-          document={
-            <FarmerDetailsToPdf
-              getFarmerData={getFarmerData}
-              farmerData={farmerData}
-            />
-          }
-          fileName={`${farmerData.name}.pdf`}
-          style={{ textDecoration: "none" }}
-        >
-          {({ loading }) => {
-            return (
-              <button
-                className={clsx(
-                  classes.export_btn,
-                  loading ? classes.loading : ""
-                )}
-                disabled={loading}
-              >
-                {loading ? (
-                  <div>
-                    {" "}
-                    <CircularProgress size={20} />
-                  </div>
-                ) : (
-                  "Download"
-                )}
-              </button>
-            );
-          }}
-        </PDFDownloadLink>
+        <div className={classes.btnContainer_custom}>
+          <button
+            className={classes.export_btn}
+            style={{ textDecoration: "none" }}
+            onClick={() => Props.history.push(`editfarmer/${match.params.id}`)}
+          >
+            Edit
+          </button>
+          <PDFDownloadLink
+            document={
+              <FarmerDetailsToPdf
+                getFarmerData={getFarmerData}
+                farmerData={farmerData}
+              />
+            }
+            fileName={`${farmerData.name}.pdf`}
+            style={{ textDecoration: "none" }}
+          >
+            {({ loading }) => {
+              return (
+                <button
+                  className={clsx(
+                    classes.export_btn,
+                    loading ? classes.loading : ""
+                  )}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <div>
+                      {" "}
+                      <CircularProgress size={20} />
+                    </div>
+                  ) : (
+                    "Download"
+                  )}
+                </button>
+              );
+            }}
+          </PDFDownloadLink>
+        </div>
       </div>
       <div className={classes.userdetail_container}>
         <div className={classes.user_header}>
