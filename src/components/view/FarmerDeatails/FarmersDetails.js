@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import FarmerList from "./FarmerList";
-import { getFarmers } from "../../../constants/config";
 import { useStyles } from "../../../assets/styles";
 
 const FarmersDetails = (props) => {

@@ -8,13 +8,13 @@ import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import SurveyInput from "./SurveyInput";
 import { customToast } from "../../widgets/Toast";
-import { uuid } from "../../../constants";
 import config, { uploadFile } from "../../../constants/config";
 import { colors } from "../../../theme";
 
 const initialFormValue = {
-  surveyNoList: {
-    "38997518-1bdc-28b5-2781-98baec87ffcd": { id: "", value: "" },
+  surveyList: {
+    id: "",
+    string: "",
   },
   gender: "male",
   landType: "WETLAND",
@@ -39,9 +39,6 @@ const AddFarmerForm = () => {
   const circle = useRef("");
   const district = useRef("");
   const pincode = useRef("");
-  // const landType = useRef("");
-  // const irrigationType = useRef("");
-  // const farmerType = useRef("");
   const cropType = useRef("");
   const cattle = useRef("");
   const [formValue, setFormValue] = useState(initialFormValue);
@@ -103,6 +100,7 @@ const AddFarmerForm = () => {
   //         [uuid()]: { id: "", value: "" },
   //       },
   //     });
+  //   console.log(addRow);
 
   //   isExistSurveyNumber(surveyUuid, addRow);
   // };
@@ -113,92 +111,81 @@ const AddFarmerForm = () => {
   //   setFormValue({ ...formValue, surveyNoList: surveyList });
   // };
 
-  const handleActions = (isAddable, id, e) => {
+  // const handleActions = (isAddable, id, e) => {
+  //   e.preventDefault();
+  //   console.log(id);
+  //   console.log(e);
+  //   if (isAddable) handleAddSurveyNumber(id);
+  //   else handleRemoveSurveyNumber(id);
+  //   console.log(isAddable);
+  //   if (isAddable) {
+
+  //   } else {
+
+  //   }
+  // };
+
+  const isAddable = (e) => {
     e.preventDefault();
-    console.log(id);
-    console.log(e);
-    // if (isAddable) handleAddSurveyNumber(id);
-    // else handleRemoveSurveyNumber(id);
-    console.log(isAddable);
-    if (isAddable) {
-      //addrow
-    } else {
-      //remmove row
-    }
+    console.log("add a bar");
   };
 
   const postFarmerData = (e) => {
     e.preventDefault();
-    // const lastSurveyUuid = Object.keys(formValue.surveyNoList).reverse()[0];
 
-    const postData = () => {
-      // let finalSurveyList = formValue.surveyNoList;
-      // if (resId)
-      //   finalSurveyList[lastSurveyUuid] = {
-      //     ...finalSurveyList[lastSurveyUuid],
-      //     id: resId,
-      //   };
-
-      // const FinalSurveyNoIds = Object.values(finalSurveyList)
-      //   .filter((e1) => e1.id)
-      //   .map((e2) => e2.id);
-
-      const params = {
-        name: farmerName.current.value,
-        fatherName: fatherName.current.value,
-        husbandName: husbandName.current.value,
-        farmer_group: farmerGroupId,
-        DOB: DOB.current.value,
-        phoneNumber: phoneNumber.current.value,
-        aadharNumber: aadharNumber.current.value,
-        voterIdNumber: voterIdNumber.current.value,
-        // surveyArray: [{ survey_numbers: FinalSurveyNoIds }],
-        acre: +acre.current.value,
-        gender: formValue.gender,
-        education: education.current.value,
-        address: address.current.value,
-        village: village.current.value,
-        circle: circle.current.value,
-        district: district.current.value,
-        pincode: pincode.current.value,
-        landType: formValue.landType,
-        irrigationType: formValue.irrigationType,
-        farmerType: formValue.farmerType,
-        cropType: cropType.current.value,
-        cattle: cattle.current.value,
-      };
-
-      axios
-        .post(`${config.app.APP_API_URL}/farmers`, params, {
-          headers: { "content-type": "application/json" },
-        })
-        .then((res) => {
-          console.log(res);
-          if (farmerPhoto) {
-            console.log(res.data.id);
-            uploadFile({
-              ref: "farmer",
-              refId: res.data.id,
-              field: "userImg",
-              files: farmerPhoto,
-            })
-              .then((data) => {
-                setFormValue(initialFormValue);
-                customToast("success", "Form submitted successfully.");
-                history.push("/farmersdetails");
-              })
-              .catch((_err) => {
-                console.log(_err);
-              });
-          } else {
-            setFormValue(initialFormValue);
-            customToast("success", "Form submitted successfully.");
-          }
-        })
-        .catch((err) => customToast("error", err.message));
+    const params = {
+      name: farmerName.current.value,
+      fatherName: fatherName.current.value,
+      husbandName: husbandName.current.value,
+      farmer_group: farmerGroupId,
+      DOB: DOB.current.value,
+      phoneNumber: phoneNumber.current.value,
+      aadharNumber: aadharNumber.current.value,
+      voterIdNumber: voterIdNumber.current.value,
+      // surveyArray: [{ survey_numbers: FinalSurveyNoIds }],
+      acre: +acre.current.value,
+      gender: formValue.gender,
+      education: education.current.value,
+      address: address.current.value,
+      village: village.current.value,
+      circle: circle.current.value,
+      district: district.current.value,
+      pincode: pincode.current.value,
+      landType: formValue.landType,
+      irrigationType: formValue.irrigationType,
+      farmerType: formValue.farmerType,
+      cropType: cropType.current.value,
+      cattle: cattle.current.value,
     };
 
-    // isExistSurveyNumber(lastSurveyUuid, postData);
+    axios
+      .post(`${config.app.APP_API_URL}/farmers`, params, {
+        headers: { "content-type": "application/json" },
+      })
+      .then((res) => {
+        console.log(res);
+        if (farmerPhoto) {
+          console.log(res.data.id);
+          uploadFile({
+            ref: "farmer",
+            refId: res.data.id,
+            field: "userImg",
+            files: farmerPhoto,
+          })
+            .then((data) => {
+              setFormValue(initialFormValue);
+              customToast("success", "Form submitted successfully.");
+              history.push("/farmersdetails");
+            })
+            .catch((_err) => {
+              console.log(_err);
+            });
+        } else {
+          setFormValue(initialFormValue);
+          customToast("success", "Form submitted successfully.");
+        }
+      })
+      .catch((err) => customToast("error", err.message));
   };
   return (
     <div>
@@ -342,7 +329,7 @@ const AddFarmerForm = () => {
             container
             spacing={3}
           >
-            {Object.keys(formValue.surveyNoList).map((id, i) => {
+            {/* {Object.keys(formValue.surveyNoList).map((id, i) => {
               const numberList = formValue.surveyNoList;
               const isAddable = Object.keys(numberList).length === i + 1;
 
@@ -351,11 +338,14 @@ const AddFarmerForm = () => {
                   key={`${id}_${i}`}
                   id={id}
                   isAddable={isAddable}
-                  // value={numberList[id].value}
-                  // handleChange={(id, e) => handleSurveyChange(id, e)}
+                  value={numberList[id].value}
+                  handleChange={(id, e) => handleSurveyChange(id, e)}
                   handleActions={(e) => handleActions(isAddable, id, e)}
                 />
               );
+            })} */}
+            {Object.keys(formValue.surveyList).map((id, i) => {
+              return <SurveyInput isAddable={isAddable} />;
             })}
           </Grid>
           <Grid className={classes.forminput_container} item xs={12}>

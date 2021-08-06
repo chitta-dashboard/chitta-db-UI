@@ -22,7 +22,7 @@ const AddFarmerGroup = () => {
     };
     postFarmerGroup(params)
       .then(customToast("success", "Form submitted successfully."))
-      .then(history.push("/farmergroups"))
+      .then(history.goBack())
       .catch((err) => customToast("error", err.message));
   };
 
@@ -31,7 +31,7 @@ const AddFarmerGroup = () => {
       <form>
         <Grid className={classes.form_container} container spacing={3}>
           <Grid className={classes.adddetails_header} item xs={12}>
-            <Link to="/mddetails" style={{ textDecoration: "none" }}>
+            <Link to="/farmergroups" style={{ textDecoration: "none" }}>
               <Typography
                 variant="h5"
                 className={classes.addDetailbtn_container}
