@@ -68,7 +68,7 @@ const AddCeo = () => {
   };
 
   return (
-    <div>
+    <div className={classes.form}>
       <form>
         <Grid className={classes.form_container} container spacing={3}>
           <Grid className={classes.adddetails_header} item xs={12}>

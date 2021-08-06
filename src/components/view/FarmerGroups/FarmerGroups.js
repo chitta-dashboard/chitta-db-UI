@@ -14,6 +14,7 @@ import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import searchLogo from "../../../assets/images/search.svg";
 import { searchWord } from "../../../constants";
+import { Grid } from "@material-ui/core";
 
 const FarmerGroups = () => {
   const classes = useStyles();
@@ -47,73 +48,75 @@ const FarmerGroups = () => {
     : [];
 
   return (
-    <>
-      <Box className={classes.farmerdetails_subheader} xs={12}>
-        <Box className={classes.farmerdetails_searchcontainer}>
-          <div className={classes.searchBox}>
-            <input
-              id="filled-basic"
-              className={classes._search}
-              autoComplete={"off"}
-              placeholder="search"
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-            />
-            <img src={searchLogo} alt="" className={classes.searchIcon} />
-          </div>
-        </Box>
-        <Box className={classes.farmerdetails_boxcontainer}>
-          {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
-          <Box>
-            <NavLink to="/addfarmerGroup" className={classes.addDetails_link}>
-              <button className={classes.addDetails_btn}>
-                <AddIcon />
-                Add
-              </button>
-            </NavLink>
+    <div className={classes.farmerdetails_root}>
+      <Grid container spacing={3} className={classes.Detailscard_container}>
+        <Box className={classes.farmerdetails_subheader} xs={12}>
+          <Box className={classes.farmerdetails_searchcontainer}>
+            <div className={classes.searchBox}>
+              <input
+                id="filled-basic"
+                className={classes._search}
+                autoComplete={"off"}
+                placeholder="search"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+              />
+              <img src={searchLogo} alt="" className={classes.searchIcon} />
+            </div>
+          </Box>
+          <Box className={classes.farmerdetails_boxcontainer}>
+            {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
+            <Box>
+              <NavLink to="/addfarmerGroup" className={classes.addDetails_link}>
+                <button className={classes.addDetails_btn}>
+                  <AddIcon />
+                  Add
+                </button>
+              </NavLink>
+            </Box>
           </Box>
         </Box>
-      </Box>
-      <TableContainer className={classes.tab_container}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              <TableCell
-                className={classes.tab_headercell}
-                style={{ color: "#464E5F" }}
-              >
-                குழு பெயர்
-              </TableCell>
-              <TableCell className={classes.tab_headercell}>
-                குழு விளக்கம்
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {groupsData.map((data) => {
-              return (
-                <TableRow
-                  key={data.id}
-                  role="checkbox"
-                  tabIndex={-1}
-                  className={classes.tab_row}
+        <TableContainer className={classes.tab_container}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                <TableCell
+                  className={classes.tab_headercell}
+                  style={{ color: "#464E5F" }}
                 >
-                  <TableCell className={classes.tab_cell}>
-                    {data.groupName ? data.groupName : ""}
-                  </TableCell>
-                  <TableCell className={classes.tab_cell}>
-                    {data.description ? data.description : ""}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-        <div className={classes.no_data}>
-          {!groups.length && <NoRecordsFound />}
-        </div>
-      </TableContainer>
-    </>
+                  குழு பெயர்
+                </TableCell>
+                <TableCell className={classes.tab_headercell}>
+                  குழு விளக்கம்
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {groupsData.map((data) => {
+                return (
+                  <TableRow
+                    key={data.id}
+                    role="checkbox"
+                    tabIndex={-1}
+                    className={classes.tab_row}
+                  >
+                    <TableCell className={classes.tab_cell}>
+                      {data.groupName ? data.groupName : ""}
+                    </TableCell>
+                    <TableCell className={classes.tab_cell}>
+                      {data.description ? data.description : ""}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+          <div className={classes.no_data}>
+            {!groups.length && <NoRecordsFound />}
+          </div>
+        </TableContainer>
+      </Grid>
+    </div>
   );
 };
 
