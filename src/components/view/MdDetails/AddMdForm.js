@@ -57,7 +57,7 @@ const AddMd = (Props) => {
     };
     (mdData.id ? putMd(params, mdData.id) : postMd(params))
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (mdPhoto || mdSign) {
           console.log(res.id);
           uploadFile({
