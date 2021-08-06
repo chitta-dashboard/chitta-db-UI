@@ -76,27 +76,27 @@ export const uploadFile = (data) => {
   });
 };
 
-// export const updateFile = (data) => {
-//   const formData = new FormData();
-//   formData.append("ref", data.ref);
-//   formData.append("refId", data.refId);
-//   formData.append("field", data.field);
-//   formData.append("files", data.files);
+export const updateFile = (data) => {
+  const formData = new FormData();
+  formData.append("ref", data.ref);
+  formData.append("refId", data.refId);
+  formData.append("field", data.field);
+  formData.append("files", data.files);
 
-//   if (data.source) {
-//     formData.append("source", data.source);
-//   }
+  if (data.source) {
+    formData.append("source", data.source);
+  }
 
-//   return axios(`${appData.app.APP_API_URL}/upload`, {
-//     method: "PUT",
-//     url: ``,
-//     data: formData,
-//     headers: {
-//       "Content-Type": "multipart/form-data",
-//     },
-//   }).then(({ data }) => {
-//     return data;
-//   });
-// };
+  return axios(`${appData.app.APP_API_URL}/upload`, {
+    method: "PUT",
+    url: ``,
+    data: formData,
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  }).then(({ data }) => {
+    return data;
+  });
+};
 
 export default appData;
