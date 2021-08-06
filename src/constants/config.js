@@ -20,13 +20,17 @@ export const getFarmersCount = () => {
 };
 
 export const getFarmers = (filter) => {
-  let qs = filter?.farmerGroup
-    ? `?_sort=farmerGroup:ASC,name:ASC&farmerGroup=${filter.farmerGroup}`
-    : "?_sort=farmerGroup:ASC,name:ASC";
-  if (filter?.limit || filter?.start) {
-    qs = qs.concat(`&_start=${filter.start}&_limit=${filter.limit}`);
-  }
-  return httpClient.get(`farmers${qs}`);
+  // let qs =
+  // filter?.farmerGroup
+  //   ? `?_limit=500&_sort=farmerGroup:ASC,name:ASC&farmerGroup=${filter.farmerGroup}`
+  //   :
+  // "?_limit=500&_sort=farmerGroup:ASC,name:ASC";
+  // if (filter?.limit || filter?.start) {
+  // qs = qs.concat(`&_start=${filter.start}&_limit=${filter.limit}`);
+  // }
+  return httpClient.get(
+    `farmers${`?_limit=500&_sort=farmerGroup:ASC,name:ASC`}`
+  );
 };
 
 export const getFarmersGroup = () => {
