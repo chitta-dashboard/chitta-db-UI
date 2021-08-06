@@ -391,6 +391,10 @@ export const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
 
+  form: {
+    padding: "20px",
+  },
+
   adddetails_header: {
     display: "flex",
     width: "80%",
@@ -469,14 +473,16 @@ export const useStyles = makeStyles((theme) => ({
     padding: 30,
     borderRadius: "10px",
     boxShadow: "1px 1px 7px 0px #3333334a",
+    margin: "0 20px",
   },
 
   user_btncontainer: {
     display: "flex",
     justifyContent: "space-between",
-    marginBottom: "1rem",
-    marginRight: "2rem",
-    marginTop: "1rem",
+    // marginBottom: "1rem",
+    // marginRight: "2rem",
+    // marginTop: "1rem",
+    margin: "1rem 2rem",
   },
 
   export_btn: {
