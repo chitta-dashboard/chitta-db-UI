@@ -10,7 +10,12 @@ let httpClient = new HttpClient();
 export const getCEO = () => {
   return httpClient.get("ceos");
 };
-
+export const postFarmer = (params) => {
+  return httpClient.post("farmers");
+};
+export const putFarmer = (params, id) => {
+  return httpClient.put(`farmers/${id}`);
+};
 export const getMD = () => {
   return httpClient.get("mds");
 };
