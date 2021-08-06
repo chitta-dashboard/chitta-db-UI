@@ -140,7 +140,7 @@ const FarmerList = (props) => {
     setCloseIcon(false);
     setFarmerGrpId("");
   };
-
+  
   return (
     <>
       <Box className={classes.farmerdetails_subheader} xs={12}>
@@ -281,7 +281,7 @@ const FarmerList = (props) => {
             <TablePagination
               rowsPerPageOptions={[15, 30, 100, { label: "All", value: -1 }]}
               colSpan={3}
-              count={totalFarmers}
+              count={farmerList ? farmerList.length: farmersData.length}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{
