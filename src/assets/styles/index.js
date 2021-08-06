@@ -72,7 +72,7 @@ export const useStyles = makeStyles((theme) => ({
     color: colors.text1,
     border: 0,
     display: "grid",
-    gridTemplateRows: "35% 65%",
+    gridTemplateRows: "38% 62%",
     padding: "1rem",
     maxHeight: "100vh",
   },
