@@ -8,7 +8,11 @@ import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import SurveyInput from "./SurveyInput";
 import { customToast } from "../../widgets/Toast";
-import config, { uploadFile } from "../../../constants/config";
+import config, {
+  postFarmer,
+  putFarmer,
+  uploadFile,
+} from "../../../constants/config";
 import { colors } from "../../../theme";
 import { uuid } from "../../../constants";
 
@@ -170,17 +174,19 @@ const AddFarmerForm = (Props) => {
       cattle: cattle.current.value,
     };
 
-    axios
-      .post(`${config.app.APP_API_URL}/farmers`, params, {
-        headers: { "content-type": "application/json" },
-      })
+    axios(
+      // .post(`${config.app.APP_API_URL}/farmers`, params, {
+      //   headers: { "content-type": "application/json" },
+      // })
+      farmerData.id ? putFarmer(params, farmerData.id) : postFarmer(params)
+    )
       .then((res) => {
         console.log(res);
         if (farmerPhoto) {
           console.log(res.data.id);
           uploadFile({
             ref: "farmer",
-            refId: res.data.id,
+            refId: farmerData.id ? res.data.id : res.id,
             field: "userImg",
             files: farmerPhoto,
           })

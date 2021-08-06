@@ -10,7 +10,12 @@ let httpClient = new HttpClient();
 export const getCEO = () => {
   return httpClient.get("ceos");
 };
-
+export const postFarmer = (params) => {
+  return httpClient.post("farmers");
+};
+export const putFarmer = (params, id) => {
+  return httpClient.put(`farmers/${id}`);
+};
 export const getMD = () => {
   return httpClient.get("mds");
 };
@@ -49,8 +54,8 @@ export const postCeo = (params) => {
   return httpClient.post("ceos", params);
 };
 
-export const putCeo = (id,params) => {
-  return httpClient.put(`ceos/${id}`,params);
+export const putCeo = (id, params) => {
+  return httpClient.put(`ceos/${id}`, params);
 };
 
 export const postFarmerGroup = (params) => {
