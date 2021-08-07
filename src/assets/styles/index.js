@@ -211,6 +211,7 @@ export const useStyles = makeStyles((theme) => ({
     display: "Grid",
     gridTemplateColumns: "70% 30%",
     "@media (max-width: 700px)": {
+      padding: "0.5rem ",
       gridTemplateColumns: "1fr",
       marginBottom: "2rem",
     },
@@ -247,6 +248,9 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "center",
+    "@media (max-width: 700px)": {
+      justifyContent: "space-around",
+    },
   },
 
   farmerdetails_searchcontainer: {
