@@ -265,6 +265,7 @@ const AddFarmerForm = (Props) => {
                       key={farmerGroup.id}
                       value={farmerGroup.groupName}
                       className={classes.drpdown}
+                      selected={farmerData?.farmerGroup}
                     >
                       {farmerGroup.groupName}
                     </option>
