@@ -55,7 +55,7 @@ export class HttpClient {
   put(url, data = {}, conf = {}) {
     return this.client
       .put(url, data, conf)
-      .then((response) => Promise.resolve(response))
+      .then((response) => Promise.resolve(response.data))
       .catch((error) => Promise.reject(error));
   }
 

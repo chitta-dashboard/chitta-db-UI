@@ -1,11 +1,11 @@
-import React, {useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import { customToast } from "../../widgets/Toast";
-import { postCeo,putCeo } from "../../../constants/config";
+import { postCeo, putCeo } from "../../../constants/config";
 import { useHistory } from "react-router";
 import { colors } from "../../../theme";
 import { uploadFile } from "../../../constants/config";
@@ -18,7 +18,7 @@ const AddCeo = (Props) => {
   const ceoName = useRef("");
   const phoneNumber = useRef("");
   const description = useRef("");
-  const dob = useRef("");
+  const dob = useRef(null);
   const qualification = useRef("");
   const [ceoPhoto, setCeoPhoto] = useState(null);
   const [ceoSign, setCeoSign] = useState(null);
@@ -30,19 +30,17 @@ const AddCeo = (Props) => {
         .get(`${config.app.APP_API_URL}/ceos/${match.params.id}`)
         .then((res) => {
           if (res && res.status === 200) {
-            ceoName.current.value = res.data.name;
-            phoneNumber.current.value = res.data.phoneNumber;
-            description.current.value = res.data.description;
-            qualification.current.value = res.data.qualification;
-            dob.current.value = res.data.DOB;
-            // setCeoPhoto(res.data.picture.url),
-            // setCeoSign(res.data.signature.url)
+            ceoName.current.value = res.data?.name ?? null;
+            phoneNumber.current.value = res.data?.phoneNumber ?? null;
+            description.current.value = res.data?.description ?? null;
+            qualification.current.value = res.data?.qualification ?? null;
+            dob.current.value = res.data?.DOB ?? null;
           }
         })
         .catch((err) => customToast("error", err.message));
     }
   }, [match.params.id]);
-  
+
   const _onProfilePicChange = (e) => {
     const file = e.target.files[0];
     setCeoPhoto(file);
@@ -52,41 +50,62 @@ const AddCeo = (Props) => {
     setCeoSign(file);
   };
 
+  const uploadProfilePic = (id) => {
+    return uploadFile({
+      ref: "ceo",
+      refId: id,
+      field: "picture",
+      files: ceoPhoto,
+    });
+  };
+
+  const uploadSignature = (id) => {
+    return uploadFile({
+      ref: "ceo",
+      refId: id,
+      field: "signature",
+      files: ceoSign,
+    });
+  };
+
   const postCeoData = (e) => {
     e.preventDefault();
+    console.log("DATE", dob.current.value);
     const params = {
       name: ceoName.current.value,
       phoneNumber: phoneNumber.current.value,
       description: description.current.value,
-      DOB: dob.current.value,
+      DOB: dob.current.value === "" ? null : dob.current.value,
       qualification: qualification.current.value,
     };
     (match.params.id ? putCeo(params, match.params.id) : postCeo(params))
       .then((res) => {
-        // console.log(res);
-        if (ceoPhoto) {
-          // console.log(res.id);
-          uploadFile({
-            ref: "ceo",
-            refId: match.params.id ? res.data.id : res.id,
-            field: "picture",
-            files: ceoPhoto,
-          })
+        const success = () => {
+          customToast("success", "Form submitted successfully.");
+          history.goBack();
+        };
+
+        if (ceoPhoto || ceoSign) {
+          console.log(ceoPhoto, ceoSign);
+          if (ceoPhoto && !ceoSign) {
+            uploadProfilePic(res.id).then((data) => {
+              success();
+            });
+          } else if (ceoSign && !ceoPhoto) {
+            uploadSignature(res.id).then((data) => {
+              success();
+            });
+          } else if (ceoSign && ceoPhoto) {
+            Promise.all([
+              uploadProfilePic(res.id),
+              uploadSignature(res.id),
+            ]).then((data) => {
+              success();
+            });
+          }
+        } else {
+          success();
         }
-        if(ceoSign){
-          uploadFile({
-            ref: "ceo",
-            refId: match.params.id ? res.data.id : res.id,
-            field: "signature",
-            files: ceoSign,
-          })
-          // .then((data) => {
-          //   customToast("success", "Form submitted successfully.");
-          //   history.goBack();
-          // });
-        }
-        customToast("success", "Form submitted successfully.");
-        history.goBack();
       })
       .catch((err) => customToast("error", err.message));
   };
@@ -103,7 +122,7 @@ const AddCeo = (Props) => {
                 style={{ textDecoration: "none" }}
               >
                 <ChevronLeftIcon className={classes.iconbtn} />
-                {match.params.id?'Edit CEO Details':'Add CEO Details'}
+                {match.params.id ? "Edit CEO Details" : "Add CEO Details"}
               </Typography>
             </Link>
           </Grid>
