@@ -72,7 +72,7 @@ export const useStyles = makeStyles((theme) => ({
     color: colors.text1,
     border: 0,
     display: "grid",
-    gridTemplateRows: "38% 62%",
+    // gridTemplateRows: "38% 62%",
     padding: "1rem",
     maxHeight: "100vh",
   },
@@ -92,6 +92,8 @@ export const useStyles = makeStyles((theme) => ({
 
   drawerHeader: {
     textAlign: "center",
+    display: "grid",
+    placeItems: "center",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
@@ -692,7 +694,7 @@ export const useStyles = makeStyles((theme) => ({
   footer: {
     minHeight: "2rem",
     color: "#5A776E",
-    width: "83%",
+    width: "calc(100% - 240px)",
     fontSize: "0.8rem",
     bottom: "0",
     position: "fixed",
@@ -700,8 +702,9 @@ export const useStyles = makeStyles((theme) => ({
     background: "#FAFAFA",
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
-    "@media (max-width: 762px)": {
-      gridTemplateColumns: "1fr",
+    "@media (max-width: 700px)": {
+      // gridTemplateColumns: "1fr",
+      width: "100%",
     },
   },
   t_Footer: {
