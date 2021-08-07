@@ -177,6 +177,7 @@ const AddFarmerForm = (Props) => {
       cropType: cropType.current.value,
       cattle: cattle.current.value,
     };
+    console.log(params);
     // .post(`${config.app.APP_API_URL}/farmers`, params, {
     //   headers: { "content-type": "application/json" },
     // })
@@ -194,7 +195,7 @@ const AddFarmerForm = (Props) => {
             .then((data) => {
               setFormValue(initialFormValue);
               customToast("success", "Form submitted successfully.");
-              history.push("/farmersdetails");
+              history.goBack();
             })
             .catch((_err) => {
               console.log(_err);
@@ -202,6 +203,7 @@ const AddFarmerForm = (Props) => {
         } else {
           setFormValue(initialFormValue);
           customToast("success", "Form submitted successfully.");
+          history.goBack();
         }
       })
       .catch((err) => customToast("error", err.message));
