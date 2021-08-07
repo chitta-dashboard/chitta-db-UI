@@ -46,38 +46,57 @@ const AddMd = (Props) => {
     const file = e.target.files[0];
     setSignPhoto(file);
   };
+  const uploadProfilePic = (id) => {
+    return uploadFile({
+      ref: "md",
+      refId: id,
+      field: "picture",
+      files: mdPhoto,
+    });
+  };
 
+  const uploadSignature = (id) => {
+    return uploadFile({
+      ref: "md",
+      refId: id,
+      field: "signature",
+      files: mdSign,
+    });
+  };
   const postMdData = (e) => {
     e.preventDefault();
     const params = {
       name: mdName.current.value,
       phoneNumber: phoneNumber.current.value,
-      DOB: dob.current.value,
+      DOB: dob.current.value === "" ? null : dob.current.value,
       qualification: qualification.current.value,
     };
     (mdData.id ? putMd(params, mdData.id) : postMd(params))
       .then((res) => {
-        // console.log(res);
-        if (mdPhoto || mdSign) {
-          console.log(res.id);
-          uploadFile({
-            ref: "md",
-            refId: mdData.id ? res.data.id : res.id,
-            field: "picture",
-            files: mdPhoto,
-          });
-          uploadFile({
-            ref: "md",
-            refId: mdData.id ? res.data.id : res.id,
-            field: "signature",
-            files: mdSign,
-          }).then((data) => {
-            customToast("success", "Form submitted successfully.");
-            history.goBack();
-          });
-        } else {
+        const success = () => {
           customToast("success", "Form submitted successfully.");
           history.goBack();
+        };
+        // console.log(res);
+        if (mdPhoto || mdSign) {
+          if (mdPhoto && !mdSign) {
+            uploadProfilePic(res.id).then((data) => {
+              success();
+            });
+          } else if (mdSign && !mdPhoto) {
+            uploadSignature(res.id).then((data) => {
+              success();
+            });
+          } else if (mdSign && mdPhoto) {
+            Promise.all([
+              uploadProfilePic(res.id),
+              uploadSignature(res.id),
+            ]).then((data) => {
+              success();
+            });
+          }
+        } else {
+          success();
         }
       })
       .catch((err) => customToast("error", err.message));
