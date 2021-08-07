@@ -51,6 +51,7 @@ const AddFarmerForm = (Props) => {
   const [farmerData, setFarmerData] = useState({});
   const [surveyArr, setSurveyArr] = useState([]);
   const { match } = Props;
+  const dateOfBirth = farmerData.DOB?.split("/").join("-");
 
   useEffect(() => {
     if (match.params.id) {
@@ -299,7 +300,7 @@ const AddFarmerForm = (Props) => {
                 ref={DOB}
                 autoComplete="off"
                 style={{ color: colors.text2 }}
-                defaultValue={farmerData.DOB}
+                defaultValue={dateOfBirth}
               />
             </Grid>
             <Grid item xs={8}>
