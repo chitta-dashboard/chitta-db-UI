@@ -25,10 +25,6 @@ const initialFormValue = {
   irrigationType: "TRIPIRRIGATION",
   farmerType: "SMALL",
 };
-let surveyArray = {
-  value: [],
-  id: [],
-};
 const AddFarmerForm = (Props) => {
   const history = useHistory();
   const classes = useStyles();
@@ -53,6 +49,7 @@ const AddFarmerForm = (Props) => {
   const [farmerGroups, setFarmerGroups] = useState([]);
   const [farmerGroupId, setFarmerGroupId] = useState();
   const [farmerData, setFarmerData] = useState({});
+  const [surveyArr, setSurveyArr] = useState([]);
   const { match } = Props;
 
   useEffect(() => {
@@ -85,22 +82,15 @@ const AddFarmerForm = (Props) => {
 
   const isExistSurveyNumber = (surveyUuid, cb) => {
     if (formValue.surveyNoList[surveyUuid]?.value?.length) {
-      let tempSurvey = formValue.surveyNoList[surveyUuid].value;
-      let tempId = surveyUuid;
-      surveyArray.value.push(tempSurvey);
-      surveyArray.id.push(tempId);
+      setSurveyArr([
+        ...surveyArr,
+        {
+          value: formValue.surveyNoList[surveyUuid].value,
+          id: surveyUuid,
+        },
+      ]);
       if (cb) cb(surveyUuid);
     }
-    // if (formValue.surveyNoList[surveyUuid]?.value?.length)
-    //   axios
-    //     .post(`${config.app.APP_API_URL}/survey-numbers`, { surveyNo })
-    //     .then((res) => {
-    //       if (cb) cb(surveyUuid, res.data.id);
-    //     })
-    //     .catch((err) => {
-    //       customToast("error", "Survey number already exist.");
-    //     });
-    // else if (cb) cb(surveyUuid);
   };
 
   const handleSurveyChange = (surveyUuid, e) => {
@@ -133,9 +123,11 @@ const AddFarmerForm = (Props) => {
     const surveyList = formValue.surveyNoList;
     delete surveyList[surveyUuid];
     setFormValue({ ...formValue, surveyNoList: surveyList });
-    let tempIndex = surveyArray.id.indexOf(surveyUuid);
-    surveyArray.value.splice(tempIndex, 1);
-    surveyArray.id.splice(tempIndex, 1);
+
+    const tempArr = surveyArr.filter(function (value, index, arr) {
+      return surveyUuid !== value.id;
+    });
+    setSurveyArr(tempArr);
   };
 
   const handleActions = (isAddable, id, e) => {
@@ -146,11 +138,11 @@ const AddFarmerForm = (Props) => {
 
   const postFarmerData = (e) => {
     e.preventDefault();
-    let surveyNo = surveyArray.value.toString();
-    // console.log(surveyNo);
-    // console.log(formValue.surveyNoList);
-    // console.log(surveyArray.value);
-    // console.log(surveyArray.id);
+    const finalArr = surveyArr.map(function (value) {
+      return value ? value.value : null;
+    });
+    let surveyNo = finalArr.toString();
+    console.log("last", surveyNo);
     const params = {
       name: farmerName.current.value,
       fatherName: fatherName.current.value,
@@ -161,7 +153,7 @@ const AddFarmerForm = (Props) => {
       aadharNumber: aadharNumber.current.value,
       voterIdNumber: voterIdNumber.current.value,
       // surveyArray: [{ survey_numbers: FinalSurveyNoIds }],
-      surveyNo: surveyNo,
+      // surveyNo: surveyNo,
       acre: +acre.current.value,
       gender: formValue.gender,
       education: education.current.value,
@@ -176,7 +168,7 @@ const AddFarmerForm = (Props) => {
       cropType: cropType.current.value,
       cattle: cattle.current.value,
     };
-    console.log(params);
+    // console.log(params);
     // .post(`${config.app.APP_API_URL}/farmers`, params, {
     //   headers: { "content-type": "application/json" },
     // })
@@ -192,10 +184,7 @@ const AddFarmerForm = (Props) => {
             files: farmerPhoto,
           })
             .then((data) => {
-              surveyArray = {
-                value: [],
-                id: [],
-              };
+              setSurveyArr([]);
               setFormValue(initialFormValue);
               customToast("success", "Form submitted successfully.");
               history.goBack();
@@ -204,10 +193,7 @@ const AddFarmerForm = (Props) => {
               console.log(_err);
             });
         } else {
-          surveyArray = {
-            value: [],
-            id: [],
-          };
+          setSurveyArr([]);
           setFormValue(initialFormValue);
           customToast("success", "Form submitted successfully.");
           history.goBack();
@@ -215,6 +201,7 @@ const AddFarmerForm = (Props) => {
       })
       .catch((err) => customToast("error", err.message));
   };
+
   return (
     <div className={classes.form}>
       <form>
