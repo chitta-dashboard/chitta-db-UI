@@ -29,7 +29,6 @@ let surveyArray = {
   value: [],
   id: [],
 };
-let surveyNo = "";
 const AddFarmerForm = (Props) => {
   const history = useHistory();
   const classes = useStyles();
@@ -162,7 +161,7 @@ const AddFarmerForm = (Props) => {
       aadharNumber: aadharNumber.current.value,
       voterIdNumber: voterIdNumber.current.value,
       // surveyArray: [{ survey_numbers: FinalSurveyNoIds }],
-      surveyNO: surveyNo,
+      surveyNo: surveyNo,
       acre: +acre.current.value,
       gender: formValue.gender,
       education: education.current.value,
@@ -193,6 +192,10 @@ const AddFarmerForm = (Props) => {
             files: farmerPhoto,
           })
             .then((data) => {
+              let surveyArray = {
+                value: [],
+                id: [],
+              };
               setFormValue(initialFormValue);
               customToast("success", "Form submitted successfully.");
               history.goBack();
@@ -201,6 +204,10 @@ const AddFarmerForm = (Props) => {
               console.log(_err);
             });
         } else {
+          let surveyArray = {
+            value: [],
+            id: [],
+          };
           setFormValue(initialFormValue);
           customToast("success", "Form submitted successfully.");
           history.goBack();
