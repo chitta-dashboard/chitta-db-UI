@@ -80,19 +80,6 @@ const AddFarmerForm = (Props) => {
     setFarmerPhoto(file);
   };
 
-  const isExistSurveyNumber = (surveyUuid, cb) => {
-    if (formValue.surveyNoList[surveyUuid]?.value?.length) {
-      setSurveyArr([
-        ...surveyArr,
-        {
-          value: formValue.surveyNoList[surveyUuid].value,
-          id: surveyUuid,
-        },
-      ]);
-      if (cb) cb(surveyUuid);
-    }
-  };
-
   const handleSurveyChange = (surveyUuid, e) => {
     setFormValue({
       ...formValue,
@@ -105,6 +92,7 @@ const AddFarmerForm = (Props) => {
       },
     });
   };
+
   const handleAddSurveyNumber = (surveyUuid) => {
     const addRow = (surveyId, resId) => {
       setFormValue({
@@ -116,7 +104,7 @@ const AddFarmerForm = (Props) => {
         },
       });
     };
-    isExistSurveyNumber(surveyUuid, addRow);
+    addRow(surveyUuid);
   };
 
   const handleRemoveSurveyNumber = (surveyUuid) => {
@@ -136,13 +124,12 @@ const AddFarmerForm = (Props) => {
     else handleRemoveSurveyNumber(id);
   };
 
+  const SurveyNoArray = Object.values(formValue.surveyNoList).map((item) => {
+    return item.value;
+  });
+
   const postFarmerData = (e) => {
     e.preventDefault();
-    const finalArr = surveyArr.map(function (value) {
-      return value ? value.value : null;
-    });
-    let surveyNo = finalArr.toString();
-    console.log("last", surveyNo);
     const params = {
       name: farmerName.current.value,
       fatherName: fatherName.current.value,
@@ -153,7 +140,7 @@ const AddFarmerForm = (Props) => {
       aadharNumber: aadharNumber.current.value,
       voterIdNumber: voterIdNumber.current.value,
       // surveyArray: [{ survey_numbers: FinalSurveyNoIds }],
-      // surveyNo: surveyNo,
+      surveyNo: SurveyNoArray.toString(),
       acre: +acre.current.value,
       gender: formValue.gender,
       education: education.current.value,
@@ -168,7 +155,7 @@ const AddFarmerForm = (Props) => {
       cropType: cropType.current.value,
       cattle: cattle.current.value,
     };
-    // console.log(params);
+    console.log(params);
     // .post(`${config.app.APP_API_URL}/farmers`, params, {
     //   headers: { "content-type": "application/json" },
     // })
