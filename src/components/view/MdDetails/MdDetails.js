@@ -97,7 +97,7 @@ const MdDetails = (props) => {
                           alt=""
                           src={
                             data?.picture
-                              ? `${config.app.APP_API_URL}${data.picture[0]?.url}`
+                              ? `${config.app.APP_API_URL}${data.picture?.url}`
                               : tempImg
                           }
                           onError={addDefaultSrc}
