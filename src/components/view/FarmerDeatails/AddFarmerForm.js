@@ -192,7 +192,7 @@ const AddFarmerForm = (Props) => {
             files: farmerPhoto,
           })
             .then((data) => {
-              let surveyArray = {
+              surveyArray = {
                 value: [],
                 id: [],
               };
@@ -204,7 +204,7 @@ const AddFarmerForm = (Props) => {
               console.log(_err);
             });
         } else {
-          let surveyArray = {
+          surveyArray = {
             value: [],
             id: [],
           };
@@ -346,7 +346,7 @@ const AddFarmerForm = (Props) => {
               placeholder="ஆதார் எண்"
               ref={aadharNumber}
               autoComplete="off"
-              // defaultValue={farmerData.aadharNumber}
+              defaultValue={farmerData.aadharNumber}
             />
           </Grid>
           <Grid className={classes.forminput_container} item xs={12}>
