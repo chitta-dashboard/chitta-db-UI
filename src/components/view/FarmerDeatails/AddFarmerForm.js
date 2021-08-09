@@ -141,7 +141,10 @@ const AddFarmerForm = (Props) => {
       aadharNumber: aadharNumber.current.value,
       voterIdNumber: voterIdNumber.current.value,
       // surveyArray: [{ survey_numbers: FinalSurveyNoIds }],
-      surveyNo: SurveyNoArray.toString(),
+      surveyNo:
+        SurveyNoArray[0].length === 0
+          ? farmerData.surveyNo
+          : SurveyNoArray.toString(),
       acre: +acre.current.value,
       gender: formValue.gender,
       education: education.current.value,
