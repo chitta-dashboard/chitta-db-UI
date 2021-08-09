@@ -129,7 +129,7 @@ const AddMd = (Props) => {
               <input
                 className="farmer-input tamil"
                 type="text"
-                placeholder="name"
+                placeholder="பெயர்"
                 defaultValue={mdData?.name}
                 ref={mdName}
                 autoComplete="off"
@@ -139,13 +139,14 @@ const AddMd = (Props) => {
               <input
                 className="farmer-input tamil"
                 type="text"
-                placeholder="Phone number"
+                placeholder="கைபேசி எண்"
                 defaultValue={mdData?.phoneNumber}
                 ref={phoneNumber}
                 autoComplete="off"
               />
             </Grid>
             <Grid className={classes.forminput_container} item xs={12}>
+            <label>புகைப்படம்</label>
               <input
                 className="farmer-input tamil"
                 type="file"
@@ -160,6 +161,7 @@ const AddMd = (Props) => {
               />
             </Grid>
             <Grid className={classes.forminput_container} item xs={12}>
+            <label>கையொப்பம்</label>
               <input
                 className="farmer-input tamil"
                 type="file"
@@ -188,7 +190,7 @@ const AddMd = (Props) => {
               <input
                 className="farmer-input"
                 type="text"
-                placeholder="Qualification"
+                placeholder="தகுதி"
                 autoComplete="off"
                 defaultValue={mdData?.qualification}
                 ref={qualification}
