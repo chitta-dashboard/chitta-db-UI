@@ -136,7 +136,7 @@ const AddFarmerForm = (Props) => {
       fatherName: fatherName.current.value,
       husbandName: husbandName.current.value,
       farmer_group: farmerGroupId,
-      DOB: DOB.current.value,
+      DOB: DOB.current.value !== "" ? DOB.current.value : null,
       phoneNumber: phoneNumber.current.value,
       aadharNumber: aadharNumber.current.value,
       voterIdNumber: voterIdNumber.current.value,
@@ -160,14 +160,10 @@ const AddFarmerForm = (Props) => {
       cattle: cattle.current.value,
     };
     console.log(params);
-    // .post(`${config.app.APP_API_URL}/farmers`, params, {
-    //   headers: { "content-type": "application/json" },
-    // })
     (farmerData.id ? putFarmer(params, farmerData.id) : postFarmer(params))
       .then((res) => {
         console.log(res);
         if (farmerPhoto) {
-          console.log(res.id);
           uploadFile({
             ref: "farmer",
             refId: res.id,
