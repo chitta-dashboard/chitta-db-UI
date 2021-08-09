@@ -37,6 +37,7 @@ const FarmerList = (props) => {
   const [page, setPage] = useState(1);
   const [farmersData, setFarmersData] = useState([]);
   const [pagedFarmer, setPagedFarmer] = useState([]);
+  const [farmerListGrp, setFarmerListGrp] = useState([]);
   useEffect(() => {
     // let filter = {
     //   farmerGroup: null,
@@ -46,23 +47,35 @@ const FarmerList = (props) => {
     getFarmers()
       .then((res) => {
         setFarmersData(res);
+        const tempArr = res.map((value) => {
+          return value?.farmerGroup ?? null;
+        });
+        let unique = [...new Set(tempArr)];
+        var filteredArr = unique.filter(function (el) {
+          return el != null;
+        });
+        const farmerGrpArr = filteredArr.map((value) => ({
+          value: value,
+          name: value,
+        }));
+        setFarmerGrp(farmerGrpArr);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
   useEffect(() => {});
-  useEffect(() => {
-    getFarmersGroup()
-      .then((res) =>
-        res.map((data) => ({
-          name: data.groupName,
-          value: data.groupName,
-        }))
-      )
-      .then((res) => setFarmerGrp(res))
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   getFarmersGroup()
+  //     .then((res) =>
+  //       res.map((data) => ({
+  //         name: data.groupName,
+  //         value: data.groupName,
+  //       }))
+  //     )
+  //     .then((res) => setFarmerGrp(res))
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   useEffect(() => {
     let filteredList = [];
@@ -113,7 +126,7 @@ const FarmerList = (props) => {
       let updated = farmerList.filter((item) => {
         return item.farmerGroup === farmerGrpId;
       });
-      console.log(updated);
+      // console.log(updated);
       setFarmerList(updated);
       setCloseIcon(true);
     } else {
@@ -131,7 +144,6 @@ const FarmerList = (props) => {
     setCloseIcon(false);
     setFarmerGrpId("");
   };
-
   return (
     <>
       <Box className={classes.farmerdetails_subheader} xs={12}>
@@ -218,15 +230,13 @@ const FarmerList = (props) => {
             {pagedFarmer &&
               pagedFarmer.map((farmer) => {
                 return (
-                  
                   <TableRow
                     role="checkbox"
                     tabIndex={-1}
                     key={farmer.id}
                     className={classes.tab_row}
                     onClick={() =>
-                      props.history.push(`farmersdetails/${farmer.id}`
-                      )
+                      props.history.push(`farmersdetails/${farmer.id}`)
                     }
                   >
                     <TableCell padding="none" className={classes.icontab_cell}>
