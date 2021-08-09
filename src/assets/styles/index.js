@@ -207,7 +207,7 @@ export const useStyles = makeStyles((theme) => ({
 
   farmerdetails_subheader: {
     padding: "2rem 1.5rem 0rem 1.5rem",
-    height: "10vh",
+    height: "15vh",
     width: "100%",
     // marginBottom: "1rem",
     display: "Grid",

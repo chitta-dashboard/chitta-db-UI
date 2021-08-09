@@ -11,7 +11,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
-import logoutLogo from "../../../assets/images/logout.svg";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -29,7 +28,6 @@ import { colors } from "../../../theme";
 import CeoDetails from "../CeoDetails/CeoDetails";
 import MdDetails from "../MdDetails/MdDetails";
 import FarmerGroups from "../FarmerGroups/FarmerGroups";
-import { Button } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Footer from "../Footer/Footer";
 import AddMd from "../MdDetails/AddMdForm";
