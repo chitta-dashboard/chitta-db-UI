@@ -17,7 +17,6 @@ const AddCeo = (Props) => {
   const classes = useStyles();
   const ceoName = useRef("");
   const phoneNumber = useRef("");
-  const description = useRef("");
   const dob = useRef(null);
   const qualification = useRef("");
   const [ceoPhoto, setCeoPhoto] = useState(null);
@@ -32,7 +31,6 @@ const AddCeo = (Props) => {
           if (res && res.status === 200) {
             ceoName.current.value = res.data?.name ?? null;
             phoneNumber.current.value = res.data?.phoneNumber ?? null;
-            description.current.value = res.data?.description ?? null;
             qualification.current.value = res.data?.qualification ?? null;
             dob.current.value = res.data?.DOB ?? null;
           }
@@ -74,7 +72,6 @@ const AddCeo = (Props) => {
     const params = {
       name: ceoName.current.value,
       phoneNumber: phoneNumber.current.value,
-      description: description.current.value,
       DOB: dob.current.value === "" ? null : dob.current.value,
       qualification: qualification.current.value,
     };
@@ -147,18 +144,6 @@ const AddCeo = (Props) => {
                 placeholder="கைபேசி எண்"
                 ref={phoneNumber}
                 autoComplete="off"
-              />
-            </Grid>
-            <Grid className={classes.forminput_container} item xs={12}>
-              <textarea
-                className="farmer-input tamil"
-                placeholder="விளக்கம்"
-                rows="4"
-                cols="50"
-                type="text"
-                autoComplete="off"
-                ref={description}
-                style={{ padding: "15px", height: "6rem" }}
               />
             </Grid>
             <Grid className={classes.forminput_container} item xs={12}>
