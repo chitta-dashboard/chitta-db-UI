@@ -179,3 +179,36 @@ export const FarmerDetailsList = [
     name: "pincode",
   },
 ];
+
+export const NotificationSubCardData = [
+  {
+    id: 1,
+    notificationTitle: "Harvard University confirmed registration",
+    date: "19.03.2020",
+  },
+  {
+    id: 2,
+    notificationTitle: "Stanford University rejected invite",
+    date: "19.03.2020",
+  },
+  {
+    id: 3,
+    notificationTitle: "Mit confirmed registration",
+    date: "19.03.2020",
+  },
+  {
+    id: 4,
+    notificationTitle: "Harvard University confirmed registration",
+    date: "19.03.2020",
+  },
+  {
+    id: 5,
+    notificationTitle: "Harvard University confirmed registration",
+    date: "19.03.2020",
+  },
+  {
+    id: 6,
+    notificationTitle: "Mit confirmed registration",
+    date: "19.03.2020",
+  },
+];

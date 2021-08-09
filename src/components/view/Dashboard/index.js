@@ -5,10 +5,12 @@ import {
   Typography,
   Button,
   Card,
+  Box,
   CardContent,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Chart } from 'react-charts'
+import { NotificationSubCardData } from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   dashboard_root: {
@@ -32,24 +34,42 @@ const useStyles = makeStyles((theme) => ({
   dashboard_AdminBtn: {
     background: "#36574C",
     color: "white",
+    fontSize: "0.8rem",
+    textTransform: "none",
   },
   dashboard_AlertContainer: {
     background: "#36574C",
     display: "flex",
-    height: "5vh",
     alignItems: "center",
     color: "white",
-    padding: "0 1rem",
+    padding: "0.8rem 1rem",
   },
-  dashboard_topbarContainer: {},
+  dashboard_topbarContainer: {
+    height: "20vh",
+    display: "flex",
+    alignItems: "center",
+  },
   dashboard_nameContainer: {
     padding: "1rem",
+    "&:before": {
+      width: "20px",
+      height: "10px",
+      background: "gray",
+      position: "absolute",
+      right: 0,
+    },
   },
   dashboard_NotificationAndSummaryContainer: {
     display: "grid",
     gridTemplateColumns: "55% 45%",
   },
   dashboard_summaryContainer: {},
+  dashboard_notificationSummaryTitle: {
+    margin: "0.5rem 0",
+  },
+  dashboard_notificationCardTitle: {
+    margin: "0.5rem 0",
+  },
   dashboard_NotificationContainer: {},
   dashboard_summaryGraphContainer: {
     minHeight: "50vh",
@@ -57,8 +77,16 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
   },
   dashboard_notificationCardContainer: {
+    maxHeight: "50vh",
     minHeight: "50vh",
     borderRadius: "10px",
+    overflow: "scroll",
+  },
+  dashboard_notificationSubCard: {
+    display: "grid",
+    padding: "1rem",
+    gridTemplateColumns: "10% 70% 20%",
+    fontSize: "0.8rem",
   },
   dashboard_graphSubContainer:{
     width:"500px",
@@ -183,7 +211,9 @@ const Dashboard = () => {
         className={classes.dashboard_NotificationAndSummaryContainer}
       >
         <Grid item className={classes.dashboard_summaryContainer}>
-          <Typography>Summary</Typography>
+          <Typography className={classes.dashboard_notificationSummaryTitle}>
+            Summary
+          </Typography>
           <Card className={classes.dashboard_summaryGraphContainer}>
             <CardContent className={classes.dashboard_graphSubContainer}>
                 <Chart data={data} series={series} axes={axes} tooltip />
@@ -191,11 +221,21 @@ const Dashboard = () => {
           </Card>
         </Grid>
         <Grid item className={classes.dashboard_NotificationContainer}>
-          <Typography className={classes.dashboard_notificationCardsContainer}>
+          <Typography className={classes.dashboard_notificationCardTitle}>
             Notification
           </Typography>
           <Card className={classes.dashboard_notificationCardContainer}>
-            <CardContent>Notification container</CardContent>
+            <CardContent>
+              {NotificationSubCardData.map((notification) => {
+                return (
+                  <Box className={classes.dashboard_notificationSubCard}>
+                    <Box>.</Box>
+                    <Box>{notification.notificationTitle}</Box>
+                    <Box>{notification.date}</Box>
+                  </Box>
+                );
+              })}
+            </CardContent>
           </Card>
         </Grid>
       </Grid>
