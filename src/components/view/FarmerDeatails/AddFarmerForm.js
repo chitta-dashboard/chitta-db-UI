@@ -10,6 +10,7 @@ import SurveyInput from "./SurveyInput";
 import { customToast } from "../../widgets/Toast";
 import config, {
   getFarmerById,
+  getFarmersGroup,
   postFarmer,
   putFarmer,
   uploadFile,
@@ -42,6 +43,10 @@ const AddFarmerForm = (Props) => {
   const pincode = useRef("");
   const cropType = useRef("");
   const cattle = useRef("");
+  const farmerGroup = useRef("");
+  const [farmerType, setFarmerType] = useState("");
+  const [irrigationType, setIrrigationType] = useState("");
+  const [landType, setLandType] = useState("");
   const [formValue, setFormValue] = useState(initialFormValue);
   const [farmerPhoto, setFarmerPhoto] = useState(null);
   const [farmerGroups, setFarmerGroups] = useState([]);
@@ -72,6 +77,7 @@ const AddFarmerForm = (Props) => {
           pincode.current.value = res?.pincode ?? null;
           cropType.current.value = res?.cropType ?? null;
           cattle.current.value = res?.cattle ?? null;
+          farmerGroup.current.value = res?.farmerGroup ?? null;
           formValue.landType = res?.landType ?? null;
           formValue.gender = res?.gender ?? null;
           formValue.irrigationType = res?.irrigationType ?? null;
@@ -81,11 +87,11 @@ const AddFarmerForm = (Props) => {
         .catch((err) => customToast("error", err.message));
     }
   }, [match.params.id]);
+
   useEffect(() => {
-    axios
-      .get(`${config.app.APP_API_URL}/farmer-groups`)
+    getFarmersGroup()
       .then((res) => {
-        setFarmerGroups(res.data);
+        setFarmerGroups(res);
       })
       .catch((err) => {
         console.log(err);
@@ -151,7 +157,7 @@ const AddFarmerForm = (Props) => {
       name: farmerName.current.value,
       fatherName: fatherName.current.value,
       husbandName: husbandName.current.value,
-      farmerGroup: farmerGroupId,
+      farmerGroup: farmerGroup.current.value,
       DOB: DOB.current.value !== "" ? DOB.current.value : null,
       phoneNumber: phoneNumber.current.value,
       aadharNumber: aadharNumber.current.value,
@@ -176,7 +182,7 @@ const AddFarmerForm = (Props) => {
       cattle: cattle.current.value,
     };
     console.log(params);
-    (farmerData.id ? putFarmer(params, farmerData.id) : postFarmer(params))
+    (match.params.id ? putFarmer(params, match.params.id) : postFarmer(params))
       .then((res) => {
         console.log(res);
         if (farmerPhoto) {
@@ -235,7 +241,6 @@ const AddFarmerForm = (Props) => {
                 placeholder="பெயர்"
                 ref={farmerName}
                 autoComplete="off"
-                // defaultValue={farmerData.name}
               />
             </Grid>
             <Grid item xs={6}>
@@ -245,7 +250,6 @@ const AddFarmerForm = (Props) => {
                 placeholder="தந்தையின் பெயர்"
                 ref={fatherName}
                 autoComplete="off"
-                // defaultValue={farmerData.fatherName}
               />
             </Grid>
           </Grid>
@@ -261,7 +265,6 @@ const AddFarmerForm = (Props) => {
                 placeholder="கணவரின் பெயர்"
                 ref={husbandName}
                 autoComplete="off"
-                // defaultValue={farmerData.husbandName}
               />
             </Grid>
             <Grid item xs={6}>
@@ -270,26 +273,24 @@ const AddFarmerForm = (Props) => {
                 id="குழு"
                 className="farmer-input"
                 style={{ color: "#111B2B" }}
-                value={farmerGroupId}
-                onChange={(e) => {
-                  setFarmerGroupId(e.target.value);
-                  console.log(e.target.value);
-                }}
+                ref={farmerGroup}
               >
                 <option value="" disabled hidden>
                   குழு
                 </option>
-                {farmerGroups.map((farmerGroup) => {
-                  return (
-                    <option
-                      key={farmerGroup.id}
-                      value={farmerGroup.groupName}
-                      className={classes.drpdown}
-                    >
-                      {farmerGroup.groupName}
-                    </option>
-                  );
-                })}
+                {farmerGroups &&
+                  farmerGroups.map((farmerGroup) => {
+                    return (
+                      <option
+                        selected={farmerGroupId === farmerGroup.groupName}
+                        key={farmerGroup.id}
+                        value={farmerGroup.groupName}
+                        className={classes.drpdown}
+                      >
+                        {farmerGroup.groupName}
+                      </option>
+                    );
+                  })}
               </select>
             </Grid>
           </Grid>
@@ -330,7 +331,6 @@ const AddFarmerForm = (Props) => {
                 placeholder="கைபேசி எண்"
                 ref={phoneNumber}
                 autoComplete="off"
-                // defaultValue={farmerData.phoneNumber}
               />
             </Grid>
           </Grid>
@@ -341,7 +341,6 @@ const AddFarmerForm = (Props) => {
               placeholder="ஆதார் எண்"
               ref={aadharNumber}
               autoComplete="off"
-              // defaultValue={farmerData.aadharNumber}
             />
           </Grid>
           <Grid className={classes.forminput_container} item xs={12}>
@@ -351,7 +350,6 @@ const AddFarmerForm = (Props) => {
               placeholder="வாக்காளர் அடையாள எண்"
               autoComplete="off"
               ref={voterIdNumber}
-              // defaultValue={farmerData.voterIdNumber}
             />
           </Grid>
           <Grid
@@ -381,7 +379,6 @@ const AddFarmerForm = (Props) => {
               placeholder="சென்ட் "
               ref={acre}
               autoComplete="off"
-              // defaultValue={farmerData.acre}
             />
           </Grid>
           <Grid
@@ -416,7 +413,6 @@ const AddFarmerForm = (Props) => {
                 type="text"
                 autoComplete="off"
                 ref={education}
-                // defaultValue={farmerData.education}
               />
             </Grid>
           </Grid>
@@ -429,8 +425,7 @@ const AddFarmerForm = (Props) => {
               type="text"
               autoComplete="off"
               ref={address}
-              style={{ padding: "15px" }}
-              defaultValue={farmerData.address}
+              style={{ padding: "15px", height: "auto" }}
             />
           </Grid>
           <Grid
@@ -445,7 +440,6 @@ const AddFarmerForm = (Props) => {
                 type="text"
                 autoComplete="off"
                 ref={village}
-                // defaultValue={farmerData.village}
               />
             </Grid>
             <Grid item xs={6}>
@@ -455,7 +449,6 @@ const AddFarmerForm = (Props) => {
                 autoComplete="off"
                 ref={circle}
                 placeholder="வட்டம்"
-                // defaultValue={farmerData.circle}
               />
             </Grid>
           </Grid>
@@ -471,7 +464,6 @@ const AddFarmerForm = (Props) => {
                 autoComplete="off"
                 ref={district}
                 placeholder="மாவடஂடமஂ"
-                // defaultValue={farmerData.district}
               />
             </Grid>
 
@@ -482,7 +474,6 @@ const AddFarmerForm = (Props) => {
                 placeholder="பினஂகோடு"
                 ref={pincode}
                 autoComplete="off"
-                // defaultValue={farmerData.pincode}
               />
             </Grid>
             <Grid item xs={4}>
@@ -495,7 +486,6 @@ const AddFarmerForm = (Props) => {
                 onChange={(e) =>
                   setFormValue({ ...formValue, landType: e.target.value })
                 }
-                // defaultValue={farmerData.landType}
               >
                 <option value="" disabled selected hidden>
                   நில வகை
@@ -524,7 +514,6 @@ const AddFarmerForm = (Props) => {
                 onChange={(e) =>
                   setFormValue({ ...formValue, irrigationType: e.target.value })
                 }
-                // defaultValue={farmerData.irrigationType}
               >
                 <option value="" disabled selected hidden>
                   நீர்ப்பாசன வகை
@@ -550,7 +539,6 @@ const AddFarmerForm = (Props) => {
                 onChange={(e) =>
                   setFormValue({ ...formValue, farmerType: e.target.value })
                 }
-                // defaultValue={farmerData.farmerType}
               >
                 <option value="" disabled selected hidden>
                   விவசாயி வகை
@@ -571,7 +559,6 @@ const AddFarmerForm = (Props) => {
                 ref={cropType}
                 placeholder="
                 பயிர் வகை"
-                // defaultValue={farmerData.cropType}
               />
             </Grid>
             <Grid item xs={6}>
@@ -581,7 +568,6 @@ const AddFarmerForm = (Props) => {
                 ref={cattle}
                 autoComplete="off"
                 placeholder="கால்நடைகள்"
-                // defaultValue={farmerData.cattle}
               />
             </Grid>
           </Grid>
