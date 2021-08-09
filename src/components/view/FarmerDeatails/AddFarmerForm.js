@@ -163,10 +163,9 @@ const AddFarmerForm = (Props) => {
       .then((res) => {
         console.log(res);
         if (farmerPhoto) {
-          console.log(res.data.id);
           uploadFile({
             ref: "farmer",
-            refId: farmerData.id ? res.data.id : res.id,
+            refId: res.id,
             field: "userImg",
             files: farmerPhoto,
           })
