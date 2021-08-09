@@ -275,7 +275,7 @@ const AddFarmerForm = (Props) => {
                 style={{ color: "#111B2B" }}
                 ref={farmerGroup}
               >
-                <option value="" disabled hidden>
+                <option selected value="" disabled hidden>
                   குழு
                 </option>
                 {farmerGroups &&
