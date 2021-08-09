@@ -76,7 +76,7 @@ const AddFarmerForm = (Props) => {
           formValue.gender = res?.gender ?? null;
           formValue.irrigationType = res?.irrigationType ?? null;
           formValue.farmerType = res?.farmerType ?? null;
-          setFarmerGroupId(res?.farmerGroup ?? null);
+          setFarmerGroupId(res?.farmerGroup ?? "");
         })
         .catch((err) => customToast("error", err.message));
     }
@@ -204,6 +204,8 @@ const AddFarmerForm = (Props) => {
       })
       .catch((err) => customToast("error", err.message));
   };
+  console.log(farmerGroups);
+  console.log(farmerGroupId);
   // console.log(farmerGroups);
   return (
     <div className={classes.form}>
@@ -271,7 +273,7 @@ const AddFarmerForm = (Props) => {
                 value={farmerGroupId}
                 onChange={(e) => {
                   setFarmerGroupId(e.target.value);
-                  // console.log(e.target.value);
+                  console.log(e.target.value);
                 }}
               >
                 <option value="" disabled hidden>
