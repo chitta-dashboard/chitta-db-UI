@@ -53,7 +53,7 @@ const AddFarmerForm = (Props) => {
 
   useEffect(() => {
     if (match.params.id) {
-      getFarmerById()
+      getFarmerById(match.params.id)
         .then((res) => {
           if (res && res.status === 200) {
             setFarmerData(res.data);
