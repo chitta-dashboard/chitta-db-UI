@@ -14,15 +14,15 @@ import config from "../../../constants/config";
 
 const AddMd = (Props) => {
   const classes = useStyles();
+
+  const { match } = Props;
+  const mdName = useRef("");
+  const phoneNumber = useRef("");
+  const dob = useRef(null);
+  const qualification = useRef("");
   const [mdPhoto, setMdPhoto] = useState(null);
   const [mdSign, setSignPhoto] = useState(null);
-  const [mdData, setMdData] = useState({});
   const history = useHistory();
-  const { match } = Props;
-  const mdName = useRef(mdData.name);
-  const phoneNumber = useRef(mdData.phoneNumber);
-  const dob = useRef(mdData.DOB);
-  const qualification = useRef(mdData.qualification);
 
   useEffect(() => {
     if (match.params.id) {
@@ -30,8 +30,10 @@ const AddMd = (Props) => {
         .get(`${config.app.APP_API_URL}/mds/${match.params.id}`)
         .then((res) => {
           if (res && res.status === 200) {
-            setMdData(res.data);
-            // setLoader(false);
+            mdName.current.value = res.data?.name ?? null;
+            phoneNumber.current.value = res.data?.phoneNumber ?? null;
+            qualification.current.value = res.data?.qualification ?? null;
+            dob.current.value = res.data?.DOB ?? null;
           }
         })
         .catch((err) => customToast("error", err.message));
@@ -71,13 +73,13 @@ const AddMd = (Props) => {
       DOB: dob.current.value === "" ? null : dob.current.value,
       qualification: qualification.current.value,
     };
-    (mdData.id ? putMd(params, mdData.id) : postMd(params))
+    (match.params.id  ? putMd(params, match.params.id ) : postMd(params))
       .then((res) => {
         const success = () => {
           customToast("success", "Form submitted successfully.");
           history.goBack();
         };
-        // console.log(res);
+
         if (mdPhoto || mdSign) {
           if (mdPhoto && !mdSign) {
             uploadProfilePic(res.id).then((data) => {
@@ -102,8 +104,6 @@ const AddMd = (Props) => {
       .catch((err) => customToast("error", err.message));
   };
 
-  console.log(mdData);
-  console.log("mdPHoto", mdPhoto);
   return (
     <div>
       <form>
@@ -130,7 +130,6 @@ const AddMd = (Props) => {
                 className="farmer-input tamil"
                 type="text"
                 placeholder="பெயர்"
-                defaultValue={mdData?.name}
                 ref={mdName}
                 autoComplete="off"
               />
@@ -140,7 +139,6 @@ const AddMd = (Props) => {
                 className="farmer-input tamil"
                 type="text"
                 placeholder="கைபேசி எண்"
-                defaultValue={mdData?.phoneNumber}
                 ref={phoneNumber}
                 autoComplete="off"
               />
@@ -181,7 +179,6 @@ const AddMd = (Props) => {
                 type="date"
                 placeholder="பிறந்த தேதி"
                 autoComplete="off"
-                defaultValue={mdData.DOB}
                 ref={dob}
                 style={{ color: colors.text2 }}
               />
@@ -192,7 +189,6 @@ const AddMd = (Props) => {
                 type="text"
                 placeholder="தகுதி"
                 autoComplete="off"
-                defaultValue={mdData?.qualification}
                 ref={qualification}
               />
             </Grid>
