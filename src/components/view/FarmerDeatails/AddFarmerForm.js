@@ -9,6 +9,7 @@ import { useStyles } from "../../../assets/styles";
 import SurveyInput from "./SurveyInput";
 import { customToast } from "../../widgets/Toast";
 import config, {
+  getFarmerById,
   postFarmer,
   putFarmer,
   uploadFile,
@@ -52,12 +53,9 @@ const AddFarmerForm = (Props) => {
 
   useEffect(() => {
     if (match.params.id) {
-      axios
-        .get(`${config.app.APP_API_URL}/farmers/${match.params.id}`)
+      getFarmerById(match.params.id)
         .then((res) => {
-          if (res && res.status === 200) {
-            setFarmerData(res.data);
-          }
+          setFarmerData(res);
         })
         .catch((err) => customToast("error", err.message));
     }
@@ -249,10 +247,10 @@ const AddFarmerForm = (Props) => {
                 id="குழு"
                 className="farmer-input"
                 style={{ color: "#111B2B" }}
-                value={formValue.farmer_group}
+                value={formValue.farmerGroup}
                 onChange={(e) => setFarmerGroupId(e.target.value)}
               >
-                <option value="" disabled selected hidden>
+                <option value="" disabled hidden>
                   குழு
                 </option>
                 {farmerGroups.map((farmerGroup) => {

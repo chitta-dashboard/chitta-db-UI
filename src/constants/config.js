@@ -13,6 +13,11 @@ export const getCEO = () => {
 export const postFarmer = (params) => {
   return httpClient.post("farmers", params);
 };
+
+export const getFarmerById = (id) => {
+  return httpClient.get(`farmers/${id}`);
+};
+
 export const putFarmer = (params, id) => {
   return httpClient.put(`farmers/${id}`, params);
 };
