@@ -55,6 +55,7 @@ const AddFarmerForm = (Props) => {
     if (match.params.id) {
       getFarmerById(match.params.id)
         .then((res) => {
+          // console.log(res);
           farmerName.current.value = res?.name ?? null;
           fatherName.current.value = res?.fatherName ?? null;
           husbandName.current.value = res?.husbandName ?? null;
@@ -71,6 +72,11 @@ const AddFarmerForm = (Props) => {
           pincode.current.value = res?.pincode ?? null;
           cropType.current.value = res?.cropType ?? null;
           cattle.current.value = res?.cattle ?? null;
+          formValue.landType = res?.landType ?? null;
+          formValue.gender = res?.gender ?? null;
+          formValue.irrigationType = res?.irrigationType ?? null;
+          formValue.farmerType = res?.farmerType ?? null;
+          setFarmerGroupId(res?.farmerGroup ?? null);
         })
         .catch((err) => customToast("error", err.message));
     }
@@ -198,7 +204,7 @@ const AddFarmerForm = (Props) => {
       })
       .catch((err) => customToast("error", err.message));
   };
-
+  // console.log(farmerGroups);
   return (
     <div className={classes.form}>
       <form>
@@ -262,8 +268,11 @@ const AddFarmerForm = (Props) => {
                 id="குழு"
                 className="farmer-input"
                 style={{ color: "#111B2B" }}
-                value={formValue.farmerGroup}
-                onChange={(e) => setFarmerGroupId(e.target.value)}
+                value={farmerGroupId}
+                onChange={(e) => {
+                  setFarmerGroupId(e.target.value);
+                  // console.log(e.target.value);
+                }}
               >
                 <option value="" disabled hidden>
                   குழு
