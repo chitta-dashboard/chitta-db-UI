@@ -60,6 +60,7 @@ const AddFarmerForm = (Props) => {
     if (match.params.id) {
       getFarmerById(match.params.id)
         .then((res) => {
+          // console.log(res);
           farmerName.current.value = res?.name ?? null;
           fatherName.current.value = res?.fatherName ?? null;
           husbandName.current.value = res?.husbandName ?? null;
@@ -77,6 +78,10 @@ const AddFarmerForm = (Props) => {
           cropType.current.value = res?.cropType ?? null;
           cattle.current.value = res?.cattle ?? null;
           farmerGroup.current.value = res?.farmerGroup ?? null;
+          formValue.landType = res?.landType ?? null;
+          formValue.gender = res?.gender ?? null;
+          formValue.irrigationType = res?.irrigationType ?? null;
+          formValue.farmerType = res?.farmerType ?? null;
           setFarmerGroupId(res?.farmerGroup ?? null);
         })
         .catch((err) => customToast("error", err.message));
@@ -205,7 +210,7 @@ const AddFarmerForm = (Props) => {
       })
       .catch((err) => customToast("error", err.message));
   };
-
+  // console.log(farmerGroups);
   return (
     <div className={classes.form}>
       <form>
