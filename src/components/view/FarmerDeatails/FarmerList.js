@@ -34,7 +34,7 @@ const FarmerList = (props) => {
   const [farmerGrp, setFarmerGrp] = useState([]);
   const [farmerGrpId, setFarmerGrpId] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(15);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [farmersData, setFarmersData] = useState([]);
   const [pagedFarmer, setPagedFarmer] = useState([]);
   const [farmerListGrp, setFarmerListGrp] = useState([]);
