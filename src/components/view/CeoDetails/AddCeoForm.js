@@ -135,7 +135,7 @@ const AddCeo = (Props) => {
               <input
                 className="farmer-input tamil"
                 type="text"
-                placeholder="name"
+                placeholder="பெயர்"
                 ref={ceoName}
                 autoComplete="off"
               />
@@ -144,7 +144,7 @@ const AddCeo = (Props) => {
               <input
                 className="farmer-input tamil"
                 type="text"
-                placeholder="Phone number"
+                placeholder="கைபேசி எண்"
                 ref={phoneNumber}
                 autoComplete="off"
               />
@@ -152,7 +152,7 @@ const AddCeo = (Props) => {
             <Grid className={classes.forminput_container} item xs={12}>
               <textarea
                 className="farmer-input tamil"
-                placeholder="Description"
+                placeholder="விளக்கம்"
                 rows="4"
                 cols="50"
                 type="text"
@@ -162,6 +162,7 @@ const AddCeo = (Props) => {
               />
             </Grid>
             <Grid className={classes.forminput_container} item xs={12}>
+              <label>புகைப்படம்</label>
               <input
                 className="farmer-input tamil"
                 type="file"
@@ -176,6 +177,7 @@ const AddCeo = (Props) => {
               />
             </Grid>
             <Grid className={classes.forminput_container} item xs={12}>
+            <label>கையொப்பம்</label>
               <input
                 className="farmer-input tamil"
                 type="file"
@@ -203,7 +205,7 @@ const AddCeo = (Props) => {
               <input
                 className="farmer-input"
                 type="text"
-                placeholder="Qualification"
+                placeholder="தகுதி"
                 autoComplete="off"
                 ref={qualification}
               />
