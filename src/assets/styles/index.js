@@ -12,7 +12,61 @@ export const useStyles = makeStyles((theme) => ({
   chitta_logo_drawer: {
     width: "8rem",
   },
-
+  loginContainer: {
+    margin: "6rem auto 0 auto ",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#fff",
+    width: "35%",
+    height: "65vh",
+    borderRadius: "15px",
+    paddingBottom: "2rem",
+  },
+  loginLogo: {
+    width: "12rem",
+    height: "12rem",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: "1rem",
+  },
+  loginInput: {
+    margin: "1rem 0rem",
+    height: "2.5rem",
+    width: "15rem",
+    borderRadius: "10px",
+    border: "none",
+    background: "rgba(0, 0, 0, 0.09)",
+    padding: "0 0.8rem",
+    "&:hover": {
+      outline: "0",
+      background: "rgba(0, 0, 0, 0.15)",
+    },
+    "&:focus": {
+      outline: "0",
+      background: "rgba(0, 0, 0, 0.15)",
+    },
+  },
+  loginActions: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  loginButton: {
+    height: "2rem",
+    width: "5rem",
+    borderRadius: "10px",
+    border: "none",
+    background: "#36574C",
+    color: "#FFFFFF",
+    "&:hover": {
+      cursor: "pointer",
+    },
+    "&:focus": {
+      outline: "0",
+    },
+  },
   Layout_root: {
     display: "flex",
   },
