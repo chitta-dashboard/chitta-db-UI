@@ -79,16 +79,16 @@ const FarmerList = (props) => {
 
   useEffect(() => {
     let filteredList = [];
-
-    if (searchValue.trim().length > 0)
-      filteredList = farmersData.filter((e) => {
+    if (searchValue.trim().length > 0) {
+      filteredList = farmerList.filter((e) => {
         return (
           searchWord(e.name, searchValue) ||
           searchWord(e.aadharNumber, searchValue) ||
           searchWord(e.phoneNumber, searchValue)
         );
       });
-    else setFilteredList(filteredList);
+      setFilteredList(filteredList);
+    } else setFilteredList(filteredList);
   }, [searchValue, farmersData]);
 
   const customisedData = farmersData.map((item) => {
@@ -102,23 +102,30 @@ const FarmerList = (props) => {
   });
 
   useEffect(() => {
-    let newFarmersList =
-      farmerList &&
-      farmerList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
-    setPagedFarmer(newFarmersList);
-  }, [page, rowsPerPage, farmerList]);
-
-  useEffect(() => {
     const FormData = filteredList.length
       ? filteredList
       : !searchValue.length
       ? farmersData
       : [];
-    setFarmerList(FormData);
     if (FormData.length > 0) {
       setDisableBtn(false);
     }
-  }, [filteredList, farmersData, searchValue]);
+    let newFarmersList =
+      FormData &&
+      FormData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+    setPagedFarmer(newFarmersList);
+  }, [page, rowsPerPage, farmerList, filteredList, farmersData, searchValue]);
+  // useEffect(() => {
+  //   const FormData = filteredList.length
+  //     ? filteredList
+  //     : !searchValue.length
+  //     ? farmersData
+  //     : [];
+  //   setFarmerList(FormData);
+  //   if (FormData.length > 0) {
+  //     setDisableBtn(false);
+  //   }
+  // }, [filteredList, farmersData, searchValue]);
 
   useEffect(() => {
     if (farmerGrpId !== "") {
@@ -144,6 +151,7 @@ const FarmerList = (props) => {
     setCloseIcon(false);
     setFarmerGrpId("");
   };
+  // console.log("final", pagedFarmer);
   return (
     <>
       <Box className={classes.farmerdetails_subheader} xs={12}>

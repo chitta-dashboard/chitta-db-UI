@@ -82,7 +82,7 @@ const AddFarmerForm = (Props) => {
           formValue.gender = res?.gender ?? null;
           formValue.irrigationType = res?.irrigationType ?? null;
           formValue.farmerType = res?.farmerType ?? null;
-          setFarmerGroupId(res?.farmerGroup ?? null);
+          setFarmerGroupId(res?.farmerGroup ?? "");
         })
         .catch((err) => customToast("error", err.message));
     }
@@ -210,6 +210,8 @@ const AddFarmerForm = (Props) => {
       })
       .catch((err) => customToast("error", err.message));
   };
+  console.log(farmerGroups);
+  console.log(farmerGroupId);
   // console.log(farmerGroups);
   return (
     <div className={classes.form}>
@@ -273,7 +275,7 @@ const AddFarmerForm = (Props) => {
                 style={{ color: "#111B2B" }}
                 ref={farmerGroup}
               >
-                <option value="" disabled hidden>
+                <option selected value="" disabled hidden>
                   குழு
                 </option>
                 {farmerGroups &&
