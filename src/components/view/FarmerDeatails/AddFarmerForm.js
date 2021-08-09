@@ -20,10 +20,7 @@ const initialFormValue = {
   surveyNoList: {
     "38997518-1bdc-28b5-2781-98baec87ffcd": { id: "", value: "" },
   },
-  gender: "male",
-  landType: "WETLAND",
-  irrigationType: "TRIPIRRIGATION",
-  farmerType: "SMALL",
+  // gender: "male"
 };
 const AddFarmerForm = (Props) => {
   const history = useHistory();
@@ -472,7 +469,11 @@ const AddFarmerForm = (Props) => {
                 onChange={(e) =>
                   setFormValue({ ...formValue, landType: e.target.value })
                 }
+                defaultValue={farmerData.landType}
               >
+                <option value="" disabled selected hidden>
+                 நில வகை
+                </option>
                 <option value="WETLAND" className={classes.drpdown}>
                   ஈரமான நிலம்
                 </option>
@@ -497,7 +498,11 @@ const AddFarmerForm = (Props) => {
                 onChange={(e) =>
                   setFormValue({ ...formValue, irrigationType: e.target.value })
                 }
+                defaultValue={farmerData.irrigationType}
               >
+                <option value="" disabled selected hidden>
+                  நீர்ப்பாசன வகை
+                </option>
                 <option value="TRIPIRRIGATION" className={classes.drpdown}>
                   சொட்டு நீர் பாசனம்
                 </option>
@@ -519,7 +524,11 @@ const AddFarmerForm = (Props) => {
                 onChange={(e) =>
                   setFormValue({ ...formValue, farmerType: e.target.value })
                 }
+                defaultValue={farmerData.farmerType}
               >
+                <option value="" disabled selected hidden>
+                விவசாயி வகை
+                </option>
                 <option value="SMALL" className={classes.drpdown}>
                   சிறிய
                 </option>
