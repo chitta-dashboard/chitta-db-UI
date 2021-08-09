@@ -20,10 +20,7 @@ const initialFormValue = {
   surveyNoList: {
     "38997518-1bdc-28b5-2781-98baec87ffcd": { id: "", value: "" },
   },
-  gender: "male",
-  landType: "WETLAND",
-  irrigationType: "TRIPIRRIGATION",
-  farmerType: "SMALL",
+  // gender: "male"
 };
 const AddFarmerForm = (Props) => {
   const history = useHistory();
@@ -135,13 +132,16 @@ const AddFarmerForm = (Props) => {
       name: farmerName.current.value,
       fatherName: fatherName.current.value,
       husbandName: husbandName.current.value,
-      farmer_group: farmerGroupId,
+      farmerGroup: farmerGroupId,
       DOB: DOB.current.value !== "" ? DOB.current.value : null,
       phoneNumber: phoneNumber.current.value,
       aadharNumber: aadharNumber.current.value,
       voterIdNumber: voterIdNumber.current.value,
       // surveyArray: [{ survey_numbers: FinalSurveyNoIds }],
-      surveyNo: SurveyNoArray.toString(),
+      surveyNo:
+        SurveyNoArray[0].length === 0
+          ? farmerData.surveyNo
+          : SurveyNoArray.toString(),
       acre: +acre.current.value,
       gender: formValue.gender,
       education: education.current.value,
@@ -198,7 +198,7 @@ const AddFarmerForm = (Props) => {
                 style={{ textDecoration: "none" }}
               >
                 <ChevronLeftIcon className={classes.iconbtn} />
-                Add farmer Details
+                {match.params.id ? "Edit" : "ADD"} farmer Details
               </Typography>
             </Link>
           </Grid>
@@ -261,7 +261,6 @@ const AddFarmerForm = (Props) => {
                       key={farmerGroup.id}
                       value={farmerGroup.groupName}
                       className={classes.drpdown}
-                      selected={farmerData?.farmerGroup}
                     >
                       {farmerGroup.groupName}
                     </option>
@@ -472,7 +471,11 @@ const AddFarmerForm = (Props) => {
                 onChange={(e) =>
                   setFormValue({ ...formValue, landType: e.target.value })
                 }
+                defaultValue={farmerData.landType}
               >
+                <option value="" disabled selected hidden>
+                  நில வகை
+                </option>
                 <option value="WETLAND" className={classes.drpdown}>
                   ஈரமான நிலம்
                 </option>
@@ -497,7 +500,11 @@ const AddFarmerForm = (Props) => {
                 onChange={(e) =>
                   setFormValue({ ...formValue, irrigationType: e.target.value })
                 }
+                defaultValue={farmerData.irrigationType}
               >
+                <option value="" disabled selected hidden>
+                  நீர்ப்பாசன வகை
+                </option>
                 <option value="TRIPIRRIGATION" className={classes.drpdown}>
                   சொட்டு நீர் பாசனம்
                 </option>
@@ -519,7 +526,11 @@ const AddFarmerForm = (Props) => {
                 onChange={(e) =>
                   setFormValue({ ...formValue, farmerType: e.target.value })
                 }
+                defaultValue={farmerData.farmerType}
               >
+                <option value="" disabled selected hidden>
+                  விவசாயி வகை
+                </option>
                 <option value="SMALL" className={classes.drpdown}>
                   சிறிய
                 </option>
