@@ -8,6 +8,7 @@ import {
   CardContent,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { Chart } from 'react-charts'
 
 const useStyles = makeStyles((theme) => ({
   dashboard_root: {
@@ -59,10 +60,80 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "50vh",
     borderRadius: "10px",
   },
+  dashboard_graphSubContainer:{
+    width:"500px",
+    height:"250px"
+  }
 }));
 
 const Dashboard = () => {
   const classes = useStyles();
+
+  const series = React.useMemo(
+    () => ({
+      type: "area"
+    }),
+    []
+  );
+  const axes = React.useMemo(
+    () => [
+      { primary: true, position: "bottom", type: "time" },
+      { position: "left", type: "linear", stacked: true }
+    ],
+    []
+  );
+  
+  const data = React.useMemo(
+    () => [
+      {
+        label: "Series 1",
+        datums: [
+          {
+            x: new Date("2020-03-18T11:00:00.000Z"),
+            y: 60
+          },
+          {
+            x: new Date("2020-03-18T11:30:00.000Z"),
+            y: 23
+          },
+          {
+            x: new Date("2020-03-18T12:00:00.000Z"),
+            y: 65
+          },
+          {
+            x: new Date("2020-03-18T12:30:00.000Z"),
+            y: 84
+          },
+          {
+            x: new Date("2020-03-18T13:00:00.000Z"),
+            y: 87
+          },
+          {
+            x: new Date("2020-03-18T13:30:00.000Z"),
+            y: 84
+          },
+          {
+            x: new Date("2020-03-18T14:00:00.000Z"),
+            y: 96
+          },
+          {
+            x: new Date("2020-03-18T14:30:00.000Z"),
+            y: 88
+          },
+          {
+            x: new Date("2020-03-18T15:00:00.000Z"),
+            y: 63
+          },
+          {
+            x: new Date("2020-03-18T15:30:00.000Z"),
+            y: 60
+          }
+        ]
+      }
+    ],
+    []
+  );
+
   return (
     <Container className={classes.dashboard_root}>
       <Grid container className={classes.dashboard_header}>
@@ -114,7 +185,9 @@ const Dashboard = () => {
         <Grid item className={classes.dashboard_summaryContainer}>
           <Typography>Summary</Typography>
           <Card className={classes.dashboard_summaryGraphContainer}>
-            <CardContent>graph container</CardContent>
+            <CardContent className={classes.dashboard_graphSubContainer}>
+                <Chart data={data} series={series} axes={axes} tooltip />
+            </CardContent>
           </Card>
         </Grid>
         <Grid item className={classes.dashboard_NotificationContainer}>
