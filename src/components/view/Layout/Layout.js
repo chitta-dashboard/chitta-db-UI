@@ -159,7 +159,7 @@ const Layout = () => {
                 );
               })}
             </div>
-            <Button
+            {/* <Button
               style={{
                 width: "85%",
                 height: "50px",
@@ -177,7 +177,7 @@ const Layout = () => {
                 alt="logo"
               />
               Logout
-            </Button>
+            </Button> */}
           </List>
         </Drawer>
         <main

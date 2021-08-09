@@ -34,7 +34,7 @@ const FarmerList = (props) => {
   const [farmerGrp, setFarmerGrp] = useState([]);
   const [farmerGrpId, setFarmerGrpId] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(15);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [farmersData, setFarmersData] = useState([]);
   const [pagedFarmer, setPagedFarmer] = useState([]);
   useEffect(() => {
@@ -218,15 +218,13 @@ const FarmerList = (props) => {
             {pagedFarmer &&
               pagedFarmer.map((farmer) => {
                 return (
-                  
                   <TableRow
                     role="checkbox"
                     tabIndex={-1}
                     key={farmer.id}
                     className={classes.tab_row}
                     onClick={() =>
-                      props.history.push(`farmersdetails/${farmer.id}`
-                      )
+                      props.history.push(`farmersdetails/${farmer.id}`)
                     }
                   >
                     <TableCell padding="none" className={classes.icontab_cell}>
