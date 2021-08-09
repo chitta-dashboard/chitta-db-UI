@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Grid,
@@ -8,109 +8,30 @@ import {
   Box,
   CardContent,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { Chart } from 'react-charts'
+import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
+import CloseIcon from "@material-ui/icons/Close";
+import { Chart } from "react-charts";
 import { NotificationSubCardData } from "../../../constants";
-
-const useStyles = makeStyles((theme) => ({
-  dashboard_root: {
-    flexGrow: 1,
-  },
-  dashboard_header: {
-    height: "10vh",
-    padding: "1rem 0",
-  },
-  dashboard_TitleContainer: {
-    display: "flex",
-    flexDirection: "column",
-    height: "100%",
-    justifyContent: "center",
-  },
-  dashboard_AdminBtnContainer: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-  },
-  dashboard_AdminBtn: {
-    background: "#36574C",
-    color: "white",
-    fontSize: "0.8rem",
-    textTransform: "none",
-  },
-  dashboard_AlertContainer: {
-    background: "#36574C",
-    display: "flex",
-    alignItems: "center",
-    color: "white",
-    padding: "0.8rem 1rem",
-  },
-  dashboard_topbarContainer: {
-    height: "20vh",
-    display: "flex",
-    alignItems: "center",
-  },
-  dashboard_nameContainer: {
-    padding: "1rem",
-    "&:before": {
-      width: "20px",
-      height: "10px",
-      background: "gray",
-      position: "absolute",
-      right: 0,
-    },
-  },
-  dashboard_NotificationAndSummaryContainer: {
-    display: "grid",
-    gridTemplateColumns: "55% 45%",
-  },
-  dashboard_summaryContainer: {},
-  dashboard_notificationSummaryTitle: {
-    margin: "0.5rem 0",
-  },
-  dashboard_notificationCardTitle: {
-    margin: "0.5rem 0",
-  },
-  dashboard_NotificationContainer: {},
-  dashboard_summaryGraphContainer: {
-    minHeight: "50vh",
-    marginRight: "1rem",
-    borderRadius: "10px",
-  },
-  dashboard_notificationCardContainer: {
-    maxHeight: "50vh",
-    minHeight: "50vh",
-    borderRadius: "10px",
-    overflow: "scroll",
-  },
-  dashboard_notificationSubCard: {
-    display: "grid",
-    padding: "1rem",
-    gridTemplateColumns: "10% 70% 20%",
-    fontSize: "0.8rem",
-  },
-  dashboard_graphSubContainer:{
-    width:"500px",
-    height:"250px"
-  }
-}));
+import { useStyles } from "../../../assets/styles";
 
 const Dashboard = () => {
   const classes = useStyles();
+  const [alertIsopen, setAlertIsOpen] = useState(true);
 
   const series = React.useMemo(
     () => ({
-      type: "area"
+      type: "area",
     }),
     []
   );
   const axes = React.useMemo(
     () => [
       { primary: true, position: "bottom", type: "time" },
-      { position: "left", type: "linear", stacked: true }
+      { position: "left", type: "linear", stacked: true },
     ],
     []
   );
-  
+
   const data = React.useMemo(
     () => [
       {
@@ -118,46 +39,46 @@ const Dashboard = () => {
         datums: [
           {
             x: new Date("2020-03-18T11:00:00.000Z"),
-            y: 60
+            y: 60,
           },
           {
             x: new Date("2020-03-18T11:30:00.000Z"),
-            y: 23
+            y: 23,
           },
           {
             x: new Date("2020-03-18T12:00:00.000Z"),
-            y: 65
+            y: 65,
           },
           {
             x: new Date("2020-03-18T12:30:00.000Z"),
-            y: 84
+            y: 84,
           },
           {
             x: new Date("2020-03-18T13:00:00.000Z"),
-            y: 87
+            y: 87,
           },
           {
             x: new Date("2020-03-18T13:30:00.000Z"),
-            y: 84
+            y: 84,
           },
           {
             x: new Date("2020-03-18T14:00:00.000Z"),
-            y: 96
+            y: 96,
           },
           {
             x: new Date("2020-03-18T14:30:00.000Z"),
-            y: 88
+            y: 88,
           },
           {
             x: new Date("2020-03-18T15:00:00.000Z"),
-            y: 63
+            y: 63,
           },
           {
             x: new Date("2020-03-18T15:30:00.000Z"),
-            y: 60
-          }
-        ]
-      }
+            y: 60,
+          },
+        ],
+      },
     ],
     []
   );
@@ -176,12 +97,19 @@ const Dashboard = () => {
         </Grid>
       </Grid>
 
-      <Grid container className={classes.dashboard_AlertContainer}>
-        <Typography variant="p">
-          Certification upload success : Remember to settle VAT before September
-          14th, 2 days left for Submission Go to Certificates
-        </Typography>
-      </Grid>
+      {alertIsopen && (
+        <Grid container className={classes.dashboard_AlertContainer}>
+          <Box className={classes.dashboard_alertText}>
+            <NotificationsActiveIcon className={classes.alertLogo} />
+            Certification upload success : Remember to settle VAT before
+            September 14th, 2 days left for Submission Go to Certificates
+          </Box>
+          <CloseIcon
+            className={classes.dashboard_closeIcon}
+            onClick={() => setAlertIsOpen(false)}
+          />
+        </Grid>
+      )}
 
       <Grid container className={classes.dashboard_topbarContainer}>
         <Grid item xs={3} className={classes.dashboard_nameContainer}>
@@ -216,12 +144,13 @@ const Dashboard = () => {
           </Typography>
           <Card className={classes.dashboard_summaryGraphContainer}>
             <CardContent className={classes.dashboard_graphSubContainer}>
-                <Chart data={data} series={series} axes={axes} tooltip />
+              <Chart data={data} series={series} axes={axes} tooltip />
             </CardContent>
           </Card>
         </Grid>
         <Grid item className={classes.dashboard_NotificationContainer}>
           <Typography className={classes.dashboard_notificationCardTitle}>
+            <NotificationsActiveIcon className={classes.notificationLogo} />
             Notification
           </Typography>
           <Card className={classes.dashboard_notificationCardContainer}>

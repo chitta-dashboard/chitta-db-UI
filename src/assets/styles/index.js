@@ -787,4 +787,104 @@ export const useStyles = makeStyles((theme) => ({
     // padding: 10,
     // borderRight: "1px solid",
   },
+
+  //dashboard
+  dashboard_root: {
+    flexGrow: 1,
+  },
+  dashboard_header: {
+    height: "10vh",
+    padding: "1rem 0",
+  },
+  dashboard_TitleContainer: {
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
+    justifyContent: "center",
+  },
+  dashboard_AdminBtnContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+  dashboard_AdminBtn: {
+    background: "#36574C",
+    color: "white",
+    fontSize: "0.8rem",
+    textTransform: "none",
+  },
+  dashboard_AlertContainer: {
+    background: "#36574C",
+    display: "flex",
+    alignItems: "center",
+    color: "white",
+    padding: "0.8rem 1rem",
+    justifyContent: "space-between",
+  },
+  dashboard_alertText: {
+    display: "flex",
+    alignItems: "center",
+  },
+  dashboard_topbarContainer: {
+    height: "20vh",
+    display: "flex",
+    alignItems: "center",
+  },
+  dashboard_nameContainer: {
+    padding: "1rem",
+    "&:before": {
+      width: "20px",
+      height: "10px",
+      background: "gray",
+      position: "absolute",
+      right: 0,
+    },
+  },
+  dashboard_NotificationAndSummaryContainer: {
+    display: "grid",
+    gridTemplateColumns: "55% 45%",
+  },
+  dashboard_summaryContainer: {},
+  dashboard_notificationSummaryTitle: {
+    margin: "0.5rem 0",
+  },
+  dashboard_notificationCardTitle: {
+    margin: "0.5rem 0",
+    display: "flex",
+    alignItems: "center",
+  },
+  dashboard_NotificationContainer: {},
+  dashboard_summaryGraphContainer: {
+    minHeight: "50vh",
+    marginRight: "1rem",
+    borderRadius: "10px",
+  },
+  dashboard_notificationCardContainer: {
+    maxHeight: "50vh",
+    minHeight: "50vh",
+    borderRadius: "10px",
+    overflow: "scroll",
+  },
+  dashboard_notificationSubCard: {
+    display: "grid",
+    padding: "1rem",
+    gridTemplateColumns: "10% 70% 20%",
+    fontSize: "0.8rem",
+  },
+  dashboard_graphSubContainer: {
+    width: "500px",
+    height: "250px",
+  },
+  alertLogo: {
+    height: "0.9rem",
+    marginBottom: "0.1rem",
+  },
+  notificationLogo: {
+    height: "1rem",
+    marginBottom: "0.1rem",
+  },
+  dashboard_closeIcon: {
+    height: "0.9rem",
+    cursor: "pointer",
+  },
 }));
