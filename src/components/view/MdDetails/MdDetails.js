@@ -25,7 +25,10 @@ const MdDetails = (props) => {
   }
 
   useEffect(() => {
-    getAdmin()
+    let filter = {
+      type: "md",
+    };
+    getAdmin(filter)
       .then((res) => {
         setMdDetails(res);
       })
@@ -80,7 +83,7 @@ const MdDetails = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {mdDetails.filter((value)=> value.adminType == "md").map((data) => {
+                {mdDetails.map((data) => {
                   return (
                     <TableRow
                       role="checkbox"
