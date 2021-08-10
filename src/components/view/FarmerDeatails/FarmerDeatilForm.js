@@ -12,13 +12,14 @@ import {
   getFormattedDate,
   toGetTamilGender,
 } from "../../../constants";
-import config from "../../../constants/config";
+import config,{ deleteFarmer } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import FarmerDetailsToPdf from "./FarmerDetailsToPdf";
+import { useHistory } from "react-router-dom";
 
 const FarmerDeatilForm = (Props) => {
   const { match } = Props;
-
+  const history = useHistory();
   const classes = useStyles();
   const [farmerData, setFarmerData] = useState({});
   const [loader, setLoader] = useState(true);
@@ -56,6 +57,14 @@ const FarmerDeatilForm = (Props) => {
     }
   };
 
+  const formerDeleteHandler=(id)=>{
+    deleteFarmer(id)
+    .then((data) => {
+      customToast("success", "Former Deleted successfully.");
+    history.goBack();
+    });
+  }
+
   return (
     <>
       <div className={classes.user_btncontainer}>
@@ -72,6 +81,13 @@ const FarmerDeatilForm = (Props) => {
             onClick={() => Props.history.push(`editfarmer/${match.params.id}`)}
           >
             Edit
+          </button>
+          <button
+            className={classes.export_btn}
+            style={{ textDecoration: "none" }}
+            onClick={() => formerDeleteHandler(match.params.id)}
+          >
+            Delete
           </button>
           <PDFDownloadLink
             document={

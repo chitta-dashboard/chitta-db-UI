@@ -29,6 +29,11 @@ export const getFarmerById = (id) => {
 export const putFarmer = (params, id) => {
   return httpClient.put(`farmers/${id}`, params);
 };
+
+export const deleteFarmer = (id) => {
+  return httpClient.delete(`farmers/${id}`);
+};
+
 export const getMD = () => {
   return httpClient.get("mds");
 };
