@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useStyles } from "../../../assets/styles";
 import Logo from "../../../assets/images/nerkathir_logo.png";
+import { UserLoginContext } from "../../context/UserLoginContext";
 
 export default function UserLogin() {
+  const { loginHandler } = useContext(UserLoginContext);
   const classes = useStyles();
   const submitHandler = (e) => {
     e.preventDefault();
@@ -21,7 +23,9 @@ export default function UserLogin() {
             <label>Password : </label>
             <input className={classes.loginInput} placeholder="Password" />
             <div className={classes.loginActions}>
-              <button className={classes.loginButton}>Login</button>
+              <button className={classes.loginButton} onClick={loginHandler}>
+                Login
+              </button>
             </div>
           </form>
         </div>
