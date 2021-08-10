@@ -196,10 +196,10 @@ const AddFarmerForm = (Props) => {
       cropType: cropType.current.value,
       cattle: cattle.current.value,
     };
-    console.log(params);
+    // console.log(params);
     (match.params.id ? putFarmer(params, match.params.id) : postFarmer(params))
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (farmerPhoto) {
           uploadFile({
             ref: "farmer",
