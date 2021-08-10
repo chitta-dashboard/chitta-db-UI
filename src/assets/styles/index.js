@@ -22,7 +22,7 @@ export const useStyles = makeStyles((theme) => ({
     width: "35%",
     height: "65vh",
     borderRadius: "15px",
-    paddingBottom: "2rem",
+    padding: "2rem 0rem",
   },
   loginLogo: {
     width: "12rem",
@@ -33,9 +33,12 @@ export const useStyles = makeStyles((theme) => ({
     marginBottom: "1rem",
   },
   loginInput: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     margin: "1rem 0rem",
     height: "2.5rem",
-    width: "15rem",
+    width: "100%",
     borderRadius: "10px",
     border: "none",
     background: "rgba(0, 0, 0, 0.09)",
