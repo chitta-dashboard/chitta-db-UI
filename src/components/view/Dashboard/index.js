@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
   dashboard_nameContainer: {
     borderLeft: "1px solid rgba(0, 0, 0, 0.15)",
     padding: "1rem",
+    overflowWrap: "break-word",
     "&:before": {
       width: "20px",
       height: "10px",
@@ -82,6 +83,9 @@ const useStyles = makeStyles((theme) => ({
   dashboard_NotificationAndSummaryContainer: {
     display: "grid",
     gridTemplateColumns: "55% 45%",
+    "@media only screen and (max-width: 900px)" :{
+      gridTemplateColumns: "100%"
+    },
   },
   dashboard_summaryContainer: {},
   dashboard_notificationSummaryTitle: {
