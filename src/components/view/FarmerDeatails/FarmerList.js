@@ -95,9 +95,6 @@ const FarmerList = (props) => {
     return {
       ...item,
       DOB: item.DOB ? getFormattedDate(item.DOB) : "",
-      surveyArray:
-        item.surveyArray.length &&
-        item.surveyArray[0].survey_numbers.map((e) => e.surveyNo).join(),
     };
   });
 

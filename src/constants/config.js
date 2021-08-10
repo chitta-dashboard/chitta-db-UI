@@ -70,8 +70,9 @@ export const putAdmin = (params, id) => {
 export const postAdmin = (params) => {
   return httpClient.post("adminusers", params);
 };
-export const getAdmin = () => {
-  return httpClient.get("adminusers");
+export const getAdmin = (filter) => {
+  let qs = filter?.type ? `?adminType=${filter.type}` : "";
+  return httpClient.get(`adminusers${qs}`);
 };
 
 export const postFarmerGroup = (params) => {

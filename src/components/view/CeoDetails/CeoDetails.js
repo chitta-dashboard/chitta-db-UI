@@ -21,7 +21,10 @@ const CeoDetails = (props) => {
   const classes = useStyles();
   const [ceoDetails, setCeoDetails] = useState([]);
   useEffect(() => {
-    getAdmin()
+    let filter = {
+      type: "ceo",
+    };
+    getAdmin(filter)
       .then((res) => setCeoDetails(res))
       .catch((err) => {
         console.log(err);
@@ -80,16 +83,14 @@ const CeoDetails = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {ceoDetails.filter((value)=> value.adminType == "ceo").map((data) => {
+                {ceoDetails.map((data) => {
                   return (
                     <TableRow
                       key={data.id}
                       role="checkbox"
                       tabIndex={-1}
                       className={classes.tab_row}
-                      onClick={() =>
-                    props.history.push(`editCeo/${data.id}`)
-                  }
+                      onClick={() => props.history.push(`editCeo/${data.id}`)}
                     >
                       <TableCell
                         padding="none"
