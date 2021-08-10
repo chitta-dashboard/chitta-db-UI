@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   dashboard_nameContainer: {
+    borderLeft: "1px solid rgba(0, 0, 0, 0.15)",
     padding: "1rem",
     "&:before": {
       width: "20px",
@@ -92,6 +93,15 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   dashboard_NotificationContainer: {},
+  graphBarHeader: {
+    display: "flex",
+    float: "right",
+    margin: "0.7rem",
+  },
+  graphBarHeading: {
+    margin: "0rem 0.6rem",
+    fontSize: "0.8rem",
+  },
   dashboard_summaryGraphContainer: {
     minHeight: "50vh",
     marginRight: "1rem",
@@ -263,6 +273,15 @@ const Dashboard = () => {
             Summary
           </Typography>
           <Card className={classes.dashboard_summaryGraphContainer}>
+            <div className={classes.graphBarHeader}>
+              <Typography className={classes.graphBarHeading}>
+                Organization
+              </Typography>
+              <Typography className={classes.graphBarHeading}>
+                Certificate
+              </Typography>
+              <Typography className={classes.graphBarHeading}>Award</Typography>
+            </div>
             <CardContent className={classes.dashboard_graphSubContainer}>
               <Chart data={data} series={series} axes={axes} tooltip />
             </CardContent>
