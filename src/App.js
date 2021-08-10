@@ -10,14 +10,20 @@ import "./app.css";
 import UserLogin from "./components/view/UserLogin/UserLogin";
 import { UserLoginContext } from "./components/context/UserLoginContext";
 import { useContext } from "react";
+import { BrowserRouter, Redirect, Route } from "react-router-dom";
 const App = () => {
   const { isAuthenticated } = useContext(UserLoginContext);
   console.log("check", isAuthenticated);
   return (
     <div>
-      {/* {isAuthenticated} */}
-      {!isAuthenticated && <UserLogin />}
-      {isAuthenticated && <Layout />}
+      {!isAuthenticated ? (
+        <BrowserRouter>
+          <Route exact path="/" component={UserLogin} />
+          <Redirect to="/" />
+        </BrowserRouter>
+      ) : (
+        <Layout />
+      )}
       {/* <Footer /> */}
       <ToastContainer />
     </div>
