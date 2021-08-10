@@ -90,7 +90,7 @@ const CeoDetails = (props) => {
                       role="checkbox"
                       tabIndex={-1}
                       className={classes.tab_row}
-                      onClick={() => props.history.push(`editCeo/${data.id}`)}
+                      onClick={() => props.history.push(`ceoDetail/${data.id}`)}
                     >
                       <TableCell
                         padding="none"

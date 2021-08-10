@@ -90,7 +90,7 @@ const MdDetails = (props) => {
                       tabIndex={-1}
                       className={classes.tab_row}
                       key={data.id}
-                      onClick={() => props.history.push(`editMd/${data.id}`)}
+                      onClick={() => props.history.push(`mdDetail/${data.id}`)}
                     >
                       <TableCell
                         padding="none"

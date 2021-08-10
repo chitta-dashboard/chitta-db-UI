@@ -32,6 +32,8 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Footer from "../Footer/Footer";
 import AddMd from "../MdDetails/AddMdForm";
 import AddCeo from "../CeoDetails/AddCeoForm";
+import ViewCeoDetails from "../CeoDetails/ViewCeoDetails";
+import ViewMdDetails from "../MdDetails/ViewMdDetails";
 import AddFarmerGroup from "../FarmerGroups/AddFarmerGroup";
 
 const Layout = () => {
@@ -204,8 +206,10 @@ const Layout = () => {
             />
             <Route exact path="/editMd/:id" component={AddMd} />
             <Route path="/addMd" component={AddMd} />
+            <Route path="/mdDetail/:id" component={ViewMdDetails} />
             <Route path="/addCeo" component={AddCeo} />
             <Route path="/editCeo/:id" component={AddCeo} />
+            <Route path="/ceoDetail/:id" component={ViewCeoDetails} />
             <Route path="/addFarmerGroup" component={AddFarmerGroup} />
             <Redirect exact from="/" to="/farmersdetails" />
           </Switch>
