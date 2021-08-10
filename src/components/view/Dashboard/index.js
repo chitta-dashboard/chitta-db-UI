@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Container,
   Grid,
@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Chart } from "react-charts";
 import { NotificationSubCardData } from "../../../constants";
 import WavingHand from "../../../assets/images/wavingHand.svg";
+import { UserLoginContext } from "../../context/UserLoginContext";
 
 const useStyles = makeStyles((theme) => ({
   dashboard_root: {
@@ -83,8 +84,8 @@ const useStyles = makeStyles((theme) => ({
   dashboard_NotificationAndSummaryContainer: {
     display: "grid",
     gridTemplateColumns: "55% 45%",
-    "@media only screen and (max-width: 900px)" :{
-      gridTemplateColumns: "100%"
+    "@media only screen and (max-width: 900px)": {
+      gridTemplateColumns: "100%",
     },
   },
   dashboard_summaryContainer: {},
@@ -144,6 +145,7 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
   const classes = useStyles();
   const [alertIsopen, setAlertIsOpen] = useState(true);
+  const { loginType } = useContext(UserLoginContext);
 
   const series = React.useMemo(
     () => ({
@@ -220,7 +222,7 @@ const Dashboard = () => {
           </Typography>
         </Grid>
         <Grid item xs={6} className={classes.dashboard_AdminBtnContainer}>
-          <Button className={classes.dashboard_AdminBtn}>Administrator</Button>
+          <Button className={classes.dashboard_AdminBtn}>{loginType}</Button>
         </Grid>
       </Grid>
 

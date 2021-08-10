@@ -14,6 +14,14 @@ export const postFarmer = (params) => {
   return httpClient.post("farmers", params);
 };
 
+export const checkCeo = (params) => {
+  return httpClient.get(`adminusers?phoneNumber=${params}`);
+};
+
+export const checkFarmer = (params) => {
+  return httpClient.get(`farmers?phoneNumber=${params}`);
+};
+
 export const getFarmerById = (id) => {
   return httpClient.get(`farmers/${id}`);
 };

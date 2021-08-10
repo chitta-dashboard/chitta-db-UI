@@ -13,7 +13,7 @@ import { useContext } from "react";
 import { BrowserRouter, Redirect, Route } from "react-router-dom";
 const App = () => {
   const { isAuthenticated } = useContext(UserLoginContext);
-  console.log("check", isAuthenticated);
+  // console.log("check", isAuthenticated);
   return (
     <div>
       {!isAuthenticated ? (
