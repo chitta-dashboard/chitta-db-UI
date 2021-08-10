@@ -83,6 +83,21 @@ const AddFarmerForm = (Props) => {
           formValue.irrigationType = res?.irrigationType ?? null;
           formValue.farmerType = res?.farmerType ?? null;
           setFarmerGroupId(res?.farmerGroup ?? "");
+          let surveyArr = res.surveyNo.split(",");
+          let surveyList = {};
+          surveyArr.forEach((item) => {
+            let _id = uuid();
+            surveyList[_id] = {
+              id: _id,
+              value: item,
+            };
+          });
+          setFormValue((prev) => {
+            return {
+              ...prev,
+              surveyNoList: surveyList,
+            };
+          });
         })
         .catch((err) => customToast("error", err.message));
     }
@@ -210,9 +225,6 @@ const AddFarmerForm = (Props) => {
       })
       .catch((err) => customToast("error", err.message));
   };
-  console.log(farmerGroups);
-  console.log(farmerGroupId);
-  // console.log(farmerGroups);
   return (
     <div className={classes.form}>
       <form>
