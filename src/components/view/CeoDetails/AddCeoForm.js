@@ -5,7 +5,7 @@ import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import { customToast } from "../../widgets/Toast";
-import { postCeo, putCeo } from "../../../constants/config";
+import { postAdmin, putAdmin } from "../../../constants/config";
 import { useHistory } from "react-router";
 import { colors } from "../../../theme";
 import { uploadFile } from "../../../constants/config";
@@ -26,7 +26,7 @@ const AddCeo = (Props) => {
   useEffect(() => {
     if (match.params.id) {
       axios
-        .get(`${config.app.APP_API_URL}/ceos/${match.params.id}`)
+        .get(`${config.app.APP_API_URL}/adminusers/${match.params.id}`)
         .then((res) => {
           if (res && res.status === 200) {
             ceoName.current.value = res.data?.name ?? null;
@@ -50,7 +50,7 @@ const AddCeo = (Props) => {
 
   const uploadProfilePic = (id) => {
     return uploadFile({
-      ref: "ceo",
+      ref: "adminuser",
       refId: id,
       field: "picture",
       files: ceoPhoto,
@@ -59,7 +59,7 @@ const AddCeo = (Props) => {
 
   const uploadSignature = (id) => {
     return uploadFile({
-      ref: "ceo",
+      ref: "adminuser",
       refId: id,
       field: "signature",
       files: ceoSign,
@@ -74,8 +74,9 @@ const AddCeo = (Props) => {
       phoneNumber: phoneNumber.current.value,
       DOB: dob.current.value === "" ? null : dob.current.value,
       qualification: qualification.current.value,
+      adminType:"ceo"
     };
-    (match.params.id ? putCeo(params, match.params.id) : postCeo(params))
+    (match.params.id ? putAdmin(params, match.params.id) : postAdmin(params))
       .then((res) => {
         const success = () => {
           customToast("success", "Form submitted successfully.");

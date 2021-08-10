@@ -8,7 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { useStyles } from "../../../assets/styles";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
-import { getCEO } from "../../../constants/config";
+import { getAdmin } from "../../../constants/config";
 import tempImg from "../../../assets/images/male.svg";
 import tempSign from "../../../assets/images/default_sign.png";
 import { NavLink } from "react-router-dom";
@@ -21,7 +21,7 @@ const CeoDetails = (props) => {
   const classes = useStyles();
   const [ceoDetails, setCeoDetails] = useState([]);
   useEffect(() => {
-    getCEO()
+    getAdmin()
       .then((res) => setCeoDetails(res))
       .catch((err) => {
         console.log(err);
@@ -80,7 +80,7 @@ const CeoDetails = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {ceoDetails.map((data) => {
+                {ceoDetails.filter((value)=> value.adminType == "ceo").map((data) => {
                   return (
                     <TableRow
                       key={data.id}

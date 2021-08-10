@@ -4,7 +4,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
-import { postMd, putMd } from "../../../constants/config";
+import { postAdmin, putAdmin } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router";
 import { colors } from "../../../theme";
@@ -27,7 +27,7 @@ const AddMd = (Props) => {
   useEffect(() => {
     if (match.params.id) {
       axios
-        .get(`${config.app.APP_API_URL}/mds/${match.params.id}`)
+        .get(`${config.app.APP_API_URL}/adminusers/${match.params.id}`)
         .then((res) => {
           if (res && res.status === 200) {
             mdName.current.value = res.data?.name ?? null;
@@ -50,7 +50,7 @@ const AddMd = (Props) => {
   };
   const uploadProfilePic = (id) => {
     return uploadFile({
-      ref: "md",
+      ref: "adminuser",
       refId: id,
       field: "picture",
       files: mdPhoto,
@@ -59,7 +59,7 @@ const AddMd = (Props) => {
 
   const uploadSignature = (id) => {
     return uploadFile({
-      ref: "md",
+      ref: "adminuser",
       refId: id,
       field: "signature",
       files: mdSign,
@@ -72,8 +72,9 @@ const AddMd = (Props) => {
       phoneNumber: phoneNumber.current.value,
       DOB: dob.current.value === "" ? null : dob.current.value,
       qualification: qualification.current.value,
+      adminType:"md"
     };
-    (match.params.id  ? putMd(params, match.params.id ) : postMd(params))
+    (match.params.id  ? putAdmin(params, match.params.id ) : postAdmin(params))
       .then((res) => {
         const success = () => {
           customToast("success", "Form submitted successfully.");

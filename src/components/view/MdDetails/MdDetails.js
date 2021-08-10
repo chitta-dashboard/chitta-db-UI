@@ -5,7 +5,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { getMD } from "../../../constants/config";
+import { getAdmin } from "../../../constants/config";
 import { useStyles } from "../../../assets/styles";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import tempImg from "../../../assets/images/male.svg";
@@ -25,7 +25,7 @@ const MdDetails = (props) => {
   }
 
   useEffect(() => {
-    getMD()
+    getAdmin()
       .then((res) => {
         setMdDetails(res);
       })
@@ -80,7 +80,7 @@ const MdDetails = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {mdDetails.map((data) => {
+                {mdDetails.filter((value)=> value.adminType == "md").map((data) => {
                   return (
                     <TableRow
                       role="checkbox"
