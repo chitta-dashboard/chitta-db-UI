@@ -99,8 +99,8 @@ const CeoDetails = (props) => {
                         <img
                           alt=""
                           src={
-                            data?.picture[0]
-                              ? `${config.app.APP_API_URL}${data.picture[0].url}`
+                            data?.picture
+                              ? `${config.app.APP_API_URL}${data.picture.url}`
                               : tempImg
                           }
                           onError={addDefaultSrc}
@@ -123,8 +123,8 @@ const CeoDetails = (props) => {
                         <img
                           alt=""
                           src={
-                            data?.signature[0]
-                              ? `${config.app.APP_API_URL}${data.signature[0].url}`
+                            data?.signature
+                              ? `${config.app.APP_API_URL}${data.signature.url}`
                               : tempSign
                           }
                           onError={addDefaultSign}
