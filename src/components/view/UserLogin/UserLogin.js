@@ -55,14 +55,14 @@ export default function UserLogin() {
           }}
         >
           <form onSubmit={submitHandler}>
-            <label>PhoneNumber : </label>
+            <label>கைபேசி எண் </label>
             <input
               className={classes.loginInput}
               placeholder="Username"
               ref={phoneNumberRef}
             />
             <br />
-            <label>Password : </label>
+            <label>கடவுச்சொல் </label>
             <input
               type="password"
               className={classes.loginInput}
