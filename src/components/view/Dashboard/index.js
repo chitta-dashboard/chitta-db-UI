@@ -125,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "0.8rem",
   },
   dashboard_graphSubContainer: {
-    width: "500px",
+    width: "90%",
     height: "250px",
   },
   alertLogo: {
