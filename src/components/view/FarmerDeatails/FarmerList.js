@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Table from "@material-ui/core/Table";
 import Workbook from "react-excel-workbook";
 import TableBody from "@material-ui/core/TableBody";
@@ -22,8 +22,10 @@ import searchLogo from "../../../assets/images/search.svg";
 import SelectSearch, { fuzzySearch } from "react-select-search";
 import ClearIcon from "@material-ui/icons/Clear";
 import { TableFooter, TablePagination } from "@material-ui/core";
+import { UserLoginContext } from "../../context/UserLoginContext";
 
 const FarmerList = (props) => {
+  const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
   const [searchValue, setSearchValue] = useState("");
   const [filteredList, setFilteredList] = useState([]);
@@ -169,6 +171,7 @@ const FarmerList = (props) => {
           <SelectSearch
             className={"filter-btn"}
             search
+            disabled={loginType === "Farmer"}
             filterOptions={fuzzySearch}
             options={farmerGrp}
             placeholder="Select a group"

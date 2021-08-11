@@ -20,7 +20,7 @@ export default function UserLogin() {
             res[0]?.DOB.split("-")[0] ===
           passwordRef.current.value
         ) {
-          loginHandler();
+          loginHandler(res);
           loginTypeHandler("Administrator");
         }
         if (res.length === 0) {
@@ -31,7 +31,7 @@ export default function UserLogin() {
                   res[0]?.DOB.split("/")[0] ===
                 passwordRef.current.value
               ) {
-                loginHandler();
+                loginHandler(res);
                 loginTypeHandler("Farmer");
               } else {
                 console.log("error");

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Container,
   Grid,
@@ -15,6 +15,14 @@ import { Chart } from "react-charts";
 import { NotificationSubCardData } from "../../../constants";
 import WavingHand from "../../../assets/images/wavingHand.svg";
 import { UserLoginContext } from "../../context/UserLoginContext";
+import Cookies from "js-cookie";
+import {
+  getAdminUser,
+  getFarmerById,
+  getFarmers,
+  getFarmersCount,
+  getFarmersGroupCount,
+} from "../../../constants/config";
 
 const useStyles = makeStyles((theme) => ({
   dashboard_root: {
@@ -40,6 +48,11 @@ const useStyles = makeStyles((theme) => ({
     background: "#36574C",
     fontSize: "0.8rem",
     textTransform: "none",
+    "&:hover": {
+      color: "#464E5F",
+      background: "085c49",
+      border: "1px solid #085c49",
+    },
   },
   dashboard_AlertContainer: {
     background: "#36574C",
@@ -74,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "1rem",
     display: "flex",
     alignItems: "center",
+    flexWrap: "wrap",
   },
   dashboard_wavingIcon: {
     height: "40px",
@@ -146,7 +160,38 @@ const Dashboard = () => {
   const classes = useStyles();
   const [alertIsopen, setAlertIsOpen] = useState(true);
   const { loginType } = useContext(UserLoginContext);
-
+  const [userName, setUserName] = useState("");
+  const [farmersGroupCount, setFarmersGroupCount] = useState(0);
+  const [farmerCount, setFarmerCount] = useState(0);
+  const [grpCheck, setGrpCheck] = useState("");
+  useEffect(() => {
+    getFarmersGroupCount().then((res) => setFarmersGroupCount(res));
+    if (loginType === "Administrator") {
+      getAdminUser(Cookies.get("userId"))
+        .then((res) => {
+          setUserName(res.name);
+        })
+        .catch((err) => console.log(err));
+      getFarmersCount().then((res) => setFarmerCount(res));
+    } else if (loginType === "Farmer") {
+      getFarmerById(Cookies.get("userId"))
+        .then((res) => {
+          setUserName(res.name);
+          let grpCheck = res.farmerGroup;
+          getFarmers()
+            .then((res) => {
+              let tempArr = res
+                .filter((value) => value.farmerGroup === grpCheck)
+                .map((value) => {
+                  return value;
+                });
+              setFarmerCount(tempArr.length);
+            })
+            .catch((err) => console.log(err));
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
   const series = React.useMemo(
     () => ({
       type: "area",
@@ -211,7 +256,7 @@ const Dashboard = () => {
     ],
     []
   );
-
+  // console.log(adminUserId);
   return (
     <Container className={classes.dashboard_root}>
       <Grid container className={classes.dashboard_header}>
@@ -248,17 +293,17 @@ const Dashboard = () => {
             alt="wavinghand Logo"
           />
           <div>
-            <Typography>HI,Mikeal</Typography>
+            <Typography>HI,{userName}</Typography>
             <Typography>Here's Your current stats</Typography>
           </div>
         </Grid>
         <Grid item xs={2} className={classes.dashboard_nameContainer}>
           <Typography>Org.Registered</Typography>
-          <Typography>200</Typography>
+          <Typography>{farmersGroupCount}</Typography>
         </Grid>
         <Grid item xs={2} className={classes.dashboard_nameContainer}>
           <Typography>Certificate Issued</Typography>
-          <Typography>1250</Typography>
+          <Typography>{farmerCount}</Typography>
         </Grid>
         <Grid item xs={2} className={classes.dashboard_nameContainer}>
           <Typography>Award Generated</Typography>

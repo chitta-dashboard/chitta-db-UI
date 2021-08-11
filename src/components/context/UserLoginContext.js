@@ -10,15 +10,17 @@ export default function UserLoginContextProvider(props) {
     setLoginType(data);
     Cookies.set("loginType", data, { expires: 7 });
   };
-  const loginHandler = () => {
+  const loginHandler = (data) => {
     setIsAuthenticated(true);
     Cookies.set("isAuthenticated", true, { expires: 7 });
+    Cookies.set("userId", data[0].id);
   };
   const logoutHandler = () => {
     setIsAuthenticated(false);
     setLoginType("");
     Cookies.remove("isAuthenticated");
     Cookies.remove("loginType");
+    Cookies.remove("User Id");
   };
   // Cookies.get();
   // console.log("loginType", loginType);
