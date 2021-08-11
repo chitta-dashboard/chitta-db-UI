@@ -9,11 +9,20 @@ import "react-toastify/dist/ReactToastify.css";
 import "./app.css";
 import UserLogin from "./components/view/UserLogin/UserLogin";
 import { UserLoginContext } from "./components/context/UserLoginContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { BrowserRouter, Redirect, Route } from "react-router-dom";
+import Cookies from "js-cookie";
 const App = () => {
   const { isAuthenticated } = useContext(UserLoginContext);
+  const { setIsAuthenticated } = useContext(UserLoginContext);
+  const { setLoginType } = useContext(UserLoginContext);
   // console.log("check", isAuthenticated);
+  useEffect(() => {
+    setIsAuthenticated(
+      Cookies.get("isAuthenticated") ? Cookies.get("isAuthenticated") : false
+    );
+    setLoginType(Cookies.get("loginType") ? Cookies.get("loginType") : "");
+  }, []);
   return (
     <div>
       {!isAuthenticated ? (

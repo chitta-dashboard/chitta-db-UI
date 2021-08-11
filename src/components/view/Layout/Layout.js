@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import clsx from "clsx";
 import { useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -35,12 +35,16 @@ import AddCeo from "../CeoDetails/AddCeoForm";
 import ViewCeoDetails from "../CeoDetails/ViewCeoDetails";
 import ViewMdDetails from "../MdDetails/ViewMdDetails";
 import AddFarmerGroup from "../FarmerGroups/AddFarmerGroup";
+import { Button } from "@material-ui/core";
+import logoutLogo from "../../../assets/images/logout.svg";
+import { UserLoginContext } from "../../context/UserLoginContext";
 
 const Layout = () => {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery("(min-width:700px)");
   const [open, setOpen] = React.useState(true);
+  const { logoutHandler } = useContext(UserLoginContext);
 
   useEffect(() => {
     !matches ? setOpen(false) : setOpen(true);
@@ -159,7 +163,7 @@ const Layout = () => {
                 );
               })}
             </div>
-            {/* <Button
+            <Button
               style={{
                 width: "85%",
                 height: "50px",
@@ -170,6 +174,7 @@ const Layout = () => {
                 fontSize: "0.7rem",
                 color: "#fff",
               }}
+              onClick={logoutHandler}
             >
               <img
                 src={logoutLogo}
@@ -177,7 +182,7 @@ const Layout = () => {
                 alt="logo"
               />
               Logout
-            </Button> */}
+            </Button>
           </List>
         </Drawer>
         <main
