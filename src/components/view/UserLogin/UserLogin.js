@@ -49,7 +49,11 @@ export default function UserLogin() {
         <div>
           <img src={Logo} alt="" className={classes.loginLogo} />
         </div>
-        <div>
+        <div
+          style={{
+            width: "100%",
+          }}
+        >
           <form onSubmit={submitHandler}>
             <label>PhoneNumber : </label>
             <input

@@ -22,7 +22,7 @@ export const useStyles = makeStyles((theme) => ({
     width: "35%",
     height: "65vh",
     borderRadius: "15px",
-    padding: "2rem 0rem",
+    padding: "2rem 2rem",
   },
   loginLogo: {
     width: "12rem",
@@ -38,11 +38,11 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     margin: "1rem 0rem",
     height: "2.5rem",
-    width: "100%",
+    width: "90%",
     borderRadius: "10px",
     border: "none",
     background: "rgba(0, 0, 0, 0.09)",
-    padding: "0 0.8rem",
+    padding: "0 5%",
     "&:hover": {
       outline: "0",
       background: "rgba(0, 0, 0, 0.15)",
@@ -790,36 +790,36 @@ export const useStyles = makeStyles((theme) => ({
     // padding: 10,
     // borderRight: "1px solid",
   },
-  adminCardContainer:{
-    weight:"100vw",
-    height:"100vh",
-    display:"grid",
-    placeContent:"start",
+  adminCardContainer: {
+    weight: "100vw",
+    height: "100vh",
+    display: "grid",
+    placeContent: "start",
   },
   adminCardRoot: {
     maxWidth: "500px",
-    margin: "0px 20px"
+    margin: "0px 20px",
   },
   adminCardImage: {
     width: "100px",
     height: "111px",
-    paddingBottom:'0.7rem'
+    paddingBottom: "0.7rem",
   },
-  adminDetails:{
-    float:"right",
-    padding: "10px"
+  adminDetails: {
+    float: "right",
+    padding: "10px",
   },
-  adminContent:{
-    justifyContent:"space-around",
-    display:"flex",
+  adminContent: {
+    justifyContent: "space-around",
+    display: "flex",
   },
-  adminHeaderTitle:{
-    color: "#36574C"
+  adminHeaderTitle: {
+    color: "#36574C",
   },
-  admin_btncontainer:{
+  admin_btncontainer: {
     margin: "3rem 2rem",
     display: "grid",
     justifyContent: "space-between",
     gridTemplateColumns: "60% 40%",
-  }
+  },
 }));
