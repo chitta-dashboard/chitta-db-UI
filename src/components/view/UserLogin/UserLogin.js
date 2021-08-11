@@ -17,7 +17,7 @@ export default function UserLogin() {
       .then((res) => {
         if (
           res[0]?.phoneNumber.toString().substring(0, 4) +
-            res[0]?.DOB.split("-").join("") ===
+            res[0]?.DOB.split("-")[0] ===
           passwordRef.current.value
         ) {
           loginHandler();
@@ -28,7 +28,7 @@ export default function UserLogin() {
             .then((res) => {
               if (
                 res[0]?.phoneNumber.toString().substring(0, 4) +
-                  res[0]?.DOB.split("/").join("") ===
+                  res[0]?.DOB.split("/")[0] ===
                 passwordRef.current.value
               ) {
                 loginHandler();
