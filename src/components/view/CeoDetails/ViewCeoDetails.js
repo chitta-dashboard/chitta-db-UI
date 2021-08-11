@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { customToast } from "../../widgets/Toast";
@@ -12,35 +13,7 @@ import axios from "axios";
 import config from "../../../constants/config";
 import Container from '@material-ui/core/Container';
 import tempImg from "../../../assets/images/male.svg";
-
-const useStyles = makeStyles({
-  container:{
-    weight:"100vh",
-    height:"100vh",
-    display:"grid",
-    placeContent:"center"
-  },
-  root: {
-    minWidth: "300px",
-  },
-  media: {
-    height: 140,
-  },
-  image: {
-    width: 128,
-    height: 128,
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
-  },
-  content:{
-    margin: '0px 27px'
-  },
-  footer:{
-    justifyContent:"space-evenly"
-  }
-});
+import { useStyles } from "../../../assets/styles";
 
 const CeoDetailsCard =(Props)=> {
   const classes = useStyles();
@@ -64,26 +37,36 @@ const CeoDetailsCard =(Props)=> {
   const goBackAdmin =()=>{
     history.goBack();
 }
+function addDefaultSrc(ev) {
+  ev.target.src = tempImg;
+}
   return (
-    <Container fixed className={classes.container}>
-    <Card className={classes.root}> 
+    <Container fixed className={classes.adminCardContainer}>
+    <Card className={classes.adminCardRoot}> 
       <CardActionArea>
-            <img className={classes.image} src={ adminData?.picture
-                ? `${config.app.APP_API_URL}${adminData.picture.url}`
-                : tempImg } />
         <CardContent >
-        <Typography variant="body1" color="textSecondary" className={classes.content}>
+        <CardMedia
+          component="img"
+          alt="Contemplative Reptile"
+          className={classes.adminCardImage}
+          image={ adminData?.picture
+            ? `${config.app.APP_API_URL}${adminData.picture.url}`
+            : tempImg }
+          title="Contemplative Reptile"
+          onError={addDefaultSrc}
+        />
+        <Typography variant="body1" color="textSecondary" className={classes.adminContent}>
         பெயர் : {adminData.name} </Typography>
-        <Typography variant="body1" color="textSecondary" className={classes.content}>
+        <Typography variant="body1" color="textSecondary" className={classes.adminContent}>
         கைபேசி எண் : {adminData.phoneNumber} </Typography>
-        <Typography variant="body1" color="textSecondary" className={classes.content}>
+        <Typography variant="body1" color="textSecondary" className={classes.adminContent}>
         பிறந்த தேதி : {adminData.DOB} </Typography>
-        <Typography variant="body1" color="textSecondary" className={classes.content}>
+        <Typography variant="body1" color="textSecondary" className={classes.adminContent}>
         தகுதி : {adminData.qualification} </Typography>
           
         </CardContent>
       </CardActionArea>
-      <CardActions className={classes.footer} >
+      <CardActions className={classes.adminCardFooter} >
         <Button size="small" color="primary" onClick={goBackAdmin}>
           Back
         </Button>

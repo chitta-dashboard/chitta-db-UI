@@ -790,4 +790,28 @@ export const useStyles = makeStyles((theme) => ({
     // padding: 10,
     // borderRight: "1px solid",
   },
+  adminCardContainer:{
+    weight:"100vh",
+    height:"100vh",
+    display:"grid",
+    placeContent:"center"
+  },
+  adminCardRoot: {
+    minWidth: "300px",
+  },
+  adminCardImage: {
+    width: 100,
+    height: 140,
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
+    paddingBottom:'0.7rem'
+  },
+  adminContent:{
+    margin: '0px 27px'
+  },
+  adminCardFooter:{
+    justifyContent:"space-evenly"
+  }
 }));
