@@ -791,27 +791,29 @@ export const useStyles = makeStyles((theme) => ({
     // borderRight: "1px solid",
   },
   adminCardContainer:{
-    weight:"100vh",
+    weight:"100vw",
     height:"100vh",
     display:"grid",
-    placeContent:"center"
+    placeContent:"start",
   },
   adminCardRoot: {
-    minWidth: "300px",
+    minWidth: "500px",
+    margin: "0px 20px"
   },
   adminCardImage: {
-    width: 100,
-    height: 140,
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
+    width: "100px",
+    height: "111px",
     paddingBottom:'0.7rem'
   },
-  adminContent:{
-    margin: '0px 27px'
+  adminDetails:{
+    float:"right",
+    padding: "10px"
   },
-  adminCardFooter:{
-    justifyContent:"space-evenly"
+  adminContent:{
+    justifyContent:"space-around",
+    display:"flex",
+  },
+  adminHeaderTitle:{
+    color: "#36574C"
   }
 }));
