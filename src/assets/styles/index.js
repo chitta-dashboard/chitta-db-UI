@@ -797,7 +797,7 @@ export const useStyles = makeStyles((theme) => ({
     placeContent:"start",
   },
   adminCardRoot: {
-    minWidth: "500px",
+    maxWidth: "500px",
     margin: "0px 20px"
   },
   adminCardImage: {
@@ -815,5 +815,11 @@ export const useStyles = makeStyles((theme) => ({
   },
   adminHeaderTitle:{
     color: "#36574C"
+  },
+  admin_btncontainer:{
+    margin: "3rem 2rem",
+    display: "grid",
+    justifyContent: "space-between",
+    gridTemplateColumns: "60% 40%",
   }
 }));
