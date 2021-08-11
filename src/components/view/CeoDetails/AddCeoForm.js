@@ -68,7 +68,6 @@ const AddCeo = (Props) => {
 
   const postCeoData = (e) => {
     e.preventDefault();
-    console.log("DATE", dob.current.value);
     const params = {
       name: ceoName.current.value,
       phoneNumber: phoneNumber.current.value,
@@ -84,7 +83,6 @@ const AddCeo = (Props) => {
         };
 
         if (ceoPhoto || ceoSign) {
-          console.log(ceoPhoto, ceoSign);
           if (ceoPhoto && !ceoSign) {
             uploadProfilePic(res.id).then((data) => {
               success();

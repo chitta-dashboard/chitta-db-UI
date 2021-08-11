@@ -11,7 +11,6 @@ import config from "../../../constants/config";
 import Container from '@material-ui/core/Container';
 import tempImg from "../../../assets/images/male.svg";
 import { useStyles } from "../../../assets/styles";
-import { Link } from "react-router-dom";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
 const MdDetailsCard =(Props)=> {
@@ -41,13 +40,13 @@ function addDefaultSrc(ev) {
 }
   return (
     <>
-    <div className={classes.user_btncontainer}>
-        <Link  style={{ textDecoration: "none" }}>
+    <div className={classes.admin_btncontainer}>
+        <div style={{ textDecoration: "none" }}>
           <Button  onClick={goBackAdmin} className={classes.addDetailbtn_container}>
           <ChevronLeftIcon className={classes.iconbtn} />
           Back
         </Button>
-        </Link>
+        </div>
         <div className={classes.btnContainer_custom}>
           <button
             className={classes.export_btn}
