@@ -757,6 +757,8 @@ export const useStyles = makeStyles((theme) => ({
     background: "white",
     borderRadius: "15px",
     padding: "1rem",
+    overflow: "auto",
+    height: "80vh",
   },
   footer: {
     minHeight: "2rem",

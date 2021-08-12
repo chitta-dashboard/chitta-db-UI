@@ -219,7 +219,7 @@ const Layout = () => {
             <Route path="/ceoDetail/:id" component={ViewCeoDetails} />
             <Route path="/addFarmerGroup" component={AddFarmerGroup} />
 
-            <Redirect exact from="/" to="/farmersdetails" />
+            <Route path="/" component={Dashboard} />
           </Switch>
           <Footer />
         </main>

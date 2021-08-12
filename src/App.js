@@ -31,8 +31,8 @@ const App = () => {
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={UserLogin} />
+            <Redirect to="/" />
           </Switch>
-          {/* <Redirect to="/" /> */}
         </BrowserRouter>
       )}
       {/* <Footer /> */}
