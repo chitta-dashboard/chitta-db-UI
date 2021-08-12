@@ -5,7 +5,7 @@ import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import { customToast } from "../../widgets/Toast";
-import { postAdmin, putAdmin } from "../../../constants/config";
+import { postAdmin, putAdmin,postNotification } from "../../../constants/config";
 import { useHistory } from "react-router";
 import { colors } from "../../../theme";
 import { uploadFile } from "../../../constants/config";
@@ -75,13 +75,16 @@ const AddCeo = (Props) => {
       qualification: qualification.current.value,
       adminType:"ceo"
     };
+    const Notification = {
+      notification : match.params.id ?`CEO "${params.name}" Details Has been Updated` : `New CEO "${params.name}" Has been Registered`
+    };
+    
     (match.params.id ? putAdmin(params, match.params.id) : postAdmin(params))
       .then((res) => {
         const success = () => {
           customToast("success", "Form submitted successfully.");
           history.goBack();
         };
-
         if (ceoPhoto || ceoSign) {
           if (ceoPhoto && !ceoSign) {
             uploadProfilePic(res.id).then((data) => {
@@ -103,6 +106,9 @@ const AddCeo = (Props) => {
           success();
         }
       })
+      .catch((err) => customToast("error", err.message));
+      
+      postNotification(Notification)
       .catch((err) => customToast("error", err.message));
   };
 

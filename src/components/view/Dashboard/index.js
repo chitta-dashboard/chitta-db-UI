@@ -22,6 +22,7 @@ import {
   getFarmers,
   getFarmersCount,
   getFarmersGroupCount,
+  getNotification
 } from "../../../constants/config";
 
 const useStyles = makeStyles((theme) => ({
@@ -135,7 +136,7 @@ const useStyles = makeStyles((theme) => ({
   dashboard_notificationSubCard: {
     display: "grid",
     padding: "1rem",
-    gridTemplateColumns: "10% 70% 20%",
+    gridTemplateColumns: "8% 51% 41%",
     fontSize: "0.8rem",
   },
   dashboard_graphSubContainer: {
@@ -164,6 +165,8 @@ const Dashboard = () => {
   const [farmersGroupCount, setFarmersGroupCount] = useState(0);
   const [farmerCount, setFarmerCount] = useState(0);
   const [grpCheck, setGrpCheck] = useState("");
+  const [notification, setNotification] = useState([]);
+
   useEffect(() => {
     getFarmersGroupCount().then((res) => setFarmersGroupCount(res));
     if (loginType === "Administrator") {
@@ -192,6 +195,17 @@ const Dashboard = () => {
         .catch((err) => console.log(err));
     }
   }, []);
+
+  useEffect(() => {
+    getNotification()
+      .then((res) => {
+        setNotification(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const series = React.useMemo(
     () => ({
       type: "area",
@@ -349,12 +363,12 @@ const Dashboard = () => {
           </Typography>
           <Card className={classes.dashboard_notificationCardContainer}>
             <CardContent>
-              {NotificationSubCardData.map((notification) => {
+              {notification.map((data) => {
                 return (
                   <Box className={classes.dashboard_notificationSubCard}>
-                    <Box>.</Box>
-                    <Box>{notification.notificationTitle}</Box>
-                    <Box>{notification.date}</Box>
+                    <Typography variant="p">*</Typography>
+                    <Typography variant="p" spacing="2">{data.notification}</Typography>
+                    <Typography variant="p">{data.updatedAt}</Typography>
                   </Box>
                 );
               })}

@@ -94,6 +94,12 @@ export const getAdminUser = (id) => {
   return httpClient.get(`adminusers/${id}`);
 };
 
+export const getNotification = () => {
+  return httpClient.get(`notifications?_sort=createdAt:desc&_limit=10`);
+};
+export const postNotification = (params) => {
+  return httpClient.post("notifications",params);
+};
 export const postFarmerGroup = (params) => {
   return httpClient.post("farmer-groups", params);
 };
