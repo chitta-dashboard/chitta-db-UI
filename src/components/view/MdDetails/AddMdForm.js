@@ -4,7 +4,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
-import { postAdmin, putAdmin } from "../../../constants/config";
+import { postAdmin, putAdmin,postNotification } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router";
 import { colors } from "../../../theme";
@@ -74,6 +74,9 @@ const AddMd = (Props) => {
       qualification: qualification.current.value,
       adminType:"md"
     };
+    const Notification = {
+      notification : match.params.id ?`MD "${params.name}" Details Has been Updated` : `New MD "${params.name}" Has been Registered`
+    };
     (match.params.id  ? putAdmin(params, match.params.id ) : postAdmin(params))
       .then((res) => {
         const success = () => {
@@ -102,6 +105,8 @@ const AddMd = (Props) => {
           success();
         }
       })
+      .catch((err) => customToast("error", err.message));
+      postNotification(Notification)
       .catch((err) => customToast("error", err.message));
   };
 

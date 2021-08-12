@@ -51,6 +51,15 @@ const MdDetailsCard = (Props) => {
             Back
           </Button>
         </div>
+        <div className={classes.btnContainer_custom}>
+          <button
+            className={classes.export_btn}
+            style={{ textDecoration: "none" }}
+            onClick={() => Props.history.push(`/editMd/${match.params.id}`)}
+          >
+            Edit
+          </button>
+        </div>
       </div>
       <Container fixed className={classes.adminCardContainer}>
         <Card className={classes.adminCardRoot}>
