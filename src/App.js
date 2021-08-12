@@ -22,8 +22,8 @@ const App = () => {
       ) : (
         <BrowserRouter>
           <Switch>
-            <Route exact path="/login" component={UserLogin} />
-            <Redirect to="/login" />
+            <Route exact path="/" component={UserLogin} />
+            <Redirect to="/" />
           </Switch>
         </BrowserRouter>
       )}

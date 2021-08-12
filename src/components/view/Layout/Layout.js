@@ -218,8 +218,8 @@ const Layout = () => {
             <Route path="/editCeo/:id" component={AddCeo} />
             <Route path="/ceoDetail/:id" component={ViewCeoDetails} />
             <Route path="/addFarmerGroup" component={AddFarmerGroup} />
-
-            <Route path="/" component={Dashboard} />
+            <Redirect from="/" to="/dashboard" />
+            {/* <Route path="/" component={Dashboard} /> */}
           </Switch>
           <Footer />
         </main>
