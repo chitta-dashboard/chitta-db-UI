@@ -13,6 +13,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import { Chart } from "react-charts";
 import { NotificationSubCardData } from "../../../constants";
+import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import WavingHand from "../../../assets/images/wavingHand.svg";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import Cookies from "js-cookie";
@@ -372,6 +373,7 @@ const Dashboard = () => {
                   </Box>
                 );
               })}
+              {!notification.length && <NoRecordsFound />}
             </CardContent>
           </Card>
         </Grid>
