@@ -15,7 +15,11 @@ import {
   searchWord,
   FarmerDetailsList,
 } from "../../../constants";
-import config, { getFarmers, getFarmersGroup } from "../../../constants/config";
+import config, {
+  getFarmers,
+  getFarmersGroup,
+  getFarmerById,
+} from "../../../constants/config";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import AddIcon from "@material-ui/icons/Add";
 import searchLogo from "../../../assets/images/search.svg";
@@ -23,6 +27,7 @@ import SelectSearch, { fuzzySearch } from "react-select-search";
 import ClearIcon from "@material-ui/icons/Clear";
 import { TableFooter, TablePagination } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
+import Cookies from "js-cookie";
 
 const FarmerList = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -48,19 +53,32 @@ const FarmerList = (props) => {
     // };
     getFarmers()
       .then((res) => {
-        setFarmersData(res);
-        const tempArr = res.map((value) => {
-          return value?.farmerGroup ?? null;
-        });
-        let unique = [...new Set(tempArr)];
-        var filteredArr = unique.filter(function (el) {
-          return el != null;
-        });
-        const farmerGrpArr = filteredArr.map((value) => ({
-          value: value,
-          name: value,
-        }));
-        setFarmerGrp(farmerGrpArr);
+        if (loginType === "Farmer") {
+          getFarmerById(Cookies.get("userId")).then((data) => {
+            console.log(data.farmerGroup);
+            console.log(res);
+            const tempArr = res
+              .filter((value) => data.farmerGroup === value.farmerGroup)
+              .map((value) => {
+                return value;
+              });
+            setFarmersData(tempArr);
+          });
+        } else {
+          setFarmersData(res);
+          const tempArr = res.map((value) => {
+            return value?.farmerGroup ?? null;
+          });
+          let unique = [...new Set(tempArr)];
+          var filteredArr = unique.filter(function (el) {
+            return el != null;
+          });
+          const farmerGrpArr = filteredArr.map((value) => ({
+            value: value,
+            name: value,
+          }));
+          setFarmerGrp(farmerGrpArr);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -101,6 +119,13 @@ const FarmerList = (props) => {
   });
 
   useEffect(() => {
+    // if (loginType === "Farmer") {
+    //   const FormData = farmerTypeArray;
+    //   let newFarmersList =
+    //     FormData &&
+    //     FormData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+    //   setPagedFarmer(newFarmersList);
+    // } else {
     const FormData = filteredList.length
       ? filteredList
       : !searchValue.length
@@ -113,6 +138,7 @@ const FarmerList = (props) => {
       FormData &&
       FormData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
     setPagedFarmer(newFarmersList);
+    // }
   }, [page, rowsPerPage, farmerList, filteredList, farmersData, searchValue]);
   // useEffect(() => {
   //   const FormData = filteredList.length
@@ -150,6 +176,7 @@ const FarmerList = (props) => {
     setCloseIcon(false);
     setFarmerGrpId("");
   };
+  // console.log(farmersData);
   // console.log("final", pagedFarmer);
   return (
     <>

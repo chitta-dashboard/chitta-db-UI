@@ -13,7 +13,7 @@ export default function UserLoginContextProvider(props) {
   const loginHandler = (data) => {
     setIsAuthenticated(true);
     Cookies.set("isAuthenticated", true, { expires: 7 });
-    Cookies.set("userId", data[0].id);
+    Cookies.set("userId", data[0].id, { expires: 7 });
   };
   const logoutHandler = () => {
     setIsAuthenticated(false);
