@@ -4,8 +4,14 @@ import Cookies from "js-cookie";
 export const UserLoginContext = createContext({});
 
 export default function UserLoginContextProvider(props) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loginType, setLoginType] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return Cookies.get("isAuthenticated")
+      ? Cookies.get("isAuthenticated")
+      : false;
+  });
+  const [loginType, setLoginType] = useState(() => {
+    return Cookies.get("loginType") ? Cookies.get("loginType") : "";
+  });
   const loginTypeHandler = (data) => {
     setLoginType(data);
     Cookies.set("loginType", data, { expires: 7 });

@@ -14,15 +14,7 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Cookies from "js-cookie";
 const App = () => {
   const { isAuthenticated } = useContext(UserLoginContext);
-  const { setIsAuthenticated } = useContext(UserLoginContext);
-  const { setLoginType } = useContext(UserLoginContext);
-  // console.log("check", isAuthenticated);
-  useEffect(() => {
-    setIsAuthenticated(
-      Cookies.get("isAuthenticated") ? Cookies.get("isAuthenticated") : false
-    );
-    setLoginType(Cookies.get("loginType") ? Cookies.get("loginType") : "");
-  }, []);
+
   return (
     <div>
       {isAuthenticated ? (
@@ -30,8 +22,8 @@ const App = () => {
       ) : (
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={UserLogin} />
-            <Redirect to="/" />
+            <Route exact path="/login" component={UserLogin} />
+            <Redirect to="/login" />
           </Switch>
         </BrowserRouter>
       )}
