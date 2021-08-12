@@ -830,4 +830,11 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     gridTemplateColumns: "60% 40%",
   },
+  watermark : {
+      opacity: 0.2,
+      position: "absolute",
+      width: "40%",
+      height: "70%",
+      margin: "1rem 8rem"
+    }
 }));

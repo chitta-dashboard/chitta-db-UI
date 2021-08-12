@@ -22,6 +22,7 @@
     "react-scripts": "4.0.3",
     "react-select-search": "^3.0.8",
     "react-toastify": "4.5.2",
+    "react-vertical-timeline-component": "^3.3.3",
     "vertical-timeline-component-react": "^2.1.2",
     "web-vitals": "^1.1.2"
   },
