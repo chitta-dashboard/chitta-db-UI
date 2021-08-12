@@ -12,6 +12,7 @@ import Container from '@material-ui/core/Container';
 import tempImg from "../../../assets/images/male.svg";
 import { useStyles } from "../../../assets/styles";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import QRCode from 'qrcode.react';
 
 const MdDetailsCard =(Props)=> {
   const classes = useStyles();
@@ -46,15 +47,6 @@ function addDefaultSrc(ev) {
           <ChevronLeftIcon className={classes.iconbtn} />
           Back
         </Button>
-        </div>
-        <div className={classes.btnContainer_custom}>
-          <button
-            className={classes.export_btn}
-            style={{ textDecoration: "none" }}
-            onClick={() => Props.history.push(`/editMd/${match.params.id}`)}
-          >
-            Edit
-          </button>
         </div>
       </div>
     <Container fixed className={classes.adminCardContainer}>
@@ -91,13 +83,10 @@ function addDefaultSrc(ev) {
         <Typography variant="body1" color="textSecondary" >
         தகுதி : {adminData.qualification} </Typography>
         </div>
-        <div><img
-          className={classes.adminCardImage}
-          alt="QR Code"
-          src={ tempImg }
-          onError={addDefaultSrc}
-          /></div>
-          </div>       
+          <div><QRCode value={JSON.stringify(adminData)}  
+          className={classes.adminCardImage} />
+          </div>
+        </div>       
         </CardContent>
       </CardActionArea>
     </Card>

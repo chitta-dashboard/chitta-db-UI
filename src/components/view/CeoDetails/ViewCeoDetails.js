@@ -12,6 +12,7 @@ import Container from '@material-ui/core/Container';
 import tempImg from "../../../assets/images/male.svg";
 import { useStyles } from "../../../assets/styles";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import QRCode from 'qrcode.react';
 
 const CeoDetailsCard =(Props)=> {
   const classes = useStyles();
@@ -92,11 +93,9 @@ function addDefaultSrc(ev) {
         தகுதி : {adminData.qualification} </Typography>
         </div>
         <div>
-          <img className={classes.adminCardImage}
-          src={ tempImg }
-          alt="QR code"
-          onError={addDefaultSrc}
-          /></div>
+          <QRCode value={JSON.stringify(adminData)} 
+          className={classes.adminCardImage} />
+          </div>
           </div>       
         </CardContent>
       </CardActionArea>
