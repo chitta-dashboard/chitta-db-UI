@@ -298,11 +298,15 @@ const Dashboard = () => {
           </div>
         </Grid>
         <Grid item xs={2} className={classes.dashboard_nameContainer}>
-          <Typography>Org.Registered</Typography>
+          <Typography>Farmer Group Count</Typography>
           <Typography>{farmersGroupCount}</Typography>
         </Grid>
         <Grid item xs={2} className={classes.dashboard_nameContainer}>
-          <Typography>Certificate Issued</Typography>
+          <Typography>
+            {loginType === "Administrator"
+              ? "Number of Farmers"
+              : "Number of Farmers in your group"}
+          </Typography>
           <Typography>{farmerCount}</Typography>
         </Grid>
         <Grid item xs={2} className={classes.dashboard_nameContainer}>
