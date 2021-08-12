@@ -48,7 +48,14 @@ const MdDetails = (props) => {
             <Box className={classes.farmerdetails_searchcontainer}></Box>
             <Box className={classes.farmerdetails_boxcontainer}>
               {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
-              
+              <Box>
+                <NavLink to="/addmd" className={classes.addDetails_link}>
+                  <button className={classes.addDetails_btn}>
+                    <AddIcon />
+                    Add
+                  </button>
+                </NavLink>
+              </Box>
             </Box>
           </Box>
           <TableContainer className={classes.tab_container}>
