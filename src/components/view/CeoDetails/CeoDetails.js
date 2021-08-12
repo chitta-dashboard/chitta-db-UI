@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -16,8 +16,10 @@ import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import config from "../../../constants/config";
 import { Grid } from "@material-ui/core";
+import { UserLoginContext } from "../../context/UserLoginContext";
 
 const CeoDetails = (props) => {
+  const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
   const [ceoDetails, setCeoDetails] = useState([]);
   useEffect(() => {
@@ -48,14 +50,16 @@ const CeoDetails = (props) => {
             </Box>
             <Box className={classes.farmerdetails_boxcontainer}>
               {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
-              <Box>
-                <NavLink to="/addceo" className={classes.addDetails_link}>
-                  <button className={classes.addDetails_btn}>
-                    <AddIcon />
-                    Add
-                  </button>
-                </NavLink>
-              </Box>
+              {loginType === "Administrator" && (
+                <Box>
+                  <NavLink to="/addceo" className={classes.addDetails_link}>
+                    <button className={classes.addDetails_btn}>
+                      <AddIcon />
+                      Add
+                    </button>
+                  </NavLink>
+                </Box>
+              )}
             </Box>
           </Box>
           <TableContainer className={classes.tab_container}>

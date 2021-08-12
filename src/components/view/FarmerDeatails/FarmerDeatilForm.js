@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import clsx from "clsx";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -12,12 +12,14 @@ import {
   getFormattedDate,
   toGetTamilGender,
 } from "../../../constants";
-import config,{ deleteFarmer } from "../../../constants/config";
+import config, { deleteFarmer } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import FarmerDetailsToPdf from "./FarmerDetailsToPdf";
 import { useHistory } from "react-router-dom";
+import { UserLoginContext } from "../../context/UserLoginContext";
 
 const FarmerDeatilForm = (Props) => {
+  const { loginType } = useContext(UserLoginContext);
   const { match } = Props;
   const history = useHistory();
   const classes = useStyles();
@@ -57,13 +59,12 @@ const FarmerDeatilForm = (Props) => {
     }
   };
 
-  const formerDeleteHandler=(id)=>{
-    deleteFarmer(id)
-    .then((data) => {
+  const formerDeleteHandler = (id) => {
+    deleteFarmer(id).then((data) => {
       customToast("success", "Former Deleted successfully.");
-    history.goBack();
+      history.goBack();
     });
-  }
+  };
 
   return (
     <>
@@ -75,20 +76,28 @@ const FarmerDeatilForm = (Props) => {
           </Typography>
         </Link>
         <div className={classes.btnContainer_custom}>
-          <button
-            className={classes.export_btn}
-            style={{ textDecoration: "none" }}
-            onClick={() => Props.history.push(`editfarmer/${match.params.id}`)}
-          >
-            Edit
-          </button>
-          <button
-            className={classes.export_btn}
-            style={{ textDecoration: "none" }}
-            onClick={() => formerDeleteHandler(match.params.id)}
-          >
-            Delete
-          </button>
+          {loginType === "Administrator" ? (
+            <>
+              <button
+                className={classes.export_btn}
+                style={{ textDecoration: "none" }}
+                onClick={() =>
+                  Props.history.push(`editfarmer/${match.params.id}`)
+                }
+              >
+                Edit
+              </button>
+              <button
+                className={classes.export_btn}
+                style={{ textDecoration: "none" }}
+                onClick={() => formerDeleteHandler(match.params.id)}
+              >
+                Delete
+              </button>
+            </>
+          ) : (
+            <div style={{ width: "100%" }}></div>
+          )}
           <PDFDownloadLink
             document={
               <FarmerDetailsToPdf

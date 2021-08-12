@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
@@ -13,8 +13,10 @@ import tempImg from "../../../assets/images/male.svg";
 import { useStyles } from "../../../assets/styles";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import QRCode from "qrcode.react";
+import { UserLoginContext } from "../../context/UserLoginContext";
 
 const CeoDetailsCard = (Props) => {
+  const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
   const { match } = Props;
   const history = useHistory();
@@ -51,15 +53,17 @@ const CeoDetailsCard = (Props) => {
             Back
           </Button>
         </div>
-        <div className={classes.btnContainer_custom}>
-          <button
-            className={classes.export_btn}
-            style={{ textDecoration: "none" }}
-            onClick={() => Props.history.push(`/editCeo/${match.params.id}`)}
-          >
-            Edit
-          </button>
-        </div>
+        {loginType === "Administrator" && (
+          <div className={classes.btnContainer_custom}>
+            <button
+              className={classes.export_btn}
+              style={{ textDecoration: "none" }}
+              onClick={() => Props.history.push(`/editCeo/${match.params.id}`)}
+            >
+              Edit
+            </button>
+          </div>
+        )}
       </div>
       <Container fixed className={classes.adminCardContainer}>
         <Card className={classes.adminCardRoot}>

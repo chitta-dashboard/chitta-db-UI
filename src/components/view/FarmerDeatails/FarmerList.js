@@ -195,17 +195,19 @@ const FarmerList = (props) => {
           </div>
         </Box>
         <Box className={classes.farmerdetails_boxcontainer}>
-          <SelectSearch
-            className={"filter-btn"}
-            search
-            disabled={loginType === "Farmer"}
-            filterOptions={fuzzySearch}
-            options={farmerGrp}
-            placeholder="Select a group"
-            onChange={setFarmerGrpId}
-            value={farmerGrpId}
-            // printOptions="always"
-          />
+          {loginType === "Administrator" && (
+            <SelectSearch
+              className={"filter-btn"}
+              search
+              disabled={loginType === "Farmer"}
+              filterOptions={fuzzySearch}
+              options={farmerGrp}
+              placeholder="Select a group"
+              onChange={setFarmerGrpId}
+              value={farmerGrpId}
+              // printOptions="always"
+            />
+          )}
           {closeIcon ? (
             <div onClick={clearGrp}>
               <ClearIcon className={classes.closeIcon} />
@@ -234,14 +236,16 @@ const FarmerList = (props) => {
               ))}
             </Workbook.Sheet>
           </Workbook>
-          <Box>
-            <NavLink to="/addfarmer" className={classes.addDetails_link}>
-              <button className={classes.addDetails_btn}>
-                <AddIcon />
-                Add
-              </button>
-            </NavLink>
-          </Box>
+          {loginType === "Administrator" && (
+            <Box>
+              <NavLink to="/addfarmer" className={classes.addDetails_link}>
+                <button className={classes.addDetails_btn}>
+                  <AddIcon />
+                  Add
+                </button>
+              </NavLink>
+            </Box>
+          )}
         </Box>
       </Box>
       <TableContainer className={classes.tab_container}>
