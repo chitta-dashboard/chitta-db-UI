@@ -8,15 +8,6 @@ import {
   Section,
   Description,
 } from "vertical-timeline-component-react";
-// const Decision = () => {
-//   const classes = useStyles();
-//   return (
-//     <div className={classes.decision}>
-//       <h1>Decision</h1>
-//     </div>
-//   );
-// };
-// export default Decision;
 
 const Decision = () => {
   const classes = useStyles();
@@ -35,6 +26,21 @@ const Decision = () => {
       <Timeline theme={customTheme} dateFormat="ll">
         <Container>
           <YearContent startDate="2020/07/01" />
+          <BodyContent>
+            <Section title="Title">
+              <Description variant="subtitle" text="Subtitle" />
+              <Description text="Description" />
+              <Description text="Another description" />
+            </Section>
+
+            <Section title="Another title">
+              <Description text="Description" />
+              <Description text="Another description" />
+            </Section>
+          </BodyContent>
+        </Container>
+        <Container>
+          <YearContent startDate="2021/07/01" />
           <BodyContent>
             <Section title="Title">
               <Description variant="subtitle" text="Subtitle" />
