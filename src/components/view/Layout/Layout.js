@@ -38,6 +38,7 @@ import AddFarmerGroup from "../FarmerGroups/AddFarmerGroup";
 import { Button } from "@material-ui/core";
 import logoutLogo from "../../../assets/images/logout.svg";
 import { UserLoginContext } from "../../context/UserLoginContext";
+import Decision from "../Decision/Decision";
 
 const Layout = () => {
   const classes = useStyles();
@@ -199,6 +200,7 @@ const Layout = () => {
             <Route path="/ceodetails" component={CeoDetails} />
             <Route path="/mddetails" component={MdDetails} />
             <Route path="/farmergroups" component={FarmerGroups} />
+            <Route path="/decision" component={Decision} />
             <Route
               exact
               path="/farmersdetails/:id"
@@ -216,7 +218,8 @@ const Layout = () => {
             <Route path="/editCeo/:id" component={AddCeo} />
             <Route path="/ceoDetail/:id" component={ViewCeoDetails} />
             <Route path="/addFarmerGroup" component={AddFarmerGroup} />
-            <Route path="/" component={Dashboard} />
+
+            <Redirect exact from="/" to="/farmersdetails" />
           </Switch>
           <Footer />
         </main>

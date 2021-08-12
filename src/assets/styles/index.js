@@ -752,6 +752,9 @@ export const useStyles = makeStyles((theme) => ({
     display: "grid",
     placeItems: "center",
   },
+  decision: {
+    margin: "10%",
+  },
   footer: {
     minHeight: "2rem",
     color: "#5A776E",
