@@ -10,6 +10,7 @@ import axios from "axios";
 import config from "../../../constants/config";
 import Container from "@material-ui/core/Container";
 import tempImg from "../../../assets/images/male.svg";
+import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
 import { useStyles } from "../../../assets/styles";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import QRCode from "qrcode.react";
@@ -69,6 +70,7 @@ const CeoDetailsCard = (Props) => {
         <Card className={classes.adminCardRoot}>
           <CardActionArea>
             <CardContent>
+                <img src={Nerkathirlogo} alt="Nerkathir logo" className={classes.watermark}/>
               <div className={classes.adminContent}>
                 <div>
                   <img

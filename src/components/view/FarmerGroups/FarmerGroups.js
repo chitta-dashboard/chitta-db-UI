@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -15,8 +15,10 @@ import AddIcon from "@material-ui/icons/Add";
 import searchLogo from "../../../assets/images/search.svg";
 import { searchWord } from "../../../constants";
 import { Grid } from "@material-ui/core";
+import { UserLoginContext } from "../../context/UserLoginContext";
 
 const FarmerGroups = () => {
+  const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
   const [groups, setGroups] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -66,6 +68,7 @@ const FarmerGroups = () => {
           </Box>
           <Box className={classes.farmerdetails_boxcontainer}>
             {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
+            {loginType === "Administrator" && (
             <Box>
               <NavLink to="/addfarmerGroup" className={classes.addDetails_link}>
                 <button className={classes.addDetails_btn}>
@@ -74,6 +77,7 @@ const FarmerGroups = () => {
                 </button>
               </NavLink>
             </Box>
+            )}
           </Box>
         </Box>
         <TableContainer className={classes.tab_container}>

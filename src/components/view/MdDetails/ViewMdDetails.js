@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
@@ -10,11 +10,14 @@ import axios from "axios";
 import config from "../../../constants/config";
 import Container from "@material-ui/core/Container";
 import tempImg from "../../../assets/images/male.svg";
+import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
 import { useStyles } from "../../../assets/styles";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import { UserLoginContext } from "../../context/UserLoginContext";
 import QRCode from "qrcode.react";
 
 const MdDetailsCard = (Props) => {
+  const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
   const { match } = Props;
   const history = useHistory();
@@ -51,6 +54,7 @@ const MdDetailsCard = (Props) => {
             Back
           </Button>
         </div>
+        {loginType === "Administrator" && (
         <div className={classes.btnContainer_custom}>
           <button
             className={classes.export_btn}
@@ -60,16 +64,18 @@ const MdDetailsCard = (Props) => {
             Edit
           </button>
         </div>
+        )}
       </div>
       <Container fixed className={classes.adminCardContainer}>
         <Card className={classes.adminCardRoot}>
           <CardActionArea>
             <CardContent>
+            <img src={Nerkathirlogo} alt="Nerkathir logo" className={classes.watermark}/>
               <div className={classes.adminContent}>
                 <div>
                   <img
                     className={classes.adminCardImage}
-                    alt="Md Profile Picture"
+                    alt="Md Profile"
                     src={
                       adminData?.picture
                         ? `${config.app.APP_API_URL}${adminData.picture.url}`
