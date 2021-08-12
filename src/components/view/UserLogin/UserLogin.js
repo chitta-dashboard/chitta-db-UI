@@ -22,8 +22,7 @@ export default function UserLogin() {
         ) {
           loginHandler(res);
           loginTypeHandler("Administrator");
-        }
-        if (res.length === 0) {
+        } else if (res.length === 0) {
           checkFarmer(phoneNumberRef.current.value)
             .then((res) => {
               if (

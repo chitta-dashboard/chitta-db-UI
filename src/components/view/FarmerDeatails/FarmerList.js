@@ -53,10 +53,10 @@ const FarmerList = (props) => {
     // };
     getFarmers()
       .then((res) => {
-        if (loginType === "Farmer") {
+        if (Cookies.get("loginType") === "Farmer") {
           getFarmerById(Cookies.get("userId")).then((data) => {
-            console.log(data.farmerGroup);
-            console.log(res);
+            // console.log(data.farmerGroup);
+            // console.log(res);
             const tempArr = res
               .filter((value) => data.farmerGroup === value.farmerGroup)
               .map((value) => {
@@ -64,7 +64,7 @@ const FarmerList = (props) => {
               });
             setFarmersData(tempArr);
           });
-        } else {
+        } else if (Cookies.get("loginType") === "Administrator") {
           setFarmersData(res);
           const tempArr = res.map((value) => {
             return value?.farmerGroup ?? null;
