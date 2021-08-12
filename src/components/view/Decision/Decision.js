@@ -34,51 +34,6 @@ const Decision = () => {
     <div className={classes.decision}>
       <Timeline theme={customTheme} dateFormat="ll">
         <Container>
-          <YearContent startDate="2020/07/01" currentYear />
-          <BodyContent>
-            <Section title="Title">
-              <Description variant="subtitle" text="Subtitle" />
-              <Description text="Description" />
-              <Description text="Another description" />
-            </Section>
-
-            <Section title="Another title">
-              <Description text="Description" />
-              <Description text="Another description" />
-            </Section>
-          </BodyContent>
-        </Container>
-        <Container>
-          <YearContent startDate="2020/08/01" currentYear />
-          <BodyContent>
-            <Section title="Title">
-              <Description variant="subtitle" text="Subtitle" />
-              <Description text="Description" />
-              <Description text="Another description" />
-            </Section>
-
-            <Section title="Another title">
-              <Description text="Description" />
-              <Description text="Another description" />
-            </Section>
-          </BodyContent>
-        </Container>
-        <Container>
-          <YearContent startDate="2020/07/01" currentYear />
-          <BodyContent>
-            <Section title="Title">
-              <Description variant="subtitle" text="Subtitle" />
-              <Description text="Description" />
-              <Description text="Another description" />
-            </Section>
-
-            <Section title="Another title">
-              <Description text="Description" />
-              <Description text="Another description" />
-            </Section>
-          </BodyContent>
-        </Container>
-        <Container>
           <YearContent startDate="2020/07/01" />
           <BodyContent>
             <Section title="Title">

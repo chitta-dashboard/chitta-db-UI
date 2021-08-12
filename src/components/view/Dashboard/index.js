@@ -12,7 +12,6 @@ import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import { Chart } from "react-charts";
-import { NotificationSubCardData } from "../../../constants";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import WavingHand from "../../../assets/images/wavingHand.svg";
 import { UserLoginContext } from "../../context/UserLoginContext";
@@ -23,7 +22,7 @@ import {
   getFarmers,
   getFarmersCount,
   getFarmersGroupCount,
-  getNotification
+  getNotification,
 } from "../../../constants/config";
 import moment from 'moment'
 
