@@ -25,9 +25,12 @@ export default function UserLogin() {
         } else if (res.length === 0) {
           checkFarmer(phoneNumberRef.current.value)
             .then((res) => {
+              let dob = res[0]?.DOB.indexOf("-")
+                ? res[0]?.DOB.split("-")[0]
+                : res[0]?.DOB.split("/")[0];
+
               if (
-                res[0]?.phoneNumber.toString().substring(0, 4) +
-                  res[0]?.DOB.split("/")[0] ===
+                res[0]?.phoneNumber.toString().substring(0, 4) + dob ===
                 passwordRef.current.value
               ) {
                 loginHandler(res);

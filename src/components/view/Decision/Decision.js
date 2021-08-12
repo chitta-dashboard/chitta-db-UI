@@ -40,7 +40,6 @@ export default Decision;
 //           <Description text="I'm an amazing event" />
 //         </ContentBody>
 //       </Content>
-//       {/* <Content>...</Content> */}
 //     </Timeline>
 //   );
 // };
