@@ -20,7 +20,7 @@ export default function UserLoginContextProvider(props) {
     setLoginType("");
     Cookies.remove("isAuthenticated");
     Cookies.remove("loginType");
-    Cookies.remove("User Id");
+    Cookies.remove("userId");
   };
   // Cookies.get();
   // console.log("loginType", loginType);
