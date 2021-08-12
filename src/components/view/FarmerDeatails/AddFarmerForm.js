@@ -14,6 +14,7 @@ import config, {
   postFarmer,
   putFarmer,
   uploadFile,
+  postNotification
 } from "../../../constants/config";
 import { colors } from "../../../theme";
 import { uuid } from "../../../constants";
@@ -196,6 +197,9 @@ const AddFarmerForm = (Props) => {
       cropType: cropType.current.value,
       cattle: cattle.current.value,
     };
+    const Notification = {
+      notification : `New Farmer has been added to "${params.farmerGroup}" group`
+    };
     // console.log(params);
     (match.params.id ? putFarmer(params, match.params.id) : postFarmer(params))
       .then((res) => {
@@ -223,6 +227,9 @@ const AddFarmerForm = (Props) => {
           history.goBack();
         }
       })
+      .catch((err) => customToast("error", err.message));
+      
+      postNotification(Notification)
       .catch((err) => customToast("error", err.message));
   };
   return (
