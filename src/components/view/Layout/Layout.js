@@ -216,7 +216,7 @@ const Layout = () => {
             <Route path="/editCeo/:id" component={AddCeo} />
             <Route path="/ceoDetail/:id" component={ViewCeoDetails} />
             <Route path="/addFarmerGroup" component={AddFarmerGroup} />
-            <Redirect exact from="/" to="/farmersdetails" />
+            <Route path="/" component={Dashboard} />
           </Switch>
           <Footer />
         </main>

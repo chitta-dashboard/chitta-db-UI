@@ -10,7 +10,7 @@ import "./app.css";
 import UserLogin from "./components/view/UserLogin/UserLogin";
 import { UserLoginContext } from "./components/context/UserLoginContext";
 import { useContext, useEffect } from "react";
-import { BrowserRouter, Redirect, Route } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Cookies from "js-cookie";
 const App = () => {
   const { isAuthenticated } = useContext(UserLoginContext);
@@ -25,13 +25,15 @@ const App = () => {
   }, []);
   return (
     <div>
-      {!isAuthenticated ? (
-        <BrowserRouter>
-          <Route exact path="/" component={UserLogin} />
-          <Redirect to="/" />
-        </BrowserRouter>
-      ) : (
+      {isAuthenticated ? (
         <Layout />
+      ) : (
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={UserLogin} />
+          </Switch>
+          {/* <Redirect to="/" /> */}
+        </BrowserRouter>
       )}
       {/* <Footer /> */}
       <ToastContainer />
