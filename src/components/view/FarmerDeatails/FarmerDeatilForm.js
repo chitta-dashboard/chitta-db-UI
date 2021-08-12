@@ -117,14 +117,15 @@ const FarmerDeatilForm = (Props) => {
                   )}
                   disabled={loading}
                 >
-                  {loading ? (
-                    <div>
+                  Download
+                  {/* {loading ? (
+                    <div style={{ background: "red" }}>
                       {" "}
                       <CircularProgress size={20} />
                     </div>
                   ) : (
                     "Download"
-                  )}
+                  )} */}
                 </button>
               );
             }}

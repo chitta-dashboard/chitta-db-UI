@@ -753,12 +753,12 @@ export const useStyles = makeStyles((theme) => ({
     placeItems: "center",
   },
   decision: {
-    margin: "10%",
+    margin: "1.5rem 1.5rem 0 1.5rem",
     background: "white",
     borderRadius: "15px",
     padding: "1rem",
     overflow: "auto",
-    height: "80vh",
+    height: "90vh",
   },
   footer: {
     minHeight: "2rem",
@@ -830,11 +830,11 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     gridTemplateColumns: "60% 40%",
   },
-  watermark : {
-      opacity: 0.2,
-      position: "absolute",
-      width: "40%",
-      height: "70%",
-      margin: "1rem 8rem"
-    }
+  watermark: {
+    opacity: 0.2,
+    position: "absolute",
+    width: "40%",
+    height: "70%",
+    margin: "1rem 8rem",
+  },
 }));
