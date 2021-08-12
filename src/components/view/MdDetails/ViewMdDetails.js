@@ -12,7 +12,7 @@ import Container from "@material-ui/core/Container";
 import tempImg from "../../../assets/images/male.svg";
 import { useStyles } from "../../../assets/styles";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import QRCode from 'qrcode.react';
+import QRCode from "qrcode.react";
 
 const MdDetailsCard = (Props) => {
   const classes = useStyles();
@@ -52,48 +52,67 @@ const MdDetailsCard = (Props) => {
           </Button>
         </div>
       </div>
-    <Container fixed className={classes.adminCardContainer}>
-     <Card className={classes.adminCardRoot}> 
-      <CardActionArea>
-        <CardContent >
-        <div  className={classes.adminContent}> 
-        <div>
-          <img
-          className={classes.adminCardImage}
-          alt="Md Profile Picture"
-          src={ adminData?.picture
-            ? `${config.app.APP_API_URL}${adminData.picture.url}`
-            : tempImg }
-          onError={addDefaultSrc}
-          /></div>
-          <div className={classes.details}>
-          <h2 className={classes.adminHeaderTitle}>
-              Nerkathir Farmer Producer <br />Company Limited
-          </h2>
-          <div className={classes.HeaderSub}>
-              <p>Reg No:139086 &nbsp;&nbsp; CIN:UO1409TN2020PTC139086</p>
-            </div>
-        </div>
-          </div>
-          <div  className={classes.adminContent}> 
-          <div className={classes.adminDetails}>
-          <Typography variant="body1" color="textSecondary" >
-        பெயர் : {adminData.name} </Typography>
-        <Typography variant="body1" color="textSecondary" >
-        கைபேசி எண் : {adminData.phoneNumber} </Typography>
-        <Typography variant="body1" color="textSecondary" >
-        பிறந்த தேதி : {adminData.DOB} </Typography>
-        <Typography variant="body1" color="textSecondary" >
-        தகுதி : {adminData.qualification} </Typography>
-        </div>
-          <div><QRCode value={JSON.stringify(adminData)}  
-          className={classes.adminCardImage} />
-          </div>
-        </div>       
-        </CardContent>
-      </CardActionArea>
-    </Card>
-    </Container>
+      <Container fixed className={classes.adminCardContainer}>
+        <Card className={classes.adminCardRoot}>
+          <CardActionArea>
+            <CardContent>
+              <div className={classes.adminContent}>
+                <div>
+                  <img
+                    className={classes.adminCardImage}
+                    alt="Md Profile Picture"
+                    src={
+                      adminData?.picture
+                        ? `${config.app.APP_API_URL}${adminData.picture.url}`
+                        : tempImg
+                    }
+                    onError={addDefaultSrc}
+                  />
+                </div>
+                <div className={classes.details}>
+                  <h2 className={classes.adminHeaderTitle}>
+                    Nerkathir Farmer Producer <br />
+                    Company Limited
+                  </h2>
+                  <div className={classes.HeaderSub}>
+                    <p>Reg No:139086 &nbsp;&nbsp; CIN:UO1409TN2020PTC139086</p>
+                  </div>
+                </div>
+              </div>
+              <div className={classes.adminContent}>
+                <div className={classes.adminDetails}>
+                  <Typography variant="body1" color="textSecondary">
+                    பெயர் : {adminData.name}{" "}
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary">
+                    கைபேசி எண் : {adminData.phoneNumber}{" "}
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary">
+                    பிறந்த தேதி : {adminData.DOB}{" "}
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary">
+                    தகுதி : {adminData.qualification}{" "}
+                  </Typography>
+                </div>
+                <div>
+                  <QRCode
+                    value={JSON.stringify(
+                      {
+                        id: adminData.id,
+                        name: adminData.name,
+                        phoneNumber: adminData.phoneNumber,
+                      },
+                      null,
+                      2
+                    )}
+                    className={classes.adminCardImage}
+                  />
+                </div>
+              </div>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </Container>
     </>
   );
 };
