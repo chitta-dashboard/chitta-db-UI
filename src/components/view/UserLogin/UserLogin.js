@@ -20,10 +20,9 @@ export default function UserLogin() {
             res[0]?.DOB.split("-")[0] ===
           passwordRef.current.value
         ) {
-          loginHandler();
+          loginHandler(res);
           loginTypeHandler("Administrator");
-        }
-        if (res.length === 0) {
+        } else if (res.length === 0) {
           checkFarmer(phoneNumberRef.current.value)
             .then((res) => {
               if (
@@ -31,7 +30,7 @@ export default function UserLogin() {
                   res[0]?.DOB.split("/")[0] ===
                 passwordRef.current.value
               ) {
-                loginHandler();
+                loginHandler(res);
                 loginTypeHandler("Farmer");
               } else {
                 console.log("error");
@@ -55,14 +54,14 @@ export default function UserLogin() {
           }}
         >
           <form onSubmit={submitHandler}>
-            <label>PhoneNumber : </label>
+            <label>கைபேசி எண் </label>
             <input
               className={classes.loginInput}
               placeholder="Username"
               ref={phoneNumberRef}
             />
             <br />
-            <label>Password : </label>
+            <label>கடவுச்சொல் </label>
             <input
               type="password"
               className={classes.loginInput}

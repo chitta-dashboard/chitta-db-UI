@@ -1,20 +1,20 @@
-import React , { useEffect, useState } from 'react';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import React, { useEffect, useState } from "react";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import config from "../../../constants/config";
-import Container from '@material-ui/core/Container';
+import Container from "@material-ui/core/Container";
 import tempImg from "../../../assets/images/male.svg";
 import { useStyles } from "../../../assets/styles";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import QRCode from 'qrcode.react';
 
-const CeoDetailsCard =(Props)=> {
+const CeoDetailsCard = (Props) => {
   const classes = useStyles();
   const { match } = Props;
   const history = useHistory();
@@ -33,20 +33,23 @@ const CeoDetailsCard =(Props)=> {
     }
   }, [match.params.id]);
 
-  const goBackAdmin =()=>{
+  const goBackAdmin = () => {
     history.goBack();
-}
-function addDefaultSrc(ev) {
-  ev.target.src = tempImg;
-}
+  };
+  function addDefaultSrc(ev) {
+    ev.target.src = tempImg;
+  }
   return (
     <>
-    <div className={classes.admin_btncontainer}>
+      <div className={classes.admin_btncontainer}>
         <div style={{ textDecoration: "none" }}>
-          <Button  onClick={goBackAdmin} className={classes.addDetailbtn_container}>
-          <ChevronLeftIcon className={classes.iconbtn} />
-          Back
-        </Button>
+          <Button
+            onClick={goBackAdmin}
+            className={classes.addDetailbtn_container}
+          >
+            <ChevronLeftIcon className={classes.iconbtn} />
+            Back
+          </Button>
         </div>
         <div className={classes.btnContainer_custom}>
           <button
@@ -103,5 +106,5 @@ function addDefaultSrc(ev) {
     </Container>
     </>
   );
-}
-export default CeoDetailsCard 
+};
+export default CeoDetailsCard;

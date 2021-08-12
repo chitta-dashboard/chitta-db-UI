@@ -41,6 +41,9 @@ export const getMD = () => {
 export const getFarmersCount = () => {
   return httpClient.get("farmers/count");
 };
+export const getFarmersGroupCount = () => {
+  return httpClient.get("farmer-groups/count");
+};
 
 export const getFarmers = (filter) => {
   // let qs =
@@ -86,6 +89,9 @@ export const postAdmin = (params) => {
 export const getAdmin = (filter) => {
   let qs = filter?.type ? `?adminType=${filter.type}` : "";
   return httpClient.get(`adminusers${qs}`);
+};
+export const getAdminUser = (id) => {
+  return httpClient.get(`adminusers/${id}`);
 };
 
 export const postFarmerGroup = (params) => {
