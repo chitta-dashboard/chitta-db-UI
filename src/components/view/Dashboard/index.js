@@ -25,6 +25,7 @@ import {
   getFarmersGroupCount,
   getNotification
 } from "../../../constants/config";
+import moment from 'moment'
 
 const useStyles = makeStyles((theme) => ({
   dashboard_root: {
@@ -137,7 +138,7 @@ const useStyles = makeStyles((theme) => ({
   dashboard_notificationSubCard: {
     display: "grid",
     padding: "1rem",
-    gridTemplateColumns: "8% 51% 41%",
+    gridTemplateColumns: "8% 60% 5% 25%",
     fontSize: "0.8rem",
   },
   dashboard_graphSubContainer: {
@@ -369,7 +370,8 @@ const Dashboard = () => {
                   <Box className={classes.dashboard_notificationSubCard}>
                     <Typography variant="p">*</Typography>
                     <Typography variant="p" spacing="2">{data.notification}</Typography>
-                    <Typography variant="p">{data.updatedAt}</Typography>
+                    <Typography variant="p"></Typography>
+                    <Typography variant="p">{moment(data.updatedAt).format('DD.MM.YYYY')}</Typography>
                   </Box>
                 );
               })}
