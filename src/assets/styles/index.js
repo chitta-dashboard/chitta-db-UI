@@ -227,6 +227,7 @@ export const useStyles = makeStyles((theme) => ({
     // marginRight: "auto",
     display: "flex",
     justifyContent: "center",
+    padding: "0 1rem",
   },
 
   add_btn_container: {
@@ -760,7 +761,7 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: "15px",
     padding: "1rem",
     overflow: "auto",
-    height: "76vh",
+    height: "75vh",
     width: "100%",
   },
   footer: {
@@ -782,10 +783,11 @@ export const useStyles = makeStyles((theme) => ({
   t_Footer: {
     position: "absolute",
     bottom: "0",
-    width: "93%",
+    width: "91%",
     background: "white",
     display: "flex !important",
     justifyContent: "flex-end",
+    border: "none",
   },
   footercontent: {
     display: "flex",

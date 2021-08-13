@@ -40,3 +40,6 @@
 .ckDfJz {
   display: none;
 }
+.MuiTableCell-root {
+  border-bottom: none;
+}
