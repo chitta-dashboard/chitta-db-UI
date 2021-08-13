@@ -39,6 +39,7 @@ import { Button } from "@material-ui/core";
 import logoutLogo from "../../../assets/images/logout.svg";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import Decision from "../Decision/Decision";
+import AddDecision from "../Decision/AddDecision";
 
 const Layout = () => {
   const classes = useStyles();
@@ -213,6 +214,7 @@ const Layout = () => {
             />
             <Route exact path="/editMd/:id" component={AddMd} />
             <Route path="/addMd" component={AddMd} />
+            <Route path="/addDecision" component={AddDecision} />
             <Route path="/mdDetail/:id" component={ViewMdDetails} />
             <Route path="/addCeo" component={AddCeo} />
             <Route path="/editCeo/:id" component={AddCeo} />

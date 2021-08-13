@@ -221,10 +221,12 @@ export const useStyles = makeStyles((theme) => ({
   //   farmerdetails page
   farmerdetails_root: {
     flexGrow: 1,
-    width: "95%",
+    // width: "95%",
     position: "relative",
-    marginLeft: "auto",
-    marginRight: "auto",
+    // marginLeft: "auto",
+    // marginRight: "auto",
+    display: "flex",
+    justifyContent: "center",
   },
 
   add_btn_container: {
@@ -758,7 +760,8 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: "15px",
     padding: "1rem",
     overflow: "auto",
-    height: "90vh",
+    height: "76vh",
+    width: "100%",
   },
   footer: {
     minHeight: "2rem",
