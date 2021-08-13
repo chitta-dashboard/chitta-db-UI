@@ -387,8 +387,8 @@ export const useStyles = makeStyles((theme) => ({
   tab_container: {
     margin: "1.5rem 1.5rem 0rem 1.5rem",
     padding: "1rem",
-    paddingBottom: "3rem",
-    height: "80vh",
+    // paddingBottom: "3rem",
+    height: "75vh",
     backgroundColor: colors.bg1,
     borderRadius: "20px",
     // boxShadow: "1px 1px 7px 0px #3333334a",
