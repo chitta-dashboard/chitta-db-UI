@@ -603,6 +603,9 @@ export const useStyles = makeStyles((theme) => ({
 
       color: colors.text2,
     },
+    "&:disabled": {
+      filter: "brightness(0.75)",
+    },
   },
 
   user_header: {
