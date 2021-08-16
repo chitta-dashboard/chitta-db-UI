@@ -5,6 +5,8 @@ import { useStyles } from "../../../assets/styles";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
+import { postDecisions } from "../../../constants/config";
+import { customToast } from "../../widgets/Toast";
 
 export default function AddDecision() {
   const history = useHistory();
@@ -17,7 +19,10 @@ export default function AddDecision() {
       date: dateRef.current.value,
       decision: decisionRef.current.value,
     };
-    history.goBack();
+    postDecisions(params).then(() => {
+      customToast("success", "Form submitted successfully.");
+      history.goBack();
+    });
     // console.log(params);
   };
   return (
