@@ -40,6 +40,7 @@ import logoutLogo from "../../../assets/images/logout.svg";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import Decision from "../Decision/Decision";
 import AddDecision from "../Decision/AddDecision";
+import ViewDecision from "../Decision/ViewDecision";
 
 const Layout = () => {
   const classes = useStyles();
@@ -201,7 +202,9 @@ const Layout = () => {
             <Route path="/ceodetails" component={CeoDetails} />
             <Route path="/mddetails" component={MdDetails} />
             <Route path="/farmergroups" component={FarmerGroups} />
-            <Route path="/decision" component={Decision} />
+            <Route exact path="/decision" component={Decision} />
+            <Route exact path="/decision/:id" component={ViewDecision} />
+            <Route path="/editdecision/:id" component={AddDecision} />
             <Route
               exact
               path="/farmersdetails/:id"

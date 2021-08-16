@@ -107,8 +107,19 @@ export const getDecisions = () => {
   return httpClient.get("decisions");
 };
 
+export const getDecisionById = (Id) => {
+  return httpClient.get(`decisions/${Id}`);
+};
+
+export const putDecision = (Id, params) => {
+  return httpClient.put(`decisions/${Id}`, params);
+};
+
 export const postDecisions = (params) => {
   return httpClient.post("decisions", params);
+};
+export const deleteDecision = (id) => {
+  return httpClient.delete(`decisions/${id}`);
 };
 
 export const uploadFile = (data) => {
