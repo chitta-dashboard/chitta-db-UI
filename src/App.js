@@ -12,10 +12,18 @@ import { UserLoginContext } from "./components/context/UserLoginContext";
 import { useContext, useEffect } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Cookies from "js-cookie";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query'
+
+const queryClient = new QueryClient()
+
 const App = () => {
   const { isAuthenticated } = useContext(UserLoginContext);
 
   return (
+    <QueryClientProvider client={queryClient}>
     <div>
       {isAuthenticated ? (
         <Layout />
@@ -30,6 +38,7 @@ const App = () => {
       {/* <Footer /> */}
       <ToastContainer />
     </div>
+    </QueryClientProvider>
   );
 };
 

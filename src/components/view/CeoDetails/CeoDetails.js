@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { useState, useEffect } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -17,21 +16,17 @@ import AddIcon from "@material-ui/icons/Add";
 import config from "../../../constants/config";
 import { Grid } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
+import { useQuery } from "react-query";
 
 const CeoDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
-  const [ceoDetails, setCeoDetails] = useState([]);
-  useEffect(() => {
-    let filter = {
-      type: "ceo",
-    };
-    getAdmin(filter)
-      .then((res) => setCeoDetails(res))
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+
+  let filter = {
+    type: "ceo",
+  };
+
+  const { status, data, error } = useQuery('ceo',()=> getAdmin(filter));
 
   function addDefaultSrc(ev) {
     ev.target.src = tempImg;
@@ -63,6 +58,7 @@ const CeoDetails = (props) => {
             </Box>
           </Box>
           <TableContainer className={classes.tab_container}>
+            
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
@@ -85,9 +81,14 @@ const CeoDetails = (props) => {
                     கையொப்பம்
                   </TableCell>
                 </TableRow>
-              </TableHead>
+              </TableHead>           
               <TableBody>
-                {ceoDetails.map((data) => {
+              {status === 'loading' ? (
+                <p>Loading...</p>
+                ) : status === 'error' ? (
+                <span>Error: {error.message}</span>
+               ) :(<>
+                {data.map((data) => {
                   return (
                     <TableRow
                       key={data.id}
@@ -138,11 +139,13 @@ const CeoDetails = (props) => {
                     </TableRow>
                   );
                 })}
+                </>
+                )}
               </TableBody>
             </Table>
-            <div className={classes.no_data}>
-              {!ceoDetails.length && <NoRecordsFound />}
-            </div>
+            {/* <div className={classes.no_data}>
+              {!data && <NoRecordsFound />}
+            </div> */}
           </TableContainer>
         </Grid>
       </div>
