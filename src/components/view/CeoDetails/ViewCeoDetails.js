@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import config from "../../../constants/config";
+import config,{getAdminUser} from "../../../constants/config";
 import Container from "@material-ui/core/Container";
 import tempImg from "../../../assets/images/male.svg";
 import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
@@ -15,6 +15,7 @@ import { useStyles } from "../../../assets/styles";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import QRCode from "qrcode.react";
 import { UserLoginContext } from "../../context/UserLoginContext";
+import { useQuery } from "react-query";
 
 const CeoDetailsCard = (Props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -23,18 +24,21 @@ const CeoDetailsCard = (Props) => {
   const history = useHistory();
   const [adminData, setAdminData] = useState({});
 
-  useEffect(() => {
-    if (match.params.id) {
-      axios
-        .get(`${config.app.APP_API_URL}/adminusers/${match.params.id}`)
-        .then((res) => {
-          if (res && res.status === 200) {
-            setAdminData(res.data);
-          }
-        })
-        .catch((err) => customToast("error", err.message));
-    }
-  }, [match.params.id]);
+  // useEffect(() => {
+  //   if (match.params.id) {
+  //     axios
+  //       .get(`${config.app.APP_API_URL}/adminusers/${match.params.id}`)
+  //       .then((res) => {
+  //         if (res && res.status === 200) {
+  //           setAdminData(res.data);
+  //         }
+  //       })
+  //       .catch((err) => customToast("error", err.message));
+  //   }
+  // }, [match.params.id]);
+  
+
+  const { status, data, error } = useQuery('getCeo',()=> getAdminUser(match.params.id));
 
   const goBackAdmin = () => {
     history.goBack();
@@ -69,6 +73,11 @@ const CeoDetailsCard = (Props) => {
       <Container fixed className={classes.adminCardContainer}>
         <Card className={classes.adminCardRoot}>
           <CardActionArea>
+          {status === 'loading' ? (
+              <p className={classes.no_data}>Loading...</p>
+          ) : status === 'error' ? (
+              <customToast className={classes.no_data}>Error: {error.message}</customToast>
+          ) :(<>
             <CardContent>
                 <img src={Nerkathirlogo} alt="Nerkathir logo" className={classes.watermark}/>
               <div className={classes.adminContent}>
@@ -76,8 +85,8 @@ const CeoDetailsCard = (Props) => {
                   <img
                     className={classes.adminCardImage}
                     src={
-                      adminData?.picture
-                        ? `${config.app.APP_API_URL}${adminData.picture.url}`
+                      data?.picture
+                        ? `${config.app.APP_API_URL}${data.picture.url}`
                         : tempImg
                     }
                     alt="Ceo Profile Picture"
@@ -97,25 +106,25 @@ const CeoDetailsCard = (Props) => {
               <div className={classes.adminContent}>
                 <div className={classes.adminDetails}>
                   <Typography variant="body1" color="textSecondary">
-                    பெயர் : {adminData.name}{" "}
+                    பெயர் : {data.name}{" "}
                   </Typography>
                   <Typography variant="body1" color="textSecondary">
-                    கைபேசி எண் : {adminData.phoneNumber}{" "}
+                    கைபேசி எண் : {data.phoneNumber}{" "}
                   </Typography>
                   <Typography variant="body1" color="textSecondary">
-                    பிறந்த தேதி : {adminData.DOB}{" "}
+                    பிறந்த தேதி : {data.DOB}{" "}
                   </Typography>
                   <Typography variant="body1" color="textSecondary">
-                    தகுதி : {adminData.qualification}{" "}
+                    தகுதி : {data.qualification}{" "}
                   </Typography>
                 </div>
                 <div>
                   <QRCode
                     value={JSON.stringify(
                       {
-                        id: adminData.id,
-                        name: adminData.name,
-                        phoneNumber: adminData.phoneNumber,
+                        id: data.id,
+                        name: data.name,
+                        phoneNumber: data.phoneNumber,
                       },
                       null,
                       2
@@ -125,6 +134,7 @@ const CeoDetailsCard = (Props) => {
                 </div>
               </div>
             </CardContent>
+            </>)}
           </CardActionArea>
         </Card>
       </Container>
