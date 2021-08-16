@@ -29,6 +29,7 @@ import moment from 'moment'
 const useStyles = makeStyles((theme) => ({
   dashboard_root: {
     flexGrow: 1,
+    overflow:"scroll"
   },
   dashboard_header: {
     height: "10vh",
@@ -124,6 +125,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "0.8rem",
   },
   dashboard_summaryGraphContainer: {
+    maxHeight: "50vh",
     minHeight: "50vh",
     marginRight: "1rem",
     borderRadius: "10px",

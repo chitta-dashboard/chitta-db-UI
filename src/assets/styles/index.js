@@ -221,10 +221,13 @@ export const useStyles = makeStyles((theme) => ({
   //   farmerdetails page
   farmerdetails_root: {
     flexGrow: 1,
-    width: "95%",
+    // width: "95%",
     position: "relative",
-    marginLeft: "auto",
-    marginRight: "auto",
+    // marginLeft: "auto",
+    // marginRight: "auto",
+    display: "flex",
+    justifyContent: "center",
+    padding: "0 1rem",
   },
 
   add_btn_container: {
@@ -387,8 +390,8 @@ export const useStyles = makeStyles((theme) => ({
   tab_container: {
     margin: "1.5rem 1.5rem 0rem 1.5rem",
     padding: "1rem",
-    paddingBottom: "3rem",
-    height: "80vh",
+    // paddingBottom: "3rem",
+    height: "75vh",
     backgroundColor: colors.bg1,
     borderRadius: "20px",
     // boxShadow: "1px 1px 7px 0px #3333334a",
@@ -600,6 +603,9 @@ export const useStyles = makeStyles((theme) => ({
 
       color: colors.text2,
     },
+    "&:disabled": {
+      filter: "brightness(0.75)",
+    },
   },
 
   user_header: {
@@ -758,7 +764,8 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: "15px",
     padding: "1rem",
     overflow: "auto",
-    height: "90vh",
+    height: "75vh",
+    width: "100%",
   },
   footer: {
     minHeight: "2rem",
@@ -779,10 +786,11 @@ export const useStyles = makeStyles((theme) => ({
   t_Footer: {
     position: "absolute",
     bottom: "0",
-    width: "93%",
+    width: "91%",
     background: "white",
     display: "flex !important",
     justifyContent: "flex-end",
+    border: "none",
   },
   footercontent: {
     display: "flex",

@@ -330,6 +330,7 @@ const FarmerList = (props) => {
                 inputProps: { "aria-label": "rows per page" },
                 native: true,
               }}
+              style={{ borderBottom: "none" }}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               // ActionsComponent={TablePaginationActions}
