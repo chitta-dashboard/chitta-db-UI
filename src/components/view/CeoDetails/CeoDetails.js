@@ -27,7 +27,6 @@ const CeoDetails = (props) => {
   };
 
   const { status, data, error } = useQuery('ceo',()=> getAdmin(filter));
-
   function addDefaultSrc(ev) {
     ev.target.src = tempImg;
   }
@@ -58,7 +57,11 @@ const CeoDetails = (props) => {
             </Box>
           </Box>
           <TableContainer className={classes.tab_container}>
-            
+          {status === 'loading' ? (
+                <p>Loading...</p>
+                ) : status === 'error' ? (
+                <span>Error: {error.message}</span>
+               ) :(<>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
@@ -83,11 +86,7 @@ const CeoDetails = (props) => {
                 </TableRow>
               </TableHead>           
               <TableBody>
-              {status === 'loading' ? (
-                <p>Loading...</p>
-                ) : status === 'error' ? (
-                <span>Error: {error.message}</span>
-               ) :(<>
+              
                 {data.map((data) => {
                   return (
                     <TableRow
@@ -139,13 +138,14 @@ const CeoDetails = (props) => {
                     </TableRow>
                   );
                 })}
-                </>
-                )}
+               
               </TableBody>
             </Table>
-            {/* <div className={classes.no_data}>
-              {!data && <NoRecordsFound />}
-            </div> */}
+             <div className={classes.no_data}>
+                    {!data.length && <NoRecordsFound />}
+              </div>      
+            </>
+          )}
           </TableContainer>
         </Grid>
       </div>
