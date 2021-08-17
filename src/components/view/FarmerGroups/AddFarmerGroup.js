@@ -7,6 +7,7 @@ import { useStyles } from "../../../assets/styles";
 import { postFarmerGroup } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router";
+import { useMutation } from "react-query";
 
 const AddFarmerGroup = () => {
   const classes = useStyles();
@@ -14,16 +15,22 @@ const AddFarmerGroup = () => {
   const Description = useRef("");
   const history = useHistory();
 
+  const addFarmer = useMutation((data)=> postFarmerGroup(data))
+
   const postGroupData = (e) => {
     e.preventDefault();
     const params = {
       groupName: groupName.current.value,
       description: Description.current.value,
     };
-    postFarmerGroup(params)
-      .then(customToast("success", "Form submitted successfully."))
-      .then(history.goBack())
-      .catch((err) => customToast("error", err.message));
+    addFarmer.mutate(params,{
+      onSuccess: (data) => {
+        customToast("success", "Form submitted successfully.")
+        history.goBack()
+      },onError: (error) => {
+        customToast("error", error.message)
+      },
+    })
   };
 
   return (

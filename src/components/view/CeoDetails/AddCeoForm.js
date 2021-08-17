@@ -27,11 +27,19 @@ const AddCeo = (Props) => {
   const { data:ceoData} = useQuery('editCeo',()=> getAdminUser(match.params.id));
   
   const updateCeo = useMutation((data)=> putAdmin(data,match.params.id),{
-    onSuccess: data => {
+    onSuccess: (data) => {
       ceoPicHandler(data)
-    }
+    },onError: (error) => {
+      customToast("error", error.message)
+    },
   })
-  const addCeo = useMutation((data)=>postAdmin(data).then((res)=>ceoPicHandler(res)))
+  const addCeo = useMutation((data)=>postAdmin(data),{
+    onSuccess: (data) => {
+      ceoPicHandler(data)
+    },onError: (error) => {
+      customToast("error", error.message)
+    },
+  })
 
   useEffect(() => {
     if (match.params.id) {
