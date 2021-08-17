@@ -37,7 +37,7 @@ const MdDetailsCard = (Props) => {
   //   }
   // }, [match.params.id]);
   let initialData = {};
-  const { data = initialData } = useQuery("getMd", () =>
+  const { data = initialData } = useQuery(["getMd", match.params.id], () =>
     getAdminUser(match.params.id)
   );
   const goBackAdmin = () => {
