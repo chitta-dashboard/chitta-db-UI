@@ -24,7 +24,8 @@ import {
   getFarmersGroupCount,
   getNotification,
 } from "../../../constants/config";
-import moment from 'moment'
+import moment from 'moment';
+import { useQuery } from "react-query";
 
 const useStyles = makeStyles((theme) => ({
   dashboard_root: {
@@ -168,7 +169,9 @@ const Dashboard = () => {
   const [farmersGroupCount, setFarmersGroupCount] = useState(0);
   const [farmerCount, setFarmerCount] = useState(0);
   const [grpCheck, setGrpCheck] = useState("");
-  const [notification, setNotification] = useState([]);
+  // const [notification, setNotification] = useState([]);
+
+  const { status, data:notification, error } = useQuery('notification',()=> getNotification());
 
   useEffect(() => {
     getFarmersGroupCount().then((res) => setFarmersGroupCount(res));
@@ -199,15 +202,6 @@ const Dashboard = () => {
     }
   }, []);
 
-  useEffect(() => {
-    getNotification()
-      .then((res) => {
-        setNotification(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   const series = React.useMemo(
     () => ({
@@ -365,6 +359,11 @@ const Dashboard = () => {
             Notification
           </Typography>
           <Card className={classes.dashboard_notificationCardContainer}>
+          {status === 'loading' ? (
+              <p className={classes.no_data}>Loading...</p>
+          ) : status === 'error' ? (
+              <span className={classes.no_data}>Error: {error.message}</span>
+          ) :(<>
             <CardContent>
               {notification.map((data) => {
                 return (
@@ -378,6 +377,8 @@ const Dashboard = () => {
               })}
               {!notification.length && <NoRecordsFound />}
             </CardContent>
+            </>
+          )}
           </Card>
         </Grid>
       </Grid>

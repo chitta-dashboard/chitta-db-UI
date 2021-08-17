@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect,useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -16,22 +16,20 @@ import searchLogo from "../../../assets/images/search.svg";
 import { searchWord } from "../../../constants";
 import { Grid } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
+import { useQuery } from "react-query";
 
 const FarmerGroups = () => {
   const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
-  const [groups, setGroups] = useState([]);
+  // const [groups, setGroups] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [filteredList, setFilteredList] = useState([]);
-  useEffect(() => {
-    getFarmersGroup()
-      .then((res) => {
-        setGroups(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+
+  const {
+    status,
+    data: groups,
+    error,
+  } = useQuery("getGroups", () => getFarmersGroup());
 
   useEffect(() => {
     let filteredList = [];
@@ -43,6 +41,7 @@ const FarmerGroups = () => {
 
     setFilteredList(filteredList);
   }, [searchValue, groups]);
+
   const groupsData = filteredList.length
     ? filteredList
     : !searchValue.length
@@ -69,55 +68,66 @@ const FarmerGroups = () => {
           <Box className={classes.farmerdetails_boxcontainer}>
             {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
             {loginType === "Administrator" && (
-            <Box>
-              <NavLink to="/addfarmerGroup" className={classes.addDetails_link}>
-                <button className={classes.addDetails_btn}>
-                  <AddIcon />
-                  Add
-                </button>
-              </NavLink>
-            </Box>
+              <Box>
+                <NavLink
+                  to="/addfarmerGroup"
+                  className={classes.addDetails_link}
+                >
+                  <button className={classes.addDetails_btn}>
+                    <AddIcon />
+                    Add
+                  </button>
+                </NavLink>
+              </Box>
             )}
           </Box>
         </Box>
         <TableContainer className={classes.tab_container}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                <TableCell
-                  className={classes.tab_headercell}
-                  style={{ color: "#464E5F" }}
-                >
-                  குழு பெயர்
-                </TableCell>
-                <TableCell className={classes.tab_headercell}>
-                  குழு விளக்கம்
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {groupsData.map((data) => {
-                return (
-                  <TableRow
-                    key={data.id}
-                    role="checkbox"
-                    tabIndex={-1}
-                    className={classes.tab_row}
-                  >
-                    <TableCell className={classes.tab_cell}>
-                      {data.groupName ? data.groupName : ""}
+          {status === "loading" ? (
+            <p className={classes.no_data}>Loading...</p>
+          ) : status === "error" ? (
+            <span className={classes.no_data}>Error: {error.message}</span>
+          ) : (
+            <>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell
+                      className={classes.tab_headercell}
+                      style={{ color: "#464E5F" }}
+                    >
+                      குழு பெயர்
                     </TableCell>
-                    <TableCell className={classes.tab_cell}>
-                      {data.description ? data.description : ""}
+                    <TableCell className={classes.tab_headercell}>
+                      குழு விளக்கம்
                     </TableCell>
                   </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-          <div className={classes.no_data}>
-            {!groups.length && <NoRecordsFound />}
-          </div>
+                </TableHead>
+                <TableBody>
+                  {groupsData.map((data) => {
+                    return (
+                      <TableRow
+                        key={data.id}
+                        role="checkbox"
+                        tabIndex={-1}
+                        className={classes.tab_row}
+                      >
+                        <TableCell className={classes.tab_cell}>
+                          {data.groupName ? data.groupName : ""}
+                        </TableCell>
+                        <TableCell className={classes.tab_cell}>
+                          {data.description ? data.description : ""}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+              <div className={classes.no_data}>
+                {!groups.length && <NoRecordsFound />}
+              </div>
+            </>
+          )}
         </TableContainer>
       </Grid>
     </div>

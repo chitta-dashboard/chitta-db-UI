@@ -4,13 +4,19 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
-import { postAdmin, putAdmin,postNotification } from "../../../constants/config";
+import {
+  postAdmin,
+  putAdmin,
+  postNotification,
+  getAdminUser,
+} from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router";
 import { colors } from "../../../theme";
 import { uploadFile } from "../../../constants/config";
 import axios from "axios";
 import config from "../../../constants/config";
+import { useMutation, useQuery } from "react-query";
 
 const AddMd = (Props) => {
   const classes = useStyles();
@@ -24,21 +30,44 @@ const AddMd = (Props) => {
   const [mdSign, setSignPhoto] = useState(null);
   const history = useHistory();
 
+  // useEffect(() => {
+  //   if (match.params.id) {
+  //     axios
+  //       .get(`${config.app.APP_API_URL}/adminusers/${match.params.id}`)
+  //       .then((res) => {
+  //         if (res && res.status === 200) {
+  //           mdName.current.value = res.data?.name ?? null;
+  //           phoneNumber.current.value = res.data?.phoneNumber ?? null;
+  //           qualification.current.value = res.data?.qualification ?? null;
+  //           dob.current.value = res.data?.DOB ?? null;
+  //         }
+  //       })
+  //       .catch((err) => customToast("error", err.message));
+  //   }
+  // }, [match.params.id]);
+
+  const { data } = useQuery("editMd", () => getAdminUser(match.params.id));
   useEffect(() => {
     if (match.params.id) {
-      axios
-        .get(`${config.app.APP_API_URL}/adminusers/${match.params.id}`)
-        .then((res) => {
-          if (res && res.status === 200) {
-            mdName.current.value = res.data?.name ?? null;
-            phoneNumber.current.value = res.data?.phoneNumber ?? null;
-            qualification.current.value = res.data?.qualification ?? null;
-            dob.current.value = res.data?.DOB ?? null;
-          }
-        })
-        .catch((err) => customToast("error", err.message));
+      console.log(data);
+      mdName.current.value = data?.name ?? null;
+      phoneNumber.current.value = data?.phoneNumber ?? null;
+      qualification.current.value = data?.qualification ?? null;
+      dob.current.value = data?.DOB ?? null;
     }
-  }, [match.params.id]);
+  }, [data]);
+  const postMutation = useMutation((data) => postAdmin(data), {
+    onSuccess: (data) => mdUploadHandler(data),
+    onError: (err) => {
+      customToast("error", err.message);
+    },
+  });
+  const putMutation = useMutation((data) => putAdmin(data, match.params.id), {
+    onSuccess: (data) => mdUploadHandler(data),
+    onError: (err) => {
+      customToast("error", err.message);
+    },
+  });
 
   const _onProfilePicChange = (e) => {
     const file = e.target.files[0];
@@ -65,6 +94,34 @@ const AddMd = (Props) => {
       files: mdSign,
     });
   };
+
+  const mdUploadHandler = (res) => {
+    const success = () => {
+      customToast("success", "Form submitted successfully.");
+      history.goBack();
+    };
+
+    if (mdPhoto || mdSign) {
+      if (mdPhoto && !mdSign) {
+        uploadProfilePic(res.id).then((data) => {
+          success();
+        });
+      } else if (mdSign && !mdPhoto) {
+        uploadSignature(res.id).then((data) => {
+          success();
+        });
+      } else if (mdSign && mdPhoto) {
+        Promise.all([uploadProfilePic(res.id), uploadSignature(res.id)]).then(
+          () => {
+            success();
+          }
+        );
+      }
+    } else {
+      success();
+    }
+  };
+
   const postMdData = (e) => {
     e.preventDefault();
     const params = {
@@ -72,42 +129,17 @@ const AddMd = (Props) => {
       phoneNumber: phoneNumber.current.value,
       DOB: dob.current.value === "" ? null : dob.current.value,
       qualification: qualification.current.value,
-      adminType:"md"
+      adminType: "md",
     };
+    match.params.id ? putMutation.mutate(params) : postMutation.mutate(params);
     const Notification = {
-      notification : match.params.id ?`MD "${params.name}" Details Has been Updated` : `New MD "${params.name}" Has been Registered`
+      notification: match.params.id
+        ? `MD "${params.name}" Details Has been Updated`
+        : `New MD "${params.name}" Has been Registered`,
     };
-    (match.params.id  ? putAdmin(params, match.params.id ) : postAdmin(params))
-      .then((res) => {
-        const success = () => {
-          customToast("success", "Form submitted successfully.");
-          history.goBack();
-        };
-
-        if (mdPhoto || mdSign) {
-          if (mdPhoto && !mdSign) {
-            uploadProfilePic(res.id).then((data) => {
-              success();
-            });
-          } else if (mdSign && !mdPhoto) {
-            uploadSignature(res.id).then((data) => {
-              success();
-            });
-          } else if (mdSign && mdPhoto) {
-            Promise.all([
-              uploadProfilePic(res.id),
-              uploadSignature(res.id),
-            ]).then((data) => {
-              success();
-            });
-          }
-        } else {
-          success();
-        }
-      })
-      .catch((err) => customToast("error", err.message));
-      postNotification(Notification)
-      .catch((err) => customToast("error", err.message));
+    postNotification(Notification).catch((err) =>
+      customToast("error", err.message)
+    );
   };
 
   return (
@@ -150,7 +182,7 @@ const AddMd = (Props) => {
               />
             </Grid>
             <Grid className={classes.forminput_container} item xs={12}>
-            <label>புகைப்படம்</label>
+              <label>புகைப்படம்</label>
               <input
                 className="farmer-input tamil"
                 type="file"
@@ -165,7 +197,7 @@ const AddMd = (Props) => {
               />
             </Grid>
             <Grid className={classes.forminput_container} item xs={12}>
-            <label>கையொப்பம்</label>
+              <label>கையொப்பம்</label>
               <input
                 className="farmer-input tamil"
                 type="file"

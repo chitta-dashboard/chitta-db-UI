@@ -5,12 +5,13 @@ import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import { customToast } from "../../widgets/Toast";
-import { postAdmin, putAdmin,postNotification } from "../../../constants/config";
+import { postAdmin, putAdmin,postNotification,getAdminUser } from "../../../constants/config";
 import { useHistory } from "react-router";
 import { colors } from "../../../theme";
 import { uploadFile } from "../../../constants/config";
 import config from "../../../constants/config";
 import axios from "axios";
+import { useQuery,useMutation } from "react-query";
 
 const AddCeo = (Props) => {
   const { match } = Props;
@@ -23,21 +24,31 @@ const AddCeo = (Props) => {
   const [ceoSign, setCeoSign] = useState(null);
   const history = useHistory();
 
+  const { data:ceoData} = useQuery('editCeo',()=> getAdminUser(match.params.id));
+  
+  const updateCeo = useMutation((data)=> putAdmin(data,match.params.id),{
+    onSuccess: (data) => {
+      ceoPicHandler(data)
+    },onError: (error) => {
+      customToast("error", error.message)
+    },
+  })
+  const addCeo = useMutation((data)=>postAdmin(data),{
+    onSuccess: (data) => {
+      ceoPicHandler(data)
+    },onError: (error) => {
+      customToast("error", error.message)
+    },
+  })
+
   useEffect(() => {
     if (match.params.id) {
-      axios
-        .get(`${config.app.APP_API_URL}/adminusers/${match.params.id}`)
-        .then((res) => {
-          if (res && res.status === 200) {
-            ceoName.current.value = res.data?.name ?? null;
-            phoneNumber.current.value = res.data?.phoneNumber ?? null;
-            qualification.current.value = res.data?.qualification ?? null;
-            dob.current.value = res.data?.DOB ?? null;
-          }
-        })
-        .catch((err) => customToast("error", err.message));
+        ceoName.current.value = ceoData?.name ?? null;
+        phoneNumber.current.value = ceoData?.phoneNumber ?? null;
+        qualification.current.value = ceoData?.qualification ?? null;
+        dob.current.value = ceoData?.DOB ?? null;
     }
-  }, [match.params.id]);
+  },[match.params.id,ceoData]);
 
   const _onProfilePicChange = (e) => {
     const file = e.target.files[0];
@@ -66,6 +77,34 @@ const AddCeo = (Props) => {
     });
   };
 
+  const ceoPicHandler = (res)=>{
+    const success = () => {
+      customToast("success", "Form submitted successfully.");
+      history.goBack();
+    };
+    
+    if (ceoPhoto || ceoSign) {
+      if (ceoPhoto && !ceoSign) {
+        uploadProfilePic(res.id).then((data) => {
+          success();
+        });
+      } else if (ceoSign && !ceoPhoto) {
+        uploadSignature(res.id).then((data) => {
+          success();
+        });
+      } else if (ceoSign && ceoPhoto) {
+        Promise.all([
+          uploadProfilePic(res.id),
+          uploadSignature(res.id),
+        ]).then((data) => {
+          success();
+        });
+        }
+      } else {
+        success();
+      }
+  }
+
   const postCeoData = (e) => {
     e.preventDefault();
     const params = {
@@ -78,38 +117,11 @@ const AddCeo = (Props) => {
     const Notification = {
       notification : match.params.id ?`CEO "${params.name}" Details Has been Updated` : `New CEO "${params.name}" Has been Registered`
     };
-    
-    (match.params.id ? putAdmin(params, match.params.id) : postAdmin(params))
-      .then((res) => {
-        const success = () => {
-          customToast("success", "Form submitted successfully.");
-          history.goBack();
-        };
-        if (ceoPhoto || ceoSign) {
-          if (ceoPhoto && !ceoSign) {
-            uploadProfilePic(res.id).then((data) => {
-              success();
-            });
-          } else if (ceoSign && !ceoPhoto) {
-            uploadSignature(res.id).then((data) => {
-              success();
-            });
-          } else if (ceoSign && ceoPhoto) {
-            Promise.all([
-              uploadProfilePic(res.id),
-              uploadSignature(res.id),
-            ]).then((data) => {
-              success();
-            });
-          }
-        } else {
-          success();
-        }
-      })
-      .catch((err) => customToast("error", err.message));
-      
-      postNotification(Notification)
-      .catch((err) => customToast("error", err.message));
+
+    (match.params.id ? updateCeo.mutate(params) : addCeo.mutate(params))
+
+    postNotification(Notification)
+    .catch((err) => customToast("error", err.message)); 
   };
 
   return (

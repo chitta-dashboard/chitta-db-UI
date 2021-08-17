@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import config from "../../../constants/config";
+import config, { getAdminUser } from "../../../constants/config";
 import Container from "@material-ui/core/Container";
 import tempImg from "../../../assets/images/male.svg";
 import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
@@ -15,26 +15,16 @@ import { useStyles } from "../../../assets/styles";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import QRCode from "qrcode.react";
 import { UserLoginContext } from "../../context/UserLoginContext";
+import { useQuery } from "react-query";
 
-const CeoDetailsCard = (Props) => {
+const CeoDetailsCard = (props) => {
   const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
-  const { match } = Props;
-  const history = useHistory();
-  const [adminData, setAdminData] = useState({});
+  const { match, history } = props;
 
-  useEffect(() => {
-    if (match.params.id) {
-      axios
-        .get(`${config.app.APP_API_URL}/adminusers/${match.params.id}`)
-        .then((res) => {
-          if (res && res.status === 200) {
-            setAdminData(res.data);
-          }
-        })
-        .catch((err) => customToast("error", err.message));
-    }
-  }, [match.params.id]);
+  const { status, data, error } = useQuery(["getCeo", match.params.id], () =>
+    getAdminUser(match.params.id)
+  );
 
   const goBackAdmin = () => {
     history.goBack();
@@ -59,7 +49,7 @@ const CeoDetailsCard = (Props) => {
             <button
               className={classes.export_btn}
               style={{ textDecoration: "none" }}
-              onClick={() => Props.history.push(`/editCeo/${match.params.id}`)}
+              onClick={() => props.history.push(`/editCeo/${match.params.id}`)}
             >
               Edit
             </button>
@@ -69,62 +59,76 @@ const CeoDetailsCard = (Props) => {
       <Container fixed className={classes.adminCardContainer}>
         <Card className={classes.adminCardRoot}>
           <CardActionArea>
-            <CardContent>
-                <img src={Nerkathirlogo} alt="Nerkathir logo" className={classes.watermark}/>
-              <div className={classes.adminContent}>
-                <div>
+            {status === "loading" ? (
+              <p className={classes.no_data}>Loading...</p>
+            ) : status === "error" ? (
+              customToast("error", error.message)
+            ) : (
+              <>
+                <CardContent>
                   <img
-                    className={classes.adminCardImage}
-                    src={
-                      adminData?.picture
-                        ? `${config.app.APP_API_URL}${adminData.picture.url}`
-                        : tempImg
-                    }
-                    alt="Ceo Profile Picture"
-                    onError={addDefaultSrc}
+                    src={Nerkathirlogo}
+                    alt="Nerkathir logo"
+                    className={classes.watermark}
                   />
-                </div>
-                <div className={classes.details}>
-                  <h2 className={classes.adminHeaderTitle}>
-                    Nerkathir Farmer Producer <br />
-                    Company Limited
-                  </h2>
-                  <div className={classes.HeaderSub}>
-                    <p>Reg No:139086 &nbsp;&nbsp; CIN:UO1409TN2020PTC139086</p>
+                  <div className={classes.adminContent}>
+                    <div>
+                      <img
+                        className={classes.adminCardImage}
+                        src={
+                          data?.picture
+                            ? `${config.app.APP_API_URL}${data.picture.url}`
+                            : tempImg
+                        }
+                        alt="Ceo Profile Picture"
+                        onError={addDefaultSrc}
+                      />
+                    </div>
+                    <div className={classes.details}>
+                      <h2 className={classes.adminHeaderTitle}>
+                        Nerkathir Farmer Producer <br />
+                        Company Limited
+                      </h2>
+                      <div className={classes.HeaderSub}>
+                        <p>
+                          Reg No:139086 &nbsp;&nbsp; CIN:UO1409TN2020PTC139086
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div className={classes.adminContent}>
-                <div className={classes.adminDetails}>
-                  <Typography variant="body1" color="textSecondary">
-                    பெயர் : {adminData.name}{" "}
-                  </Typography>
-                  <Typography variant="body1" color="textSecondary">
-                    கைபேசி எண் : {adminData.phoneNumber}{" "}
-                  </Typography>
-                  <Typography variant="body1" color="textSecondary">
-                    பிறந்த தேதி : {adminData.DOB}{" "}
-                  </Typography>
-                  <Typography variant="body1" color="textSecondary">
-                    தகுதி : {adminData.qualification}{" "}
-                  </Typography>
-                </div>
-                <div>
-                  <QRCode
-                    value={JSON.stringify(
-                      {
-                        id: adminData.id,
-                        name: adminData.name,
-                        phoneNumber: adminData.phoneNumber,
-                      },
-                      null,
-                      2
-                    )}
-                    className={classes.adminCardImage}
-                  />
-                </div>
-              </div>
-            </CardContent>
+                  <div className={classes.adminContent}>
+                    <div className={classes.adminDetails}>
+                      <Typography variant="body1" color="textSecondary">
+                        பெயர் : {data.name}{" "}
+                      </Typography>
+                      <Typography variant="body1" color="textSecondary">
+                        கைபேசி எண் : {data.phoneNumber}{" "}
+                      </Typography>
+                      <Typography variant="body1" color="textSecondary">
+                        பிறந்த தேதி : {data.DOB}{" "}
+                      </Typography>
+                      <Typography variant="body1" color="textSecondary">
+                        தகுதி : {data.qualification}{" "}
+                      </Typography>
+                    </div>
+                    <div>
+                      <QRCode
+                        value={JSON.stringify(
+                          {
+                            id: data.id,
+                            name: data.name,
+                            phoneNumber: data.phoneNumber,
+                          },
+                          null,
+                          2
+                        )}
+                        className={classes.adminCardImage}
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </>
+            )}
           </CardActionArea>
         </Card>
       </Container>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import config from "../../../constants/config";
+import config, { getAdminUser } from "../../../constants/config";
 import Container from "@material-ui/core/Container";
 import tempImg from "../../../assets/images/male.svg";
 import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
@@ -15,27 +15,31 @@ import { useStyles } from "../../../assets/styles";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import QRCode from "qrcode.react";
+import { useQuery } from "react-query";
 
 const MdDetailsCard = (Props) => {
   const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
   const { match } = Props;
   const history = useHistory();
-  const [adminData, setAdminData] = useState({});
+  // const [adminData, setAdminData] = useState({});
 
-  useEffect(() => {
-    if (match.params.id) {
-      axios
-        .get(`${config.app.APP_API_URL}/adminusers/${match.params.id}`)
-        .then((res) => {
-          if (res && res.status === 200) {
-            setAdminData(res.data);
-          }
-        })
-        .catch((err) => customToast("error", err.message));
-    }
-  }, [match.params.id]);
-
+  // useEffect(() => {
+  //   if (match.params.id) {
+  //     axios
+  //       .get(`${config.app.APP_API_URL}/adminusers/${match.params.id}`)
+  //       .then((res) => {
+  //         if (res && res.status === 200) {
+  //           setAdminData(res.data);
+  //         }
+  //       })
+  //       .catch((err) => customToast("error", err.message));
+  //   }
+  // }, [match.params.id]);
+  let initialData = {};
+  const { data = initialData } = useQuery(["getMd", match.params.id], () =>
+    getAdminUser(match.params.id)
+  );
   const goBackAdmin = () => {
     history.goBack();
   };
@@ -55,30 +59,34 @@ const MdDetailsCard = (Props) => {
           </Button>
         </div>
         {loginType === "Administrator" && (
-        <div className={classes.btnContainer_custom}>
-          <button
-            className={classes.export_btn}
-            style={{ textDecoration: "none" }}
-            onClick={() => Props.history.push(`/editMd/${match.params.id}`)}
-          >
-            Edit
-          </button>
-        </div>
+          <div className={classes.btnContainer_custom}>
+            <button
+              className={classes.export_btn}
+              style={{ textDecoration: "none" }}
+              onClick={() => Props.history.push(`/editMd/${match.params.id}`)}
+            >
+              Edit
+            </button>
+          </div>
         )}
       </div>
       <Container fixed className={classes.adminCardContainer}>
         <Card className={classes.adminCardRoot}>
           <CardActionArea>
             <CardContent>
-            <img src={Nerkathirlogo} alt="Nerkathir logo" className={classes.watermark}/>
+              <img
+                src={Nerkathirlogo}
+                alt="Nerkathir logo"
+                className={classes.watermark}
+              />
               <div className={classes.adminContent}>
                 <div>
                   <img
                     className={classes.adminCardImage}
                     alt="Md Profile"
                     src={
-                      adminData?.picture
-                        ? `${config.app.APP_API_URL}${adminData.picture.url}`
+                      data?.picture
+                        ? `${config.app.APP_API_URL}${data.picture.url}`
                         : tempImg
                     }
                     onError={addDefaultSrc}
@@ -97,25 +105,25 @@ const MdDetailsCard = (Props) => {
               <div className={classes.adminContent}>
                 <div className={classes.adminDetails}>
                   <Typography variant="body1" color="textSecondary">
-                    பெயர் : {adminData.name}{" "}
+                    பெயர் : {data.name}{" "}
                   </Typography>
                   <Typography variant="body1" color="textSecondary">
-                    கைபேசி எண் : {adminData.phoneNumber}{" "}
+                    கைபேசி எண் : {data.phoneNumber}{" "}
                   </Typography>
                   <Typography variant="body1" color="textSecondary">
-                    பிறந்த தேதி : {adminData.DOB}{" "}
+                    பிறந்த தேதி : {data.DOB}{" "}
                   </Typography>
                   <Typography variant="body1" color="textSecondary">
-                    தகுதி : {adminData.qualification}{" "}
+                    தகுதி : {data.qualification}{" "}
                   </Typography>
                 </div>
                 <div>
                   <QRCode
                     value={JSON.stringify(
                       {
-                        id: adminData.id,
-                        name: adminData.name,
-                        phoneNumber: adminData.phoneNumber,
+                        id: data.id,
+                        name: data.name,
+                        phoneNumber: data.phoneNumber,
                       },
                       null,
                       2
