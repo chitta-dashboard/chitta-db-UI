@@ -26,8 +26,11 @@ const AddCeo = (Props) => {
 
   const { data:ceoData} = useQuery('editCeo',()=> getAdminUser(match.params.id));
   
-  const updateCeo = useMutation((data)=> putAdmin(data,match.params.id)
-                              .then((res)=>ceoPicHandler(res)))
+  const updateCeo = useMutation((data)=> putAdmin(data,match.params.id),{
+    onSuccess: data => {
+      ceoPicHandler(data)
+    }
+  })
   const addCeo = useMutation((data)=>postAdmin(data).then((res)=>ceoPicHandler(res)))
 
   useEffect(() => {
