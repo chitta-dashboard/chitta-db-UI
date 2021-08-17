@@ -77,9 +77,9 @@ const Decision = (props) => {
                         >
                           View
                         </button>
-                        <button className={classes.decision_btn}>
+                        {/* <button className={classes.decision_btn}>
                           Print as pdf
-                        </button>
+                        </button> */}
                       </div>
                     </Section>
                   </BodyContent>

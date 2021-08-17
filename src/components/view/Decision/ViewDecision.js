@@ -5,6 +5,8 @@ import { Grid, Box } from "@material-ui/core";
 import { deleteDecision, getDecisionById } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router-dom";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import DecisionToPdf from "../Decision/DecisionToPdf";
 
 export default function ViewDecision(props) {
   const history = useHistory();
@@ -58,7 +60,21 @@ export default function ViewDecision(props) {
               </button>
             </Box>
             <Box>
-              <button className={classes.decision_btn}>Download as pdf</button>
+              <PDFDownloadLink
+                document={
+                  <DecisionToPdf getDecision={decision} getDate={date} />
+                }
+                fileName={`${date}_decision.pdf`}
+                style={{ textDecoration: "none" }}
+              >
+                {({ loading }) => {
+                  return (
+                    <button className={classes.decision_btn} disabled={loading}>
+                      Download as pdf
+                    </button>
+                  );
+                }}
+              </PDFDownloadLink>
             </Box>
           </Box>
         </Box>
