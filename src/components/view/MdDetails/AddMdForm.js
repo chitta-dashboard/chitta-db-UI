@@ -56,9 +56,17 @@ const AddMd = (Props) => {
       dob.current.value = data?.DOB ?? null;
     }
   }, [data]);
-  const postMutation = useMutation((data) => postAdmin(data));
+  const postMutation = useMutation((data) => postAdmin(data), {
+    onSuccess: (data) => mdUploadHandler(data),
+    onError: (err) => {
+      customToast("error", err.message);
+    },
+  });
   const putMutation = useMutation((data) => putAdmin(data, match.params.id), {
     onSuccess: (data) => mdUploadHandler(data),
+    onError: (err) => {
+      customToast("error", err.message);
+    },
   });
 
   const _onProfilePicChange = (e) => {
@@ -104,7 +112,7 @@ const AddMd = (Props) => {
         });
       } else if (mdSign && mdPhoto) {
         Promise.all([uploadProfilePic(res.id), uploadSignature(res.id)]).then(
-          (data) => {
+          () => {
             success();
           }
         );
@@ -123,110 +131,23 @@ const AddMd = (Props) => {
       qualification: qualification.current.value,
       adminType: "md",
     };
-    if (match.params.id) {
-      putMutation.mutate(params);
-    } else {
-      postMutation.mutate(params);
-    }
+    match.params.id ? putMutation.mutate(params) : postMutation.mutate(params);
+    // if (match.params.id) {
+    //   putMutation.mutate(params);
+    // } else {
+    //   postMutation.mutate(params);
+    // }
 
-    if (postMutation.isError) {
-      console.log("ERROR");
-    }
-    // const Notification = {
-    //   notification: match.params.id
-    //     ? `MD "${params.name}" Details Has been Updated`
-    //     : `New MD "${params.name}" Has been Registered`,
-    // };
-    // (match.params.id ? putAdmin(params, match.params.id) : postAdmin(params))
-    //   .then((res) => {
-    //     const success = () => {
-    //       customToast("success", "Form submitted successfully.");
-    //       history.goBack();
-    //     };
-
-    //     if (mdPhoto || mdSign) {
-    //       if (mdPhoto && !mdSign) {
-    //         uploadProfilePic(res.id).then((data) => {
-    //           success();
-    //         });
-    //       } else if (mdSign && !mdPhoto) {
-    //         uploadSignature(res.id).then((data) => {
-    //           success();
-    //         });
-    //       } else if (mdSign && mdPhoto) {
-    //         Promise.all([
-    //           uploadProfilePic(res.id),
-    //           uploadSignature(res.id),
-    //         ]).then((data) => {
-    //           success();
-    //         });
-    //       }
-    //     } else {
-    //       success();
-    //     }
-    //   })
-    //   .catch((err) => customToast("error", err.message));
-    // postNotification(Notification).catch((err) =>
-    //   customToast("error", err.message)
-    // );
+    const Notification = {
+      notification: match.params.id
+        ? `MD "${params.name}" Details Has been Updated`
+        : `New MD "${params.name}" Has been Registered`,
+    };
+    postNotification(Notification).catch((err) =>
+      customToast("error", err.message)
+    );
   };
-  // useEffect(() => {
-  //   const success = () => {
-  //     console.log("running");
-  //     customToast("success", "Form submitted successfully.");
-  //     history.goBack();
-  //   };
-  //   if (putMutation.isSuccess || postMutation.isSuccess) {
-  //     if (mdPhoto || mdSign) {
-  //       if (mdPhoto && !mdSign) {
-  //         uploadProfilePic(postMutation.data.id).then(() => {
-  //           success();
-  //         });
-  //       } else if (!mdPhoto && mdSign) {
-  //         uploadSignature(postMutation.data.id).then((res) => {
-  //           success();
-  //         });
-  //       } else if (mdPhoto && mdSign) {
-  //         Promise.all([
-  //           uploadProfilePic(postMutation.data.id),
-  //           uploadSignature(postMutation.data.id),
-  //         ]).then(() => {
-  //           success();
-  //         });
-  //       }
-  //     } else {
-  //       success();
-  //     }
-  //   }
-  // }, [postMutation.isSuccess, putMutation.isSuccess]);
 
-  // if (postMutation.isSuccess) {
-  //   const success = () => {
-  //     customToast("success", "Form submitted successfully.");
-  //     history.goBack();
-  //   };
-  //   if (mdPhoto || mdSign) {
-  //     if (mdPhoto && !mdSign) {
-  //       uploadProfilePic(postMutation.data.id).then(() => {
-  //         success();
-  //       });
-  //     } else if (!mdPhoto && mdSign) {
-  //       uploadSignature(postMutation.data.id).then((res) => {
-  //         success();
-  //       });
-  //     } else if (mdPhoto && mdSign) {
-  //       Promise.all([
-  //         uploadProfilePic(postMutation.data.id),
-  //         uploadSignature(postMutation.data.id),
-  //       ]).then(() => {
-  //         success();
-  //       });
-  //     } else {
-  //       success();
-  //     }
-  //   }
-  // }
-  // console.log(mutation.isSuccess);
   return (
     <div className={classes.form}>
       <form>
