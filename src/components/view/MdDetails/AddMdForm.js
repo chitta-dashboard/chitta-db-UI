@@ -132,12 +132,6 @@ const AddMd = (Props) => {
       adminType: "md",
     };
     match.params.id ? putMutation.mutate(params) : postMutation.mutate(params);
-    // if (match.params.id) {
-    //   putMutation.mutate(params);
-    // } else {
-    //   postMutation.mutate(params);
-    // }
-
     const Notification = {
       notification: match.params.id
         ? `MD "${params.name}" Details Has been Updated`
