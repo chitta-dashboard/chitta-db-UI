@@ -16,22 +16,16 @@ import searchLogo from "../../../assets/images/search.svg";
 import { searchWord } from "../../../constants";
 import { Grid } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
+import { useQuery } from "react-query";
 
 const FarmerGroups = () => {
   const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
-  const [groups, setGroups] = useState([]);
+  // const [groups, setGroups] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [filteredList, setFilteredList] = useState([]);
-  useEffect(() => {
-    getFarmersGroup()
-      .then((res) => {
-        setGroups(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+
+  const { status, data:groups, error } = useQuery('getFarmer',()=> getFarmersGroup());
 
   useEffect(() => {
     let filteredList = [];
@@ -43,6 +37,7 @@ const FarmerGroups = () => {
 
     setFilteredList(filteredList);
   }, [searchValue, groups]);
+
   const groupsData = filteredList.length
     ? filteredList
     : !searchValue.length
@@ -81,6 +76,11 @@ const FarmerGroups = () => {
           </Box>
         </Box>
         <TableContainer className={classes.tab_container}>
+        {status === 'loading' ? (
+              <p className={classes.no_data}>Loading...</p>
+          ) : status === 'error' ? (
+              <span className={classes.no_data}>Error: {error.message}</span>
+          ) :(<>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
@@ -118,6 +118,8 @@ const FarmerGroups = () => {
           <div className={classes.no_data}>
             {!groups.length && <NoRecordsFound />}
           </div>
+          </>
+          )}
         </TableContainer>
       </Grid>
     </div>
