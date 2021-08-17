@@ -22,7 +22,7 @@ const CeoDetailsCard = (Props) => {
   const classes = useStyles();
   const { match } = Props;
   const history = useHistory();
-  const [adminData, setAdminData] = useState({});
+  // const [adminData, setAdminData] = useState({});
 
   // useEffect(() => {
   //   if (match.params.id) {
@@ -76,7 +76,7 @@ const CeoDetailsCard = (Props) => {
           {status === 'loading' ? (
               <p className={classes.no_data}>Loading...</p>
           ) : status === 'error' ? (
-              <customToast className={classes.no_data}>Error: {error.message}</customToast>
+              customToast("error", error.message)
           ) :(<>
             <CardContent>
                 <img src={Nerkathirlogo} alt="Nerkathir logo" className={classes.watermark}/>
