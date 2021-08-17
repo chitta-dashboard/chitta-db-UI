@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -16,6 +16,8 @@ import config from "../../../constants/config";
 import tempSign from "../../../assets/images/default_sign.png";
 import { Grid } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
+import { useQuery } from "react-query";
+import { CircularProgress } from "@material-ui/core";
 
 const MdDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -25,19 +27,28 @@ const MdDetails = (props) => {
   function addDefaultSrc(ev) {
     ev.target.src = tempImg;
   }
+  let filter = {
+    type: "md",
+  };
+  let initialArr = [];
+  const {
+    isLoading,
+    data = initialArr,
+    isError,
+  } = useQuery("Md", () => getAdmin(filter));
 
-  useEffect(() => {
-    let filter = {
-      type: "md",
-    };
-    getAdmin(filter)
-      .then((res) => {
-        setMdDetails(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   let filter = {
+  //     type: "md",
+  //   };
+  //   getAdmin(filter)
+  //     .then((res) => {
+  //       setMdDetails(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
   function addDefaultSign(ev) {
     ev.target.src = tempSign;
   }
@@ -51,14 +62,14 @@ const MdDetails = (props) => {
             <Box className={classes.farmerdetails_boxcontainer}>
               {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
               {loginType === "Administrator" && (
-              <Box>
-                <NavLink to="/addmd" className={classes.addDetails_link}>
-                  <button className={classes.addDetails_btn}>
-                    <AddIcon />
-                    Add
-                  </button>
-                </NavLink>
-              </Box>
+                <Box>
+                  <NavLink to="/addmd" className={classes.addDetails_link}>
+                    <button className={classes.addDetails_btn}>
+                      <AddIcon />
+                      Add
+                    </button>
+                  </NavLink>
+                </Box>
               )}
             </Box>
           </Box>
@@ -87,61 +98,68 @@ const MdDetails = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {mdDetails.map((data) => {
-                  return (
-                    <TableRow
-                      role="checkbox"
-                      tabIndex={-1}
-                      className={classes.tab_row}
-                      key={data.id}
-                      onClick={() => props.history.push(`mdDetail/${data.id}`)}
-                    >
-                      <TableCell
-                        padding="none"
-                        className={classes.icontab_cell}
+                {!isLoading &&
+                  !isError &&
+                  data.map((data) => {
+                    return (
+                      <TableRow
+                        role="checkbox"
+                        tabIndex={-1}
+                        className={classes.tab_row}
+                        key={data.id}
+                        onClick={() =>
+                          props.history.push(`mdDetail/${data.id}`)
+                        }
                       >
-                        <img
-                          alt=""
-                          src={
-                            data?.picture
-                              ? `${config.app.APP_API_URL}${data.picture?.url}`
-                              : tempImg
-                          }
-                          onError={addDefaultSrc}
-                          className={classes.tab_user_logo}
-                        />
-                      </TableCell>
-                      <TableCell className={classes.tab_cell}>
-                        {data.name}
-                      </TableCell>
-                      <TableCell className={classes.tab_cell}>
-                        {data.phoneNumber}
-                      </TableCell>
-                      <TableCell className={classes.tab_cell}>
-                        {data.qualification ? data.qualification : ""}
-                      </TableCell>
-                      <TableCell
-                        padding="none"
-                        className={classes.icontab_cell}
-                      >
-                        <img
-                          alt=""
-                          src={
-                            data?.signature
-                              ? `${config.app.APP_API_URL}${data.signature.url}`
-                              : tempSign
-                          }
-                          onError={addDefaultSign}
-                          className={classes.tab_user_signature}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
+                        <TableCell
+                          padding="none"
+                          className={classes.icontab_cell}
+                        >
+                          <img
+                            alt=""
+                            src={
+                              data?.picture
+                                ? `${config.app.APP_API_URL}${data.picture?.url}`
+                                : tempImg
+                            }
+                            onError={addDefaultSrc}
+                            className={classes.tab_user_logo}
+                          />
+                        </TableCell>
+                        <TableCell className={classes.tab_cell}>
+                          {data.name}
+                        </TableCell>
+                        <TableCell className={classes.tab_cell}>
+                          {data.phoneNumber}
+                        </TableCell>
+                        <TableCell className={classes.tab_cell}>
+                          {data.qualification ? data.qualification : ""}
+                        </TableCell>
+                        <TableCell
+                          padding="none"
+                          className={classes.icontab_cell}
+                        >
+                          <img
+                            alt=""
+                            src={
+                              data?.signature
+                                ? `${config.app.APP_API_URL}${data.signature.url}`
+                                : tempSign
+                            }
+                            onError={addDefaultSign}
+                            className={classes.tab_user_signature}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
               </TableBody>
             </Table>
+            <div className={classes.no_data} style={{ margin: "2rem 0rem" }}>
+              {isLoading && <CircularProgress />}
+            </div>
             <div className={classes.no_data}>
-              {!mdDetails.length && <NoRecordsFound />}
+              {!data.length && !isLoading && <NoRecordsFound />}
             </div>
           </TableContainer>
         </Grid>
