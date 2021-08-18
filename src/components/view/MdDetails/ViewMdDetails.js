@@ -17,7 +17,7 @@ import { UserLoginContext } from "../../context/UserLoginContext";
 import QRCode from "qrcode.react";
 import { useQuery } from "react-query";
 
-const MdDetailsCard = (Props) => {
+const ViewMdDetails = (Props) => {
   const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
   const { match } = Props;
@@ -139,4 +139,4 @@ const MdDetailsCard = (Props) => {
     </>
   );
 };
-export default MdDetailsCard;
+export default ViewMdDetails;
