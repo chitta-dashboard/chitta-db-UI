@@ -105,7 +105,7 @@ export default function ViewDecision(props) {
           <div>
             <h3>தேதி : {date}</h3>
             <p>
-              <span style={{ fontWeight: "700", fontSize: "2rem" }}>
+              <span style={{ fontWeight: "700", fontSize: "1.2rem" }}>
                 தீர்மானம் :{" "}
               </span>
               {decision}
