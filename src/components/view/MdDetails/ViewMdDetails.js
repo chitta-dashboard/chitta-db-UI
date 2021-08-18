@@ -16,6 +16,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import QRCode from "qrcode.react";
 import { useQuery } from "react-query";
+import BackButton from "../../widgets/BackButton";
 
 const ViewMdDetails = (Props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -50,13 +51,14 @@ const ViewMdDetails = (Props) => {
     <>
       <div className={classes.admin_btncontainer}>
         <div style={{ textDecoration: "none" }}>
-          <Button
+          {/* <Button
             onClick={goBackAdmin}
             className={classes.addDetailbtn_container}
           >
             <ChevronLeftIcon className={classes.iconbtn} />
             Back
-          </Button>
+          </Button> */}
+          <BackButton history={history} />
         </div>
         {loginType === "Administrator" && (
           <div className={classes.btnContainer_custom}>
