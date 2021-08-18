@@ -17,6 +17,7 @@ import config from "../../../constants/config";
 import { Grid } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
+import AddButton from "../../widgets/AddButton";
 
 const CeoDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -26,7 +27,11 @@ const CeoDetails = (props) => {
     type: "ceo",
   };
 
-  const { status, data:ceoList, error } = useQuery('ceo',()=> getAdmin(filter));
+  const {
+    status,
+    data: ceoList,
+    error,
+  } = useQuery("ceo", () => getAdmin(filter));
   // console.log("data",ceoList)
 
   function addDefaultSrc(ev) {
@@ -48,105 +53,108 @@ const CeoDetails = (props) => {
               {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
               {loginType === "Administrator" && (
                 <Box>
-                  <NavLink to="/addceo" className={classes.addDetails_link}>
+                  {/* <NavLink to="/addceo" className={classes.addDetails_link}>
                     <button className={classes.addDetails_btn}>
                       <AddIcon />
                       Add
                     </button>
-                  </NavLink>
+                  </NavLink> */}
+                  <AddButton link={"/addceo"} />
                 </Box>
               )}
             </Box>
           </Box>
           <TableContainer className={classes.tab_container}>
-          {status === 'loading' ? (
+            {status === "loading" ? (
               <p className={classes.no_data}>Loading...</p>
-          ) : status === 'error' ? (
+            ) : status === "error" ? (
               <span className={classes.no_data}>Error: {error.message}</span>
-          ) :(<>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  <TableCell className={classes.tab_headericoncell}>
-                    #
-                  </TableCell>
-                  <TableCell
-                    className={classes.tab_headercell}
-                    style={{ color: "#464E5F" }}
-                  >
-                    பெயர்
-                  </TableCell>
-                  <TableCell className={classes.tab_headercell}>
-                    கைபேசி எண்
-                  </TableCell>
-                  <TableCell className={classes.tab_headercell}>
-                    தகுதி
-                  </TableCell>
-                  <TableCell className={classes.tab_headercell}>
-                    கையொப்பம்
-                  </TableCell>
-                </TableRow>
-              </TableHead>           
-              <TableBody>
-                {ceoList.map((data) => {
-                  return (
-                    <TableRow
-                      key={data.id}
-                      role="checkbox"
-                      tabIndex={-1}
-                      className={classes.tab_row}
-                      onClick={() => props.history.push(`ceoDetail/${data.id}`)}
-                    >
-                      <TableCell
-                        padding="none"
-                        className={classes.icontab_cell}
-                      >
-                        <img
-                          alt=""
-                          src={
-                            data?.picture
-                              ? `${config.app.APP_API_URL}${data.picture.url}`
-                              : tempImg
-                          }
-                          onError={addDefaultSrc}
-                          className={classes.tab_user_logo}
-                        />
-                      </TableCell>
-                      <TableCell className={classes.tab_cell}>
-                        {data.name}
-                      </TableCell>
-                      <TableCell className={classes.tab_cell}>
-                        {data.phoneNumber}
-                      </TableCell>
-                      <TableCell className={classes.tab_cell}>
-                        {data.qualification ? data.qualification : ""}
+            ) : (
+              <>
+                <Table stickyHeader aria-label="sticky table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell className={classes.tab_headericoncell}>
+                        #
                       </TableCell>
                       <TableCell
-                        padding="none"
-                        className={classes.icontab_cell}
+                        className={classes.tab_headercell}
+                        style={{ color: "#464E5F" }}
                       >
-                        <img
-                          alt=""
-                          src={
-                            data?.signature
-                              ? `${config.app.APP_API_URL}${data.signature.url}`
-                              : tempSign
-                          }
-                          onError={addDefaultSign}
-                          className={classes.tab_user_signature}
-                        />
+                        பெயர்
+                      </TableCell>
+                      <TableCell className={classes.tab_headercell}>
+                        கைபேசி எண்
+                      </TableCell>
+                      <TableCell className={classes.tab_headercell}>
+                        தகுதி
+                      </TableCell>
+                      <TableCell className={classes.tab_headercell}>
+                        கையொப்பம்
                       </TableCell>
                     </TableRow>
-                  );
-                })}
-               
-              </TableBody>
-            </Table>
-             <div className={classes.no_data}>
-                    {!ceoList.length && <NoRecordsFound />}
-              </div>      
-            </>
-          )}
+                  </TableHead>
+                  <TableBody>
+                    {ceoList.map((data) => {
+                      return (
+                        <TableRow
+                          key={data.id}
+                          role="checkbox"
+                          tabIndex={-1}
+                          className={classes.tab_row}
+                          onClick={() =>
+                            props.history.push(`ceoDetail/${data.id}`)
+                          }
+                        >
+                          <TableCell
+                            padding="none"
+                            className={classes.icontab_cell}
+                          >
+                            <img
+                              alt=""
+                              src={
+                                data?.picture
+                                  ? `${config.app.APP_API_URL}${data.picture.url}`
+                                  : tempImg
+                              }
+                              onError={addDefaultSrc}
+                              className={classes.tab_user_logo}
+                            />
+                          </TableCell>
+                          <TableCell className={classes.tab_cell}>
+                            {data.name}
+                          </TableCell>
+                          <TableCell className={classes.tab_cell}>
+                            {data.phoneNumber}
+                          </TableCell>
+                          <TableCell className={classes.tab_cell}>
+                            {data.qualification ? data.qualification : ""}
+                          </TableCell>
+                          <TableCell
+                            padding="none"
+                            className={classes.icontab_cell}
+                          >
+                            <img
+                              alt=""
+                              src={
+                                data?.signature
+                                  ? `${config.app.APP_API_URL}${data.signature.url}`
+                                  : tempSign
+                              }
+                              onError={addDefaultSign}
+                              className={classes.tab_user_signature}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+                <div className={classes.no_data}>
+                  {!ceoList.length && <NoRecordsFound />}
+                </div>
+              </>
+            )}
           </TableContainer>
         </Grid>
       </div>

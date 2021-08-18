@@ -18,6 +18,7 @@ import { Grid } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
 import { CircularProgress } from "@material-ui/core";
+import AddButton from "../../widgets/AddButton";
 
 const MdDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -63,12 +64,13 @@ const MdDetails = (props) => {
               {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
               {loginType === "Administrator" && (
                 <Box>
-                  <NavLink to="/addmd" className={classes.addDetails_link}>
+                  {/* <NavLink to="/addmd" className={classes.addDetails_link}>
                     <button className={classes.addDetails_btn}>
                       <AddIcon />
                       Add
                     </button>
-                  </NavLink>
+                  </NavLink> */}
+                  <AddButton link={"/addmd"} />
                 </Box>
               )}
             </Box>

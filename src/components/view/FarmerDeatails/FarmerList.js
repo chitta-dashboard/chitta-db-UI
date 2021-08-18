@@ -28,6 +28,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 import { TableFooter, TablePagination } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import Cookies from "js-cookie";
+import AddButton from "../../widgets/AddButton";
 
 const FarmerList = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -238,12 +239,13 @@ const FarmerList = (props) => {
           </Workbook>
           {loginType === "Administrator" && (
             <Box>
-              <NavLink to="/addfarmer" className={classes.addDetails_link}>
+              {/* <NavLink to="/addfarmer" className={classes.addDetails_link}>
                 <button className={classes.addDetails_btn}>
                   <AddIcon />
                   Add
                 </button>
-              </NavLink>
+              </NavLink> */}
+              <AddButton link={"/addfarmer"} />
             </Box>
           )}
         </Box>

@@ -13,6 +13,7 @@ import {
   Description,
 } from "vertical-timeline-component-react";
 import { getDecisions } from "../../../constants/config";
+import AddButton from "../../widgets/AddButton";
 // import { Box, Grid } from "@material-ui/core";
 
 const Decision = (props) => {
@@ -68,12 +69,13 @@ const Decision = (props) => {
           </Box>
           <Box className={classes.farmerdetails_boxcontainer}>
             <Box>
-              <NavLink to="/addDecision" className={classes.addDetails_link}>
+              {/* <NavLink to="/addDecision" className={classes.addDetails_link}>
                 <button className={classes.addDetails_btn}>
                   <AddIcon />
                   Add
                 </button>
-              </NavLink>
+              </NavLink> */}
+              <AddButton link={"/addDecision"} />
             </Box>
           </Box>
         </Box>

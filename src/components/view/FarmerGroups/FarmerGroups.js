@@ -17,6 +17,7 @@ import { searchWord } from "../../../constants";
 import { Grid } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
+import AddButton from "../../widgets/AddButton";
 
 const FarmerGroups = () => {
   const { loginType } = useContext(UserLoginContext);
@@ -69,7 +70,7 @@ const FarmerGroups = () => {
             {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
             {loginType === "Administrator" && (
               <Box>
-                <NavLink
+                {/* <NavLink
                   to="/addfarmerGroup"
                   className={classes.addDetails_link}
                 >
@@ -77,7 +78,8 @@ const FarmerGroups = () => {
                     <AddIcon />
                     Add
                   </button>
-                </NavLink>
+                </NavLink> */}
+                <AddButton link={"/addfarmerGroup"} />
               </Box>
             )}
           </Box>
