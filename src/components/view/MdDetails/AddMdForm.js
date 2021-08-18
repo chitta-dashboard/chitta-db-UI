@@ -17,7 +17,7 @@ import { uploadFile } from "../../../constants/config";
 import axios from "axios";
 import config from "../../../constants/config";
 import { useMutation, useQuery } from "react-query";
-import Button from "../../widgets/Button";
+import CustomButton from "../../widgets/CustomButton";
 
 const AddMd = (Props) => {
   const classes = useStyles();
@@ -32,7 +32,9 @@ const AddMd = (Props) => {
   const history = useHistory();
 
 
-  const { data } = useQuery("editMd", () => getAdminUser(match.params.id));
+  const { data } = useQuery(["editMd",match.params.id], () => 
+  match.params.id && getAdminUser(match.params.id));
+
   useEffect(() => {
     if (match.params.id) {
       console.log(data);
@@ -134,7 +136,7 @@ const AddMd = (Props) => {
         <Grid className={classes.form_container} container spacing={3}>
           <Grid className={classes.adddetails_header} item xs={12}>
             <Link to="/mddetails" style={{ textDecoration: "none" }}>
-              <Button className={classes.addDetailbtn_container} 
+              <CustomButton className={classes.addDetailbtn_container} 
                 icon={<ChevronLeftIcon className={classes.iconbtn} />}
                 value={match.params.id ? "Edit MD Details" : "Add MD Details"}
               />

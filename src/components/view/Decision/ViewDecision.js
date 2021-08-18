@@ -7,7 +7,7 @@ import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router-dom";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import DecisionToPdf from "../Decision/DecisionToPdf";
-import Button from "../../widgets/Button";
+import CustomButton from "../../widgets/CustomButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
 export default function ViewDecision(props) {
@@ -41,7 +41,7 @@ export default function ViewDecision(props) {
         >
           <Box className={classes.farmerdetails_searchcontainer}>
             <div className={classes.searchBox}>
-              <Button
+              <CustomButton
                 className={classes.addDetailbtn_container}
                 icon={<ChevronLeftIcon className={classes.iconbtn} />}
                 value="Back"
@@ -57,7 +57,7 @@ export default function ViewDecision(props) {
               >
                 Delete
               </button> */}
-              <Button
+              <CustomButton
                 value="Delete"
                 className={classes.export_btn}
                 onClick={() => DeleteHandler(match.params.id)}
@@ -72,7 +72,7 @@ export default function ViewDecision(props) {
               >
                 Edit
               </button> */}
-              <Button
+              <CustomButton
                 value="Edit"
                 className={classes.export_btn}
                 onClick={() =>
@@ -90,7 +90,7 @@ export default function ViewDecision(props) {
               >
                 {({ loading }) => {
                   return (
-                    <Button
+                    <CustomButton
                       value="Download"
                       className={classes.export_btn}
                       disabled={loading}

@@ -8,7 +8,7 @@ import { postFarmerGroup } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router";
 import { useMutation } from "react-query";
-import Button from "../../widgets/Button";
+import CustomButton from "../../widgets/CustomButton";
 
 const AddFarmerGroup = () => {
   const classes = useStyles();
@@ -41,7 +41,7 @@ const AddFarmerGroup = () => {
         <Grid className={classes.form_container} container spacing={3}>
           <Grid className={classes.adddetails_header} item xs={12}>
             <Link to="/farmergroups" style={{ textDecoration: "none" }}>
-              <Button className={classes.addDetailbtn_container} 
+              <CustomButton className={classes.addDetailbtn_container} 
                 icon={<ChevronLeftIcon className={classes.iconbtn} />}
                 value="Add Farmer Group"
               />

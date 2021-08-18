@@ -17,7 +17,7 @@ import config from "../../../constants/config";
 import { Grid } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
-import Button from "../../widgets/Button";
+import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
 import { Fetch } from "../../widgets/Fetch";
@@ -61,7 +61,7 @@ const CeoDetails = (props) => {
                       <AddIcon />
                       Add
                     </button> */}
-                    <Button className={classes.addDetails_btn} icon={ <AddIcon />} value="Add" />
+                    <CustomButton className={classes.addDetails_btn} icon={ <AddIcon />} value="Add" />
                   </NavLink>
                   
                 </Box>

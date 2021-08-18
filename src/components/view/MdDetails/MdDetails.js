@@ -17,7 +17,7 @@ import tempSign from "../../../assets/images/default_sign.png";
 import { Grid } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
-import Button from "../../widgets/Button";
+import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
 import { Fetch } from "../../widgets/Fetch";
@@ -69,11 +69,7 @@ const MdDetails = (props) => {
               {loginType === "Administrator" && (
                 <Box>
                   <NavLink to="/addmd" className={classes.addDetails_link}>
-                    <Button
-                      className={classes.addDetails_btn}
-                      icon={<AddIcon />}
-                      value="Add"
-                    />
+                      <CustomButton className={classes.addDetails_btn} icon={ <AddIcon />} value="Add" />
                   </NavLink>
                 </Box>
               )}

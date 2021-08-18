@@ -15,7 +15,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import QRCode from "qrcode.react";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
-import Button  from "../../widgets/Button";
+import CustomButton  from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Fetch } from "../../widgets/Fetch";
 
@@ -36,14 +36,14 @@ const ViewCeoDetails = (props) => {
       <div className={classes.admin_btncontainer}>
         <div style={{ textDecoration: "none" }}>
 
-          <Button className={classes.addDetailbtn_container} 
+          <CustomButton className={classes.addDetailbtn_container} 
                 icon={<ChevronLeftIcon className={classes.iconbtn} />}
                 value="Back" onClick={() => history.goBack()}
             />
         </div>
         {loginType === "Administrator" && (
           <div className={classes.btnContainer_custom}>
-            <Button value="Edit" className={classes.export_btn}
+            <CustomButton value="Edit" className={classes.export_btn}
               onClick={() => history.push(`/editCeo/${match.params.id}`)}
             />
           </div>

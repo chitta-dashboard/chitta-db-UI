@@ -13,9 +13,7 @@ import {
   Description,
 } from "vertical-timeline-component-react";
 import { getDecisions } from "../../../constants/config";
-import Button from "../../widgets/Button";
-// import AddButton from "../../widgets/AddButton";
-// import { Box, Grid } from "@material-ui/core";
+import CustomButton from "../../widgets/CustomButton";
 
 const Decision = (props) => {
   const classes = useStyles();
@@ -75,7 +73,7 @@ const Decision = (props) => {
                   <AddIcon />
                   Add
                 </button> */}
-                <Button
+                <CustomButton
                   className={classes.addDetails_btn}
                   icon={<AddIcon />}
                   value="Add"
@@ -95,7 +93,7 @@ const Decision = (props) => {
                     <Section>
                       <Description text={value.decision} />
                       <div className={classes.decision_btncontainer}>
-                        <Button
+                        <CustomButton
                           className={classes.export_btn}
                           value="View"
                           onClick={() =>
