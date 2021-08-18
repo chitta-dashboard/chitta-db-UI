@@ -17,7 +17,8 @@ import { customToast } from "../../widgets/Toast";
 import FarmerDetailsToPdf from "./FarmerDetailsToPdf";
 import { useHistory } from "react-router-dom";
 import { UserLoginContext } from "../../context/UserLoginContext";
-import BackButton from "../../widgets/BackButton";
+// import BackButton from "../../widgets/BackButton";
+import Button from "../../widgets/Button";
 
 const FarmerDeatilForm = (Props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -77,7 +78,13 @@ const FarmerDeatilForm = (Props) => {
           </Typography>
         </Link> */}
         <div>
-          <BackButton history={history} />
+          {/* <BackButton history={history} /> */}
+          <Button
+            className={classes.addDetailbtn_container}
+            icon={<ChevronLeftIcon className={classes.iconbtn} />}
+            value="Back"
+            onClick={() => history.goBack()}
+          />
         </div>
         <div className={classes.btnContainer_custom}>
           {loginType === "Administrator" ? (

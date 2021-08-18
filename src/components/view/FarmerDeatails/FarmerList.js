@@ -28,7 +28,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 import { TableFooter, TablePagination } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import Cookies from "js-cookie";
-import AddButton from "../../widgets/AddButton";
+import Button from "../../widgets/Button";
 
 const FarmerList = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -177,8 +177,6 @@ const FarmerList = (props) => {
     setCloseIcon(false);
     setFarmerGrpId("");
   };
-  // console.log(farmersData);
-  // console.log("final", pagedFarmer);
   return (
     <>
       <Box className={classes.farmerdetails_subheader} xs={12}>
@@ -239,13 +237,17 @@ const FarmerList = (props) => {
           </Workbook>
           {loginType === "Administrator" && (
             <Box>
-              {/* <NavLink to="/addfarmer" className={classes.addDetails_link}>
-                <button className={classes.addDetails_btn}>
+              <NavLink to="/addfarmer" className={classes.addDetails_link}>
+                {/* <button className={classes.addDetails_btn}>
                   <AddIcon />
                   Add
-                </button>
-              </NavLink> */}
-              <AddButton link={"/addfarmer"} />
+                </button> */}
+                <Button
+                  className={classes.addDetails_btn}
+                  icon={<AddIcon />}
+                  value="Add"
+                />
+              </NavLink>
             </Box>
           )}
         </Box>

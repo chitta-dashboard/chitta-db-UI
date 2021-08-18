@@ -16,7 +16,7 @@ const AddFarmerGroup = () => {
   const Description = useRef("");
   const history = useHistory();
 
-  const addFarmer = useMutation((data)=> postFarmerGroup(data))
+  const addFarmer = useMutation((data) => postFarmerGroup(data));
 
   const postGroupData = (e) => {
     e.preventDefault();
@@ -24,14 +24,15 @@ const AddFarmerGroup = () => {
       groupName: groupName.current.value,
       description: Description.current.value,
     };
-    addFarmer.mutate(params,{
+    addFarmer.mutate(params, {
       onSuccess: (data) => {
-        customToast("success", "Form submitted successfully.")
-        history.goBack()
-      },onError: (error) => {
-        customToast("error", error.message)
+        customToast("success", "Form submitted successfully.");
+        history.goBack();
       },
-    })
+      onError: (error) => {
+        customToast("error", error.message);
+      },
+    });
   };
 
   return (

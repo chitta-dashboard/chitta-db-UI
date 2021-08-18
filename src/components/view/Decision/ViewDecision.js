@@ -7,7 +7,8 @@ import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router-dom";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import DecisionToPdf from "../Decision/DecisionToPdf";
-import BackButton from "../../widgets/BackButton";
+import Button from "../../widgets/Button";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
 export default function ViewDecision(props) {
   const history = useHistory();
@@ -40,27 +41,44 @@ export default function ViewDecision(props) {
         >
           <Box className={classes.farmerdetails_searchcontainer}>
             <div className={classes.searchBox}>
-              <BackButton history={history} />
+              <Button
+                className={classes.addDetailbtn_container}
+                icon={<ChevronLeftIcon className={classes.iconbtn} />}
+                value="Back"
+                onClick={() => history.goBack()}
+              />
             </div>
           </Box>
           <Box className={classes.farmerdetails_boxcontainer}>
             <Box>
-              <button
+              {/* <button
                 className={classes.decision_btn}
                 onClick={() => DeleteHandler(match.params.id)}
               >
                 Delete
-              </button>
+              </button> */}
+              <Button
+                value="Delete"
+                className={classes.export_btn}
+                onClick={() => DeleteHandler(match.params.id)}
+              />
             </Box>
             <Box>
-              <button
+              {/* <button
                 className={classes.decision_btn}
                 onClick={() =>
                   props.history.push(`/editdecision/${match.params.id}`)
                 }
               >
                 Edit
-              </button>
+              </button> */}
+              <Button
+                value="Edit"
+                className={classes.export_btn}
+                onClick={() =>
+                  props.history.push(`/editdecision/${match.params.id}`)
+                }
+              />
             </Box>
             <Box>
               <PDFDownloadLink
@@ -72,9 +90,11 @@ export default function ViewDecision(props) {
               >
                 {({ loading }) => {
                   return (
-                    <button className={classes.decision_btn} disabled={loading}>
-                      Download as pdf
-                    </button>
+                    <Button
+                      value="Download"
+                      className={classes.export_btn}
+                      disabled={loading}
+                    />
                   );
                 }}
               </PDFDownloadLink>
@@ -84,7 +104,12 @@ export default function ViewDecision(props) {
         <div className={classes.decision}>
           <div>
             <h3>தேதி : {date}</h3>
-            <p>தீர்மானம் : {decision}</p>
+            <p>
+              <span style={{ fontWeight: "700", fontSize: "2rem" }}>
+                தீர்மானம் :{" "}
+              </span>
+              {decision}
+            </p>
           </div>
         </div>
       </Grid>

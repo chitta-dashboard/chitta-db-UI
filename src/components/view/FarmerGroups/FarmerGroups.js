@@ -74,7 +74,11 @@ const FarmerGroups = () => {
                   to="/addfarmerGroup"
                   className={classes.addDetails_link}
                 >
-                  <Button className={classes.addDetails_btn} value="Add" icon={<AddIcon />} />
+                  <Button
+                    className={classes.addDetails_btn}
+                    value="Add"
+                    icon={<AddIcon />}
+                  />
                 </NavLink>
               </Box>
             )}
