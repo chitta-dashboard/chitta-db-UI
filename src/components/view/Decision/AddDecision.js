@@ -1,23 +1,45 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Grid } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { useStyles } from "../../../assets/styles";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
+import { getDecisionById, postDecisions } from "../../../constants/config";
+import { customToast } from "../../widgets/Toast";
+import { putDecision } from "../../../constants/config";
 
-export default function AddDecision() {
+export default function AddDecision(props) {
+  const { match } = props;
   const history = useHistory();
   const dateRef = useRef("");
   const decisionRef = useRef("");
   const classes = useStyles();
+
+  useEffect(() => {
+    if (match.params.id) {
+      getDecisionById(match.params.id)
+        .then((res) => {
+          dateRef.current.value = res.date;
+          decisionRef.current.value = res.decision;
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
+
   const formSubmission = (e) => {
     e.preventDefault();
     const params = {
       date: dateRef.current.value,
       decision: decisionRef.current.value,
     };
-    history.goBack();
+    (match.params.id
+      ? putDecision(match.params.id, params)
+      : postDecisions(params)
+    ).then(() => {
+      customToast("success", "Form submitted successfully.");
+      history.goBack();
+    });
     // console.log(params);
   };
   return (
