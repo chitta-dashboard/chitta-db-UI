@@ -762,7 +762,7 @@ export const useStyles = makeStyles((theme) => ({
     margin: "1.5rem 1.5rem 0 1.5rem",
     background: "white",
     borderRadius: "15px",
-    padding: "1.5rem 1rem",
+    padding: "1.5rem 2rem",
     overflow: "auto",
     height: "75vh",
     width: "100%",
@@ -787,6 +787,10 @@ export const useStyles = makeStyles((theme) => ({
       background: "#f2f4f4",
       border: "1px solid #085c49",
       color: "#085c49",
+      outline: "0",
+    },
+    "&:focus": {
+      outline: "0",
     },
   },
   footer: {
@@ -858,7 +862,7 @@ export const useStyles = makeStyles((theme) => ({
     margin: "3rem 2rem",
     display: "grid",
     alignItems: "center",
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
     gridTemplateColumns: "60% 40%",
   },
   watermark: {

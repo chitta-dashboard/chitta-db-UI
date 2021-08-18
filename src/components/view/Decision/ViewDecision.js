@@ -84,7 +84,12 @@ export default function ViewDecision(props) {
         <div className={classes.decision}>
           <div>
             <h3>தேதி : {date}</h3>
-            <p>தீர்மானம் : {decision}</p>
+            <p>
+              <span style={{ fontWeight: "700", fontSize: "2rem" }}>
+                தீர்மானம் :{" "}
+              </span>
+              {decision}
+            </p>
           </div>
         </div>
       </Grid>
