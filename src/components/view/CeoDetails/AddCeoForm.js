@@ -135,14 +135,6 @@ const AddCeo = (Props) => {
                 icon={<ChevronLeftIcon className={classes.iconbtn} />}
                 value={match.params.id ? "Edit CEO Details" : "Add CEO Details"}
               />
-              {/* <Typography
-                variant="h5"
-                className={classes.addDetailbtn_container}
-                style={{ textDecoration: "none" }}
-              >
-                <ChevronLeftIcon className={classes.iconbtn} />
-                {match.params.id ? "Edit CEO Details" : "Add CEO Details"}
-              </Typography> */}
             </Link>
           </Grid>
           <Grid

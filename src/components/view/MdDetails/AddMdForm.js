@@ -17,6 +17,7 @@ import { uploadFile } from "../../../constants/config";
 import axios from "axios";
 import config from "../../../constants/config";
 import { useMutation, useQuery } from "react-query";
+import Button from "../../widgets/Button";
 
 const AddMd = (Props) => {
   const classes = useStyles();
@@ -30,21 +31,6 @@ const AddMd = (Props) => {
   const [mdSign, setSignPhoto] = useState(null);
   const history = useHistory();
 
-  // useEffect(() => {
-  //   if (match.params.id) {
-  //     axios
-  //       .get(`${config.app.APP_API_URL}/adminusers/${match.params.id}`)
-  //       .then((res) => {
-  //         if (res && res.status === 200) {
-  //           mdName.current.value = res.data?.name ?? null;
-  //           phoneNumber.current.value = res.data?.phoneNumber ?? null;
-  //           qualification.current.value = res.data?.qualification ?? null;
-  //           dob.current.value = res.data?.DOB ?? null;
-  //         }
-  //       })
-  //       .catch((err) => customToast("error", err.message));
-  //   }
-  // }, [match.params.id]);
 
   const { data } = useQuery("editMd", () => getAdminUser(match.params.id));
   useEffect(() => {
@@ -148,14 +134,10 @@ const AddMd = (Props) => {
         <Grid className={classes.form_container} container spacing={3}>
           <Grid className={classes.adddetails_header} item xs={12}>
             <Link to="/mddetails" style={{ textDecoration: "none" }}>
-              <Typography
-                variant="h5"
-                className={classes.addDetailbtn_container}
-                style={{ textDecoration: "none" }}
-              >
-                <ChevronLeftIcon className={classes.iconbtn} />
-                {!match.params.id ? "Add" : "Edit"} MD Details
-              </Typography>
+              <Button className={classes.addDetailbtn_container} 
+                icon={<ChevronLeftIcon className={classes.iconbtn} />}
+                value={match.params.id ? "Edit MD Details" : "Add MD Details"}
+              />
             </Link>
           </Grid>
           <Grid

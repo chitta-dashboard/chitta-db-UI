@@ -45,7 +45,7 @@ const ViewCeoDetails = (props) => {
           </Button> */}
           <Button className={classes.addDetailbtn_container} 
                 icon={<ChevronLeftIcon className={classes.iconbtn} />}
-                value="Back" onClick={history.goBack()}
+                value="Back" onClick={() => history.goBack()}
             />
         </div>
         {loginType === "Administrator" && (

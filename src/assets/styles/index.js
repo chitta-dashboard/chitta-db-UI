@@ -478,6 +478,7 @@ export const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     border:"none",
     fontSize:"1.5rem",
+    backgroundColor:"transparent"
   },
 
   form_container: {
