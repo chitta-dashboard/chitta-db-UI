@@ -592,6 +592,7 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     textDecoration: "none!important",
     fontWeight: "600",
+    margin: "6px",
 
     "&:hover": {
       // backgroundColor: colors.bg3,

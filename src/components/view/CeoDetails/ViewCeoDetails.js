@@ -16,6 +16,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import QRCode from "qrcode.react";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
+import Button  from "../../widgets/Button";
 
 const ViewCeoDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -46,13 +47,9 @@ const ViewCeoDetails = (props) => {
         </div>
         {loginType === "Administrator" && (
           <div className={classes.btnContainer_custom}>
-            <button
-              className={classes.export_btn}
-              style={{ textDecoration: "none" }}
+            <Button value="Edit" className={classes.export_btn}
               onClick={() => props.history.push(`/editCeo/${match.params.id}`)}
-            >
-              Edit
-            </button>
+            />
           </div>
         )}
       </div>
