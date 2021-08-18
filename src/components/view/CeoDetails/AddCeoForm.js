@@ -25,8 +25,9 @@ const AddCeo = (Props) => {
   const [ceoPhoto, setCeoPhoto] = useState(null);
   const [ceoSign, setCeoSign] = useState(null);
   const history = useHistory();
-  const { data: ceoData } = useQuery(["editCeo", match.params.id], () =>
-    getAdminUser(match.params.id)
+  const { data: ceoData } = useQuery(
+    ["editCeo", match.params.id],
+    () => match.params.id && getAdminUser(match.params.id)
   );
   const {
     register,
