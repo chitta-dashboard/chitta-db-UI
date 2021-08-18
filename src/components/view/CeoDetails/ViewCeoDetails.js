@@ -17,7 +17,7 @@ import QRCode from "qrcode.react";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
 
-const CeoDetailsCard = (props) => {
+const ViewCeoDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
   const { match, history } = props;
@@ -135,4 +135,4 @@ const CeoDetailsCard = (props) => {
     </>
   );
 };
-export default CeoDetailsCard;
+export default ViewCeoDetails;
