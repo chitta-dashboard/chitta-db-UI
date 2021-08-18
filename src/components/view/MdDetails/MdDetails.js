@@ -17,8 +17,10 @@ import tempSign from "../../../assets/images/default_sign.png";
 import { Grid } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
-import { CircularProgress } from "@material-ui/core";
 import Button from "../../widgets/Button";
+import { Loader } from "../../widgets/Loader";
+import { Error } from "../../widgets/Error";
+import { Fetch } from "../../widgets/Fetch";
 
 const MdDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -33,9 +35,11 @@ const MdDetails = (props) => {
   };
   let initialArr = [];
   const {
+    isFetching,
     isLoading,
     data = initialArr,
     isError,
+    error,
   } = useQuery("Md", () => getAdmin(filter));
 
   // useEffect(() => {
@@ -65,100 +69,112 @@ const MdDetails = (props) => {
               {loginType === "Administrator" && (
                 <Box>
                   <NavLink to="/addmd" className={classes.addDetails_link}>
-                      <Button className={classes.addDetails_btn} icon={ <AddIcon />} value="Add" />
+                    <Button
+                      className={classes.addDetails_btn}
+                      icon={<AddIcon />}
+                      value="Add"
+                    />
                   </NavLink>
                 </Box>
               )}
             </Box>
           </Box>
           <TableContainer className={classes.tab_container}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  <TableCell className={classes.tab_headericoncell}>
-                    #
-                  </TableCell>
-                  <TableCell
-                    className={classes.tab_headercell}
-                    style={{ color: "#464E5F" }}
-                  >
-                    பெயர்
-                  </TableCell>
-                  <TableCell className={classes.tab_headercell}>
-                    கைபேசி எண்
-                  </TableCell>
-                  <TableCell className={classes.tab_headercell}>
-                    தகுதி
-                  </TableCell>
-                  <TableCell className={classes.tab_headercell}>
-                    கையொப்பம்
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {!isLoading &&
-                  !isError &&
-                  data.map((data) => {
-                    return (
-                      <TableRow
-                        role="checkbox"
-                        tabIndex={-1}
-                        className={classes.tab_row}
-                        key={data.id}
-                        onClick={() =>
-                          props.history.push(`mdDetail/${data.id}`)
-                        }
+            {isLoading ? (
+              <Loader className={classes.no_data} />
+            ) : isFetching ? (
+              <Fetch className={classes.no_data} />
+            ) : isError ? (
+              <Error
+                className={classes.no_data}
+                error={error.message.toString()}
+              />
+            ) : (
+              <>
+                <Table stickyHeader aria-label="sticky table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell className={classes.tab_headericoncell}>
+                        #
+                      </TableCell>
+                      <TableCell
+                        className={classes.tab_headercell}
+                        style={{ color: "#464E5F" }}
                       >
-                        <TableCell
-                          padding="none"
-                          className={classes.icontab_cell}
+                        பெயர்
+                      </TableCell>
+                      <TableCell className={classes.tab_headercell}>
+                        கைபேசி எண்
+                      </TableCell>
+                      <TableCell className={classes.tab_headercell}>
+                        தகுதி
+                      </TableCell>
+                      <TableCell className={classes.tab_headercell}>
+                        கையொப்பம்
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {data.map((data) => {
+                      return (
+                        <TableRow
+                          role="checkbox"
+                          tabIndex={-1}
+                          className={classes.tab_row}
+                          key={data.id}
+                          onClick={() =>
+                            props.history.push(`mdDetail/${data.id}`)
+                          }
                         >
-                          <img
-                            alt=""
-                            src={
-                              data?.picture
-                                ? `${config.app.APP_API_URL}${data.picture?.url}`
-                                : tempImg
-                            }
-                            onError={addDefaultSrc}
-                            className={classes.tab_user_logo}
-                          />
-                        </TableCell>
-                        <TableCell className={classes.tab_cell}>
-                          {data.name}
-                        </TableCell>
-                        <TableCell className={classes.tab_cell}>
-                          {data.phoneNumber}
-                        </TableCell>
-                        <TableCell className={classes.tab_cell}>
-                          {data.qualification ? data.qualification : ""}
-                        </TableCell>
-                        <TableCell
-                          padding="none"
-                          className={classes.icontab_cell}
-                        >
-                          <img
-                            alt=""
-                            src={
-                              data?.signature
-                                ? `${config.app.APP_API_URL}${data.signature.url}`
-                                : tempSign
-                            }
-                            onError={addDefaultSign}
-                            className={classes.tab_user_signature}
-                          />
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-            <div className={classes.no_data} style={{ margin: "2rem 0rem" }}>
-              {isLoading && <CircularProgress />}
-            </div>
-            <div className={classes.no_data}>
-              {!data.length && !isLoading && <NoRecordsFound />}
-            </div>
+                          <TableCell
+                            padding="none"
+                            className={classes.icontab_cell}
+                          >
+                            <img
+                              alt=""
+                              src={
+                                data?.picture
+                                  ? `${config.app.APP_API_URL}${data.picture?.url}`
+                                  : tempImg
+                              }
+                              onError={addDefaultSrc}
+                              className={classes.tab_user_logo}
+                            />
+                          </TableCell>
+                          <TableCell className={classes.tab_cell}>
+                            {data.name}
+                          </TableCell>
+                          <TableCell className={classes.tab_cell}>
+                            {data.phoneNumber}
+                          </TableCell>
+                          <TableCell className={classes.tab_cell}>
+                            {data.qualification ? data.qualification : ""}
+                          </TableCell>
+                          <TableCell
+                            padding="none"
+                            className={classes.icontab_cell}
+                          >
+                            <img
+                              alt=""
+                              src={
+                                data?.signature
+                                  ? `${config.app.APP_API_URL}${data.signature.url}`
+                                  : tempSign
+                              }
+                              onError={addDefaultSign}
+                              className={classes.tab_user_signature}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+                <div className={classes.no_data}>
+                  {!data.length && !isLoading && <NoRecordsFound />}
+                </div>
+              </>
+            )}
           </TableContainer>
         </Grid>
       </div>
