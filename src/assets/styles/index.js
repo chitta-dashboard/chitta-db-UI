@@ -476,9 +476,15 @@ export const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     color: colors.text2,
     textDecoration: "none",
-    border:"none",
-    fontSize:"1.5rem",
-    backgroundColor:"transparent"
+    border: "none",
+    fontSize: "1.5rem",
+    backgroundColor: "transparent",
+    "&:hover": {
+      outline: "0",
+    },
+    "&:focus": {
+      outline: "0",
+    },
   },
 
   form_container: {
@@ -595,6 +601,7 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     textDecoration: "none!important",
     fontWeight: "600",
+    margin: "0rem 0.4rem",
 
     "&:hover": {
       // backgroundColor: colors.bg3,
@@ -605,6 +612,9 @@ export const useStyles = makeStyles((theme) => ({
       border: `1px solid ${colors.primary}`,
 
       color: colors.text2,
+    },
+    "&:focus": {
+      outline: "0",
     },
     "&:disabled": {
       filter: "brightness(0.75)",

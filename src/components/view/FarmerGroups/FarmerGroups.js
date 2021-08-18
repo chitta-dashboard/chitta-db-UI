@@ -17,7 +17,7 @@ import { searchWord } from "../../../constants";
 import { Grid } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
-import AddButton from "../../widgets/AddButton";
+// import AddButton from "../../widgets/AddButton";
 
 const FarmerGroups = () => {
   const { loginType } = useContext(UserLoginContext);
@@ -79,7 +79,7 @@ const FarmerGroups = () => {
                     Add
                   </button>
                 </NavLink> */}
-                <AddButton link={"/addfarmerGroup"} />
+                {/* <AddButton link={"/addfarmerGroup"} /> */}
               </Box>
             )}
           </Box>
