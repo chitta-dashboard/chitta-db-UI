@@ -5,9 +5,9 @@ import { useStyles } from "../../../assets/styles";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
-import { getDecisionById, postDecisions } from "../../../constants/config";
+import { getDecisionById, postDecisions, putDecision } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
-import { putDecision } from "../../../constants/config";
+import { useQuery,useMutation } from "react-query";
 
 export default function AddDecision(props) {
   const { match } = props;
@@ -16,16 +16,31 @@ export default function AddDecision(props) {
   const decisionRef = useRef("");
   const classes = useStyles();
 
+  const { data } = useQuery(["Edit Decision", match.params.id], () =>
+  match.params.id && getDecisionById(match.params.id)
+  );
+  const updateDecision= useMutation((data)=> putDecision(data,match.params.id),{
+    onSuccess: (data) => {
+      customToast("success", "Form submitted successfully.");
+      history.goBack();
+    },onError: (error) => {
+      customToast("error", error.message)
+    },
+  })
+  const addDecision = useMutation((data)=>postDecisions(data),{
+    onSuccess: (data) => {
+      customToast("success", "Form submitted successfully.");
+      history.goBack();
+    },onError: (error) => {
+      customToast("error", error.message)
+    },
+  })
   useEffect(() => {
     if (match.params.id) {
-      getDecisionById(match.params.id)
-        .then((res) => {
-          dateRef.current.value = res.date;
-          decisionRef.current.value = res.decision;
-        })
-        .catch((err) => console.log(err));
+        dateRef.current.value = data.date;
+        decisionRef.current.value = data.decision;
     }
-  }, []);
+  }, [match.params.id,data]);
 
   const formSubmission = (e) => {
     e.preventDefault();
@@ -33,14 +48,7 @@ export default function AddDecision(props) {
       date: dateRef.current.value,
       decision: decisionRef.current.value,
     };
-    (match.params.id
-      ? putDecision(match.params.id, params)
-      : postDecisions(params)
-    ).then(() => {
-      customToast("success", "Form submitted successfully.");
-      history.goBack();
-    });
-    // console.log(params);
+    (match.params.id ? updateDecision.mutate(params) : addDecision.mutate(params))
   };
   return (
     <div className={classes.form}>
