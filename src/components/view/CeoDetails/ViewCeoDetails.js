@@ -2,22 +2,20 @@ import React, { useContext, useEffect, useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
-// import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { customToast } from "../../widgets/Toast";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 // import axios from "axios";
 import config, { getAdminUser } from "../../../constants/config";
 import Container from "@material-ui/core/Container";
 import tempImg from "../../../assets/images/male.svg";
 import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
 import { useStyles } from "../../../assets/styles";
-// import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import QRCode from "qrcode.react";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
 import Button  from "../../widgets/Button";
-import BackButton from "../../widgets/BackButton";
 
 const ViewCeoDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -45,12 +43,15 @@ const ViewCeoDetails = (props) => {
             <ChevronLeftIcon className={classes.iconbtn} />
             Back
           </Button> */}
-          <BackButton history={history} />
+          <Button className={classes.addDetailbtn_container} 
+                icon={<ChevronLeftIcon className={classes.iconbtn} />}
+                value="Back" onClick={history.goBack()}
+            />
         </div>
         {loginType === "Administrator" && (
           <div className={classes.btnContainer_custom}>
             <Button value="Edit" className={classes.export_btn}
-              onClick={() => props.history.push(`/editCeo/${match.params.id}`)}
+              onClick={() => history.push(`/editCeo/${match.params.id}`)}
             />
           </div>
         )}

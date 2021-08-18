@@ -476,6 +476,8 @@ export const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     color: colors.text2,
     textDecoration: "none",
+    border:"none",
+    fontSize:"1.5rem",
   },
 
   form_container: {
