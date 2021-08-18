@@ -25,7 +25,8 @@ const AddCeo = (Props) => {
   const [ceoSign, setCeoSign] = useState(null);
   const history = useHistory();
 
-  const { data:ceoData} = useQuery('editCeo',()=> getAdminUser(match.params.id));
+  const { data:ceoData} = useQuery(['editCeo',match.params.id],()=> 
+      match.params.id && getAdminUser(match.params.id));
   
   const updateCeo = useMutation((data)=> putAdmin(data,match.params.id),{
     onSuccess: (data) => {

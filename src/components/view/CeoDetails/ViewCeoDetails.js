@@ -16,19 +16,18 @@ import QRCode from "qrcode.react";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
 import Button  from "../../widgets/Button";
+import { Loader } from "../../widgets/Loader";
+import { Fetch } from "../../widgets/Fetch";
 
 const ViewCeoDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
   const { match, history } = props;
 
-  const { status, data, error } = useQuery(["getCeo", match.params.id], () =>
+  const { isLoading,isError,isFetching, data, error } = useQuery(["getCeo", match.params.id], () =>
     getAdminUser(match.params.id)
   );
 
-  // const goBackAdmin = () => {
-  //   history.goBack();
-  // };
   function addDefaultSrc(ev) {
     ev.target.src = tempImg;
   }
@@ -36,13 +35,7 @@ const ViewCeoDetails = (props) => {
     <>
       <div className={classes.admin_btncontainer}>
         <div style={{ textDecoration: "none" }}>
-          {/* <Button
-            onClick={goBackAdmin}
-            className={classes.addDetailbtn_container}
-          >
-            <ChevronLeftIcon className={classes.iconbtn} />
-            Back
-          </Button> */}
+
           <Button className={classes.addDetailbtn_container} 
                 icon={<ChevronLeftIcon className={classes.iconbtn} />}
                 value="Back" onClick={() => history.goBack()}
@@ -59,9 +52,11 @@ const ViewCeoDetails = (props) => {
       <Container fixed className={classes.adminCardContainer}>
         <Card className={classes.adminCardRoot}>
           <CardActionArea>
-            {status === "loading" ? (
-              <p className={classes.no_data}>Loading...</p>
-            ) : status === "error" ? (
+            {isLoading ? (
+              <Loader className={classes.no_data} />
+            ) : isFetching ? (
+              <Fetch className={classes.no_data} />
+            ) : isError ? (
               customToast("error", error.message)
             ) : (
               <>

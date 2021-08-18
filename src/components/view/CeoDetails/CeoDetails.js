@@ -18,6 +18,9 @@ import { Grid } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
 import Button from "../../widgets/Button";
+import { Loader } from "../../widgets/Loader";
+import { Error } from "../../widgets/Error";
+import { Fetch } from "../../widgets/Fetch";
 
 const CeoDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -28,7 +31,7 @@ const CeoDetails = (props) => {
   };
 
   const {
-    status,
+    isLoading,isError,isFetching,
     data: ceoList,
     error,
   } = useQuery("ceo", () => getAdmin(filter));
@@ -66,10 +69,12 @@ const CeoDetails = (props) => {
             </Box>
           </Box>
           <TableContainer className={classes.tab_container}>
-            {status === "loading" ? (
-              <p className={classes.no_data}>Loading...</p>
-            ) : status === "error" ? (
-              <span className={classes.no_data}>Error: {error.message}</span>
+            {isLoading ? (
+              <Loader className={classes.no_data} />
+            ) : isFetching ? (
+              <Fetch className={classes.no_data} />
+            )  : isError ? (
+              <Error className={classes.no_data} error={error.message.toString()}/>
             ) : (
               <>
                 <Table stickyHeader aria-label="sticky table">
