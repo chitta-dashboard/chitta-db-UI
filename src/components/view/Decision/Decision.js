@@ -3,7 +3,7 @@ import { useStyles } from "../../../assets/styles";
 import AddIcon from "@material-ui/icons/Add";
 import { Grid, Box } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
-import { useHistory } from "react-router";
+// import { useHistory } from "react-router";
 import {
   Timeline,
   Container,
@@ -18,6 +18,7 @@ import { getDecisions } from "../../../constants/config";
 const Decision = (props) => {
   const classes = useStyles();
   const [decision, setDecision] = useState([]);
+  const [readMore, setReadMore] = useState(false);
   const customTheme = {
     yearColor: "#405b73",
     lineColor: "#d0cdc4",
@@ -31,6 +32,15 @@ const Decision = (props) => {
     getDecisions()
       .then((res) => {
         const tempArr = res.map((value) => {
+          let str = value.decision;
+          str = str.replace(/(^\s*)|(\s*$)/gi, "");
+          str = str.replace(/[ ]{2,}/gi, " ");
+          str = str.replace(/\n /, "\n");
+          var count = str.split(" ").length;
+          if (count > 200) {
+            value.decision = value.decision.slice(0, 300);
+            setReadMore(true);
+          }
           return {
             date: value.date.split("-").join("/"),
             decision: value.decision,
@@ -41,6 +51,14 @@ const Decision = (props) => {
       })
       .catch((err) => console.log(err));
   }, []);
+  // decision.map((value) => {
+  //   console.log(value.decision);
+  //   let str = value.decision;
+  //   str = str.replace(/(^\s*)|(\s*$)/gi, "");
+  //   str = str.replace(/[ ]{2,}/gi, " ");
+  //   str = str.replace(/\n /, "\n");
+  //   console.log(str.split(" ").length);
+  // });
   return (
     <div className={classes.farmerdetails_root}>
       <Grid container spacing={3} className={classes.Detailscard_container}>
