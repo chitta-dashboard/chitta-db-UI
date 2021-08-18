@@ -28,7 +28,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 import { TableFooter, TablePagination } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import Cookies from "js-cookie";
-import Button from "../../widgets/Button";
+import CustomButton from "../../widgets/CustomButton";
 
 const FarmerList = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -242,7 +242,7 @@ const FarmerList = (props) => {
                   <AddIcon />
                   Add
                 </button> */}
-                <Button
+                <CustomButton
                   className={classes.addDetails_btn}
                   icon={<AddIcon />}
                   value="Add"

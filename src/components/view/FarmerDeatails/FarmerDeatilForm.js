@@ -18,7 +18,7 @@ import FarmerDetailsToPdf from "./FarmerDetailsToPdf";
 import { useHistory } from "react-router-dom";
 import { UserLoginContext } from "../../context/UserLoginContext";
 // import BackButton from "../../widgets/BackButton";
-import Button from "../../widgets/Button";
+import CustomButton from "../../widgets/CustomButton";
 
 const FarmerDeatilForm = (Props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -79,7 +79,7 @@ const FarmerDeatilForm = (Props) => {
         </Link> */}
         <div>
           {/* <BackButton history={history} /> */}
-          <Button
+          <CustomButton
             className={classes.addDetailbtn_container}
             icon={<ChevronLeftIcon className={classes.iconbtn} />}
             value="Back"

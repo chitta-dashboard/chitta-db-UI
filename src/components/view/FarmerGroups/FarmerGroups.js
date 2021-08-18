@@ -17,7 +17,10 @@ import { searchWord } from "../../../constants";
 import { Grid } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
-import Button from "../../widgets/Button";
+import CustomButton from "../../widgets/CustomButton";
+import { Loader } from "../../widgets/Loader";
+import { Error } from "../../widgets/Error";
+import { Fetch } from "../../widgets/Fetch";
 
 const FarmerGroups = () => {
   const { loginType } = useContext(UserLoginContext);
@@ -27,7 +30,7 @@ const FarmerGroups = () => {
   const [filteredList, setFilteredList] = useState([]);
 
   const {
-    status,
+    isLoading,isError,isFetching,
     data: groups,
     error,
   } = useQuery("getGroups", () => getFarmersGroup());
@@ -74,7 +77,7 @@ const FarmerGroups = () => {
                   to="/addfarmerGroup"
                   className={classes.addDetails_link}
                 >
-                  <Button
+                  <CustomButton
                     className={classes.addDetails_btn}
                     value="Add"
                     icon={<AddIcon />}
@@ -85,11 +88,13 @@ const FarmerGroups = () => {
           </Box>
         </Box>
         <TableContainer className={classes.tab_container}>
-          {status === "loading" ? (
-            <p className={classes.no_data}>Loading...</p>
-          ) : status === "error" ? (
-            <span className={classes.no_data}>Error: {error.message}</span>
-          ) : (
+          {isLoading ? (
+              <Loader className={classes.no_data} />
+            ) : isFetching ? (
+              <Fetch className={classes.no_data} />
+            )  : isError ? (
+              <Error className={classes.no_data} error={error.message.toString()}/>
+            ) : (
             <>
               <Table stickyHeader aria-label="sticky table">
                 <TableHead>

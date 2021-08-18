@@ -12,7 +12,7 @@ import { uploadFile } from "../../../constants/config";
 import config from "../../../constants/config";
 import axios from "axios";
 import { useQuery,useMutation } from "react-query";
-import Button from "../../widgets/Button";
+import CustomButton from "../../widgets/CustomButton";
 
 const AddCeo = (Props) => {
   const { match } = Props;
@@ -132,7 +132,7 @@ const AddCeo = (Props) => {
         <Grid className={classes.form_container} container spacing={3}>
           <Grid className={classes.adddetails_header} item xs={12}>
             <Link to="/ceodetails" style={{ textDecoration: "none" }}>
-              <Button className={classes.addDetailbtn_container} 
+              <CustomButton className={classes.addDetailbtn_container} 
                 icon={<ChevronLeftIcon className={classes.iconbtn} />}
                 value={match.params.id ? "Edit CEO Details" : "Add CEO Details"}
               />

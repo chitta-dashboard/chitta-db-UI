@@ -26,6 +26,9 @@ import {
 } from "../../../constants/config";
 import moment from 'moment';
 import { useQuery } from "react-query";
+import { Loader } from "../../widgets/Loader";
+import { Error } from "../../widgets/Error";
+import { Fetch } from "../../widgets/Fetch";
 
 const useStyles = makeStyles((theme) => ({
   dashboard_root: {
@@ -159,6 +162,11 @@ const useStyles = makeStyles((theme) => ({
     height: "0.9rem",
     cursor: "pointer",
   },
+  no_data: {
+    width: "100%",
+    display: "grid",
+    placeItems: "center",
+  },
 }));
 
 const Dashboard = () => {
@@ -171,7 +179,7 @@ const Dashboard = () => {
   const [grpCheck, setGrpCheck] = useState("");
   // const [notification, setNotification] = useState([]);
 
-  const { status, data:notification, error } = useQuery('notification',()=> getNotification());
+  const { isLoading,isError,isFetching, data:notification, error } = useQuery('notification',()=> getNotification());
 
   useEffect(() => {
     getFarmersGroupCount().then((res) => setFarmersGroupCount(res));
@@ -359,11 +367,13 @@ const Dashboard = () => {
             Notification
           </Typography>
           <Card className={classes.dashboard_notificationCardContainer}>
-          {status === 'loading' ? (
-              <p className={classes.no_data}>Loading...</p>
-          ) : status === 'error' ? (
-              <span className={classes.no_data}>Error: {error.message}</span>
-          ) :(<>
+          {isLoading ? (
+              <Loader className={classes.no_data} />
+            ) : isFetching ? (
+              <Fetch className={classes.no_data} />
+            )  : isError ? (
+              <Error className={classes.no_data} error={error.message.toString()}/>
+            ) : (<>
             <CardContent>
               {notification.map((data) => {
                 return (
