@@ -1,54 +1,60 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import { customToast } from "../../widgets/Toast";
-import { postAdmin, putAdmin,postNotification,getAdminUser } from "../../../constants/config";
+import {
+  postAdmin,
+  putAdmin,
+  postNotification,
+  getAdminUser,
+} from "../../../constants/config";
 import { useHistory } from "react-router";
 import { colors } from "../../../theme";
 import { uploadFile } from "../../../constants/config";
 import config from "../../../constants/config";
 import axios from "axios";
-import { useQuery,useMutation } from "react-query";
+import { useQuery, useMutation } from "react-query";
+import { useForm } from "react-hook-form";
 
 const AddCeo = (Props) => {
   const { match } = Props;
   const classes = useStyles();
-  const ceoName = useRef("");
-  const phoneNumber = useRef("");
-  const dob = useRef(null);
-  const qualification = useRef("");
   const [ceoPhoto, setCeoPhoto] = useState(null);
   const [ceoSign, setCeoSign] = useState(null);
   const history = useHistory();
+  const { data: ceoData } = useQuery(["editCeo", match.params.id], () =>
+    getAdminUser(match.params.id)
+  );
+  const { register, handleSubmit, setValue } = useForm();
 
-  const { data:ceoData} = useQuery('editCeo',()=> getAdminUser(match.params.id));
-  
-  const updateCeo = useMutation((data)=> putAdmin(data,match.params.id),{
+  const updateCeo = useMutation((data) => putAdmin(data, match.params.id), {
     onSuccess: (data) => {
-      ceoPicHandler(data)
-    },onError: (error) => {
-      customToast("error", error.message)
+      ceoPicHandler(data);
     },
-  })
-  const addCeo = useMutation((data)=>postAdmin(data),{
+    onError: (error) => {
+      customToast("error", error.message);
+    },
+  });
+  const addCeo = useMutation((data) => postAdmin(data), {
     onSuccess: (data) => {
-      ceoPicHandler(data)
-    },onError: (error) => {
-      customToast("error", error.message)
+      ceoPicHandler(data);
     },
-  })
+    onError: (error) => {
+      customToast("error", error.message);
+    },
+  });
 
   useEffect(() => {
     if (match.params.id) {
-        ceoName.current.value = ceoData?.name ?? null;
-        phoneNumber.current.value = ceoData?.phoneNumber ?? null;
-        qualification.current.value = ceoData?.qualification ?? null;
-        dob.current.value = ceoData?.DOB ?? null;
+      setValue("name", ceoData?.name ?? null);
+      setValue("phoneNumber", ceoData?.phoneNumber ?? null);
+      setValue("dob", ceoData?.DOB ?? null);
+      setValue("qualification", ceoData?.qualification ?? null);
     }
-  },[match.params.id,ceoData]);
+  }, [match.params.id, ceoData, setValue]);
 
   const _onProfilePicChange = (e) => {
     const file = e.target.files[0];
@@ -77,12 +83,12 @@ const AddCeo = (Props) => {
     });
   };
 
-  const ceoPicHandler = (res)=>{
+  const ceoPicHandler = (res) => {
     const success = () => {
       customToast("success", "Form submitted successfully.");
       history.goBack();
     };
-    
+
     if (ceoPhoto || ceoSign) {
       if (ceoPhoto && !ceoSign) {
         uploadProfilePic(res.id).then((data) => {
@@ -93,40 +99,46 @@ const AddCeo = (Props) => {
           success();
         });
       } else if (ceoSign && ceoPhoto) {
-        Promise.all([
-          uploadProfilePic(res.id),
-          uploadSignature(res.id),
-        ]).then((data) => {
-          success();
-        });
-        }
-      } else {
-        success();
+        Promise.all([uploadProfilePic(res.id), uploadSignature(res.id)]).then(
+          (data) => {
+            success();
+          }
+        );
       }
-  }
+    } else {
+      success();
+    }
+  };
 
-  const postCeoData = (e) => {
-    e.preventDefault();
+  const postCeoData = (data) => {
     const params = {
-      name: ceoName.current.value,
-      phoneNumber: phoneNumber.current.value,
-      DOB: dob.current.value === "" ? null : dob.current.value,
-      qualification: qualification.current.value,
-      adminType:"ceo"
+      name: data.name,
+      phoneNumber: data.phoneNumber,
+      DOB: data.dob === "" ? null : data.dob,
+      qualification: data.qualification,
+      adminType: "ceo",
     };
+
     const Notification = {
-      notification : match.params.id ?`CEO "${params.name}" Details Has been Updated` : `New CEO "${params.name}" Has been Registered`
+      notification: match.params.id
+        ? `CEO "${params.name}" Details Has been Updated`
+        : `New CEO "${params.name}" Has been Registered`,
     };
 
-    (match.params.id ? updateCeo.mutate(params) : addCeo.mutate(params))
+    match.params.id ? updateCeo.mutate(params) : addCeo.mutate(params);
 
-    postNotification(Notification)
-    .catch((err) => customToast("error", err.message)); 
+    postNotification(Notification).catch((err) =>
+      customToast("error", err.message)
+    );
   };
 
   return (
     <div className={classes.form}>
-      <form>
+      <form
+        onSubmit={handleSubmit((data) => {
+          postCeoData(data);
+        })}
+      >
         <Grid className={classes.form_container} container spacing={3}>
           <Grid className={classes.adddetails_header} item xs={12}>
             <Link to="/ceodetails" style={{ textDecoration: "none" }}>
@@ -150,7 +162,7 @@ const AddCeo = (Props) => {
                 className="farmer-input tamil"
                 type="text"
                 placeholder="பெயர்"
-                ref={ceoName}
+                {...register("name")}
                 autoComplete="off"
               />
             </Grid>
@@ -159,7 +171,7 @@ const AddCeo = (Props) => {
                 className="farmer-input tamil"
                 type="text"
                 placeholder="கைபேசி எண்"
-                ref={phoneNumber}
+                {...register("phoneNumber")}
                 autoComplete="off"
               />
             </Grid>
@@ -179,7 +191,7 @@ const AddCeo = (Props) => {
               />
             </Grid>
             <Grid className={classes.forminput_container} item xs={12}>
-            <label>கையொப்பம்</label>
+              <label>கையொப்பம்</label>
               <input
                 className="farmer-input tamil"
                 type="file"
@@ -199,7 +211,7 @@ const AddCeo = (Props) => {
                 type="date"
                 placeholder="பிறந்த தேதி"
                 autoComplete="off"
-                ref={dob}
+                {...register("dob")}
                 style={{ color: colors.text2 }}
               />
             </Grid>
@@ -209,16 +221,12 @@ const AddCeo = (Props) => {
                 type="text"
                 placeholder="தகுதி"
                 autoComplete="off"
-                ref={qualification}
+                {...register("qualification")}
               />
             </Grid>
           </Grid>
           <Grid className={classes.forminput_container_btn} container>
-            <button
-              type="submit"
-              className={classes.submit_btn}
-              onClick={postCeoData}
-            >
+            <button type="submit" className={classes.submit_btn}>
               SUBMIT
             </button>
           </Grid>
