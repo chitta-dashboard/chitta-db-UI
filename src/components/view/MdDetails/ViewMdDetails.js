@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router-dom";
@@ -16,7 +16,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import QRCode from "qrcode.react";
 import { useQuery } from "react-query";
-import BackButton from "../../widgets/BackButton";
+import Button  from "../../widgets/Button";
 
 const ViewMdDetails = (Props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -58,17 +58,16 @@ const ViewMdDetails = (Props) => {
             <ChevronLeftIcon className={classes.iconbtn} />
             Back
           </Button> */}
-          <BackButton history={history} />
+          <Button className={classes.addDetailbtn_container} 
+                icon={<ChevronLeftIcon className={classes.iconbtn} />}
+                value="Back" onClick={() => history.goBack()}
+            />
         </div>
         {loginType === "Administrator" && (
           <div className={classes.btnContainer_custom}>
-            <button
-              className={classes.export_btn}
-              style={{ textDecoration: "none" }}
-              onClick={() => Props.history.push(`/editMd/${match.params.id}`)}
-            >
-              Edit
-            </button>
+            <Button value="Edit" className={classes.export_btn}
+              onClick={() => history.push(`/editMd/${match.params.id}`)}
+            />
           </div>
         )}
       </div>

@@ -1,14 +1,15 @@
 import React from "react";
 
 const Button = (props) => {
-  const { value,onClick,className } = props;
+  const { value,onClick,className,icon,variant } = props;
   return (
     <button
-      className={className}
+      className={className??null}
       style={{ textDecoration: "none" }}
-      onClick={onClick}
-    >
-      {value}
+      onClick={onClick??null}
+    > 
+      {icon??null}
+      {value??null}
     </button>
   );
 };

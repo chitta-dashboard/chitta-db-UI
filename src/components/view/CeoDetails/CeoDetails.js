@@ -17,7 +17,7 @@ import config from "../../../constants/config";
 import { Grid } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
-import AddButton from "../../widgets/AddButton";
+import Button from "../../widgets/Button";
 
 const CeoDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -53,13 +53,14 @@ const CeoDetails = (props) => {
               {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
               {loginType === "Administrator" && (
                 <Box>
-                  {/* <NavLink to="/addceo" className={classes.addDetails_link}>
-                    <button className={classes.addDetails_btn}>
+                  <NavLink to="/addceo" className={classes.addDetails_link}>
+                    {/* <button className={classes.addDetails_btn}>
                       <AddIcon />
                       Add
-                    </button>
-                  </NavLink> */}
-                  <AddButton link={"/addceo"} />
+                    </button> */}
+                    <Button className={classes.addDetails_btn} icon={ <AddIcon />} value="Add" />
+                  </NavLink>
+                  
                 </Box>
               )}
             </Box>
