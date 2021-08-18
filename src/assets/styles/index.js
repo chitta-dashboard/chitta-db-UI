@@ -240,7 +240,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   btnContainer_custom: {
     display: "flex",
-    justifyContent: "space-around",
+    justifyContent: "flex-end",
     width: "100%",
   },
   editDetails_btn: {
@@ -594,7 +594,6 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     textDecoration: "none!important",
     fontWeight: "600",
-    margin: "6px",
 
     "&:hover": {
       // backgroundColor: colors.bg3,
@@ -860,6 +859,7 @@ export const useStyles = makeStyles((theme) => ({
   admin_btncontainer: {
     margin: "3rem 2rem",
     display: "grid",
+    alignItems: "center",
     justifyContent: "space-between",
     gridTemplateColumns: "60% 40%",
   },
