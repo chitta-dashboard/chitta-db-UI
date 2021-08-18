@@ -29,6 +29,7 @@ import { TableFooter, TablePagination } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import Cookies from "js-cookie";
 import Button from "../../widgets/Button";
+import { useQuery } from "react-query";
 
 const FarmerList = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -46,6 +47,8 @@ const FarmerList = (props) => {
   const [farmersData, setFarmersData] = useState([]);
   const [pagedFarmer, setPagedFarmer] = useState([]);
   const [farmerListGrp, setFarmerListGrp] = useState([]);
+  const { data } = useQuery("getFarmersList", () => getFarmers());
+  console.log(data);
   useEffect(() => {
     // let filter = {
     //   farmerGroup: null,

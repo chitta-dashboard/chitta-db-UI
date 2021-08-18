@@ -12,13 +12,14 @@ import {
   getFormattedDate,
   toGetTamilGender,
 } from "../../../constants";
-import config, { deleteFarmer } from "../../../constants/config";
+import config, { deleteFarmer, getFarmerById } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import FarmerDetailsToPdf from "./FarmerDetailsToPdf";
 import { useHistory } from "react-router-dom";
 import { UserLoginContext } from "../../context/UserLoginContext";
 // import BackButton from "../../widgets/BackButton";
 import Button from "../../widgets/Button";
+import { useQuery } from "react-query";
 
 const FarmerDeatilForm = (Props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -28,6 +29,12 @@ const FarmerDeatilForm = (Props) => {
   const [farmerData, setFarmerData] = useState({});
   const [loader, setLoader] = useState(true);
 
+  const { data } = useQuery(
+    ["getFarmer", match.params.id],
+    () => match.params.id && getFarmerById(match.params.id)
+  );
+
+  console.log(data);
   useEffect(() => {
     if (match.params.id) {
       axios
@@ -71,14 +78,7 @@ const FarmerDeatilForm = (Props) => {
   return (
     <>
       <div className={classes.user_btncontainer}>
-        {/* <Link to="/farmersdetails" style={{ textDecoration: "none" }}>
-          <Typography variant="h5" className={classes.addDetailbtn_container}>
-            <ChevronLeftIcon className={classes.iconbtn} />
-            Back
-          </Typography>
-        </Link> */}
         <div>
-          {/* <BackButton history={history} /> */}
           <Button
             className={classes.addDetailbtn_container}
             icon={<ChevronLeftIcon className={classes.iconbtn} />}
