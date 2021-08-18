@@ -28,7 +28,12 @@ const AddCeo = (Props) => {
   const { data: ceoData } = useQuery(["editCeo", match.params.id], () =>
     getAdminUser(match.params.id)
   );
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   const updateCeo = useMutation((data) => putAdmin(data, match.params.id), {
     onSuccess: (data) => {
@@ -118,7 +123,6 @@ const AddCeo = (Props) => {
       qualification: data.qualification,
       adminType: "ceo",
     };
-
     const Notification = {
       notification: match.params.id
         ? `CEO "${params.name}" Details Has been Updated`
@@ -171,9 +175,26 @@ const AddCeo = (Props) => {
                 className="farmer-input tamil"
                 type="text"
                 placeholder="கைபேசி எண்"
-                {...register("phoneNumber")}
+                {...register("phoneNumber", {
+                  required: true,
+                  maxLength: 10,
+                  minLength: 10,
+                })}
                 autoComplete="off"
               />
+              {errors?.phoneNumber?.type === "required" && (
+                <p className={classes.requiredWarningText}>required</p>
+              )}
+              {errors?.phoneNumber?.type === "maxLength" && (
+                <p className={classes.requiredWarningText}>
+                  Invalid Phone number
+                </p>
+              )}
+              {errors?.phoneNumber?.type === "minLength" && (
+                <p className={classes.requiredWarningText}>
+                  Invalid Phone number
+                </p>
+              )}
             </Grid>
             <Grid className={classes.forminput_container} item xs={12}>
               <label>புகைப்படம்</label>
@@ -211,9 +232,12 @@ const AddCeo = (Props) => {
                 type="date"
                 placeholder="பிறந்த தேதி"
                 autoComplete="off"
-                {...register("dob")}
+                {...register("dob", { required: true })}
                 style={{ color: colors.text2 }}
               />
+              {errors?.dob && (
+                <p className={classes.requiredWarningText}>required</p>
+              )}
             </Grid>
             <Grid item xs={8}>
               <input
