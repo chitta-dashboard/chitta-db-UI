@@ -35,7 +35,10 @@ const AddMd = (Props) => {
     formState: { errors },
   } = useForm();
 
-  const { data } = useQuery("editMd", () => getAdminUser(match.params.id));
+  const { data } = useQuery(
+    ["editMd", match.params.id],
+    () => match.params.id && getAdminUser(match.params.id)
+  );
   useEffect(() => {
     if (match.params.id) {
       setValue("name", data?.name ?? null);
