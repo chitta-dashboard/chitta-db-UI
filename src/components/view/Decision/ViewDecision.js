@@ -7,6 +7,7 @@ import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router-dom";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import DecisionToPdf from "../Decision/DecisionToPdf";
+import BackButton from "../../widgets/BackButton";
 
 export default function ViewDecision(props) {
   const history = useHistory();
@@ -38,7 +39,9 @@ export default function ViewDecision(props) {
           style={{ gridTemplateColumns: "50% 50%" }}
         >
           <Box className={classes.farmerdetails_searchcontainer}>
-            <div className={classes.searchBox}></div>
+            <div className={classes.searchBox}>
+              <BackButton history={history} />
+            </div>
           </Box>
           <Box className={classes.farmerdetails_boxcontainer}>
             <Box>

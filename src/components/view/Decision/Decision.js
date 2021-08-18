@@ -39,7 +39,7 @@ const Decision = (props) => {
           str = str.replace(/\n /, "\n");
           var count = str.split(" ").length;
           if (count > 200) {
-            value.decision = value.decision.slice(0, 300);
+            value.decision = value.decision.slice(0, 300) + "....";
             setReadMore(true);
           }
           return {

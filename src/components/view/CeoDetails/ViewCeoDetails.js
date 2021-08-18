@@ -2,20 +2,21 @@ import React, { useContext, useEffect, useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { customToast } from "../../widgets/Toast";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
+// import { useHistory } from "react-router-dom";
+// import axios from "axios";
 import config, { getAdminUser } from "../../../constants/config";
 import Container from "@material-ui/core/Container";
 import tempImg from "../../../assets/images/male.svg";
 import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
 import { useStyles } from "../../../assets/styles";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+// import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import QRCode from "qrcode.react";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
+import BackButton from "../../widgets/BackButton";
 
 const ViewCeoDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -26,9 +27,9 @@ const ViewCeoDetails = (props) => {
     getAdminUser(match.params.id)
   );
 
-  const goBackAdmin = () => {
-    history.goBack();
-  };
+  // const goBackAdmin = () => {
+  //   history.goBack();
+  // };
   function addDefaultSrc(ev) {
     ev.target.src = tempImg;
   }
@@ -36,13 +37,14 @@ const ViewCeoDetails = (props) => {
     <>
       <div className={classes.admin_btncontainer}>
         <div style={{ textDecoration: "none" }}>
-          <Button
+          {/* <Button
             onClick={goBackAdmin}
             className={classes.addDetailbtn_container}
           >
             <ChevronLeftIcon className={classes.iconbtn} />
             Back
-          </Button>
+          </Button> */}
+          <BackButton history={history} />
         </div>
         {loginType === "Administrator" && (
           <div className={classes.btnContainer_custom}>
