@@ -20,51 +20,58 @@ import { UserLoginContext } from "../../context/UserLoginContext";
 // import BackButton from "../../widgets/BackButton";
 import { useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
+import { Error } from "../../widgets/Error";
 
 const FarmerDeatilForm = (Props) => {
   const { loginType } = useContext(UserLoginContext);
   const { match } = Props;
   const history = useHistory();
   const classes = useStyles();
-  const [farmerData, setFarmerData] = useState({});
+  // const [farmerData, setFarmerData] = useState({});
   const [loader, setLoader] = useState(true);
-
-  const { data } = useQuery(
+  let initialObj = {};
+  const {
+    data = initialObj,
+    isLoading,
+    isFetching,
+    isError,
+    error,
+  } = useQuery(
     ["getFarmer", match.params.id],
     () => match.params.id && getFarmerById(match.params.id)
   );
 
   console.log(data);
-  useEffect(() => {
-    if (match.params.id) {
-      axios
-        .get(`${config.app.APP_API_URL}/farmers/${match.params.id}`)
-        .then((res) => {
-          if (res && res.status === 200) {
-            setFarmerData(res.data);
-            setLoader(false);
-          }
-        })
-        .catch((err) => customToast("error", err.message));
-    }
-  }, [match.params.id]);
+  // useEffect(() => {
+  //   if (match.params.id) {
+  //     axios
+  //       .get(`${config.app.APP_API_URL}/farmers/${match.params.id}`)
+  //       .then((res) => {
+  //         if (res && res.status === 200) {
+  //           setFarmerData(res.data);
+  //           setLoader(false);
+  //         }
+  //       })
+  //       .catch((err) => customToast("error", err.message));
+  //   }
+  // }, [match.params.id]);
 
   const getFarmerData = (type) => {
     switch (type) {
       case "gender":
-        return toGetTamilGender(farmerData[type]);
+        return toGetTamilGender(data[type]);
       case "DOB":
-        return farmerData[type] ? getFormattedDate(farmerData[type]) : "";
+        return data[type] ? getFormattedDate(data[type]) : "";
       case "surveyArray": {
         const surveyNoList =
-          farmerData[type] && farmerData[type].length
-            ? farmerData[type][0].survey_numbers.map((e) => e.surveyNo)
+          data[type] && data[type].length
+            ? data[type][0].survey_numbers.map((e) => e.surveyNo)
             : [];
 
         return surveyNoList.join();
       }
       default:
-        return farmerData[type];
+        return data[type];
     }
   };
 
@@ -114,10 +121,10 @@ const FarmerDeatilForm = (Props) => {
             document={
               <FarmerDetailsToPdf
                 getFarmerData={getFarmerData}
-                farmerData={farmerData}
+                farmerData={data}
               />
             }
-            fileName={`${farmerData.name}.pdf`}
+            fileName={`${data.name}.pdf`}
             style={{ textDecoration: "none" }}
           >
             {({ loading }) => {
@@ -155,9 +162,9 @@ const FarmerDeatilForm = (Props) => {
           <div className={classes.user_profilepic}>
             <img
               src={
-                farmerData?.userImg?.url
-                  ? `${config.app.APP_API_URL}${farmerData.userImg.url}`
-                  : farmerData.gender === "female"
+                data?.userImg?.url
+                  ? `${config.app.APP_API_URL}${data.userImg.url}`
+                  : data.gender === "female"
                   ? require("../../../assets/images/female.svg").default
                   : require("../../../assets/images/male.svg").default
               }
@@ -184,15 +191,15 @@ const FarmerDeatilForm = (Props) => {
             <p className={classes.formnum_text}>
               நாள் :{" "}
               <span>
-                {farmerData.created_at
-                  ? `${getFormattedDate(farmerData.created_at)}`
+                {data.published_at
+                  ? `${getFormattedDate(data.published_at)}`
                   : "00/0/0000"}
               </span>
             </p>
           </div>
         </div>
         <hr className={classes.user_border} />
-        {!loader ? (
+        {!isLoading || !isFetching ? (
           <div className={classes.user_formcontent}>
             {FarmerDetailsList.map((user) => {
               return (
@@ -208,6 +215,9 @@ const FarmerDeatilForm = (Props) => {
           </div>
         ) : (
           <div className={classes.loader}>சற்று காத்திருக்கவும்...</div>
+        )}
+        {isError && (
+          <Error className={classes.no_data} error={error.message.toString()} />
         )}
       </div>
     </>

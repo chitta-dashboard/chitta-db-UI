@@ -50,9 +50,9 @@ const FarmerList = (props) => {
   const { isLoading, isError, isFetching } = useQuery("getFarmersList", () =>
     getFarmerHandler()
   );
-  console.log(isLoading);
-  console.log(isError);
-  console.log(isFetching);
+  // console.log(isLoading);
+  // console.log(isError);
+  // console.log(isFetching);
   const getFarmerHandler = () => {
     getFarmers()
       .then((res) => {
