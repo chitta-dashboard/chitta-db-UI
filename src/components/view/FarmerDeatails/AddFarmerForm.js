@@ -19,6 +19,7 @@ import config, {
 import { colors } from "../../../theme";
 import { uuid } from "../../../constants";
 import { useForm } from "react-hook-form";
+import { FieldError } from "../Common/FieldError";
 
 const initialFormValue = {
   surveyNoList: {
@@ -57,7 +58,12 @@ const AddFarmerForm = (Props) => {
   const [surveyArr, setSurveyArr] = useState([]);
   const { match } = Props;
   // const dateOfBirth = farmerData.DOB?.split("/").join("-");
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
   useEffect(() => {
     if (match.params.id) {
       getFarmerById(match.params.id)
@@ -309,9 +315,14 @@ const AddFarmerForm = (Props) => {
                 type="text"
                 placeholder="பெயர்"
                 // ref={farmerName}
-                {...register("farmerName")}
+                {...register("farmerName", {
+                  required: true,
+                })}
                 autoComplete="off"
               />
+              {errors?.farmerName?.type === "required" && (
+                <FieldError>Required</FieldError>
+              )}
             </Grid>
             <Grid item xs={6}>
               <input
@@ -346,7 +357,9 @@ const AddFarmerForm = (Props) => {
                 className="farmer-input"
                 style={{ color: "#111B2B" }}
                 // ref={farmerGroup}
-                {...register("farmerGroup")}
+                {...register("farmerGroup", {
+                  required: true,
+                })}
               >
                 <option selected value="" disabled hidden>
                   குழு
@@ -365,6 +378,9 @@ const AddFarmerForm = (Props) => {
                     );
                   })}
               </select>
+              {errors?.farmerGroup?.type === "required" && (
+                <FieldError>Required</FieldError>
+              )}
             </Grid>
           </Grid>
           <Grid className={classes.forminput_container} item xs={12}>
@@ -392,11 +408,16 @@ const AddFarmerForm = (Props) => {
                 type="date"
                 placeholder="பிறந்த தேதி"
                 // ref={DOB}
-                {...register("DOB")}
+                {...register("DOB", {
+                  required: true,
+                })}
                 autoComplete="off"
                 style={{ color: colors.text2 }}
                 // defaultValue={dateOfBirth}
               />
+              {errors?.DOB?.type === "required" && (
+                <FieldError>Required</FieldError>
+              )}
             </Grid>
             <Grid item xs={8}>
               <input
@@ -404,9 +425,22 @@ const AddFarmerForm = (Props) => {
                 type="number"
                 placeholder="கைபேசி எண்"
                 // ref={phoneNumber}
-                {...register("phoneNumber")}
+                {...register("phoneNumber", {
+                  required: true,
+                  maxLength: 10,
+                  minLength: 10,
+                })}
                 autoComplete="off"
               />
+              {errors?.phoneNumber?.type === "required" && (
+                <FieldError>Required</FieldError>
+              )}
+              {errors?.phoneNumber?.type === "maxLength" && (
+                <FieldError>Invalid Phone number</FieldError>
+              )}
+              {errors?.phoneNumber?.type === "minLength" && (
+                <FieldError>Invalid Phone number</FieldError>
+              )}
             </Grid>
           </Grid>
           <Grid className={classes.forminput_container} item xs={12}>
@@ -471,7 +505,9 @@ const AddFarmerForm = (Props) => {
                 className="farmer-input"
                 style={{ color: "#111B2B" }}
                 // value={formValue.gender}
-                {...register("gender")}
+                {...register("gender", {
+                  required: true,
+                })}
                 // onChange={(e) =>
                 //   setFormValue({ ...formValue, gender: e.target.value })
                 // }
@@ -483,6 +519,9 @@ const AddFarmerForm = (Props) => {
                   பெண்
                 </option>
               </select>
+              {errors?.gender?.type === "required" && (
+                <FieldError>Required</FieldError>
+              )}
             </Grid>
             <Grid item xs={8}>
               <input
