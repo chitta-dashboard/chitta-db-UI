@@ -17,7 +17,12 @@ export default function AddDecision(props) {
   // const dateRef = useRef("");
   // const decisionRef = useRef("");
   const classes = useStyles();
-  const { register, setValue, handleSubmit, errors } = useForm();
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     if (match.params.id) {
@@ -32,19 +37,19 @@ export default function AddDecision(props) {
   }, []);
 
   const formSubmission = (data) => {
-    console.log(data);
     const params = {
       date: data.date,
       decision: data.decision,
     };
-    (match.params.id
-      ? putDecision(match.params.id, params)
-      : postDecisions(params)
-    ).then(() => {
-      customToast("success", "Form submitted successfully.");
-      history.goBack();
-    });
+    // (match.params.id
+    //   ? putDecision(match.params.id, params)
+    //   : postDecisions(params)
+    // ).then(() => {
+    //   customToast("success", "Form submitted successfully.");
+    //   history.goBack();
+    // });
   };
+
   return (
     <div className={classes.form}>
       <form
