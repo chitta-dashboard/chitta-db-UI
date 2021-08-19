@@ -47,14 +47,13 @@ const FarmerList = (props) => {
   const [farmersData, setFarmersData] = useState([]);
   const [pagedFarmer, setPagedFarmer] = useState([]);
   const [farmerListGrp, setFarmerListGrp] = useState([]);
-  const { data } = useQuery("getFarmersList", () => getFarmers());
-  console.log(data);
-  useEffect(() => {
-    // let filter = {
-    //   farmerGroup: null,
-    //   start: page * rowsPerPage,
-    //   limit: rowsPerPage,
-    // };
+  const { isLoading, isError, isFetching } = useQuery("getFarmersList", () =>
+    getFarmerHandler()
+  );
+  console.log(isLoading);
+  console.log(isError);
+  console.log(isFetching);
+  const getFarmerHandler = () => {
     getFarmers()
       .then((res) => {
         if (Cookies.get("loginType") === "Farmer") {
@@ -87,7 +86,46 @@ const FarmerList = (props) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  };
+  // useEffect(() => {
+  //   // let filter = {
+  //   //   farmerGroup: null,
+  //   //   start: page * rowsPerPage,
+  //   //   limit: rowsPerPage,
+  //   // };
+  //   getFarmers()
+  //     .then((res) => {
+  //       if (Cookies.get("loginType") === "Farmer") {
+  //         getFarmerById(Cookies.get("userId")).then((data) => {
+  //           // console.log(data.farmerGroup);
+  //           // console.log(res);
+  //           const tempArr = res
+  //             .filter((value) => data.farmerGroup === value.farmerGroup)
+  //             .map((value) => {
+  //               return value;
+  //             });
+  //           setFarmersData(tempArr);
+  //         });
+  //       } else if (Cookies.get("loginType") === "Administrator") {
+  //         setFarmersData(res);
+  //         const tempArr = res.map((value) => {
+  //           return value?.farmerGroup ?? null;
+  //         });
+  //         let unique = [...new Set(tempArr)];
+  //         var filteredArr = unique.filter(function (el) {
+  //           return el != null;
+  //         });
+  //         const farmerGrpArr = filteredArr.map((value) => ({
+  //           value: value,
+  //           name: value,
+  //         }));
+  //         setFarmerGrp(farmerGrpArr);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
   useEffect(() => {});
   // useEffect(() => {
   //   getFarmersGroup()
