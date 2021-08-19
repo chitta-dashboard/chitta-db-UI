@@ -5,9 +5,13 @@ import { useStyles } from "../../../assets/styles";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
-import { getDecisionById, postDecisions, putDecision } from "../../../constants/config";
+import {
+  getDecisionById,
+  postDecisions,
+  putDecision,
+} from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
-import { useQuery,useMutation } from "react-query";
+import { useQuery, useMutation } from "react-query";
 
 export default function AddDecision(props) {
   const { match } = props;
@@ -16,31 +20,37 @@ export default function AddDecision(props) {
   const decisionRef = useRef("");
   const classes = useStyles();
 
-  const { data } = useQuery(["Edit Decision", match.params.id], () =>
-  match.params.id && getDecisionById(match.params.id)
+  const { data } = useQuery(
+    ["Edit Decision", match.params.id],
+    () => match.params.id && getDecisionById(match.params.id)
   );
-  const updateDecision= useMutation((data)=> putDecision(data,match.params.id),{
+  const updateDecision = useMutation(
+    (data) => putDecision(data, match.params.id),
+    {
+      onSuccess: (data) => {
+        customToast("success", "Form submitted successfully.");
+        history.goBack();
+      },
+      onError: (error) => {
+        customToast("error", error.message);
+      },
+    }
+  );
+  const addDecision = useMutation((data) => postDecisions(data), {
     onSuccess: (data) => {
       customToast("success", "Form submitted successfully.");
       history.goBack();
-    },onError: (error) => {
-      customToast("error", error.message)
     },
-  })
-  const addDecision = useMutation((data)=>postDecisions(data),{
-    onSuccess: (data) => {
-      customToast("success", "Form submitted successfully.");
-      history.goBack();
-    },onError: (error) => {
-      customToast("error", error.message)
+    onError: (error) => {
+      customToast("error", error.message);
     },
-  })
+  });
   useEffect(() => {
     if (match.params.id) {
-        dateRef.current.value = data.date;
-        decisionRef.current.value = data.decision;
+      dateRef.current.value = data?.date;
+      decisionRef.current.value = data?.decision;
     }
-  }, [match.params.id,data]);
+  }, [match.params.id, data]);
 
   const formSubmission = (e) => {
     e.preventDefault();
@@ -48,7 +58,9 @@ export default function AddDecision(props) {
       date: dateRef.current.value,
       decision: decisionRef.current.value,
     };
-    (match.params.id ? updateDecision.mutate(params) : addDecision.mutate(params))
+    match.params.id
+      ? updateDecision.mutate(params)
+      : addDecision.mutate(params);
   };
   return (
     <div className={classes.form}>
