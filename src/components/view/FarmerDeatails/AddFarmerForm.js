@@ -14,10 +14,11 @@ import config, {
   postFarmer,
   putFarmer,
   uploadFile,
-  postNotification
+  postNotification,
 } from "../../../constants/config";
 import { colors } from "../../../theme";
 import { uuid } from "../../../constants";
+import { useMutation, useQuery } from "react-query";
 
 const initialFormValue = {
   surveyNoList: {
@@ -50,75 +51,66 @@ const AddFarmerForm = (Props) => {
   const [landType, setLandType] = useState("");
   const [formValue, setFormValue] = useState(initialFormValue);
   const [farmerPhoto, setFarmerPhoto] = useState(null);
-  const [farmerGroups, setFarmerGroups] = useState([]);
+  // const [farmerGroups, setFarmerGroups] = useState([]);
   const [farmerGroupId, setFarmerGroupId] = useState();
-  const [farmerData, setFarmerData] = useState({});
+  // const [farmerData, setFarmerData] = useState({});
   const [surveyArr, setSurveyArr] = useState([]);
   const { match } = Props;
   // const dateOfBirth = farmerData.DOB?.split("/").join("-");
-
+  const { data: farmerData } = useQuery(
+    ["getFarmerEdit", match.params.id],
+    () => match.params.id && getFarmerById(match.params.id)
+  );
+  // console.log(farmerData);
   useEffect(() => {
     if (match.params.id) {
-      getFarmerById(match.params.id)
-        .then((res) => {
-          // console.log(res);
-          farmerName.current.value = res?.name ?? null;
-          fatherName.current.value = res?.fatherName ?? null;
-          husbandName.current.value = res?.husbandName ?? null;
-          DOB.current.value = res?.DOB ?? null;
-          phoneNumber.current.value = res?.phoneNumber ?? null;
-          aadharNumber.current.value = res?.aadharNumber ?? null;
-          voterIdNumber.current.value = res?.voterIdNumber ?? null;
-          acre.current.value = res?.acre ?? null;
-          education.current.value = res?.education ?? null;
-          address.current.value = res?.address ?? null;
-          village.current.value = res?.village ?? null;
-          circle.current.value = res?.circle ?? null;
-          district.current.value = res?.district ?? null;
-          pincode.current.value = res?.pincode ?? null;
-          cropType.current.value = res?.cropType ?? null;
-          cattle.current.value = res?.cattle ?? null;
-          farmerGroup.current.value = res?.farmerGroup ?? null;
-          formValue.landType = res?.landType ?? null;
-          formValue.gender = res?.gender ?? null;
-          formValue.irrigationType = res?.irrigationType ?? null;
-          formValue.farmerType = res?.farmerType ?? null;
-          setFarmerGroupId(res?.farmerGroup ?? "");
-          let surveyArr = res.surveyNo.split(",");
-          let surveyList = {};
-          surveyArr.forEach((item) => {
-            let _id = uuid();
-            surveyList[_id] = {
-              id: _id,
-              value: item,
-            };
-          });
-          setFormValue((prev) => {
-            return {
-              ...prev,
-              surveyNoList: surveyList,
-            };
-          });
-        })
-        .catch((err) => customToast("error", err.message));
-    }
-  }, [match.params.id]);
-
-  useEffect(() => {
-    getFarmersGroup()
-      .then((res) => {
-        setFarmerGroups(res);
-      })
-      .catch((err) => {
-        console.log(err);
+      farmerName.current.value = farmerData?.name ?? null;
+      fatherName.current.value = farmerData?.fatherName ?? null;
+      husbandName.current.value = farmerData?.husbandName ?? null;
+      DOB.current.value = farmerData?.DOB ?? null;
+      phoneNumber.current.value = farmerData?.phoneNumber ?? null;
+      aadharNumber.current.value = farmerData?.aadharNumber ?? null;
+      voterIdNumber.current.value = farmerData?.voterIdNumber ?? null;
+      acre.current.value = farmerData?.acre ?? null;
+      education.current.value = farmerData?.education ?? null;
+      address.current.value = farmerData?.address ?? null;
+      village.current.value = farmerData?.village ?? null;
+      circle.current.value = farmerData?.circle ?? null;
+      district.current.value = farmerData?.district ?? null;
+      pincode.current.value = farmerData?.pincode ?? null;
+      cropType.current.value = farmerData?.cropType ?? null;
+      cattle.current.value = farmerData?.cattle ?? null;
+      farmerGroup.current.value = farmerData?.farmerGroup ?? null;
+      formValue.landType = farmerData?.landType ?? null;
+      formValue.gender = farmerData?.gender ?? null;
+      formValue.irrigationType = farmerData?.irrigationType ?? null;
+      formValue.farmerType = farmerData?.farmerType ?? null;
+      setFarmerGroupId(farmerData?.farmerGroup ?? "");
+      let tempArr = farmerData?.surveyNo ?? "";
+      let surveyArr = tempArr.split(",");
+      let surveyList = {};
+      surveyArr.forEach((item) => {
+        let _id = uuid();
+        surveyList[_id] = {
+          id: _id,
+          value: item,
+        };
       });
-  }, []);
-
+      setFormValue((prev) => {
+        return {
+          ...prev,
+          surveyNoList: surveyList,
+        };
+      });
+    }
+  }, [match.params.id, farmerData]);
+  const { data: farmerGroups } = useQuery("getFarmerGroups", () =>
+    getFarmersGroup()
+  );
   const _onProfilePicChange = (e) => {
     const file = e.target.files[0];
     setFarmerPhoto(file);
   };
-
   const handleSurveyChange = (surveyUuid, e) => {
     setFormValue({
       ...formValue,
@@ -166,7 +158,40 @@ const AddFarmerForm = (Props) => {
   const SurveyNoArray = Object.values(formValue.surveyNoList).map((item) => {
     return item.value;
   });
-
+  const farmerPicHandler = (data) => {
+    const success = () => {
+      customToast("success", "Form submitted successfully.");
+      history.goBack();
+    };
+    if (farmerPhoto) {
+      uploadFile({
+        ref: "farmer",
+        refId: data.id,
+        field: "userImg",
+        files: farmerPhoto,
+      })
+        .then((data) => {
+          setSurveyArr([]);
+          setFormValue(initialFormValue);
+          success();
+        })
+        .catch((_err) => {
+          console.log(_err);
+        });
+    } else {
+      setSurveyArr([]);
+      setFormValue(initialFormValue);
+      success();
+    }
+  };
+  const addFarmer = useMutation((data) => postFarmer(data), {
+    onSuccess: (data) => farmerPicHandler(data),
+    onError: (error) => console.log("error", error.message),
+  });
+  const editFarmer = useMutation((data) => putFarmer(data, match.params.id), {
+    onSuccess: (data) => farmerPicHandler(data),
+    onError: (error) => console.log("error", error.message),
+  });
   const postFarmerData = (e) => {
     e.preventDefault();
     const params = {
@@ -197,40 +222,15 @@ const AddFarmerForm = (Props) => {
       cropType: cropType.current.value,
       cattle: cattle.current.value,
     };
-    const Notification = {
-      notification : `New Farmer has been added to "${params.farmerGroup}" group`
-    };
+
     // console.log(params);
-    (match.params.id ? putFarmer(params, match.params.id) : postFarmer(params))
-      .then((res) => {
-        // console.log(res);
-        if (farmerPhoto) {
-          uploadFile({
-            ref: "farmer",
-            refId: res.id,
-            field: "userImg",
-            files: farmerPhoto,
-          })
-            .then((data) => {
-              setSurveyArr([]);
-              setFormValue(initialFormValue);
-              customToast("success", "Form submitted successfully.");
-              history.goBack();
-            })
-            .catch((_err) => {
-              console.log(_err);
-            });
-        } else {
-          setSurveyArr([]);
-          setFormValue(initialFormValue);
-          customToast("success", "Form submitted successfully.");
-          history.goBack();
-        }
-      })
-      .catch((err) => customToast("error", err.message));
-      
-      postNotification(Notification)
-      .catch((err) => customToast("error", err.message));
+    match.params.id ? editFarmer.mutate(params) : addFarmer.mutate(params);
+    const Notification = {
+      notification: `New Farmer has been added to "${params.farmerGroup}" group`,
+    };
+    postNotification(Notification).catch((err) =>
+      customToast("error", err.message)
+    );
   };
   return (
     <div className={classes.form}>
