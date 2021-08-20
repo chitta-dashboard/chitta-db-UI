@@ -21,6 +21,7 @@ import { colors } from "../../../theme";
 import { uuid } from "../../../constants";
 import { useForm } from "react-hook-form";
 import { UserLoginContext } from "../../context/UserLoginContext";
+import { FieldError } from "../Common/FieldError";
 
 const initialFormValue = {
   surveyNoList: {
@@ -63,7 +64,12 @@ const AddFarmerForm = (Props) => {
   const { match } = Props;
 
   // const dateOfBirth = farmerData.DOB?.split("/").join("-");
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
   useEffect(() => {
     if (match.params.id) {
       getFarmerById(match.params.id)
@@ -307,7 +313,6 @@ const AddFarmerForm = (Props) => {
 
   console.log(farmerGroupValue);
   console.log(makeAdmin);
-  console.log(loginType);
   return (
     <div className={classes.form}>
       <form onSubmit={handleSubmit((data) => postFarmerData(data))}>
@@ -337,6 +342,9 @@ const AddFarmerForm = (Props) => {
                 {...register("farmerName")}
                 autoComplete="off"
               />
+              {errors?.farmerName?.type === "required" && (
+                <FieldError>Required</FieldError>
+              )}
             </Grid>
             <Grid item xs={6}>
               <input
@@ -387,6 +395,9 @@ const AddFarmerForm = (Props) => {
                     );
                   })}
               </select>
+              {errors?.farmerGroup?.type === "required" && (
+                <FieldError>Required</FieldError>
+              )}
             </Grid>
           </Grid>
           <Grid className={classes.forminput_container} item xs={12}>
@@ -417,15 +428,32 @@ const AddFarmerForm = (Props) => {
                 autoComplete="off"
                 style={{ color: colors.text2 }}
               />
+              {errors?.DOB?.type === "required" && (
+                <FieldError>Required</FieldError>
+              )}
             </Grid>
             <Grid item xs={8}>
               <input
                 className="farmer-input"
                 type="number"
                 placeholder="கைபேசி எண்"
-                {...register("phoneNumber")}
+                // ref={phoneNumber}
+                {...register("phoneNumber", {
+                  required: true,
+                  maxLength: 10,
+                  minLength: 10,
+                })}
                 autoComplete="off"
               />
+              {errors?.phoneNumber?.type === "required" && (
+                <FieldError>Required</FieldError>
+              )}
+              {errors?.phoneNumber?.type === "maxLength" && (
+                <FieldError>Invalid Phone number</FieldError>
+              )}
+              {errors?.phoneNumber?.type === "minLength" && (
+                <FieldError>Invalid Phone number</FieldError>
+              )}
             </Grid>
           </Grid>
           <Grid className={classes.forminput_container} item xs={12}>
@@ -495,6 +523,9 @@ const AddFarmerForm = (Props) => {
                   பெண்
                 </option>
               </select>
+              {errors?.gender?.type === "required" && (
+                <FieldError>Required</FieldError>
+              )}
             </Grid>
             <Grid item xs={8}>
               <input
