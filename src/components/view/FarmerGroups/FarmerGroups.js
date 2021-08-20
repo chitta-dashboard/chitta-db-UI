@@ -20,7 +20,6 @@ import { useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
-import { Fetch } from "../../widgets/Fetch";
 
 const FarmerGroups = () => {
   const { loginType } = useContext(UserLoginContext);
@@ -29,11 +28,7 @@ const FarmerGroups = () => {
   const [searchValue, setSearchValue] = useState("");
   const [filteredList, setFilteredList] = useState([]);
 
-  const {
-    isLoading,isError,isFetching,
-    data: groups,
-    error,
-  } = useQuery("getGroups", () => getFarmersGroup());
+  const { isLoading,isError,data: groups, error } = useQuery("getGroups", () => getFarmersGroup());
 
   useEffect(() => {
     let filteredList = [];
@@ -90,9 +85,7 @@ const FarmerGroups = () => {
         <TableContainer className={classes.tab_container}>
           {isLoading ? (
               <Loader className={classes.no_data} />
-            ) : isFetching ? (
-              <Fetch className={classes.no_data} />
-            )  : isError ? (
+            ) : isError ? (
               <Error className={classes.no_data} error={error.message.toString()}/>
             ) : (
             <>

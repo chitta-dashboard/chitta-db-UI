@@ -144,7 +144,7 @@ const MdDetails = (props) => {
                   </TableBody>
                 </Table>
                 <div className={classes.no_data}>
-                  {!data.length && !isLoading && <NoRecordsFound />}
+                  {!data.length && <NoRecordsFound />}
                 </div>
               </>
             )}

@@ -3,7 +3,7 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import { customToast } from "../../widgets/Toast";
+// import { customToast } from "../../widgets/Toast";
 // import axios from "axios";
 import config, { getAdminUser } from "../../../constants/config";
 import Container from "@material-ui/core/Container";
@@ -16,6 +16,7 @@ import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
 import CustomButton  from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
+import { Error } from "../../widgets/Error";
 
 const ViewCeoDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -53,7 +54,8 @@ const ViewCeoDetails = (props) => {
             {isLoading ? (
               <Loader className={classes.no_data} />
             ) : isError ? (
-              customToast("error", error.message)
+              <Error className={classes.no_data} 
+                error={error.message.toString()}/>
             ) : (
               <>
                 <CardContent>

@@ -4,7 +4,6 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 // import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { customToast } from "../../widgets/Toast";
 import config, { getAdminUser } from "../../../constants/config";
 import Container from "@material-ui/core/Container";
 import tempImg from "../../../assets/images/male.svg";
@@ -16,6 +15,7 @@ import QRCode from "qrcode.react";
 import { useQuery } from "react-query";
 import CustomButton  from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
+import { Error } from "../../widgets/Error";
 
 const ViewMdDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -51,7 +51,8 @@ const ViewMdDetails = (props) => {
             {isLoading ? (
               <Loader className={classes.no_data} />
             ) : isError ? (
-              customToast("error", error.message)
+              <Error className={classes.no_data} 
+                error={error.message.toString()}/>
             ) : (
               <>
             <CardContent>
