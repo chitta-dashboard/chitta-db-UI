@@ -9,6 +9,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import DecisionToPdf from "../Decision/DecisionToPdf";
 import CustomButton from "../../widgets/CustomButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import { useQuery,useMutation } from "react-query";
 
 export default function ViewDecision(props) {
   const history = useHistory();
@@ -16,21 +17,31 @@ export default function ViewDecision(props) {
   const classes = useStyles();
   const [date, setDate] = useState("");
   const [decision, setDecision] = useState("");
-  useEffect(() => {
-    getDecisionById(match.params.id).then((res) => {
-      setDate(res.date.split("-").join("/"));
-      setDecision(res.decision);
-    });
-  }, []);
 
-  const DeleteHandler = (id) => {
-    deleteDecision(id)
-      .then(() => {
-        customToast("success", "Former Deleted successfully.");
+  const { data } = useQuery(
+    ["View Decision", match.params.id],
+    () => match.params.id && getDecisionById(match.params.id)
+  );
+
+  useEffect(() => {
+    if (match.params.id) {
+      setDate(data?.date.split("-").join("/"));
+      setDecision(data?.decision);
+    }
+  }, [match.params.id,data]);
+
+  const mutation = useMutation((data) => deleteDecision(data),
+    {
+      onSuccess: (data) => {
+        customToast("success", "Decision Deleted Successfully.");
         history.goBack();
-      })
-      .catch((err) => console.log(err));
-  };
+      },
+      onError: (error) => {
+        customToast("error", error.message);
+      },
+    }
+  )
+
   return (
     <div className={classes.farmerdetails_root}>
       <Grid container spacing={3} className={classes.Detailscard_container}>
@@ -51,27 +62,14 @@ export default function ViewDecision(props) {
           </Box>
           <Box className={classes.farmerdetails_boxcontainer}>
             <Box>
-              {/* <button
-                className={classes.decision_btn}
-                onClick={() => DeleteHandler(match.params.id)}
-              >
-                Delete
-              </button> */}
               <CustomButton
                 value="Delete"
                 className={classes.export_btn}
-                onClick={() => DeleteHandler(match.params.id)}
+                // onClick={() => DeleteHandler(match.params.id)}
+                onClick={() => mutation.mutate(match.params.id)}
               />
             </Box>
             <Box>
-              {/* <button
-                className={classes.decision_btn}
-                onClick={() =>
-                  props.history.push(`/editdecision/${match.params.id}`)
-                }
-              >
-                Edit
-              </button> */}
               <CustomButton
                 value="Edit"
                 className={classes.export_btn}

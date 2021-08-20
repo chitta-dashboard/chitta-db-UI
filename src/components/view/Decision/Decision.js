@@ -69,17 +69,12 @@ const Decision = (props) => {
           <Box className={classes.farmerdetails_boxcontainer}>
             <Box>
               <NavLink to="/addDecision" className={classes.addDetails_link}>
-                {/* <button className={classes.addDetails_btn}>
-                  <AddIcon />
-                  Add
-                </button> */}
                 <CustomButton
                   className={classes.addDetails_btn}
                   icon={<AddIcon />}
                   value="Add"
                 />
               </NavLink>
-              {/* <AddButton link={"/addDecision"} /> */}
             </Box>
           </Box>
         </Box>

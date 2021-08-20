@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { useStyles } from "../../../assets/styles";
@@ -32,6 +32,7 @@ export default function AddDecision(props) {
     ["Edit Decision", match.params.id],
     () => match.params.id && getDecisionById(match.params.id)
   );
+  
   const updateDecision = useMutation(
     (data) => putDecision(data, match.params.id),
     {
@@ -55,15 +56,10 @@ export default function AddDecision(props) {
   });
   useEffect(() => {
     if (match.params.id) {
-      getDecisionById(match.params.id)
-        .then((res) => {
-          console.log(res);
-          setValue("date", res?.date ?? null);
-          setValue("decision", res?.decision ?? null);
-        })
-        .catch((err) => console.log(err));
+        setValue("date", data?.date ?? null);
+        setValue("decision", data?.decision ?? null);
     }
-  }, [match.params.id, data]);
+  }, [match.params.id, data,setValue]);
 
   const formSubmission = (data) => {
     const params = {
