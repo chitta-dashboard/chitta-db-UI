@@ -470,6 +470,10 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: "2rem",
   },
 
+  requiredWarningText: {
+    color: "red",
+    margin: 0,
+  },
   addDetailbtn_container: {
     display: "flex",
     alignItems: "center",

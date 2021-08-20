@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Typography } from "@material-ui/core";
@@ -18,32 +18,37 @@ import axios from "axios";
 import config from "../../../constants/config";
 import { useMutation, useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
+import { FieldError } from "../Common/FieldError";
+import { useForm } from "react-hook-form";
 
 const AddMd = (Props) => {
   const classes = useStyles();
 
   const { match } = Props;
-  const mdName = useRef("");
-  const phoneNumber = useRef("");
-  const dob = useRef(null);
-  const qualification = useRef("");
   const [mdPhoto, setMdPhoto] = useState(null);
   const [mdSign, setSignPhoto] = useState(null);
   const history = useHistory();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
-
-  const { data } = useQuery(["editMd",match.params.id], () => 
-  match.params.id && getAdminUser(match.params.id));
+  const { data } = useQuery(
+    ["editMd", match.params.id],
+    () => match.params.id && getAdminUser(match.params.id)
+  );
 
   useEffect(() => {
     if (match.params.id) {
-      console.log(data);
-      mdName.current.value = data?.name ?? null;
-      phoneNumber.current.value = data?.phoneNumber ?? null;
-      qualification.current.value = data?.qualification ?? null;
-      dob.current.value = data?.DOB ?? null;
+      setValue("name", data?.name ?? null);
+      setValue("phoneNumber", data?.phoneNumber ?? null);
+      setValue("dob", data?.DOB ?? null);
+      setValue("qualification", data?.qualification ?? null);
     }
-  }, [data]);
+  }, [data, match.params.id, setValue]);
+
   const postMutation = useMutation((data) => postAdmin(data), {
     onSuccess: (data) => mdUploadHandler(data),
     onError: (err) => {
@@ -110,13 +115,12 @@ const AddMd = (Props) => {
     }
   };
 
-  const postMdData = (e) => {
-    e.preventDefault();
+  const postMdData = (data) => {
     const params = {
-      name: mdName.current.value,
-      phoneNumber: phoneNumber.current.value,
-      DOB: dob.current.value === "" ? null : dob.current.value,
-      qualification: qualification.current.value,
+      name: data.name,
+      phoneNumber: data.phoneNumber,
+      DOB: data.dob === "" ? null : data.dob,
+      qualification: data.qualification,
       adminType: "md",
     };
     match.params.id ? putMutation.mutate(params) : postMutation.mutate(params);
@@ -132,11 +136,16 @@ const AddMd = (Props) => {
 
   return (
     <div className={classes.form}>
-      <form>
+      <form
+        onSubmit={handleSubmit((data) => {
+          postMdData(data);
+        })}
+      >
         <Grid className={classes.form_container} container spacing={3}>
           <Grid className={classes.adddetails_header} item xs={12}>
             <Link to="/mddetails" style={{ textDecoration: "none" }}>
-              <CustomButton className={classes.addDetailbtn_container} 
+              <CustomButton
+                className={classes.addDetailbtn_container}
                 icon={<ChevronLeftIcon className={classes.iconbtn} />}
                 value={match.params.id ? "Edit MD Details" : "Add MD Details"}
               />
@@ -152,7 +161,7 @@ const AddMd = (Props) => {
                 className="farmer-input tamil"
                 type="text"
                 placeholder="பெயர்"
-                ref={mdName}
+                {...register("name")}
                 autoComplete="off"
               />
             </Grid>
@@ -161,9 +170,26 @@ const AddMd = (Props) => {
                 className="farmer-input tamil"
                 type="text"
                 placeholder="கைபேசி எண்"
-                ref={phoneNumber}
+                {...register("phoneNumber", {
+                  required: true,
+                  minLength: 10,
+                  maxLength: 10,
+                })}
                 autoComplete="off"
               />
+              {errors.phoneNumber?.type === "required" && (
+                <FieldError>required</FieldError>
+              )}
+              {errors.phoneNumber?.type === "maxLength" && (
+                <FieldError className={classes.requiredWarningText}>
+                  Invalide Phone Number
+                </FieldError>
+              )}
+              {errors.phoneNumber?.type === "minLength" && (
+                <FieldError className={classes.requiredWarningText}>
+                  Invalide Phone Number
+                </FieldError>
+              )}
             </Grid>
             <Grid className={classes.forminput_container} item xs={12}>
               <label>புகைப்படம்</label>
@@ -201,9 +227,12 @@ const AddMd = (Props) => {
                 type="date"
                 placeholder="பிறந்த தேதி"
                 autoComplete="off"
-                ref={dob}
+                {...register("dob", {
+                  required: true,
+                })}
                 style={{ color: colors.text2 }}
               />
+              {errors.dob && <FieldError>required</FieldError>}
             </Grid>
             <Grid item xs={8}>
               <input
@@ -211,7 +240,7 @@ const AddMd = (Props) => {
                 type="text"
                 placeholder="தகுதி"
                 autoComplete="off"
-                ref={qualification}
+                {...register("qualification")}
               />
             </Grid>
           </Grid>
@@ -219,7 +248,7 @@ const AddMd = (Props) => {
             <button
               type="submit"
               className={classes.submit_btn}
-              onClick={postMdData}
+              // onClick={postMdData}
             >
               SUBMIT
             </button>
