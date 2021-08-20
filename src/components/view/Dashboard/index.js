@@ -28,7 +28,6 @@ import moment from 'moment';
 import { useQuery } from "react-query";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
-import { Fetch } from "../../widgets/Fetch";
 
 const useStyles = makeStyles((theme) => ({
   dashboard_root: {
@@ -179,7 +178,7 @@ const Dashboard = () => {
   const [grpCheck, setGrpCheck] = useState("");
   // const [notification, setNotification] = useState([]);
 
-  const { isLoading,isError,isFetching, data:notification, error } = useQuery('notification',()=> getNotification());
+  const { isLoading,isError,data:notification, error } = useQuery('notification',()=> getNotification());
 
   useEffect(() => {
     getFarmersGroupCount().then((res) => setFarmersGroupCount(res));
@@ -369,9 +368,7 @@ const Dashboard = () => {
           <Card className={classes.dashboard_notificationCardContainer}>
           {isLoading ? (
               <Loader className={classes.no_data} />
-            ) : isFetching ? (
-              <Fetch className={classes.no_data} />
-            )  : isError ? (
+            ) : isError ? (
               <Error className={classes.no_data} error={error.message.toString()}/>
             ) : (<>
             <CardContent>
