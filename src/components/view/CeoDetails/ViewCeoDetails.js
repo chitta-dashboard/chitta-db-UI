@@ -24,7 +24,7 @@ const ViewCeoDetails = (props) => {
   const classes = useStyles();
   const { match, history } = props;
 
-  const { isLoading,isError,isFetching, data, error } = useQuery(["getCeo", match.params.id], () =>
+  const { isLoading,isError, data, error } = useQuery(["getCeo", match.params.id], () =>
     getAdminUser(match.params.id)
   );
 
@@ -54,8 +54,6 @@ const ViewCeoDetails = (props) => {
           <CardActionArea>
             {isLoading ? (
               <Loader className={classes.no_data} />
-            ) : isFetching ? (
-              <Fetch className={classes.no_data} />
             ) : isError ? (
               customToast("error", error.message)
             ) : (
