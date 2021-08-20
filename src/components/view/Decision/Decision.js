@@ -18,7 +18,6 @@ import CustomButton from "../../widgets/CustomButton";
 const Decision = (props) => {
   const classes = useStyles();
   const [decision, setDecision] = useState([]);
-  const [readMore, setReadMore] = useState(false);
   const customTheme = {
     yearColor: "#405b73",
     lineColor: "#d0cdc4",
@@ -39,7 +38,6 @@ const Decision = (props) => {
           var count = str.split(" ").length;
           if (count > 200) {
             value.decision = value.decision.slice(0, 300) + "  ....";
-            setReadMore(true);
           }
           return {
             date: value.date.split("-").join("/"),
@@ -51,14 +49,7 @@ const Decision = (props) => {
       })
       .catch((err) => console.log(err));
   }, []);
-  // decision.map((value) => {
-  //   console.log(value.decision);
-  //   let str = value.decision;
-  //   str = str.replace(/(^\s*)|(\s*$)/gi, "");
-  //   str = str.replace(/[ ]{2,}/gi, " ");
-  //   str = str.replace(/\n /, "\n");
-  //   console.log(str.split(" ").length);
-  // });
+  
   return (
     <div className={classes.farmerdetails_root}>
       <Grid container spacing={3} className={classes.Detailscard_container}>

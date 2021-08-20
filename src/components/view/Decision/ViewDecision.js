@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import clsx from "clsx";
 import { useEffect } from "react";
 import { useStyles } from "../../../assets/styles";
 import { Grid, Box } from "@material-ui/core";
@@ -88,11 +89,10 @@ export default function ViewDecision(props) {
               >
                 {({ loading }) => {
                   return (
-                    <CustomButton
-                      value="Download"
-                      className={classes.export_btn}
-                      disabled={loading}
-                    />
+                    <button
+                    className={clsx(
+                    classes.export_btn,
+                    loading ? classes.loading : "" )} > Download </button>
                   );
                 }}
               </PDFDownloadLink>
