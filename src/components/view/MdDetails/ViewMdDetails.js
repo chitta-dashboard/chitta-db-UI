@@ -1,12 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, {  useContext } from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 // import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { customToast } from "../../widgets/Toast";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
 import config, { getAdminUser } from "../../../constants/config";
 import Container from "@material-ui/core/Container";
 import tempImg from "../../../assets/images/male.svg";
@@ -17,33 +15,16 @@ import { UserLoginContext } from "../../context/UserLoginContext";
 import QRCode from "qrcode.react";
 import { useQuery } from "react-query";
 import CustomButton  from "../../widgets/CustomButton";
+import { Loader } from "../../widgets/Loader";
 
-const ViewMdDetails = (Props) => {
+const ViewMdDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
-  const { match } = Props;
-  const history = useHistory();
-  // const [adminData, setAdminData] = useState({});
+  const { match,history } = props;
 
-  // useEffect(() => {
-  //   if (match.params.id) {
-  //     axios
-  //       .get(`${config.app.APP_API_URL}/adminusers/${match.params.id}`)
-  //       .then((res) => {
-  //         if (res && res.status === 200) {
-  //           setAdminData(res.data);
-  //         }
-  //       })
-  //       .catch((err) => customToast("error", err.message));
-  //   }
-  // }, [match.params.id]);
-  let initialData = {};
-  const { data = initialData } = useQuery(["getMd", match.params.id], () =>
+  const { isLoading,isError, data, error } = useQuery(["getMd", match.params.id], () =>
     getAdminUser(match.params.id)
   );
-  const goBackAdmin = () => {
-    history.goBack();
-  };
   function addDefaultSrc(ev) {
     ev.target.src = tempImg;
   }
@@ -51,13 +32,6 @@ const ViewMdDetails = (Props) => {
     <>
       <div className={classes.admin_btncontainer}>
         <div style={{ textDecoration: "none" }}>
-          {/* <Button
-            onClick={goBackAdmin}
-            className={classes.addDetailbtn_container}
-          >
-            <ChevronLeftIcon className={classes.iconbtn} />
-            Back
-          </Button> */}
           <CustomButton className={classes.addDetailbtn_container} 
                 icon={<ChevronLeftIcon className={classes.iconbtn} />}
                 value="Back" onClick={() => history.goBack()}
@@ -74,6 +48,12 @@ const ViewMdDetails = (Props) => {
       <Container fixed className={classes.adminCardContainer}>
         <Card className={classes.adminCardRoot}>
           <CardActionArea>
+            {isLoading ? (
+              <Loader className={classes.no_data} />
+            ) : isError ? (
+              customToast("error", error.message)
+            ) : (
+              <>
             <CardContent>
               <img
                 src={Nerkathirlogo}
@@ -134,6 +114,8 @@ const ViewMdDetails = (Props) => {
                 </div>
               </div>
             </CardContent>
+              </>
+            )}
           </CardActionArea>
         </Card>
       </Container>

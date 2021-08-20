@@ -20,7 +20,6 @@ import { useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
-import { Fetch } from "../../widgets/Fetch";
 
 const CeoDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);

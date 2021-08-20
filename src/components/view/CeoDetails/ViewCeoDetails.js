@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext} from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { customToast } from "../../widgets/Toast";
-import { useHistory } from "react-router-dom";
 // import axios from "axios";
 import config, { getAdminUser } from "../../../constants/config";
 import Container from "@material-ui/core/Container";
@@ -17,7 +16,6 @@ import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
 import CustomButton  from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
-import { Fetch } from "../../widgets/Fetch";
 
 const ViewCeoDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
