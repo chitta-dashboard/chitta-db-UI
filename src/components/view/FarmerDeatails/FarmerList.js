@@ -30,6 +30,8 @@ import { UserLoginContext } from "../../context/UserLoginContext";
 import Cookies from "js-cookie";
 import { useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
+import { Loader } from "../../widgets/Loader";
+import { Error } from "../../widgets/Error";
 
 const FarmerList = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -47,97 +49,42 @@ const FarmerList = (props) => {
   const [farmersData, setFarmersData] = useState([]);
   const [pagedFarmer, setPagedFarmer] = useState([]);
   const [farmerListGrp, setFarmerListGrp] = useState([]);
-  const { isLoading, isError, isFetching } = useQuery("getFarmersList", () =>
-    getFarmerHandler()
-  );
-  // console.log(isLoading);
-  // console.log(isError);
-  // console.log(isFetching);
-  const getFarmerHandler = () => {
-    getFarmers()
-      .then((res) => {
-        if (Cookies.get("loginType") === "Farmer") {
-          getFarmerById(Cookies.get("userId")).then((data) => {
-            // console.log(data.farmerGroup);
-            // console.log(res);
-            const tempArr = res
-              .filter((value) => data.farmerGroup === value.farmerGroup)
-              .map((value) => {
-                return value;
-              });
-            setFarmersData(tempArr);
+
+  const {
+    data: initialFarmersData,
+    isLoading,
+    isError,
+    error,
+  } = useQuery("getFarmerddDataE", () => getFarmers());
+
+  useEffect(() => {
+    if (Cookies.get("loginType") === "Farmer") {
+      console.log(initialFarmersData);
+      getFarmerById(Cookies.get("userId")).then((data) => {
+        console.log(data);
+        const tempArr = initialFarmersData
+          ?.filter((value) => data.farmerGroup === value.farmerGroup)
+          .map((value) => {
+            return value;
           });
-        } else if (Cookies.get("loginType") === "Administrator") {
-          setFarmersData(res);
-          const tempArr = res.map((value) => {
-            return value?.farmerGroup ?? null;
-          });
-          let unique = [...new Set(tempArr)];
-          var filteredArr = unique.filter(function (el) {
-            return el != null;
-          });
-          const farmerGrpArr = filteredArr.map((value) => ({
-            value: value,
-            name: value,
-          }));
-          setFarmerGrp(farmerGrpArr);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
+        setFarmersData(tempArr);
       });
-  };
-  // useEffect(() => {
-  //   // let filter = {
-  //   //   farmerGroup: null,
-  //   //   start: page * rowsPerPage,
-  //   //   limit: rowsPerPage,
-  //   // };
-  //   getFarmers()
-  //     .then((res) => {
-  //       if (Cookies.get("loginType") === "Farmer") {
-  //         getFarmerById(Cookies.get("userId")).then((data) => {
-  //           // console.log(data.farmerGroup);
-  //           // console.log(res);
-  //           const tempArr = res
-  //             .filter((value) => data.farmerGroup === value.farmerGroup)
-  //             .map((value) => {
-  //               return value;
-  //             });
-  //           setFarmersData(tempArr);
-  //         });
-  //       } else if (Cookies.get("loginType") === "Administrator") {
-  //         setFarmersData(res);
-  //         const tempArr = res.map((value) => {
-  //           return value?.farmerGroup ?? null;
-  //         });
-  //         let unique = [...new Set(tempArr)];
-  //         var filteredArr = unique.filter(function (el) {
-  //           return el != null;
-  //         });
-  //         const farmerGrpArr = filteredArr.map((value) => ({
-  //           value: value,
-  //           name: value,
-  //         }));
-  //         setFarmerGrp(farmerGrpArr);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
-  useEffect(() => {});
-  // useEffect(() => {
-  //   getFarmersGroup()
-  //     .then((res) =>
-  //       res.map((data) => ({
-  //         name: data.groupName,
-  //         value: data.groupName,
-  //       }))
-  //     )
-  //     .then((res) => setFarmerGrp(res))
-  //     .catch((err) => console.log(err));
-  // }, []);
+    } else if (Cookies.get("loginType") === "Administrator") {
+      setFarmersData(initialFarmersData);
+      const tempArr = initialFarmersData?.map((value) => {
+        return value?.farmerGroup ?? null;
+      });
+      let unique = [...new Set(tempArr)];
+      var filteredArr = unique.filter(function (el) {
+        return el != null;
+      });
+      const farmerGrpArr = filteredArr?.map((value) => ({
+        value: value,
+        name: value,
+      }));
+      setFarmerGrp(farmerGrpArr);
+    }
+  }, [initialFarmersData]);
 
   useEffect(() => {
     let filteredList = [];
@@ -153,7 +100,7 @@ const FarmerList = (props) => {
     } else setFilteredList(filteredList);
   }, [searchValue, farmersData]);
 
-  const customisedData = farmersData.map((item) => {
+  const customisedData = farmersData?.map((item) => {
     return {
       ...item,
       DOB: item.DOB ? getFormattedDate(item.DOB) : "",
@@ -161,19 +108,12 @@ const FarmerList = (props) => {
   });
 
   useEffect(() => {
-    // if (loginType === "Farmer") {
-    //   const FormData = farmerTypeArray;
-    //   let newFarmersList =
-    //     FormData &&
-    //     FormData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
-    //   setPagedFarmer(newFarmersList);
-    // } else {
     const FormData = filteredList.length
       ? filteredList
       : !searchValue.length
       ? farmersData
       : [];
-    if (FormData.length > 0) {
+    if (FormData?.length > 0) {
       setDisableBtn(false);
     }
     let newFarmersList =
@@ -182,17 +122,6 @@ const FarmerList = (props) => {
     setPagedFarmer(newFarmersList);
     // }
   }, [page, rowsPerPage, farmerList, filteredList, farmersData, searchValue]);
-  // useEffect(() => {
-  //   const FormData = filteredList.length
-  //     ? filteredList
-  //     : !searchValue.length
-  //     ? farmersData
-  //     : [];
-  //   setFarmerList(FormData);
-  //   if (FormData.length > 0) {
-  //     setDisableBtn(false);
-  //   }
-  // }, [filteredList, farmersData, searchValue]);
 
   useEffect(() => {
     if (farmerGrpId !== "") {
@@ -200,7 +129,6 @@ const FarmerList = (props) => {
       let updated = farmerList.filter((item) => {
         return item.farmerGroup === farmerGrpId;
       });
-      // console.log(updated);
       setFarmerList(updated);
       setCloseIcon(true);
     } else {
@@ -245,7 +173,6 @@ const FarmerList = (props) => {
               placeholder="Select a group"
               onChange={setFarmerGrpId}
               value={farmerGrpId}
-              // printOptions="always"
             />
           )}
           {closeIcon ? (
@@ -279,10 +206,6 @@ const FarmerList = (props) => {
           {loginType === "Administrator" && (
             <Box>
               <NavLink to="/addfarmer" className={classes.addDetails_link}>
-                {/* <button className={classes.addDetails_btn}>
-                  <AddIcon />
-                  Add
-                </button> */}
                 <CustomButton
                   className={classes.addDetails_btn}
                   icon={<AddIcon />}
@@ -311,7 +234,15 @@ const FarmerList = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {pagedFarmer &&
+            {isLoading ? (
+              <Loader className={classes.no_data} />
+            ) : isError ? (
+              <Error
+                className={classes.no_data}
+                error={error.message.toString()}
+              />
+            ) : (
+              pagedFarmer &&
               pagedFarmer.map((farmer) => {
                 return (
                   <TableRow
@@ -344,7 +275,6 @@ const FarmerList = (props) => {
                       {farmer.name}
                     </TableCell>
                     <TableCell className={classes.tab_cell}>
-                      {/* {farmer?.farmer_group?.groupName} */}
                       {farmer?.farmerGroup}
                     </TableCell>
                     <TableCell className={classes.tab_cell}>
@@ -361,10 +291,10 @@ const FarmerList = (props) => {
                     </TableCell>
                   </TableRow>
                 );
-              })}
+              })
+            )}
           </TableBody>
           <TableFooter className={classes.t_Footer}>
-            {/* <TableRow> */}
             <TablePagination
               rowsPerPageOptions={[15, 30, 100, { label: "All", value: -1 }]}
               colSpan={3}
@@ -378,13 +308,11 @@ const FarmerList = (props) => {
               style={{ borderBottom: "none" }}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
-              // ActionsComponent={TablePaginationActions}
             />
-            {/* </TableRow> */}
           </TableFooter>
         </Table>
         <div className={classes.no_data}>
-          {!pagedFarmer?.length && <NoRecordsFound />}
+          {!pagedFarmer?.length && !isLoading && <NoRecordsFound />}
         </div>
       </TableContainer>
     </>
