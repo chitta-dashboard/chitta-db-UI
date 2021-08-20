@@ -71,14 +71,14 @@ const FarmerList = (props) => {
       });
     } else if (Cookies.get("loginType") === "Administrator") {
       setFarmersData(initialFarmersData);
-      const tempArr = initialFarmersData.map((value) => {
+      const tempArr = initialFarmersData?.map((value) => {
         return value?.farmerGroup ?? null;
       });
       let unique = [...new Set(tempArr)];
       var filteredArr = unique.filter(function (el) {
         return el != null;
       });
-      const farmerGrpArr = filteredArr.map((value) => ({
+      const farmerGrpArr = filteredArr?.map((value) => ({
         value: value,
         name: value,
       }));
