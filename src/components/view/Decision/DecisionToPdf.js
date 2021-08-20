@@ -7,21 +7,24 @@ Font.register({
   family: "BalooThambi",
   src: font,
   fontStyle: "normal",
-  fontWeight: "normal",
 });
 
 const styles = StyleSheet.create({
   page: {
     backgroundColor: "#fff",
+    fontSize: 12,
     fontFamily: "BalooThambi",
   },
   section: {
-    margin: 10,
+    margin: 40,
     padding: 10,
     flexGrow: 1,
     display: "flex",
-    alignItems: "center",
     color: "black",
+  },
+  bold_text: {
+    fontSize: 14,
+    textDecoration: "underline",
   },
 });
 
@@ -31,8 +34,12 @@ export default function DecisionToPdf(props) {
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.section}>
-          <Text>தேதி : {getDate}</Text>
-          <Text>தீர்மானம் : {getDecision}</Text>
+          <Text>
+            <Text style={styles.bold_text}>தேதி : </Text>
+          </Text>
+          <Text>
+            <Text style={styles.bold_text}>தீர்மானம் :</Text>
+          </Text>
         </View>
       </Page>
     </Document>
