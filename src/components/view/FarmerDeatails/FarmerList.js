@@ -216,7 +216,10 @@ const FarmerList = (props) => {
           )}
         </Box>
       </Box>
-      <TableContainer className={classes.tab_container}>
+      <TableContainer
+        className={classes.tab_container}
+        style={{ borderRadius: "15px 15px 0 0", height: "67vh" }}
+      >
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow style={{ borderRadius: "20px" }}>
@@ -294,27 +297,37 @@ const FarmerList = (props) => {
               })
             )}
           </TableBody>
-          <TableFooter className={classes.t_Footer}>
-            <TablePagination
-              rowsPerPageOptions={[15, 30, 100, { label: "All", value: -1 }]}
-              colSpan={3}
-              count={farmerList?.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: { "aria-label": "rows per page" },
-                native: true,
-              }}
-              style={{ borderBottom: "none" }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          </TableFooter>
+          <TableFooter className={classes.t_Footer}></TableFooter>
         </Table>
         <div className={classes.no_data}>
           {!pagedFarmer?.length && !isLoading && <NoRecordsFound />}
         </div>
       </TableContainer>
+      <div
+        style={{
+          background: "#fff",
+          margin: "0  1.5rem",
+          width: "100%",
+          borderRadius: "0 0 15px 15px ",
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
+        <TablePagination
+          rowsPerPageOptions={[15, 30, 100, { label: "All", value: -1 }]}
+          colSpan={3}
+          count={farmerList?.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          SelectProps={{
+            inputProps: { "aria-label": "rows per page" },
+            native: true,
+          }}
+          style={{ borderBottom: "none" }}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </div>
     </>
   );
 };

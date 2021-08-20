@@ -33,7 +33,6 @@ const FarmerDeatilForm = (Props) => {
   const {
     data = initialObj,
     isLoading,
-    isFetching,
     isError,
     error,
   } = useQuery(
@@ -199,7 +198,7 @@ const FarmerDeatilForm = (Props) => {
           </div>
         </div>
         <hr className={classes.user_border} />
-        {!isLoading || !isFetching ? (
+        {!isLoading ? (
           <div className={classes.user_formcontent}>
             {FarmerDetailsList.map((user) => {
               return (
