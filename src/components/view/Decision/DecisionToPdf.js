@@ -1,5 +1,12 @@
 import React from "react";
-import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+import {
+  Page,
+  Text,
+  View,
+  Image,
+  Document,
+  StyleSheet,
+} from "@react-pdf/renderer";
 import { Font } from "@react-pdf/renderer";
 import font from "../../../assets/fonts/Baloo_Thambi_2/BalooThambi2-Regular.ttf";
 
@@ -36,9 +43,10 @@ export default function DecisionToPdf(props) {
         <View style={styles.section}>
           <Text>
             <Text style={styles.bold_text}>தேதி : </Text>
+            {getDate}
           </Text>
           <Text>
-            <Text style={styles.bold_text}>தீர்மானம் :</Text>
+            <Text style={styles.bold_text}>தீர்மானம் :</Text> {getDecision}
           </Text>
         </View>
       </Page>
