@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import { customToast } from "../../widgets/Toast";
@@ -14,8 +13,6 @@ import {
 import { useHistory } from "react-router";
 import { colors } from "../../../theme";
 import { uploadFile } from "../../../constants/config";
-import config from "../../../constants/config";
-import axios from "axios";
 import { useQuery, useMutation } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { useForm } from "react-hook-form";

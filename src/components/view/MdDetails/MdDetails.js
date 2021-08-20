@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -20,12 +20,10 @@ import { useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
-import { Fetch } from "../../widgets/Fetch";
 
 const MdDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
-  const [mdDetails, setMdDetails] = useState([]);
 
   function addDefaultSrc(ev) {
     ev.target.src = tempImg;
@@ -33,27 +31,8 @@ const MdDetails = (props) => {
   let filter = {
     type: "md",
   };
-  let initialArr = [];
-  const {
-    isFetching,
-    isLoading,
-    data = initialArr,
-    isError,
-    error,
-  } = useQuery("Md", () => getAdmin(filter));
+  const { isLoading, data ,isError, error } = useQuery("Md", () => getAdmin(filter));
 
-  // useEffect(() => {
-  //   let filter = {
-  //     type: "md",
-  //   };
-  //   getAdmin(filter)
-  //     .then((res) => {
-  //       setMdDetails(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
   function addDefaultSign(ev) {
     ev.target.src = tempSign;
   }
@@ -78,8 +57,6 @@ const MdDetails = (props) => {
           <TableContainer className={classes.tab_container}>
             {isLoading ? (
               <Loader className={classes.no_data} />
-            ) : isFetching ? (
-              <Fetch className={classes.no_data} />
             ) : isError ? (
               <Error
                 className={classes.no_data}
@@ -167,7 +144,7 @@ const MdDetails = (props) => {
                   </TableBody>
                 </Table>
                 <div className={classes.no_data}>
-                  {!data.length && !isLoading && <NoRecordsFound />}
+                  {!data.length && <NoRecordsFound />}
                 </div>
               </>
             )}

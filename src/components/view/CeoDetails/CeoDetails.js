@@ -20,7 +20,6 @@ import { useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
-import { Fetch } from "../../widgets/Fetch";
 
 const CeoDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -31,8 +30,7 @@ const CeoDetails = (props) => {
   };
 
   const {
-    isLoading,isError,isFetching,
-    data: ceoList,
+    isLoading,isError,data: ceoList,
     error,
   } = useQuery("ceo", () => getAdmin(filter));
   // console.log("data",ceoList)
@@ -71,9 +69,7 @@ const CeoDetails = (props) => {
           <TableContainer className={classes.tab_container}>
             {isLoading ? (
               <Loader className={classes.no_data} />
-            ) : isFetching ? (
-              <Fetch className={classes.no_data} />
-            )  : isError ? (
+            ) : isError ? (
               <Error className={classes.no_data} error={error.message.toString()}/>
             ) : (
               <>
