@@ -32,7 +32,7 @@ export default function AddDecision(props) {
     ["Edit Decision", match.params.id],
     () => match.params.id && getDecisionById(match.params.id)
   );
-  
+
   const updateDecision = useMutation(
     (data) => putDecision(data, match.params.id),
     {
@@ -56,10 +56,10 @@ export default function AddDecision(props) {
   });
   useEffect(() => {
     if (match.params.id) {
-        setValue("date", data?.date ?? null);
-        setValue("decision", data?.decision ?? null);
+      setValue("date", data?.date ?? null);
+      setValue("decision", data?.decision ?? null);
     }
-  }, [match.params.id, data,setValue]);
+  }, [match.params.id, data]);
 
   const formSubmission = (data) => {
     const params = {

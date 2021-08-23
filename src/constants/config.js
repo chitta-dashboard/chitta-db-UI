@@ -111,7 +111,7 @@ export const getDecisionById = (Id) => {
   return httpClient.get(`decisions/${Id}`);
 };
 
-export const putDecision = (Id, params) => {
+export const putDecision = (params, Id) => {
   return httpClient.put(`decisions/${Id}`, params);
 };
 
