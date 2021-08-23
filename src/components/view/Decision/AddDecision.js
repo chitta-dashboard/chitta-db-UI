@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { useStyles } from "../../../assets/styles";
@@ -6,6 +6,8 @@ import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import {
+  getFarmers,
+  getAdmin,
   getDecisionById,
   postDecisions,
   putDecision,
@@ -14,8 +16,11 @@ import { customToast } from "../../widgets/Toast";
 import { useQuery, useMutation } from "react-query";
 import { useForm } from "react-hook-form";
 import { FieldError } from "../Common/FieldError";
+import SelectSearch, { fuzzySearch } from "react-select-search";
 
 export default function AddDecision(props) {
+  // const [ceoList, setCeoList] = useState([]);
+  // const [farmerList, setFarmerList] = useState([]);
   const { match } = props;
   const history = useHistory();
   // const dateRef = useRef("");
@@ -32,7 +37,37 @@ export default function AddDecision(props) {
     ["Edit Decision", match.params.id],
     () => match.params.id && getDecisionById(match.params.id)
   );
+  const { data: ceoList } = useQuery("getCeoSearch", () =>
+    getAdmin().then((res) =>
+      res.map((data) => ({
+        name: data?.name,
+        value: data?.id,
+      }))
+    )
+  );
+  const { data: farmerList } = useQuery("getFarmerSearch", () =>
+    getFarmers().then((res) =>
+      res.map((data) => ({
+        name: data?.name,
+        value: data?.id,
+      }))
+    )
+  );
 
+  // useEffect(() => {
+  //   const ceoLists = ceo?.map((data) => ({
+  //     name: data?.name,
+  //     value: data?.id,
+  //   }));
+  //   setCeoList(ceoLists);
+  // }, [ceo]);
+  // useEffect(() => {
+  //   const farmerList = farmer?.map((data) => ({
+  //     name: data?.name,
+  //     value: data?.id,
+  //   }));
+  //   setFarmerList(farmerList);
+  // }, [farmer]);
   const updateDecision = useMutation(
     (data) => putDecision(data, match.params.id),
     {
@@ -59,7 +94,7 @@ export default function AddDecision(props) {
       setValue("date", data?.date ?? null);
       setValue("decision", data?.decision ?? null);
     }
-  }, [match.params.id, data]);
+  }, [data]);
 
   const formSubmission = (data) => {
     const params = {
@@ -70,7 +105,6 @@ export default function AddDecision(props) {
       ? updateDecision.mutate(params)
       : addDecision.mutate(params);
   };
-
   return (
     <div className={classes.form}>
       <form
@@ -110,6 +144,7 @@ export default function AddDecision(props) {
                 <FieldError>Required</FieldError>
               )}
             </Grid>
+
             <Grid className={classes.forminput_container} item xs={12}>
               <textarea
                 className="farmer-input tamil"
@@ -126,6 +161,28 @@ export default function AddDecision(props) {
               {errors?.decision?.type === "required" && (
                 <FieldError>Required</FieldError>
               )}
+            </Grid>
+            <Grid item xs={6}>
+              <SelectSearch
+                className="farmer_input"
+                placeholder="தொகுப்பாளர்"
+                options={ceoList}
+                multiple
+                search
+                printOptions="on-focus"
+                filterOptions={fuzzySearch}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <SelectSearch
+                className="farmer_input"
+                placeholder="பங்கேற்பாளர்கள்"
+                options={farmerList}
+                search
+                filterOptions={fuzzySearch}
+                printOptions="on-focus"
+                multiple
+              />
             </Grid>
             <Grid className={classes.forminput_container_btn} container>
               <button type="submit" className={classes.submit_btn}>

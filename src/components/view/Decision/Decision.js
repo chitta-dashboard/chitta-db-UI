@@ -79,7 +79,7 @@ const Decision = (props) => {
           <Timeline theme={customTheme} dateFormat="ll">
             {decision.map((value) => {
               return (
-                <Container func={console.log()}>
+                <Container key={value.id}>
                   <YearContent startDate={value.date} />
                   <BodyContent>
                     <Section>
