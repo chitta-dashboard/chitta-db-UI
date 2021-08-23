@@ -162,7 +162,7 @@ export default function AddDecision(props) {
                 <FieldError>Required</FieldError>
               )}
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} style={{ zIndex: "5" }}>
               <SelectSearch
                 className="farmer_input"
                 placeholder="தொகுப்பாளர்"
@@ -173,7 +173,7 @@ export default function AddDecision(props) {
                 filterOptions={fuzzySearch}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} style={{ zIndex: "5" }}>
               <SelectSearch
                 className="farmer_input"
                 placeholder="பங்கேற்பாளர்கள்"
