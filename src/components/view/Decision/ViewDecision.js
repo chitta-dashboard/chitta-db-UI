@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import { useEffect } from "react";
 import { useStyles } from "../../../assets/styles";
-import { Grid, Box } from "@material-ui/core";
+import { Grid, Box, Table, TableHead } from "@material-ui/core";
 import { deleteDecision, getDecisionById } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router-dom";
@@ -10,7 +10,10 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import DecisionToPdf from "../Decision/DecisionToPdf";
 import CustomButton from "../../widgets/CustomButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { useQuery,useMutation } from "react-query";
+import { useQuery, useMutation } from "react-query";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
 
 export default function ViewDecision(props) {
   const history = useHistory();
@@ -29,19 +32,17 @@ export default function ViewDecision(props) {
       setDate(data?.date.split("-").join("/"));
       setDecision(data?.decision);
     }
-  }, [match.params.id,data]);
+  }, [match.params.id, data]);
 
-  const mutation = useMutation((data) => deleteDecision(data),
-    {
-      onSuccess: (data) => {
-        customToast("success", "Decision Deleted Successfully.");
-        history.goBack();
-      },
-      onError: (error) => {
-        customToast("error", error.message);
-      },
-    }
-  )
+  const mutation = useMutation((data) => deleteDecision(data), {
+    onSuccess: (data) => {
+      customToast("success", "Decision Deleted Successfully.");
+      history.goBack();
+    },
+    onError: (error) => {
+      customToast("error", error.message);
+    },
+  });
 
   return (
     <div className={classes.farmerdetails_root}>
@@ -90,9 +91,14 @@ export default function ViewDecision(props) {
                 {({ loading }) => {
                   return (
                     <button
-                    className={clsx(
-                    classes.export_btn,
-                    loading ? classes.loading : "" )} > Download </button>
+                      className={clsx(
+                        classes.export_btn,
+                        loading ? classes.loading : ""
+                      )}
+                    >
+                      {" "}
+                      Download{" "}
+                    </button>
                   );
                 }}
               </PDFDownloadLink>
@@ -109,6 +115,32 @@ export default function ViewDecision(props) {
               {decision}
             </p>
           </div>
+          <h3>தொகுப்பாளர் : </h3>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow className={classes.decision_tabHead}>
+                  <TableCell className={classes.decision_tab}>பெயர்</TableCell>
+                  <TableCell className={classes.decision_tab}>
+                    கையொப்பம்
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+            </Table>
+          </TableContainer>
+          <h3>பங்கேற்பாளர்கள் : </h3>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow className={classes.decision_tabHead}>
+                  <TableCell className={classes.decision_tab}>பெயர்</TableCell>
+                  <TableCell className={classes.decision_tab}>
+                    கையொப்பம்
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+            </Table>
+          </TableContainer>
         </div>
       </Grid>
     </div>

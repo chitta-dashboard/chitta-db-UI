@@ -796,6 +796,14 @@ export const useStyles = makeStyles((theme) => ({
   decision_btncontainer: {
     display: "flex",
   },
+  decision_tabHead: {
+    display: "flex",
+    justifyContent: "space-around",
+  },
+  decision_tab: {
+    background: "#fff",
+    borderBottom: "0",
+  },
   footer: {
     minHeight: "2rem",
     color: "#5A776E",
