@@ -4,6 +4,8 @@ import AddIcon from "@material-ui/icons/Add";
 import { Grid, Box } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import clsx from "clsx";
+import DecisionToPdf from "./DecisionToPdf";
 // import { useHistory } from "react-router";
 import {
   Timeline,
@@ -15,6 +17,7 @@ import {
 } from "vertical-timeline-component-react";
 import { getDecisions } from "../../../constants/config";
 import CustomButton from "../../widgets/CustomButton";
+import { useQuery } from "react-query";
 
 const Decision = (props) => {
   const classes = useStyles();
@@ -28,6 +31,8 @@ const Decision = (props) => {
     subtitleColor: "#bf9765",
     textColor: "#262626",
   };
+  const { data } = useQuery("getDecisions", () => getDecisions());
+  console.log(data);
   useEffect(() => {
     getDecisions()
       .then((res) => {
@@ -87,6 +92,30 @@ const Decision = (props) => {
                             props.history.push(`decision/${value.id}`)
                           }
                         />
+                        <PDFDownloadLink
+                          document={
+                            <DecisionToPdf
+                              getDecision={value.decision}
+                              getDate={value.date}
+                            />
+                          }
+                          fileName={`${value.date}_decision.pdf`}
+                          style={{ textDecoration: "none" }}
+                        >
+                          {({ loading }) => {
+                            return (
+                              <button
+                                className={clsx(
+                                  classes.export_btn,
+                                  loading ? classes.loading : ""
+                                )}
+                              >
+                                {" "}
+                                Download{" "}
+                              </button>
+                            );
+                          }}
+                        </PDFDownloadLink>
                       </div>
                     </Section>
                   </BodyContent>

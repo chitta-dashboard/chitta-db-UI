@@ -11,6 +11,7 @@ import { Font } from "@react-pdf/renderer";
 import config from "../../../constants/config";
 import { FarmerDetailsList, getFormattedDate } from "../../../constants";
 import font from "../../../assets/fonts/Baloo_Thambi_2/BalooThambi2-Regular.ttf";
+import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
 
 //Register styles
 Font.register({
@@ -94,12 +95,20 @@ const styles = StyleSheet.create({
     width: "50%",
     marginLeft: "5rem",
   },
+  watermark: {
+    opacity: 0.15,
+    position: "absolute",
+    top: "100rem",
+    width: "50%",
+    height: "45%",
+    margin: "0rem 8.5rem",
+  },
 });
 
 // Create Document Component
 const FarmerDetailsToPdf = (props) => {
   const { getFarmerData, farmerData } = props;
-
+  const d = new Date();
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -126,15 +135,21 @@ const FarmerDetailsToPdf = (props) => {
             நிர்வாக அலுவலகம்:எண்.6, காந்திரோடு, கள்ளக்குறிச்சி - 606202
           </Text>
           <View style={styles.formnumbercontainer}>
-            <Text style={styles.formnumber}>விண்ணப்ப எண் :12343</Text>
+            <Text style={styles.formnumber}>விண்ணப்ப எண் :NER-FPC-12343</Text>
             <Text style={styles.date}>
-              நாள்{" "}
-              {farmerData.created_at
+              நாள் :{`${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`}
+              {/* {farmerData.created_at
                 ? getFormattedDate(farmerData.created_at)
-                : ":"}{" "}
+                : ":"}{" "} */}
             </Text>
           </View>
           <Text style={styles.hr}>hellllo</Text>
+          <Image
+            src={Nerkathirlogo}
+            alt=""
+            cache
+            style={styles.watermark}
+          ></Image>
           {FarmerDetailsList.map((user) => {
             return (
               <View style={styles.formdatacontainer} key={user.id}>

@@ -21,6 +21,7 @@ import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { Error } from "../../widgets/Error";
+import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
 
 const FarmerDeatilForm = (Props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -41,20 +42,7 @@ const FarmerDeatilForm = (Props) => {
   );
 
   console.log(data);
-  // useEffect(() => {
-  //   if (match.params.id) {
-  //     axios
-  //       .get(`${config.app.APP_API_URL}/farmers/${match.params.id}`)
-  //       .then((res) => {
-  //         if (res && res.status === 200) {
-  //           setFarmerData(res.data);
-  //           setLoader(false);
-  //         }
-  //       })
-  //       .catch((err) => customToast("error", err.message));
-  //   }
-  // }, [match.params.id]);
-
+  const d = new Date();
   const getFarmerData = (type) => {
     switch (type) {
       case "gender":
@@ -80,10 +68,9 @@ const FarmerDeatilForm = (Props) => {
       history.goBack();
     });
   };
-
   return (
     <>
-      <div>
+      <div className={classes.farmerDetail_root}>
         <div className={classes.user_btncontainer}>
           <div>
             {/* <BackButton history={history} /> */}
@@ -152,6 +139,13 @@ const FarmerDeatilForm = (Props) => {
           </div>
         </div>
         <div className={classes.userdetail_container}>
+          {!isLoading && (
+            <img
+              src={Nerkathirlogo}
+              alt="Nerkathir logo"
+              className={classes.farmerDetailWatermark}
+            />
+          )}
           <div className={classes.user_header}>
             <div className={classes.user_title}>
               <h1 className={classes.main_title}>
@@ -180,9 +174,6 @@ const FarmerDeatilForm = (Props) => {
             </div>
           </div>
           <div className={classes.user_subheader}>
-            {/* <p className={classes.user_subheadermain}>
-            ஊர் பெயர் <span>: கோவை </span>
-          </p> */}
             <p className={classes.user_subheadersubmain}>
               ஒருங்கிணைப்பாளர்:மஹிமா பசுமை அறக்கட்டளை, எண்.66/c, கிழக்கு தெரு,
               கச்சிராயப்பாளையம் - 606207
@@ -192,14 +183,15 @@ const FarmerDeatilForm = (Props) => {
             </p>
             <div className={classes.formnum_container}>
               <p className={classes.formnum_text}>
-                விண்ணப்ப எண் <span>: 12343</span>
+                விண்ணப்ப எண் <span>: NER-FPC-12343</span>
               </p>
               <p className={classes.formnum_text}>
                 நாள் :{" "}
                 <span>
-                  {data.published_at
-                    ? `${getFormattedDate(data.published_at)}`
-                    : "00/0/0000"}
+                  {`${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`}
+                  {/* {data.published_at
+                    ? `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`
+                    : "00/0/0000"} */}
                 </span>
               </p>
             </div>

@@ -573,14 +573,16 @@ export const useStyles = makeStyles((theme) => ({
   userdetail_container: {
     backgroundColor: colors.bg1,
     color: colors.text2,
-    height: "842px",
+    // height: "842px",
     paddingTop: "2rem",
     padding: 30,
     borderRadius: "10px",
     boxShadow: "1px 1px 7px 0px #3333334a",
     margin: "0 20px",
   },
-
+  farmerDetail_root: {
+    height: "135vh",
+  },
   user_btncontainer: {
     // display: "flex",
     display: "grid",
@@ -591,7 +593,14 @@ export const useStyles = makeStyles((theme) => ({
     // marginTop: "1rem",
     margin: "1rem 2rem",
   },
-
+  farmerDetailWatermark: {
+    opacity: 0.15,
+    position: "absolute",
+    top: "15rem",
+    width: "35%",
+    height: "50%",
+    margin: "0rem 8.5rem",
+  },
   export_btn: {
     height: "2rem",
     width: "5rem",
