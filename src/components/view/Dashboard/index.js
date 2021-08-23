@@ -24,7 +24,7 @@ import {
   getFarmersGroupCount,
   getNotification,
 } from "../../../constants/config";
-import moment from 'moment';
+import moment from "moment";
 import { useQuery } from "react-query";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
@@ -32,7 +32,8 @@ import { Error } from "../../widgets/Error";
 const useStyles = makeStyles((theme) => ({
   dashboard_root: {
     flexGrow: 1,
-    overflow:"scroll"
+    overflow: "scroll",
+    height: "94vh",
   },
   dashboard_header: {
     height: "10vh",
@@ -52,8 +53,9 @@ const useStyles = makeStyles((theme) => ({
   dashboard_AdminBtn: {
     color: "white",
     background: "#36574C",
-    fontSize: "0.8rem",
+    fontSize: "0.5rem",
     textTransform: "none",
+    padding: "0.2rem",
     "&:hover": {
       color: "#464E5F",
       background: "085c49",
@@ -118,26 +120,22 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   dashboard_NotificationContainer: {},
-  graphBarHeader: {
-    display: "flex",
-    float: "right",
-    margin: "0.7rem",
-  },
-  graphBarHeading: {
-    margin: "0rem 0.6rem",
-    fontSize: "0.8rem",
-  },
+
   dashboard_summaryGraphContainer: {
-    maxHeight: "50vh",
-    minHeight: "50vh",
+    // maxHeight: "50vh",
+    // minHeight: "46vh",
+    height: "46vh",
     marginRight: "1rem",
     borderRadius: "10px",
+    boxShadow: "none",
   },
   dashboard_notificationCardContainer: {
-    maxHeight: "50vh",
-    minHeight: "50vh",
+    // maxHeight: "50vh",
+    // minHeight: "46vh",
+    height: "46vh",
     borderRadius: "10px",
     overflow: "scroll",
+    boxShadow: "none",
   },
   dashboard_notificationSubCard: {
     display: "grid",
@@ -178,7 +176,12 @@ const Dashboard = () => {
   const [grpCheck, setGrpCheck] = useState("");
   // const [notification, setNotification] = useState([]);
 
-  const { isLoading,isError,data:notification, error } = useQuery('notification',()=> getNotification());
+  const {
+    isLoading,
+    isError,
+    data: notification,
+    error,
+  } = useQuery("notification", () => getNotification());
 
   useEffect(() => {
     getFarmersGroupCount().then((res) => setFarmersGroupCount(res));
@@ -208,7 +211,6 @@ const Dashboard = () => {
         .catch((err) => console.log(err));
     }
   }, []);
-
 
   const series = React.useMemo(
     () => ({
@@ -284,9 +286,11 @@ const Dashboard = () => {
             An Overview of all your activities
           </Typography>
         </Grid>
-        <Grid item xs={6} className={classes.dashboard_AdminBtnContainer}>
-          <Button className={classes.dashboard_AdminBtn}>{loginType}</Button>
-        </Grid>
+        <Grid
+          item
+          xs={6}
+          className={classes.dashboard_AdminBtnContainer}
+        ></Grid>
       </Grid>
 
       {alertIsopen && (
@@ -311,7 +315,12 @@ const Dashboard = () => {
             alt="wavinghand Logo"
           />
           <div>
-            <Typography>HI,{userName}</Typography>
+            <Typography>
+              HI,{userName}{" "}
+              <Button className={classes.dashboard_AdminBtn}>
+                {loginType}
+              </Button>
+            </Typography>
             <Typography>Here's Your current stats</Typography>
           </div>
         </Grid>
@@ -346,15 +355,6 @@ const Dashboard = () => {
             Summary
           </Typography>
           <Card className={classes.dashboard_summaryGraphContainer}>
-            <div className={classes.graphBarHeader}>
-              <Typography className={classes.graphBarHeading}>
-                Organization
-              </Typography>
-              <Typography className={classes.graphBarHeading}>
-                Certificate
-              </Typography>
-              <Typography className={classes.graphBarHeading}>Award</Typography>
-            </div>
             <CardContent className={classes.dashboard_graphSubContainer}>
               <Chart data={data} series={series} axes={axes} tooltip />
             </CardContent>
@@ -366,26 +366,34 @@ const Dashboard = () => {
             Notification
           </Typography>
           <Card className={classes.dashboard_notificationCardContainer}>
-          {isLoading ? (
+            {isLoading ? (
               <Loader className={classes.no_data} />
             ) : isError ? (
-              <Error className={classes.no_data} error={error.message.toString()}/>
-            ) : (<>
-            <CardContent>
-              {notification.map((data) => {
-                return (
-                  <Box className={classes.dashboard_notificationSubCard}>
-                    <Typography variant="p">*</Typography>
-                    <Typography variant="p" spacing="2">{data.notification}</Typography>
-                    <Typography variant="p"></Typography>
-                    <Typography variant="p">{moment(data.updatedAt).format('DD.MM.YYYY')}</Typography>
-                  </Box>
-                );
-              })}
-              {!notification.length && <NoRecordsFound />}
-            </CardContent>
-            </>
-          )}
+              <Error
+                className={classes.no_data}
+                error={error.message.toString()}
+              />
+            ) : (
+              <>
+                <CardContent>
+                  {notification.map((data) => {
+                    return (
+                      <Box className={classes.dashboard_notificationSubCard}>
+                        <Typography variant="p">*</Typography>
+                        <Typography variant="p" spacing="2">
+                          {data.notification}
+                        </Typography>
+                        <Typography variant="p"></Typography>
+                        <Typography variant="p">
+                          {moment(data.updatedAt).format("DD.MM.YYYY")}
+                        </Typography>
+                      </Box>
+                    );
+                  })}
+                  {!notification.length && <NoRecordsFound />}
+                </CardContent>
+              </>
+            )}
           </Card>
         </Grid>
       </Grid>
