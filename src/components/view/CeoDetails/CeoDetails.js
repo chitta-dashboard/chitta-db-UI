@@ -30,7 +30,9 @@ const CeoDetails = (props) => {
   };
 
   const {
-    isLoading,isError,data: ceoList,
+    isLoading,
+    isError,
+    data: ceoList,
     error,
   } = useQuery("ceo", () => getAdmin(filter));
   // console.log("data",ceoList)
@@ -59,9 +61,12 @@ const CeoDetails = (props) => {
                       <AddIcon />
                       Add
                     </button> */}
-                    <CustomButton className={classes.addDetails_btn} icon={ <AddIcon />} value="Add" />
+                    <CustomButton
+                      className={classes.addDetails_btn}
+                      icon={<AddIcon />}
+                      value="Add"
+                    />
                   </NavLink>
-                  
                 </Box>
               )}
             </Box>
@@ -70,7 +75,10 @@ const CeoDetails = (props) => {
             {isLoading ? (
               <Loader className={classes.no_data} />
             ) : isError ? (
-              <Error className={classes.no_data} error={error.message.toString()}/>
+              <Error
+                className={classes.no_data}
+                error={error.message.toString()}
+              />
             ) : (
               <>
                 <Table stickyHeader aria-label="sticky table">
@@ -90,9 +98,6 @@ const CeoDetails = (props) => {
                       </TableCell>
                       <TableCell className={classes.tab_headercell}>
                         தகுதி
-                      </TableCell>
-                      <TableCell className={classes.tab_headercell}>
-                        கையொப்பம்
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -131,21 +136,6 @@ const CeoDetails = (props) => {
                           </TableCell>
                           <TableCell className={classes.tab_cell}>
                             {data.qualification ? data.qualification : ""}
-                          </TableCell>
-                          <TableCell
-                            padding="none"
-                            className={classes.icontab_cell}
-                          >
-                            <img
-                              alt=""
-                              src={
-                                data?.signature
-                                  ? `${config.app.APP_API_URL}${data.signature.url}`
-                                  : tempSign
-                              }
-                              onError={addDefaultSign}
-                              className={classes.tab_user_signature}
-                            />
                           </TableCell>
                         </TableRow>
                       );

@@ -321,18 +321,20 @@ const Dashboard = () => {
                 {loginType}
               </Button>
             </Typography>
-            <Typography>Here's Your current stats</Typography>
+            <Typography className={classes.dashboard_name}>
+              Here's Your current stats
+            </Typography>
           </div>
         </Grid>
         <Grid item xs={2} className={classes.dashboard_nameContainer}>
-          <Typography>Farmer Group Count</Typography>
+          <Typography>Group Count</Typography>
           <Typography>{farmersGroupCount}</Typography>
         </Grid>
         <Grid item xs={2} className={classes.dashboard_nameContainer}>
           <Typography>
             {loginType === "Administrator"
-              ? "Number of Farmers"
-              : "Number of Farmers in your group"}
+              ? "Farmers Count"
+              : "Farmers Count in your group"}
           </Typography>
           <Typography>{farmerCount}</Typography>
         </Grid>

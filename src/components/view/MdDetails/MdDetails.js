@@ -31,7 +31,9 @@ const MdDetails = (props) => {
   let filter = {
     type: "md",
   };
-  const { isLoading, data ,isError, error } = useQuery("Md", () => getAdmin(filter));
+  const { isLoading, data, isError, error } = useQuery("Md", () =>
+    getAdmin(filter)
+  );
 
   function addDefaultSign(ev) {
     ev.target.src = tempSign;
@@ -48,7 +50,11 @@ const MdDetails = (props) => {
               {loginType === "Administrator" && (
                 <Box>
                   <NavLink to="/addmd" className={classes.addDetails_link}>
-                      <CustomButton className={classes.addDetails_btn} icon={ <AddIcon />} value="Add" />
+                    <CustomButton
+                      className={classes.addDetails_btn}
+                      icon={<AddIcon />}
+                      value="Add"
+                    />
                   </NavLink>
                 </Box>
               )}
@@ -81,9 +87,6 @@ const MdDetails = (props) => {
                       </TableCell>
                       <TableCell className={classes.tab_headercell}>
                         தகுதி
-                      </TableCell>
-                      <TableCell className={classes.tab_headercell}>
-                        கையொப்பம்
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -122,21 +125,6 @@ const MdDetails = (props) => {
                           </TableCell>
                           <TableCell className={classes.tab_cell}>
                             {data.qualification ? data.qualification : ""}
-                          </TableCell>
-                          <TableCell
-                            padding="none"
-                            className={classes.icontab_cell}
-                          >
-                            <img
-                              alt=""
-                              src={
-                                data?.signature
-                                  ? `${config.app.APP_API_URL}${data.signature.url}`
-                                  : tempSign
-                              }
-                              onError={addDefaultSign}
-                              className={classes.tab_user_signature}
-                            />
                           </TableCell>
                         </TableRow>
                       );
