@@ -3,6 +3,7 @@ import { useStyles } from "../../../assets/styles";
 import AddIcon from "@material-ui/icons/Add";
 import { Grid, Box } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 // import { useHistory } from "react-router";
 import {
   Timeline,
@@ -36,8 +37,8 @@ const Decision = (props) => {
           str = str.replace(/[ ]{2,}/gi, " ");
           str = str.replace(/\n /, "\n");
           var count = str.split(" ").length;
-          if (count > 200) {
-            value.decision = value.decision.slice(0, 300) + "  ....";
+          if (count > 100) {
+            value.decision = value.decision.slice(0, 100) + "  ....";
           }
           return {
             date: value.date.split("-").join("/"),
@@ -49,7 +50,7 @@ const Decision = (props) => {
       })
       .catch((err) => console.log(err));
   }, []);
-  
+
   return (
     <div className={classes.farmerdetails_root}>
       <Grid container spacing={3} className={classes.Detailscard_container}>

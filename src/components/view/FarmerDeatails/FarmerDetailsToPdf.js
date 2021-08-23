@@ -106,7 +106,7 @@ const FarmerDetailsToPdf = (props) => {
         <View style={styles.section}>
           <Text style={styles.Title}>உழவர் உற்பத்தியாளர் நிறுவனம்</Text>
           <Text style={styles.Nabard}>நபார்டு</Text>
-          <Text style={styles.district}>விழுப்புரம் மாவட்டம்</Text>
+          <Text style={styles.district}>கள்ளக்குறிச்சி மாவட்டம்</Text>
           <Text style={styles.formtitle}>உறுப்பினர் விண்ணப்பம்</Text>
           <Image
             src={
@@ -118,7 +118,6 @@ const FarmerDetailsToPdf = (props) => {
             cache
             style={styles.profileimg}
           ></Image>
-          <Text style={styles.formsubtitle}>ஊர் பெயர் : கோவை </Text>
           <Text style={styles.address}>
             ஒருங்கிணைப்பாளர்:மஹிமா பசுமை அறக்கட்டளை, எண்.66/c, கிழக்கு தெரு,
             கச்சிராயப்பாளையம் - 606207

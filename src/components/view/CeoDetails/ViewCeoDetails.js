@@ -1,4 +1,4 @@
-import React, { useContext} from "react";
+import React, { useContext } from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
@@ -14,7 +14,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import QRCode from "qrcode.react";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
-import CustomButton  from "../../widgets/CustomButton";
+import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
 
@@ -23,8 +23,9 @@ const ViewCeoDetails = (props) => {
   const classes = useStyles();
   const { match, history } = props;
 
-  const { isLoading,isError, data, error } = useQuery(["getCeo", match.params.id], () =>
-    getAdminUser(match.params.id)
+  const { isLoading, isError, data, error } = useQuery(
+    ["getCeo", match.params.id],
+    () => getAdminUser(match.params.id)
   );
 
   function addDefaultSrc(ev) {
@@ -34,15 +35,18 @@ const ViewCeoDetails = (props) => {
     <>
       <div className={classes.admin_btncontainer}>
         <div style={{ textDecoration: "none" }}>
-
-          <CustomButton className={classes.addDetailbtn_container} 
-                icon={<ChevronLeftIcon className={classes.iconbtn} />}
-                value="Back" onClick={() => history.goBack()}
-            />
+          <CustomButton
+            className={classes.addDetailbtn_container}
+            icon={<ChevronLeftIcon className={classes.iconbtn} />}
+            value="Back"
+            onClick={() => history.goBack()}
+          />
         </div>
         {loginType === "Administrator" && (
           <div className={classes.btnContainer_custom}>
-            <CustomButton value="Edit" className={classes.export_btn}
+            <CustomButton
+              value="Edit"
+              className={classes.export_btn}
               onClick={() => history.push(`/editCeo/${match.params.id}`)}
             />
           </div>
@@ -54,8 +58,10 @@ const ViewCeoDetails = (props) => {
             {isLoading ? (
               <Loader className={classes.no_data} />
             ) : isError ? (
-              <Error className={classes.no_data} 
-                error={error.message.toString()}/>
+              <Error
+                className={classes.no_data}
+                error={error.message.toString()}
+              />
             ) : (
               <>
                 <CardContent>
@@ -115,7 +121,7 @@ const ViewCeoDetails = (props) => {
                           null,
                           2
                         )}
-                        className={classes.adminCardImage}
+                        className={classes.adminCardQr}
                       />
                     </div>
                   </div>

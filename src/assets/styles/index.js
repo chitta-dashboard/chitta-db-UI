@@ -787,29 +787,6 @@ export const useStyles = makeStyles((theme) => ({
   decision_btncontainer: {
     display: "flex",
   },
-  decision_btn: {
-    margin: "0.1rem 0.4rem",
-    color: "#fff",
-    border: "none",
-    cursor: "pointer",
-    height: "2rem",
-    display: "flex",
-    opacity: "0.8",
-    alignItems: "center",
-    fontWeight: "600",
-    borderRadius: "5px",
-    justifyContent: "space-evenly",
-    backgroundColor: "#085c49",
-    "&:hover": {
-      background: "#f2f4f4",
-      border: "1px solid #085c49",
-      color: "#085c49",
-      outline: "0",
-    },
-    "&:focus": {
-      outline: "0",
-    },
-  },
   footer: {
     minHeight: "2rem",
     color: "#5A776E",
@@ -856,10 +833,16 @@ export const useStyles = makeStyles((theme) => ({
     placeContent: "start",
   },
   adminCardRoot: {
-    maxWidth: "500px",
+    width: "500px",
     margin: "0px 20px",
   },
   adminCardImage: {
+    width: "100px",
+    height: "111px",
+    paddingBottom: "0.7rem",
+    borderRadius: "50px",
+  },
+  adminCardQr: {
     width: "100px",
     height: "111px",
     paddingBottom: "0.7rem",
