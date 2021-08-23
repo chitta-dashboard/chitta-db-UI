@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
@@ -15,11 +15,13 @@ import config, {
   putFarmer,
   uploadFile,
   postNotification,
+  getFarmers,
 } from "../../../constants/config";
 import { colors } from "../../../theme";
 import { uuid } from "../../../constants";
 import { useMutation, useQuery } from "react-query";
 import { useForm } from "react-hook-form";
+import { UserLoginContext } from "../../context/UserLoginContext";
 import { FieldError } from "../Common/FieldError";
 
 const initialFormValue = {
@@ -57,7 +59,11 @@ const AddFarmerForm = (Props) => {
   const [farmerGroupId, setFarmerGroupId] = useState();
   // const [farmerData, setFarmerData] = useState({});
   const [surveyArr, setSurveyArr] = useState([]);
+  const [makeAdmin, setMakeAdmin] = useState(false);
+  const [farmerGroupValue, setFarmerGroupValue] = useState();
+  const { loginType } = useContext(UserLoginContext);
   const { match } = Props;
+
   // const dateOfBirth = farmerData.DOB?.split("/").join("-");
   const { data: farmerData } = useQuery(
     ["getFarmerEdit", match.params.id],
@@ -117,6 +123,29 @@ const AddFarmerForm = (Props) => {
   const { data: farmerGroups } = useQuery("getFarmerGroups", () =>
     getFarmersGroup()
   );
+  //     .then((res) => {
+  //       setFarmerGroups(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
+
+  useEffect(() => {
+    getFarmers()
+      .then((res) =>
+        res.filter((data) => {
+          return data.farmerGroup === farmerGroupValue;
+        })
+      )
+      .then((data) =>
+        data.some((data) => {
+          return data.isGroupAdmin === true;
+        })
+      )
+      .then((data) => setMakeAdmin(data));
+  }, [farmerGroupValue]);
+
   const _onProfilePicChange = (e) => {
     const file = e.target.files[0];
     setFarmerPhoto(file);
@@ -204,13 +233,13 @@ const AddFarmerForm = (Props) => {
   });
 
   const postFarmerData = (data) => {
-    console.log(data);
+    console.log(data.isGroupAdmin);
     // e.preventDefault();
     const params = {
       name: data.farmerName,
       fatherName: data.fatherName,
       husbandName: data.husbandName,
-      farmerGroup: data.farmerGroup,
+      farmerGroup: farmerGroupValue,
       DOB: data.DOB !== "" ? data.DOB : null,
       phoneNumber: data.phoneNumber,
       aadharNumber: data.aadharNumber,
@@ -232,6 +261,7 @@ const AddFarmerForm = (Props) => {
       farmerType: data.farmerType,
       cropType: data.cropType,
       cattle: data.cattle,
+      isGroupAdmin: !makeAdmin && data.groupAdmin === "true" ? true : false,
     };
 
     // console.log(params);
@@ -243,6 +273,9 @@ const AddFarmerForm = (Props) => {
       customToast("error", err.message)
     );
   };
+
+  console.log(farmerGroupValue);
+  console.log(makeAdmin);
   return (
     <div className={classes.form}>
       <form onSubmit={handleSubmit((data) => postFarmerData(data))}>
@@ -269,10 +302,7 @@ const AddFarmerForm = (Props) => {
                 className="farmer-input tamil"
                 type="text"
                 placeholder="பெயர்"
-                // ref={farmerName}
-                {...register("farmerName", {
-                  required: true,
-                })}
+                {...register("farmerName")}
                 autoComplete="off"
               />
               {errors?.farmerName?.type === "required" && (
@@ -284,7 +314,6 @@ const AddFarmerForm = (Props) => {
                 className="farmer-input tamil"
                 type="text"
                 placeholder="தந்தையின் பெயர்"
-                // ref={fatherName}
                 {...register("fatherName")}
                 autoComplete="off"
               />
@@ -300,7 +329,6 @@ const AddFarmerForm = (Props) => {
                 className="farmer-input tamil"
                 type="text"
                 placeholder="கணவரின் பெயர்"
-                // ref={husbandName}
                 {...register("husbandName")}
                 autoComplete="off"
               />
@@ -311,10 +339,7 @@ const AddFarmerForm = (Props) => {
                 id="குழு"
                 className="farmer-input"
                 style={{ color: "#111B2B" }}
-                // ref={farmerGroup}
-                {...register("farmerGroup", {
-                  required: true,
-                })}
+                onChange={(e) => setFarmerGroupValue(e.target.value)}
               >
                 <option selected value="" disabled hidden>
                   குழு
@@ -362,13 +387,9 @@ const AddFarmerForm = (Props) => {
                 className="farmer-input"
                 type="date"
                 placeholder="பிறந்த தேதி"
-                // ref={DOB}
-                {...register("DOB", {
-                  required: true,
-                })}
+                {...register("DOB")}
                 autoComplete="off"
                 style={{ color: colors.text2 }}
-                // defaultValue={dateOfBirth}
               />
               {errors?.DOB?.type === "required" && (
                 <FieldError>Required</FieldError>
@@ -403,7 +424,6 @@ const AddFarmerForm = (Props) => {
               className="farmer-input"
               type="text"
               placeholder="ஆதார் எண்"
-              // ref={aadharNumber}
               {...register("aadharNumber")}
               autoComplete="off"
             />
@@ -414,7 +434,6 @@ const AddFarmerForm = (Props) => {
               type="text"
               placeholder="வாக்காளர் அடையாள எண்"
               autoComplete="off"
-              // ref={voterIdNumber}
               {...register("voterIdNumber")}
             />
           </Grid>
@@ -443,7 +462,6 @@ const AddFarmerForm = (Props) => {
               className="farmer-input"
               type="number"
               placeholder="சென்ட் "
-              // ref={acre}
               {...register("acre")}
               autoComplete="off"
             />
@@ -459,13 +477,7 @@ const AddFarmerForm = (Props) => {
                 id="பாலினம்"
                 className="farmer-input"
                 style={{ color: "#111B2B" }}
-                // value={formValue.gender}
-                {...register("gender", {
-                  required: true,
-                })}
-                // onChange={(e) =>
-                //   setFormValue({ ...formValue, gender: e.target.value })
-                // }
+                {...register("gender")}
               >
                 <option value="male" className={classes.drpdown}>
                   ஆண்
@@ -485,7 +497,6 @@ const AddFarmerForm = (Props) => {
                 className="farmer-input"
                 type="text"
                 autoComplete="off"
-                // ref={education}
                 {...register("education")}
               />
             </Grid>
@@ -498,7 +509,6 @@ const AddFarmerForm = (Props) => {
               cols="50"
               type="text"
               autoComplete="off"
-              // ref={address}
               {...register("address")}
               style={{ padding: "15px", height: "auto" }}
             />
@@ -514,7 +524,6 @@ const AddFarmerForm = (Props) => {
                 className="farmer-input tamil"
                 type="text"
                 autoComplete="off"
-                // ref={village}
                 {...register("village")}
               />
             </Grid>
@@ -523,7 +532,6 @@ const AddFarmerForm = (Props) => {
                 className="farmer-input tamil"
                 type="text"
                 autoComplete="off"
-                // ref={circle}
                 {...register("circle")}
                 placeholder="வட்டம்"
               />
@@ -539,7 +547,6 @@ const AddFarmerForm = (Props) => {
                 className="farmer-input tamil"
                 type="text"
                 autoComplete="off"
-                // ref={district}
                 {...register("district")}
                 placeholder="மாவடஂடமஂ"
               />
@@ -550,7 +557,6 @@ const AddFarmerForm = (Props) => {
                 className="farmer-input"
                 type="number"
                 placeholder="பினஂகோடு"
-                // ref={pincode}
                 {...register("pincode")}
                 autoComplete="off"
               />
@@ -561,11 +567,7 @@ const AddFarmerForm = (Props) => {
                 id="நில வகை"
                 className="farmer-input"
                 style={{ color: "#111B2B" }}
-                // value={formValue.landType}
                 {...register("landType")}
-                // onChange={(e) =>
-                //   setFormValue({ ...formValue, landType: e.target.value })
-                // }
               >
                 <option value="" disabled selected hidden>
                   நில வகை
@@ -590,11 +592,7 @@ const AddFarmerForm = (Props) => {
                 id="நீர்ப்பாசன வகை"
                 className="farmer-input"
                 style={{ color: "#111B2B" }}
-                // value={formValue.irrigationType}
                 {...register("irrigationType")}
-                // onChange={(e) =>
-                //   setFormValue({ ...formValue, irrigationType: e.target.value })
-                // }
               >
                 <option value="" disabled selected hidden>
                   நீர்ப்பாசன வகை
@@ -616,11 +614,7 @@ const AddFarmerForm = (Props) => {
                 id="விவசாயி வகை"
                 className="farmer-input"
                 style={{ color: "#111B2B" }}
-                // value={formValue.farmerType}
                 {...register("farmerType")}
-                // onChange={(e) =>
-                //   setFormValue({ ...formValue, farmerType: e.target.value })
-                // }
               >
                 <option value="" disabled selected hidden>
                   விவசாயி வகை
@@ -638,7 +632,6 @@ const AddFarmerForm = (Props) => {
                 className="farmer-input tamil"
                 type="text"
                 autoComplete="off"
-                // ref={cropType}
                 {...register("cropType")}
                 placeholder="
                 பயிர் வகை"
@@ -648,19 +641,35 @@ const AddFarmerForm = (Props) => {
               <input
                 className="farmer-input tamil"
                 type="number"
-                // ref={cattle}
                 {...register("cattle")}
                 autoComplete="off"
                 placeholder="கால்நடைகள்"
               />
             </Grid>
+            {loginType === "Administrator" && !makeAdmin && (
+              <Grid item xs={12}>
+                <select
+                  name="குழு நிர்வாகி"
+                  id="குழு நிர்வாகி"
+                  className="farmer-input"
+                  style={{ color: "#111B2B" }}
+                  {...register("groupAdmin")}
+                >
+                  <option value="" disabled selected hidden>
+                    குழு நிர்வாகி
+                  </option>
+                  <option value="true" className={classes.drpdown}>
+                    ஆம்
+                  </option>
+                  <option value="false" className={classes.drpdown}>
+                    இல்லை
+                  </option>
+                </select>
+              </Grid>
+            )}
           </Grid>
           <Grid className={classes.forminput_container_btn} container>
-            <button
-              type="submit"
-              className={classes.submit_btn}
-              // onClick={postFarmerData}
-            >
+            <button type="submit" className={classes.submit_btn}>
               SUBMIT
             </button>
           </Grid>
