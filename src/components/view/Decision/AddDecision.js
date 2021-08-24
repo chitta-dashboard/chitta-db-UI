@@ -16,13 +16,15 @@ import { customToast } from "../../widgets/Toast";
 import { useQuery, useMutation } from "react-query";
 import { useForm } from "react-hook-form";
 import { FieldError } from "../Common/FieldError";
-import SelectSearch, { fuzzySearch } from "react-select-search";
+import Multiselect from "multiselect-react-dropdown";
 
 export default function AddDecision(props) {
   // const [ceoList, setCeoList] = useState([]);
   // const [farmerList, setFarmerList] = useState([]);
   const { match } = props;
   const history = useHistory();
+  const [host, setHost] = useState();
+  const [participant, setParticipant] = useState();
   // const dateRef = useRef("");
   // const decisionRef = useRef("");
   const classes = useStyles();
@@ -105,6 +107,7 @@ export default function AddDecision(props) {
       ? updateDecision.mutate(params)
       : addDecision.mutate(params);
   };
+
   return (
     <div className={classes.form}>
       <form
@@ -163,25 +166,19 @@ export default function AddDecision(props) {
               )}
             </Grid>
             <Grid item xs={6} style={{ zIndex: "5" }}>
-              <SelectSearch
+              <Multiselect
                 className="farmer_input"
-                placeholder="தொகுப்பாளர்"
                 options={ceoList}
-                multiple
-                search
-                printOptions="on-focus"
-                filterOptions={fuzzySearch}
+                displayValue="name"
+                onSelect={setHost}
               />
             </Grid>
             <Grid item xs={6} style={{ zIndex: "5" }}>
-              <SelectSearch
+              <Multiselect
                 className="farmer_input"
-                placeholder="பங்கேற்பாளர்கள்"
                 options={farmerList}
-                search
-                filterOptions={fuzzySearch}
-                printOptions="on-focus"
-                multiple
+                displayValue="name"
+                onSelect={setParticipant}
               />
             </Grid>
             <Grid className={classes.forminput_container_btn} container>
