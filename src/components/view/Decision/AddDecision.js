@@ -127,7 +127,7 @@ export default function AddDecision(props) {
                 style={{ textDecoration: "none" }}
               >
                 <ChevronLeftIcon className={classes.iconbtn} />
-                Add Decision
+               {match.params.id?"Edit":"Add"} Decision
               </Typography>
             </Link>
           </Grid>
@@ -175,7 +175,6 @@ export default function AddDecision(props) {
                 displayValue="name"
                 onSelect={setHost}
                 placeholder="தொகுப்பாளர் "
-                selectedValues={ceoList}
               />
             </Grid>
             <Grid item xs={6} style={{ zIndex: "5" }}>
