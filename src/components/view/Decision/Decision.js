@@ -32,11 +32,12 @@ const Decision = (props) => {
     textColor: "#262626",
   };
   const { data } = useQuery("getDecisions", () => getDecisions());
-  console.log(data);
+  // console.log(data);
   useEffect(() => {
     getDecisions()
       .then((res) => {
         const tempArr = res.map((value) => {
+          const pdfDecision = value.decision;
           let str = value.decision;
           str = str.replace(/(^\s*)|(\s*$)/gi, "");
           str = str.replace(/[ ]{2,}/gi, " ");
@@ -49,6 +50,7 @@ const Decision = (props) => {
             date: value.date.split("-").join("/"),
             decision: value.decision,
             id: value.id,
+            pdfDecision: pdfDecision,
           };
         });
         setDecision(tempArr);
@@ -95,7 +97,7 @@ const Decision = (props) => {
                         <PDFDownloadLink
                           document={
                             <DecisionToPdf
-                              getDecision={value.decision}
+                              getDecision={value.pdfDecision}
                               getDate={value.date}
                             />
                           }
