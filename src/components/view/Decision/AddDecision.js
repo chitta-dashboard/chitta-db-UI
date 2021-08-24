@@ -43,7 +43,7 @@ export default function AddDecision(props) {
     getAdmin().then((res) =>
       res.map((data) => ({
         name: data?.name,
-        value: data?.id,
+        _id: data?.id,
       }))
     )
   );
@@ -51,7 +51,7 @@ export default function AddDecision(props) {
     getFarmers().then((res) =>
       res.map((data) => ({
         name: data?.name,
-        value: data?.id,
+        _id: data?.id,
       }))
     )
   );
@@ -102,7 +102,10 @@ export default function AddDecision(props) {
     const params = {
       date: data.date,
       decision: data.decision,
+      hosts:host,
+      participants:participant,
     };
+    console.log("params",params.hosts)
     match.params.id
       ? updateDecision.mutate(params)
       : addDecision.mutate(params);
@@ -172,6 +175,7 @@ export default function AddDecision(props) {
                 displayValue="name"
                 onSelect={setHost}
                 placeholder="தொகுப்பாளர் "
+                selectedValues={ceoList}
               />
             </Grid>
             <Grid item xs={6} style={{ zIndex: "5" }}>
