@@ -139,13 +139,13 @@ const FarmerDeatilForm = (Props) => {
           </div>
         </div>
         <div className={classes.userdetail_container}>
-          {!isLoading && (
+          {/* {!isLoading && (
             <img
               src={Nerkathirlogo}
               alt="Nerkathir logo"
               className={classes.farmerDetailWatermark}
             />
-          )}
+          )} */}
           <div className={classes.user_header}>
             <div className={classes.user_title}>
               <h1 className={classes.main_title}>
@@ -198,7 +198,14 @@ const FarmerDeatilForm = (Props) => {
           </div>
           <hr className={classes.user_border} />
           {!isLoading ? (
-            <div className={classes.user_formcontent}>
+            <div className={classes.user_formcontent}>  
+            <div className={classes.farmerDetailWatermark}>
+            <img
+              src={Nerkathirlogo}
+              alt="Nerkathir logo"
+              className={classes.farmerDetailWatermark_img}
+            />
+            </div>
               {FarmerDetailsList.map((user) => {
                 return (
                   <div key={user.id} className={classes.contentrow_container}>

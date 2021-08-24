@@ -593,14 +593,21 @@ export const useStyles = makeStyles((theme) => ({
     // marginTop: "1rem",
     margin: "1rem 2rem",
   },
+
   farmerDetailWatermark: {
+    position: "absolute",
+    width: "100%",
+    height: "70vh",
+    display: "grid",
+    placeItems: "center",
+  },
+    farmerDetailWatermark_img: {
     opacity: 0.15,
     position: "absolute",
-    top: "15rem",
-    width: "35%",
-    height: "50%",
-    margin: "0rem 8.5rem",
+    // width: "30%",
+    height: "60%",
   },
+
   export_btn: {
     height: "2rem",
     width: "5rem",
@@ -885,7 +892,6 @@ export const useStyles = makeStyles((theme) => ({
   watermark: {
     opacity: 0.2,
     position: "absolute",
-    width: "40%",
     height: "70%",
     margin: "1rem 8rem",
   },

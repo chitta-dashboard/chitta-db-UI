@@ -98,10 +98,10 @@ const styles = StyleSheet.create({
   watermark: {
     opacity: 0.15,
     position: "absolute",
-    top: "100rem",
-    width: "50%",
-    height: "45%",
-    margin: "0rem 8.5rem",
+    height: "50%",
+    width: "30%",
+    position: "absolute",
+    right: 0,
   },
 });
 
@@ -149,7 +149,7 @@ const FarmerDetailsToPdf = (props) => {
             alt=""
             cache
             style={styles.watermark}
-          ></Image>
+          />
           {FarmerDetailsList.map((user) => {
             return (
               <View style={styles.formdatacontainer} key={user.id}>
