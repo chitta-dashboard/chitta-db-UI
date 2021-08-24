@@ -94,7 +94,7 @@ const Decision = (props) => {
                             props.history.push(`decision/${value.id}`)
                           }
                         />
-                        <PDFDownloadLink
+                        {/* <PDFDownloadLink
                           document={
                             <DecisionToPdf
                               getDecision={value.pdfDecision}
@@ -117,7 +117,7 @@ const Decision = (props) => {
                               </button>
                             );
                           }}
-                        </PDFDownloadLink>
+                        </PDFDownloadLink> */}
                       </div>
                     </Section>
                   </BodyContent>
