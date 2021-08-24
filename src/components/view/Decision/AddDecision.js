@@ -171,6 +171,7 @@ export default function AddDecision(props) {
                 options={ceoList}
                 displayValue="name"
                 onSelect={setHost}
+                placeholder="தொகுப்பாளர் "
               />
             </Grid>
             <Grid item xs={6} style={{ zIndex: "5" }}>
@@ -179,6 +180,7 @@ export default function AddDecision(props) {
                 options={farmerList}
                 displayValue="name"
                 onSelect={setParticipant}
+                placeholder="பங்கேற்பாளர்கள்"
               />
             </Grid>
             <Grid className={classes.forminput_container_btn} container>

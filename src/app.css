@@ -38,7 +38,13 @@
   outline: 0;
 }
 .farmer_input {
-  height: 2.5rem;
+      height: 50px;
+      padding: 0 12px;
+      width: 100%;
+      background: #131e2f0d;
+      border: 1px solid #3333331f;
+      color: #111b2b;
+      border-radius: 4px;
 }
 .farmer_input__select {
   background-color: #f3f6f9;
@@ -79,4 +85,35 @@
 }
 .huvypy {
   padding: 1rem 0 0 0;
+}
+.multiSelectContainer {
+  position: relative;
+  text-align: left;
+  width: 100%;
+  background: #131e2f0d;
+  border: 1px solid #3333331f;
+  color: #111b2b;
+  border-radius: 4px;
+}
+
+.chip {
+  padding: 4px 10px;
+  background: #1d5c49;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 11px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  line-height: 19px;
+  color: #fff;
+}
+
+.highlightOption {
+  background: #1d5c49;
+  color: #fff;
+}
+.multiSelectContainer li:hover{
+background: #1d5c49;
+color: #fff;
 }
