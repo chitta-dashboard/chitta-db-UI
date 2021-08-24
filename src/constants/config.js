@@ -93,7 +93,9 @@ export const getAdmin = (filter) => {
 export const getAdminUser = (id) => {
   return httpClient.get(`adminusers/${id}`);
 };
-
+export const deleteAdminUser = (id) => {
+  return httpClient.delete(`adminusers/${id}`);
+};
 export const getNotification = () => {
   return httpClient.get(`notifications?_sort=createdAt:desc&_limit=10`);
 };
