@@ -597,7 +597,7 @@ export const useStyles = makeStyles((theme) => ({
   farmerDetailWatermark: {
     position: "absolute",
     width: "100%",
-    height: "70vh",
+    height: "80vh",
     display: "grid",
     placeItems: "center",
   },
@@ -605,7 +605,7 @@ export const useStyles = makeStyles((theme) => ({
     opacity: 0.15,
     position: "absolute",
     // width: "30%",
-    height: "60%",
+    height: "70%",
   },
 
   export_btn: {

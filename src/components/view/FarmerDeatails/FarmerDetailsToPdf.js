@@ -96,13 +96,24 @@ const styles = StyleSheet.create({
     marginLeft: "5rem",
   },
   watermark: {
-    opacity: 0.15,
+    // position: "absolute",
+    // height: "50%",
+    // width: "30%",
+    // position: "absolute",
+    // right: 0,
     position: "absolute",
-    height: "50%",
-    width: "30%",
-    position: "absolute",
-    right: 0,
+    width: "100%",
+    height: "90vh",
+    display: "grid",
+    justifyContent: "center",
+    alignItems:"center",
   },
+    watermark_img: {
+    opacity: 0.15,
+    // width: "30%",
+    height: "40%",
+  },
+  
 });
 
 // Create Document Component
@@ -144,12 +155,15 @@ const FarmerDetailsToPdf = (props) => {
             </Text>
           </View>
           <Text style={styles.hr}>hellllo</Text>
+          <View style={styles.watermark}>
           <Image
             src={Nerkathirlogo}
             alt=""
             cache
-            style={styles.watermark}
-          />
+            style={styles.watermark_img}
+            ></Image>
+          </View>
+          
           {FarmerDetailsList.map((user) => {
             return (
               <View style={styles.formdatacontainer} key={user.id}>
