@@ -12,14 +12,19 @@ export default function UserLoginContextProvider(props) {
   const [loginType, setLoginType] = useState(() => {
     return Cookies.get("loginType") ? Cookies.get("loginType") : "";
   });
+  const [adminType, setAdminType] = useState();
+
   const loginTypeHandler = (data) => {
     setLoginType(data);
     Cookies.set("loginType", data, { expires: 7 });
   };
   const loginHandler = (data) => {
     setIsAuthenticated(true);
+    setAdminType(data[0].adminType);
     Cookies.set("isAuthenticated", true, { expires: 7 });
     Cookies.set("userId", data[0].id, { expires: 7 });
+    Cookies.set("adminType", data[0].adminType, { expires: 7 });
+    console.log("loginType", data)
   };
   const logoutHandler = () => {
     setIsAuthenticated(false);
@@ -27,6 +32,7 @@ export default function UserLoginContextProvider(props) {
     Cookies.remove("isAuthenticated");
     Cookies.remove("loginType");
     Cookies.remove("userId");
+    Cookies.remove("adminType");
   };
   // Cookies.get();
   // console.log("loginType", loginType);
@@ -37,6 +43,7 @@ export default function UserLoginContextProvider(props) {
         loginHandler,
         loginTypeHandler,
         loginType,
+        adminType,
         logoutHandler,
         setIsAuthenticated,
         setLoginType,

@@ -21,6 +21,7 @@ export default function UserLogin() {
           passwordRef.current.value
         ) {
           loginHandler(res);
+          console.log("res",res)
           loginTypeHandler("Administrator");
         } else if (res.length === 0) {
           checkFarmer(phoneNumberRef.current.value)

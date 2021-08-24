@@ -4,7 +4,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 // import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import config, { getAdminUser } from "../../../constants/config";
+import config, { getAdminUser,deleteAdminUser } from "../../../constants/config";
 import Container from "@material-ui/core/Container";
 import tempImg from "../../../assets/images/male.svg";
 import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
@@ -13,12 +13,13 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import QRCode from "qrcode.react";
 import { useQuery } from "react-query";
+import { customToast } from "../../widgets/Toast";
 import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
 
 const ViewMdDetails = (props) => {
-  const { loginType } = useContext(UserLoginContext);
+  const { loginType,adminType } = useContext(UserLoginContext);
   const classes = useStyles();
   const { match, history } = props;
 
@@ -29,6 +30,13 @@ const ViewMdDetails = (props) => {
   function addDefaultSrc(ev) {
     ev.target.src = tempImg;
   }
+  const formerDeleteHandler = (id) => {
+    deleteAdminUser(id).then((data) => {
+      customToast("success", "MD Deleted successfully..");
+      history.goBack();
+  })
+
+  };
   return (
     <>
       <div className={classes.admin_btncontainer}>
@@ -40,7 +48,27 @@ const ViewMdDetails = (props) => {
             onClick={() => history.goBack()}
           />
         </div>
-        {loginType === "Administrator" && (
+        <div className={classes.btnContainer_custom}>
+          {loginType === "Administrator" ? (
+              <>
+            <CustomButton
+              value="Edit"
+              className={classes.export_btn}
+              onClick={() => history.push(`/editMd/${match.params.id}`)}
+            />
+            {adminType === "ceo" && <button
+                  className={classes.export_btn}
+                  style={{ textDecoration: "none" }}
+                  onClick={() => formerDeleteHandler(match.params.id)}
+                >
+                  Delete
+                </button> }    
+              </>
+            ) : (
+              <div style={{ width: "100%" }}></div>
+            )}
+        </div>
+        {/* {loginType === "Administrator" && (
           <div className={classes.btnContainer_custom}>
             <CustomButton
               value="Edit"
@@ -48,7 +76,8 @@ const ViewMdDetails = (props) => {
               onClick={() => history.push(`/editMd/${match.params.id}`)}
             />
           </div>
-        )}
+        )} */}
+        
       </div>
       <Container fixed className={classes.adminCardContainer}>
         <Card className={classes.adminCardRoot}>
