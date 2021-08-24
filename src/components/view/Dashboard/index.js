@@ -24,7 +24,7 @@ import {
   getFarmersGroupCount,
   getNotification,
 } from "../../../constants/config";
-import moment from "moment";
+import moment, { invalid } from "moment";
 import { useQuery } from "react-query";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
@@ -56,11 +56,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "0.5rem",
     textTransform: "none",
     padding: "0.2rem",
-    "&:hover": {
-      color: "#464E5F",
-      background: "085c49",
-      border: "1px solid #085c49",
-    },
+    display: "inline",
+  },
+  intro_container: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   dashboard_AlertContainer: {
     background: "#36574C",
@@ -315,12 +316,11 @@ const Dashboard = () => {
             alt="wavinghand Logo"
           />
           <div>
-            <Typography>
-              HI,{userName}{" "}
-              <Button className={classes.dashboard_AdminBtn}>
-                {loginType}
-              </Button>
-            </Typography>
+            <div className={classes.intro_container}>
+              <Typography>HI,{userName}</Typography>
+              <div className={classes.dashboard_AdminBtn}>{loginType}</div>
+            </div>
+
             <Typography className={classes.dashboard_name}>
               Here's Your current stats
             </Typography>
