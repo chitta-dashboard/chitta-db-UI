@@ -41,6 +41,7 @@ import { UserLoginContext } from "../../context/UserLoginContext";
 import Decision from "../Decision/Decision";
 import AddDecision from "../Decision/AddDecision";
 import ViewDecision from "../Decision/ViewDecision";
+import ViewFarmerCard from "../FarmerDeatails/ViewFarmerCard";
 
 const Layout = () => {
   const classes = useStyles();
@@ -219,6 +220,12 @@ const Layout = () => {
             <Route path="/addMd" component={AddMd} />
             <Route path="/addDecision" component={AddDecision} />
             <Route path="/mdDetail/:id" component={ViewMdDetails} />
+            <Route
+              exact
+              path="/farmerCard/editfarmer/:id"
+              component={AddFarmerForm}
+            />
+            <Route path="/farmerCard/:id" component={ViewFarmerCard} />
             <Route path="/addCeo" component={AddCeo} />
             <Route path="/editCeo/:id" component={AddCeo} />
             <Route path="/ceoDetail/:id" component={ViewCeoDetails} />

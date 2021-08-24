@@ -82,6 +82,15 @@ const FarmerDeatilForm = (Props) => {
             />
           </div>
           <div className={classes.btnContainer_custom}>
+            <button
+              className={classes.export_btn}
+              style={{ textDecoration: "none" }}
+              onClick={() =>
+                Props.history.push(`/farmerCard/${match.params.id}`)
+              }
+            >
+              View
+            </button>
             {loginType === "Administrator" ? (
               <>
                 <button
@@ -198,14 +207,14 @@ const FarmerDeatilForm = (Props) => {
           </div>
           <hr className={classes.user_border} />
           {!isLoading ? (
-            <div className={classes.user_formcontent}>  
-            <div className={classes.farmerDetailWatermark}>
-            <img
-              src={Nerkathirlogo}
-              alt="Nerkathir logo"
-              className={classes.farmerDetailWatermark_img}
-            />
-            </div>
+            <div className={classes.user_formcontent}>
+              <div className={classes.farmerDetailWatermark}>
+                <img
+                  src={Nerkathirlogo}
+                  alt="Nerkathir logo"
+                  className={classes.farmerDetailWatermark_img}
+                />
+              </div>
               {FarmerDetailsList.map((user) => {
                 return (
                   <div key={user.id} className={classes.contentrow_container}>
