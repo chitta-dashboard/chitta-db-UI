@@ -808,6 +808,7 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "space-around",
   },
   decision_tab: {
+    width:"10rem"
     // padding: "0.2rem 1rem 0.2rem 1rem",
   },
   decision_tab_cell: {

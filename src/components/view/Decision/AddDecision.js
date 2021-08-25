@@ -82,12 +82,12 @@ export default function AddDecision(props) {
       setValue("date", data?.date ?? null);
       setValue("decision", data?.decision ?? null);
       setHost(() =>
-      data.hosts.map((data) => ({
+      data?.hosts.map((data) => ({
         name: data?.name,
         _id: data?._id,
       })));
       setParticipant(() =>
-      data.participants.map((data) => ({
+      data?.participants.map((data) => ({
         name: data?.name,
         _id: data?._id,
       })))
