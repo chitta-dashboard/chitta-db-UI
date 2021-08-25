@@ -811,6 +811,9 @@ export const useStyles = makeStyles((theme) => ({
     width:"10rem"
     // padding: "0.2rem 1rem 0.2rem 1rem",
   },
+  decision_tab_row:{
+    borderBottom: "1px solid #e0e0e0",
+  },
   decision_tab_cell: {
     borderBottom: 0,
     // padding: "0.2rem 1rem 0.2rem 1rem",
