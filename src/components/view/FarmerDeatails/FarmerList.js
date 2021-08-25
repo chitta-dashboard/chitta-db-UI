@@ -17,7 +17,6 @@ import {
 } from "../../../constants";
 import config, {
   getFarmers,
-  getFarmersGroup,
   getFarmerById,
 } from "../../../constants/config";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
@@ -48,7 +47,6 @@ const FarmerList = (props) => {
   const [page, setPage] = useState(0);
   const [farmersData, setFarmersData] = useState([]);
   const [pagedFarmer, setPagedFarmer] = useState([]);
-  const [farmerListGrp, setFarmerListGrp] = useState([]);
 
   const {
     data: initialFarmersData,

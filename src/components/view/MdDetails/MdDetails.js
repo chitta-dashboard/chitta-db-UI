@@ -13,7 +13,6 @@ import { NavLink } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import config from "../../../constants/config";
-import tempSign from "../../../assets/images/default_sign.png";
 import { Grid } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";
@@ -34,10 +33,6 @@ const MdDetails = (props) => {
   const { isLoading, data, isError, error } = useQuery("Md", () =>
     getAdmin(filter)
   );
-
-  function addDefaultSign(ev) {
-    ev.target.src = tempSign;
-  }
 
   return (
     <>

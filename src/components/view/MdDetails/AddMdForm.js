@@ -245,7 +245,6 @@ const AddMd = (Props) => {
             <button
               type="submit"
               className={classes.submit_btn}
-              // onClick={postMdData}
             >
               SUBMIT
             </button>

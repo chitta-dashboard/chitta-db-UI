@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./app.css";
 import UserLogin from "./components/view/UserLogin/UserLogin";
 import { UserLoginContext } from "./components/context/UserLoginContext";
-import { useContext, useEffect } from "react";
+import { useContext} from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 // import Cookies from "js-cookie";
 import { ReactQueryDevtools } from "react-query/devtools";

@@ -1,10 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import clsx from "clsx";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { Typography } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { useStyles } from "../../../assets/styles";
 import {
@@ -17,7 +13,6 @@ import { customToast } from "../../widgets/Toast";
 import FarmerDetailsToPdf from "./FarmerDetailsToPdf";
 import { useHistory } from "react-router-dom";
 import { UserLoginContext } from "../../context/UserLoginContext";
-// import BackButton from "../../widgets/BackButton";
 import { useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { Error } from "../../widgets/Error";
@@ -28,8 +23,6 @@ const FarmerDeatilForm = (Props) => {
   const { match } = Props;
   const history = useHistory();
   const classes = useStyles();
-  // const [farmerData, setFarmerData] = useState({});
-  const [loader, setLoader] = useState(true);
   let initialObj = {};
   const {
     data = initialObj,
@@ -73,7 +66,6 @@ const FarmerDeatilForm = (Props) => {
       <div className={classes.farmerDetail_root}>
         <div className={classes.user_btncontainer}>
           <div>
-            {/* <BackButton history={history} /> */}
             <CustomButton
               className={classes.addDetailbtn_container}
               icon={<ChevronLeftIcon className={classes.iconbtn} />}
@@ -133,14 +125,6 @@ const FarmerDeatilForm = (Props) => {
                     disabled={loading}
                   >
                     Download
-                    {/* {loading ? (
-                    <div style={{ background: "red" }}>
-                      {" "}
-                      <CircularProgress size={20} />
-                    </div>
-                  ) : (
-                    "Download"
-                  )} */}
                   </button>
                 );
               }}
@@ -148,13 +132,6 @@ const FarmerDeatilForm = (Props) => {
           </div>
         </div>
         <div className={classes.userdetail_container}>
-          {/* {!isLoading && (
-            <img
-              src={Nerkathirlogo}
-              alt="Nerkathir logo"
-              className={classes.farmerDetailWatermark}
-            />
-          )} */}
           <div className={classes.user_header}>
             <div className={classes.user_title}>
               <h1 className={classes.main_title}>
@@ -198,9 +175,6 @@ const FarmerDeatilForm = (Props) => {
                 நாள் :{" "}
                 <span>
                   {`${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`}
-                  {/* {data.published_at
-                    ? `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`
-                    : "00/0/0000"} */}
                 </span>
               </p>
             </div>

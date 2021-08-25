@@ -9,7 +9,7 @@ import {
 } from "@react-pdf/renderer";
 import { Font } from "@react-pdf/renderer";
 import config from "../../../constants/config";
-import { FarmerDetailsList, getFormattedDate } from "../../../constants";
+import { FarmerDetailsList } from "../../../constants";
 import font from "../../../assets/fonts/Baloo_Thambi_2/BalooThambi2-Regular.ttf";
 import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
 
@@ -96,11 +96,6 @@ const styles = StyleSheet.create({
     marginLeft: "5rem",
   },
   watermark: {
-    // position: "absolute",
-    // height: "50%",
-    // width: "30%",
-    // position: "absolute",
-    // right: 0,
     position: "absolute",
     width: "100%",
     height: "90vh",
@@ -110,7 +105,6 @@ const styles = StyleSheet.create({
   },
     watermark_img: {
     opacity: 0.15,
-    // width: "30%",
     height: "40%",
   },
   
@@ -149,9 +143,6 @@ const FarmerDetailsToPdf = (props) => {
             <Text style={styles.formnumber}>விண்ணப்ப எண் :NER-FPC-12343</Text>
             <Text style={styles.date}>
               நாள் :{`${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`}
-              {/* {farmerData.created_at
-                ? getFormattedDate(farmerData.created_at)
-                : ":"}{" "} */}
             </Text>
           </View>
           <Text style={styles.hr}>hellllo</Text>

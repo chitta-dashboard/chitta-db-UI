@@ -9,7 +9,6 @@ import { useStyles } from "../../../assets/styles";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import { getAdmin } from "../../../constants/config";
 import tempImg from "../../../assets/images/male.svg";
-import tempSign from "../../../assets/images/default_sign.png";
 import { NavLink } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
@@ -35,15 +34,11 @@ const CeoDetails = (props) => {
     data: ceoList,
     error,
   } = useQuery("ceo", () => getAdmin(filter));
-  // console.log("data",ceoList)
 
   function addDefaultSrc(ev) {
     ev.target.src = tempImg;
   }
 
-  function addDefaultSign(ev) {
-    ev.target.src = tempSign;
-  }
   return (
     <>
       <div className={classes.farmerdetails_root}>
@@ -53,14 +48,9 @@ const CeoDetails = (props) => {
               <div className={classes.searchBox}></div>
             </Box>
             <Box className={classes.farmerdetails_boxcontainer}>
-              {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
               {loginType === "Administrator" && (
                 <Box>
                   <NavLink to="/addceo" className={classes.addDetails_link}>
-                    {/* <button className={classes.addDetails_btn}>
-                      <AddIcon />
-                      Add
-                    </button> */}
                     <CustomButton
                       className={classes.addDetails_btn}
                       icon={<AddIcon />}

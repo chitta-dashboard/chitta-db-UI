@@ -3,7 +3,6 @@ import {
   Container,
   Grid,
   Typography,
-  Button,
   Card,
   Box,
   CardContent,
@@ -23,7 +22,7 @@ import {
   getFarmersGroupCount,
   getNotification,
 } from "../../../constants/config";
-import moment, { invalid } from "moment";
+import moment from "moment";
 import { useQuery } from "react-query";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
@@ -36,8 +35,6 @@ const Dashboard = () => {
   const [userName, setUserName] = useState("");
   const [farmersGroupCount, setFarmersGroupCount] = useState(0);
   const [farmerCount, setFarmerCount] = useState(0);
-  const [grpCheck, setGrpCheck] = useState("");
-  // const [notification, setNotification] = useState([]);
 
   const {
     isLoading,
@@ -73,7 +70,7 @@ const Dashboard = () => {
         })
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [loginType]);
 
   const series = React.useMemo(
     () => ({
@@ -139,7 +136,6 @@ const Dashboard = () => {
     ],
     []
   );
-  // console.log(adminUserId);
   return (
     <Container className={classes.dashboard_root}>
       <Grid container className={classes.dashboard_header}>

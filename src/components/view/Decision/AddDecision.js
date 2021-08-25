@@ -19,14 +19,10 @@ import { FieldError } from "../Common/FieldError";
 import Multiselect from "multiselect-react-dropdown";
 
 export default function AddDecision(props) {
-  // const [ceoList, setCeoList] = useState([]);
-  // const [farmerList, setFarmerList] = useState([]);
   const { match } = props;
   const history = useHistory();
   const [host, setHost] = useState();
   const [participant, setParticipant] = useState();
-  // const dateRef = useRef("");
-  // const decisionRef = useRef("");
   const classes = useStyles();
   const {
     register,

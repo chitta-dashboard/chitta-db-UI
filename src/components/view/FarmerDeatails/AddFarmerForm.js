@@ -1,5 +1,4 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
-import axios from "axios";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -8,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import SurveyInput from "./SurveyInput";
 import { customToast } from "../../widgets/Toast";
-import config, {
+import {
   getFarmerById,
   getFarmersGroup,
   postFarmer,
@@ -27,44 +26,20 @@ import { FieldError } from "../Common/FieldError";
 const initialFormValue = {
   surveyNoList: {
     "38997518-1bdc-28b5-2781-98baec87ffcd": { id: "", value: "" },
-  },
-  // gender: "male"
+  }
 };
 const AddFarmerForm = (Props) => {
   const history = useHistory();
   const classes = useStyles();
-  // const fatherName = useRef("");
-  // const husbandName = useRef("");
-  // const farmerName = useRef("");
-  // const aadharNumber = useRef("");
-  // const DOB = useRef("");
-  // const phoneNumber = useRef("");
-  // const voterIdNumber = useRef("");
-  // const acre = useRef("");
-  // const education = useRef("");
-  // const address = useRef("");
-  // const village = useRef("");
-  // const circle = useRef("");
-  // const district = useRef("");
-  // const pincode = useRef("");
-  // const cropType = useRef("");
-  // const cattle = useRef("");
-  // const farmerGroup = useRef("");
-  const [farmerType, setFarmerType] = useState("");
-  const [irrigationType, setIrrigationType] = useState("");
-  const [landType, setLandType] = useState("");
   const [formValue, setFormValue] = useState(initialFormValue);
   const [farmerPhoto, setFarmerPhoto] = useState(null);
-  // const [farmerGroups, setFarmerGroups] = useState([]);
   const [farmerGroupId, setFarmerGroupId] = useState();
-  // const [farmerData, setFarmerData] = useState({});
   const [surveyArr, setSurveyArr] = useState([]);
   const [makeAdmin, setMakeAdmin] = useState(false);
   const [farmerGroupValue, setFarmerGroupValue] = useState();
   const { loginType } = useContext(UserLoginContext);
   const { match } = Props;
 
-  // const dateOfBirth = farmerData.DOB?.split("/").join("-");
   const { data: farmerData } = useQuery(
     ["getFarmerEdit", match.params.id],
     () => match.params.id && getFarmerById(match.params.id)
@@ -79,7 +54,6 @@ const AddFarmerForm = (Props) => {
     if (match.params.id) {
       getFarmerById(match.params.id)
         .then((res) => {
-          // console.log(res);
           setValue("farmerName", res?.name ?? null);
           setValue("fatherName", res?.fatherName ?? null);
           setValue("husbandName", res?.husbandName ?? null);
@@ -123,13 +97,6 @@ const AddFarmerForm = (Props) => {
   const { data: farmerGroups } = useQuery("getFarmerGroups", () =>
     getFarmersGroup()
   );
-  //     .then((res) => {
-  //       setFarmerGroups(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
 
   useEffect(() => {
     getFarmers()
@@ -233,8 +200,6 @@ const AddFarmerForm = (Props) => {
   });
 
   const postFarmerData = (data) => {
-    console.log(data.isGroupAdmin);
-    // e.preventDefault();
     const params = {
       name: data.farmerName,
       fatherName: data.fatherName,

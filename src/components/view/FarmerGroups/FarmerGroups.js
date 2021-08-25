@@ -24,7 +24,6 @@ import { Error } from "../../widgets/Error";
 const FarmerGroups = () => {
   const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
-  // const [groups, setGroups] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [filteredList, setFilteredList] = useState([]);
 
@@ -65,7 +64,6 @@ const FarmerGroups = () => {
             </div>
           </Box>
           <Box className={classes.farmerdetails_boxcontainer}>
-            {/* <button className={classes.exportDetails_btn}>Export Farmers</button> */}
             {loginType === "Administrator" && (
               <Box>
                 <NavLink
