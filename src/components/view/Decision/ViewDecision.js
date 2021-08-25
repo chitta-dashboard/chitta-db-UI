@@ -44,10 +44,6 @@ export default function ViewDecision(props) {
     },
   });
 
-  const decisionPDF = () => {
-    <DecisionToPdf getDecision={decision} getDate={date} />;
-  };
-
   return (
     <div className={classes.farmerdetails_root}>
       <Grid container spacing={3} className={classes.Detailscard_container}>
@@ -86,7 +82,9 @@ export default function ViewDecision(props) {
             </Box>
             <Box>
               <PDFDownloadLink
-                document={<decisionPDF />}
+                document={
+                  <DecisionToPdf getDecision={decision} getDate={date} />
+                }
                 fileName={`${date}_decision.pdf`}
                 style={{ textDecoration: "none" }}
               >
