@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import { useEffect } from "react";
 import { useStyles } from "../../../assets/styles";
-import { Grid, Box, Table, TableHead } from "@material-ui/core";
+import { Grid, Box, Table, TableHead, TableBody } from "@material-ui/core";
 import { deleteDecision, getDecisionById } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router-dom";
@@ -121,26 +121,57 @@ export default function ViewDecision(props) {
           <TableContainer>
             <Table>
               <TableHead>
-                <TableRow className={classes.decision_tabHead}>
+                <TableRow>
                   <TableCell className={classes.decision_tab}>பெயர்</TableCell>
                   <TableCell className={classes.decision_tab}>
                     கையொப்பம்
                   </TableCell>
                 </TableRow>
               </TableHead>
+              <TableBody>
+                {data?.hosts.map((data) => {
+                  return (
+                    <TableRow
+                      key={data.id}
+                      className={classes.decision_tab_row}
+                    >
+                      <TableCell className={classes.decision_tab_cell}>
+                        {data.name}
+                      </TableCell>
+                      <TableCell
+                        className={classes.decision_tab_cell}
+                      ></TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
             </Table>
           </TableContainer>
           <h3>பங்கேற்பாளர்கள் : </h3>
           <TableContainer>
             <Table>
               <TableHead>
-                <TableRow className={classes.decision_tabHead}>
+                <TableRow>
                   <TableCell className={classes.decision_tab}>பெயர்</TableCell>
                   <TableCell className={classes.decision_tab}>
                     கையொப்பம்
                   </TableCell>
                 </TableRow>
               </TableHead>
+              <TableBody>
+                {data?.participants.map((data) => {
+                  return (
+                    <TableRow key={data.id}>
+                      <TableCell className={classes.decision_tab_cell}>
+                        {data.name}
+                      </TableCell>
+                      <TableCell
+                        className={classes.decision_tab_cell}
+                      ></TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
             </Table>
           </TableContainer>
         </div>
