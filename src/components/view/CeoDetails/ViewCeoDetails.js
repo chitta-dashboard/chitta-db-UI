@@ -79,7 +79,7 @@ const ViewCeoDetails = (props) => {
                             ? `${config.app.APP_API_URL}${data.picture.url}`
                             : tempImg
                         }
-                        alt="Ceo Profile Picture"
+                        alt="Ceo Profile"
                         onError={addDefaultSrc}
                       />
                     </div>

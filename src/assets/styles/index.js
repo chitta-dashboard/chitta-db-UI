@@ -601,7 +601,7 @@ export const useStyles = makeStyles((theme) => ({
     display: "grid",
     placeItems: "center",
   },
-    farmerDetailWatermark_img: {
+  farmerDetailWatermark_img: {
     opacity: 0.15,
     position: "absolute",
     // width: "30%",
@@ -808,8 +808,11 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "space-around",
   },
   decision_tab: {
-    background: "#fff",
-    borderBottom: "0",
+    // padding: "0.2rem 1rem 0.2rem 1rem",
+  },
+  decision_tab_cell: {
+    borderBottom: 0,
+    // padding: "0.2rem 1rem 0.2rem 1rem",
   },
   footer: {
     minHeight: "2rem",
