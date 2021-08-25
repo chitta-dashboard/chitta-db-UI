@@ -131,7 +131,10 @@ export default function ViewDecision(props) {
               <TableBody>
                 {data?.hosts.map((data) => {
                   return (
-                    <TableRow className={classes.decision_tab_row}>
+                    <TableRow
+                      key={data.id}
+                      className={classes.decision_tab_row}
+                    >
                       <TableCell className={classes.decision_tab_cell}>
                         {data.name}
                       </TableCell>
@@ -158,7 +161,7 @@ export default function ViewDecision(props) {
               <TableBody>
                 {data?.participants.map((data) => {
                   return (
-                    <TableRow>
+                    <TableRow key={data.id}>
                       <TableCell className={classes.decision_tab_cell}>
                         {data.name}
                       </TableCell>
