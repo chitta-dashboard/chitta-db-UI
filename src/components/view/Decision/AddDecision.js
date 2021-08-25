@@ -56,20 +56,6 @@ export default function AddDecision(props) {
     )
   );
 
-  // useEffect(() => {
-  //   const ceoLists = ceo?.map((data) => ({
-  //     name: data?.name,
-  //     value: data?.id,
-  //   }));
-  //   setCeoList(ceoLists);
-  // }, [ceo]);
-  // useEffect(() => {
-  //   const farmerList = farmer?.map((data) => ({
-  //     name: data?.name,
-  //     value: data?.id,
-  //   }));
-  //   setFarmerList(farmerList);
-  // }, [farmer]);
   const updateDecision = useMutation(
     (data) => putDecision(data, match.params.id),
     {
@@ -95,6 +81,16 @@ export default function AddDecision(props) {
     if (match.params.id) {
       setValue("date", data?.date ?? null);
       setValue("decision", data?.decision ?? null);
+      setHost(() =>
+      data.hosts.map((data) => ({
+        name: data?.name,
+        _id: data?._id,
+      })));
+      setParticipant(() =>
+      data.participants.map((data) => ({
+        name: data?.name,
+        _id: data?._id,
+      })))
     }
   }, [data]);
 
@@ -175,6 +171,7 @@ export default function AddDecision(props) {
                 displayValue="name"
                 onSelect={setHost}
                 placeholder="தொகுப்பாளர் "
+                selectedValues={host}
               />
             </Grid>
             <Grid item xs={6} style={{ zIndex: "5" }}>
@@ -183,7 +180,8 @@ export default function AddDecision(props) {
                 options={farmerList}
                 displayValue="name"
                 onSelect={setParticipant}
-                placeholder="பங்கேற்பாளர்கள்"
+                placeholder="பங்கேற்பாளர்கள்" 
+                selectedValues={participant}
               />
             </Grid>
             <Grid className={classes.forminput_container_btn} container>
