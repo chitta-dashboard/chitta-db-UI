@@ -167,7 +167,7 @@ const Dashboard = () => {
       )} */}
 
       <Grid container className={classes.dashboard_topbarContainer}>
-        <Grid item xs={4} className={classes.dashboard_welcomeContainer}>
+        <Grid item xs={6} className={classes.dashboard_welcomeContainer}>
           <img
             src={WavingHand}
             className={classes.dashboard_wavingIcon}
@@ -184,11 +184,11 @@ const Dashboard = () => {
             </Typography>
           </div>
         </Grid>
-        <Grid item xs={4} className={classes.dashboard_nameContainer}>
+        <Grid item xs={3} className={classes.dashboard_nameContainer}>
           <Typography>Group Count</Typography>
           <Typography>{farmersGroupCount}</Typography>
         </Grid>
-        <Grid item xs={4} className={classes.dashboard_nameContainer}>
+        <Grid item xs={3} className={classes.dashboard_nameContainer}>
           <Typography>
             {loginType === "Administrator"
               ? "Farmers Count"
