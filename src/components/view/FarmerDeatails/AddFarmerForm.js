@@ -66,6 +66,7 @@ const AddFarmerForm = (Props) => {
           setValue("acre", res?.acre ?? null);
           setValue("gender", res?.gender ?? null);
           setValue("education", res?.education ?? null);
+          setValue("address", res?.address ?? null);
           setValue("village", res?.village ?? null);
           setValue("circle", res?.circle ?? null);
           setValue("district", res?.district ?? null);
