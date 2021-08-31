@@ -24,12 +24,7 @@ const ViewFarmerCard = (props) => {
   const classes = useStyles();
   const { match, history } = props;
 
-  const {
-    data ,
-    isLoading,
-    isError,
-    error,
-  } = useQuery(
+  const { data, isLoading, isError, error } = useQuery(
     ["getFarmer", match.params.id],
     () => match.params.id && getFarmerById(match.params.id)
   );
@@ -52,7 +47,7 @@ const ViewFarmerCard = (props) => {
           <div className={classes.btnContainer_custom}>
             <PDFDownloadLink
               document={<ViewFarmerCardToPdf farmerData={data} />}
-              fileName={`${data.name}.pdf`}
+              fileName={`${data?.name}.pdf`}
               style={{ textDecoration: "none" }}
             >
               {({ loading }) => {
@@ -92,12 +87,12 @@ const ViewFarmerCard = (props) => {
                   />
                   <div className={classes.adminContent}>
                     <div>
-                       <img
+                      <img
                         className={classes.adminCardImage}
                         src={
                           data?.userImg
-                          ? `${config.app.APP_API_URL}${data.userImg.url}`
-                          : tempImg
+                            ? `${config.app.APP_API_URL}${data.userImg.url}`
+                            : tempImg
                         }
                         alt="Farmer Profile"
                         onError={addDefaultSrc}
@@ -118,22 +113,22 @@ const ViewFarmerCard = (props) => {
                   <div className={classes.adminContent}>
                     <div className={classes.adminDetails}>
                       <Typography variant="body1" color="textSecondary">
-                        பெயர் : {data.name}{" "}
+                        பெயர் : {data?.name}{" "}
                       </Typography>
                       <Typography variant="body1" color="textSecondary">
-                        கைபேசி எண் : {data.phoneNumber}{" "}
+                        கைபேசி எண் : {data?.phoneNumber}{" "}
                       </Typography>
                       <Typography variant="body1" color="textSecondary">
-                        பிறந்த தேதி : {data.DOB}{" "}
+                        பிறந்த தேதி : {data?.DOB}{" "}
                       </Typography>
                     </div>
                     <div>
                       <QRCode
                         value={JSON.stringify(
                           {
-                            id: data.id,
-                            name: data.name,
-                            phoneNumber: data.phoneNumber,
+                            id: data?.id,
+                            name: data?.name,
+                            phoneNumber: data?.phoneNumber,
                           },
                           null,
                           2

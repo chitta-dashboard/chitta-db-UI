@@ -115,9 +115,9 @@ const ViewFarmerCardToPdf = (props) => {
           <View style={styles.details}>
             <Text style={styles.formtext}>பெயர் : {farmerData?.name}</Text>
             <Text style={styles.formtext}>
-              கைப்பேசி எண் : {farmerData.phoneNumber}
+              கைப்பேசி எண் : {farmerData?.phoneNumber}
             </Text>
-            <Text style={styles.formtext}>பிறந்த தேதி : {farmerData.DOB}</Text>
+            <Text style={styles.formtext}>பிறந்த தேதி : {farmerData?.DOB}</Text>
           </View>
           <View style={styles.qrContainer}>
             <QRCode
