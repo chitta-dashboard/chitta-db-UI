@@ -30,7 +30,7 @@ import { useDashboardStyles } from "../../../assets/styles/dashboard";
 
 const Dashboard = () => {
   const classes = useDashboardStyles();
-  const [alertIsopen, setAlertIsOpen] = useState(true);
+  // const [alertIsopen, setAlertIsOpen] = useState(true);
   const { loginType } = useContext(UserLoginContext);
   const [userName, setUserName] = useState("");
   const [farmersGroupCount, setFarmersGroupCount] = useState(0);
@@ -152,7 +152,7 @@ const Dashboard = () => {
         ></Grid>
       </Grid>
 
-      {alertIsopen && (
+      {/* {alertIsopen && (
         <Grid container className={classes.dashboard_AlertContainer}>
           <Box className={classes.dashboard_alertText}>
             <NotificationsActiveIcon className={classes.alertLogo} />
@@ -164,10 +164,10 @@ const Dashboard = () => {
             onClick={() => setAlertIsOpen(false)}
           />
         </Grid>
-      )}
+      )} */}
 
       <Grid container className={classes.dashboard_topbarContainer}>
-        <Grid item xs={3} className={classes.dashboard_welcomeContainer}>
+        <Grid item xs={4} className={classes.dashboard_welcomeContainer}>
           <img
             src={WavingHand}
             className={classes.dashboard_wavingIcon}
@@ -184,11 +184,11 @@ const Dashboard = () => {
             </Typography>
           </div>
         </Grid>
-        <Grid item xs={2} className={classes.dashboard_nameContainer}>
+        <Grid item xs={4} className={classes.dashboard_nameContainer}>
           <Typography>Group Count</Typography>
           <Typography>{farmersGroupCount}</Typography>
         </Grid>
-        <Grid item xs={2} className={classes.dashboard_nameContainer}>
+        <Grid item xs={4} className={classes.dashboard_nameContainer}>
           <Typography>
             {loginType === "Administrator"
               ? "Farmers Count"
@@ -196,14 +196,14 @@ const Dashboard = () => {
           </Typography>
           <Typography>{farmerCount}</Typography>
         </Grid>
-        <Grid item xs={2} className={classes.dashboard_nameContainer}>
+        {/* <Grid item xs={2} className={classes.dashboard_nameContainer}>
           <Typography>Award Generated</Typography>
           <Typography>5</Typography>
         </Grid>
         <Grid item xs={3} className={classes.dashboard_nameContainer}>
           <Typography>Certificate Verified</Typography>
           <Typography>10000</Typography>
-        </Grid>
+        </Grid> */}
       </Grid>
 
       <Grid
