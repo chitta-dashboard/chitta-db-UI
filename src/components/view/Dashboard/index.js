@@ -175,7 +175,7 @@ const Dashboard = () => {
           />
           <div>
             {/* <div className={classes.intro_container}> */}
-              <Typography>HI,{userName}</Typography>
+            <Typography>HI,{userName}</Typography>
             {/* </div> */}
             <Typography className={classes.dashboard_name}>
               Here's Your current stats
@@ -215,7 +215,7 @@ const Dashboard = () => {
           </Typography>
           <Card className={classes.dashboard_summaryGraphContainer}>
             <CardContent className={classes.dashboard_graphSubContainer}>
-              <Chart data={data} series={series} axes={axes} tooltip />
+              {/* <Chart data={data} series={series} axes={axes} tooltip /> */}
             </CardContent>
           </Card>
         </Grid>
