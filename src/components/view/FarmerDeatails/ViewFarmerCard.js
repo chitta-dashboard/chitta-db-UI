@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import Card from "@material-ui/core/Card";
+import clsx from "clsx";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -15,6 +17,7 @@ import { useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
+import ViewFarmerCardToPdf from "./ViewFarmerCardToPdf";
 
 const ViewFarmerCard = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -49,7 +52,25 @@ const ViewFarmerCard = (props) => {
         </div>
         {loginType === "Administrator" && (
           <div className={classes.btnContainer_custom}>
-            <CustomButton value="Download" className={classes.export_btn} />
+            <PDFDownloadLink
+              document={<ViewFarmerCardToPdf farmerData={data} />}
+              fileName={`${data.name}.pdf`}
+              style={{ textDecoration: "none" }}
+            >
+              {({ loading }) => {
+                return (
+                  <button
+                    className={clsx(
+                      classes.export_btn,
+                      loading ? classes.loading : ""
+                    )}
+                    disabled={loading}
+                  >
+                    Download
+                  </button>
+                );
+              }}
+            </PDFDownloadLink>
           </div>
         )}
       </div>

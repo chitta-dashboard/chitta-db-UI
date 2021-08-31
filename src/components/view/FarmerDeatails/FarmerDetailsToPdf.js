@@ -101,13 +101,12 @@ const styles = StyleSheet.create({
     height: "90vh",
     display: "grid",
     justifyContent: "center",
-    alignItems:"center",
+    alignItems: "center",
   },
-    watermark_img: {
+  watermark_img: {
     opacity: 0.15,
     height: "40%",
   },
-  
 });
 
 // Create Document Component
@@ -147,14 +146,14 @@ const FarmerDetailsToPdf = (props) => {
           </View>
           <Text style={styles.hr}>hellllo</Text>
           <View style={styles.watermark}>
-          <Image
-            src={Nerkathirlogo}
-            alt=""
-            cache
-            style={styles.watermark_img}
+            <Image
+              src={Nerkathirlogo}
+              alt=""
+              cache
+              style={styles.watermark_img}
             ></Image>
           </View>
-          
+
           {FarmerDetailsList.map((user) => {
             return (
               <View style={styles.formdatacontainer} key={user.id}>
