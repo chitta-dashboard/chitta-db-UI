@@ -174,14 +174,13 @@ const Dashboard = () => {
             alt="wavinghand Logo"
           />
           <div>
-            <div className={classes.intro_container}>
+            {/* <div className={classes.intro_container}> */}
               <Typography>HI,{userName}</Typography>
-              <div className={classes.dashboard_AdminBtn}>{loginType}</div>
-            </div>
-
+            {/* </div> */}
             <Typography className={classes.dashboard_name}>
               Here's Your current stats
             </Typography>
+            <div className={classes.dashboard_AdminBtn}>{loginType}</div>
           </div>
         </Grid>
         <Grid item xs={3} className={classes.dashboard_nameContainer}>

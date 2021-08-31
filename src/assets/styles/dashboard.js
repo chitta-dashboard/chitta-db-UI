@@ -24,9 +24,9 @@ export const useDashboardStyles = makeStyles((theme) => ({
   dashboard_AdminBtn: {
     color: "white",
     background: "#36574C",
-    fontSize: "0.5rem",
+    fontSize: "0.7rem",
     textTransform: "none",
-    padding: "0.2rem",
+    padding: "0.3rem",
     display: "inline",
   },
   intro_container: {
