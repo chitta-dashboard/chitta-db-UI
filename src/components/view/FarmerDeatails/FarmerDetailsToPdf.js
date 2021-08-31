@@ -139,7 +139,7 @@ const FarmerDetailsToPdf = (props) => {
             நிர்வாக அலுவலகம்:எண்.6, காந்திரோடு, கள்ளக்குறிச்சி - 606202
           </Text>
           <View style={styles.formnumbercontainer}>
-            <Text style={styles.formnumber}>விண்ணப்ப எண் :NER-FPC-12343</Text>
+            <Text style={styles.formnumber}>உறுப்பினர் எண் :NER-FPC-12343</Text>
             <Text style={styles.date}>
               நாள் :{`${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`}
             </Text>

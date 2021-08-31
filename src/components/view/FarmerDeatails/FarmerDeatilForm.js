@@ -169,7 +169,7 @@ const FarmerDeatilForm = (Props) => {
             </p>
             <div className={classes.formnum_container}>
               <p className={classes.formnum_text}>
-                விண்ணப்ப எண் <span>: NER-FPC-12343</span>
+                உறுப்பினர் எண் <span>: NER-FPC-12343</span>
               </p>
               <p className={classes.formnum_text}>
                 நாள் :{" "}
