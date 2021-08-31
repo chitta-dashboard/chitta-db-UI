@@ -110,7 +110,7 @@ export const FarmerDetailsList = [
   },
   {
     id: "3",
-    key: "கணவர் பெயர் ",
+    key: "கணவர் / மனைவி பெயர் ",
     name: "husbandName",
   },
   {
