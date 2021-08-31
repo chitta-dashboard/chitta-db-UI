@@ -26,7 +26,7 @@ import { FieldError } from "../Common/FieldError";
 const initialFormValue = {
   surveyNoList: {
     "38997518-1bdc-28b5-2781-98baec87ffcd": { id: "", value: "" },
-  }
+  },
 };
 const AddFarmerForm = (Props) => {
   const history = useHistory();
@@ -54,11 +54,12 @@ const AddFarmerForm = (Props) => {
     if (match.params.id) {
       getFarmerById(match.params.id)
         .then((res) => {
+          const dob = res.DOB.split("/").join("-");
           setValue("farmerName", res?.name ?? null);
           setValue("fatherName", res?.fatherName ?? null);
           setValue("husbandName", res?.husbandName ?? null);
           setValue("farmerGroup", res?.farmerGroup ?? null);
-          setValue("DOB", res?.DOB ?? null);
+          setValue("DOB", dob ?? null);
           setValue("phoneNumber", res?.phoneNumber ?? null);
           setValue("aadharNumber", res?.aadharNumber ?? null);
           setValue("voterIdNumber", res?.voterIdNumber ?? null);

@@ -49,13 +49,7 @@ const ViewFarmerCard = (props) => {
         </div>
         {loginType === "Administrator" && (
           <div className={classes.btnContainer_custom}>
-            <CustomButton
-              value="Edit"
-              className={classes.export_btn}
-              onClick={() =>
-                props.history.push(`editfarmer/${match.params.id}`)
-              }
-            />
+            <CustomButton value="Download" className={classes.export_btn} />
           </div>
         )}
       </div>
