@@ -293,7 +293,7 @@ const AddFarmerForm = (Props) => {
               <input
                 className="farmer-input tamil"
                 type="text"
-                placeholder="கணவரின் பெயர்"
+                placeholder="கணவரின் / மனைவியின் பெயர்"
                 {...register("husbandName")}
                 autoComplete="off"
               />
