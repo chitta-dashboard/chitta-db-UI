@@ -24,9 +24,8 @@ const ViewFarmerCard = (props) => {
   const classes = useStyles();
   const { match, history } = props;
 
-  let initialObj = {};
   const {
-    data = initialObj,
+    data ,
     isLoading,
     isError,
     error,
@@ -38,7 +37,6 @@ const ViewFarmerCard = (props) => {
     ev.target.src = tempImg;
   }
 
-  console.log(data);
   return (
     <>
       <div className={classes.admin_btncontainer}>
@@ -94,12 +92,12 @@ const ViewFarmerCard = (props) => {
                   />
                   <div className={classes.adminContent}>
                     <div>
-                      <img
+                       <img
                         className={classes.adminCardImage}
                         src={
-                          data?.picture
-                            ? `${config.app.APP_API_URL}${data.picture.url}`
-                            : tempImg
+                          data?.userImg
+                          ? `${config.app.APP_API_URL}${data.userImg.url}`
+                          : tempImg
                         }
                         alt="Farmer Profile"
                         onError={addDefaultSrc}

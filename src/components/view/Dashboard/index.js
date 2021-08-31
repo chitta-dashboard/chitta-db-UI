@@ -215,7 +215,7 @@ const Dashboard = () => {
           </Typography>
           <Card className={classes.dashboard_summaryGraphContainer}>
             <CardContent className={classes.dashboard_graphSubContainer}>
-              {/* <Chart data={data} series={series} axes={axes} tooltip /> */}
+              <Chart data={data} series={series} axes={axes} tooltip />
             </CardContent>
           </Card>
         </Grid>
