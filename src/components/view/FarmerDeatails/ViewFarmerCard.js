@@ -1,4 +1,4 @@
-import React, { useContext,useEffect,useState } from "react";
+import React, { useContext, useEffect, useState, useLayoutEffect } from "react";
 import Card from "@material-ui/core/Card";
 import clsx from "clsx";
 import { PDFDownloadLink } from "@react-pdf/renderer";
@@ -18,28 +18,35 @@ import CustomButton from "../../widgets/CustomButton";
 // import { Loader } from "../../widgets/Loader";
 // import { Error } from "../../widgets/Error";
 import ViewFarmerCardToPdf from "./ViewFarmerCardToPdf";
-
 const ViewFarmerCard = (props) => {
   const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
   const { match, history } = props;
-  console.log("match.params.id",match.params.id)
-  const [ data ,setData ]= useState({})
+  console.log("match.params.id", match.params.id);
+  const [data, setData] = useState({});
+  const [qrImage, setQrImage] = useState();
   // const { data, isLoading, isError, error } = useQuery(
   //   ["getFarmer", match.params.id],
   //   () => match.params.id && getFarmerById(match.params.id)
   // );
-
-  useEffect(()=>{
-    if(match.params.id){
-      getFarmerById(match.params.id).then((res)=>setData(res))
+  useEffect(() => {
+    if (match.params.id) {
+      getFarmerById(match.params.id).then((res) => setData(res));
     }
-  },[match.params.id])
+  }, [match.params.id]);
+
+  useLayoutEffect(() => {
+    setTimeout(() => {
+      const qrCodeCanvas = document.querySelector("canvas");
+      const qrCodeDataUri = qrCodeCanvas.toDataURL("image/jpg", 0.3);
+      setQrImage(qrCodeDataUri);
+    }, 2000);
+  }, [data]);
 
   function addDefaultSrc(ev) {
     ev.target.src = tempImg;
   }
-  console.log("data",data)
+  console.log("data", data);
 
   return (
     <>
@@ -55,7 +62,7 @@ const ViewFarmerCard = (props) => {
         {loginType === "Administrator" && (
           <div className={classes.btnContainer_custom}>
             <PDFDownloadLink
-              document={<ViewFarmerCardToPdf farmerData={data} />}
+              document={<ViewFarmerCardToPdf farmerData={data} qr={qrImage} />}
               fileName={`${data?.name}.pdf`}
               style={{ textDecoration: "none" }}
             >
@@ -88,66 +95,66 @@ const ViewFarmerCard = (props) => {
               />
             ) : (
               <> */}
-                <CardContent>
+            <CardContent>
+              <img
+                src={Nerkathirlogo}
+                alt="Nerkathir logo"
+                className={classes.watermark}
+                draggable={false}
+              />
+              <div className={classes.adminContent}>
+                <div>
                   <img
-                    src={Nerkathirlogo}
-                    alt="Nerkathir logo"
-                    className={classes.watermark}
+                    className={classes.adminCardImage}
+                    src={
+                      data?.userImg
+                        ? `${config.app.APP_API_URL}${data.userImg.url}`
+                        : tempImg
+                    }
+                    draggable={false}
+                    alt="Farmer Profile"
+                    onError={addDefaultSrc}
                   />
-                  <div className={classes.adminContent}>
-                    <div>
-                      <img
-                        className={classes.adminCardImage}
-                        src={
-                          data?.userImg
-                            ? `${config.app.APP_API_URL}${data.userImg.url}`
-                            : tempImg
-                        }
-                        alt="Farmer Profile"
-                        onError={addDefaultSrc}
-                      />
-                    </div>
-                    <div className={classes.details}>
-                      <h2 className={classes.adminHeaderTitle}>
-                        Nerkathir Farmer Producer <br />
-                        Company Limited
-                      </h2>
-                      <div className={classes.HeaderSub}>
-                        <p>
-                          Reg No:139086 &nbsp;&nbsp; CIN:UO1409TN2020PTC139086
-                        </p>
-                      </div>
-                    </div>
+                </div>
+                <div className={classes.details}>
+                  <h2 className={classes.adminHeaderTitle}>
+                    Nerkathir Farmer Producer <br />
+                    Company Limited
+                  </h2>
+                  <div className={classes.HeaderSub}>
+                    <p>Reg No:139086 &nbsp;&nbsp; CIN:UO1409TN2020PTC139086</p>
                   </div>
-                  <div className={classes.adminContent}>
-                    <div className={classes.adminDetails}>
-                      <Typography variant="body1" color="textSecondary">
-                        பெயர் : {data?.name}{" "}
-                      </Typography>
-                      <Typography variant="body1" color="textSecondary">
-                        கைபேசி எண் : {data?.phoneNumber}{" "}
-                      </Typography>
-                      <Typography variant="body1" color="textSecondary">
-                        பிறந்த தேதி : {data?.DOB}{" "}
-                      </Typography>
-                    </div>
-                    <div>
-                      <QRCode
-                        value={JSON.stringify(
-                          {
-                            id: data?.id,
-                            name: data?.name,
-                            phoneNumber: data?.phoneNumber,
-                          },
-                          null,
-                          2
-                        )}
-                        className={classes.adminCardQr}
-                      />
-                    </div>
-                  </div>
-                </CardContent>
-              {/* </>
+                </div>
+              </div>
+              <div className={classes.adminContent}>
+                <div className={classes.adminDetails}>
+                  <Typography variant="body1" color="textSecondary">
+                    பெயர் : {data?.name}{" "}
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary">
+                    கைபேசி எண் : {data?.phoneNumber}{" "}
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary">
+                    பிறந்த தேதி : {data?.DOB}{" "}
+                  </Typography>
+                </div>
+                <div>
+                  <QRCode
+                    value={JSON.stringify(
+                      {
+                        id: data?.id,
+                        name: data?.name,
+                        phoneNumber: data?.phoneNumber,
+                      },
+                      null,
+                      2
+                    )}
+                    className={classes.adminCardQr}
+                  />
+                </div>
+              </div>
+            </CardContent>
+            {/* </>
             )} */}
           </CardActionArea>
         </Card>

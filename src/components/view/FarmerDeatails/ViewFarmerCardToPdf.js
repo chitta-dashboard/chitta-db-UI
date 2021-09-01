@@ -8,7 +8,6 @@ import {
   StyleSheet,
 } from "@react-pdf/renderer";
 import { Font } from "@react-pdf/renderer";
-import QRCode from "qrcode.react";
 import config from "../../../constants/config";
 import font from "../../../assets/fonts/Baloo_Thambi_2/BalooThambi2-Regular.ttf";
 import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
@@ -88,7 +87,7 @@ const ViewFarmerCardToPdf = (props) => {
 
   return (
     <Document>
-      <Page size={[400, 200]} style={styles.page}>
+      <Page size={[800, 400]} style={styles.page}>
         <View style={styles.section}>
           <View style={styles.profileContainer}>
             <Image
@@ -120,19 +119,14 @@ const ViewFarmerCardToPdf = (props) => {
             <Text style={styles.formtext}>பிறந்த தேதி : {farmerData?.DOB}</Text>
           </View>
           <View style={styles.qrContainer}>
-            <QRCode
-              value={JSON.stringify(
-                {
-                  id: farmerData?.id,
-                  name: farmerData?.name,
-                  phoneNumber: farmerData?.phoneNumber,
-                },
-                null,
-                2
-              )}
-              className={styles.adminCardQr}
-              renderAs="svg"
-            />
+            {
+              <Image
+                src={props.qr}
+                alt=""
+                style={styles.adminCardQr}
+                cache
+              ></Image>
+            }
           </View>
         </View>
         <View style={styles.watermark}>
