@@ -60,7 +60,7 @@ const ViewFarmerCard = (props) => {
           <div className={classes.btnContainer_custom}>
             <CustomButton
               value={"Download"}
-              className={classes.addDetails_btn}
+              className={classes.export_btn}
               onClick={async () => {
                 const doc = <CardToPdf data={data} qr={qrImage} />;
                 const asPdf = pdf([]); // {} is important, throws without an argument

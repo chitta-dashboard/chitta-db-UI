@@ -3,7 +3,6 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import clsx from "clsx";
 import config, {
   getAdminUser,
   deleteAdminUser,
@@ -20,8 +19,9 @@ import { customToast } from "../../widgets/Toast";
 import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import { pdf } from "@react-pdf/renderer";
 import CardToPdf from "../../widgets/CardToPdf";
+import { saveAs } from "file-saver";
 
 const ViewMdDetails = (props) => {
   const { loginType, adminType } = useContext(UserLoginContext);
@@ -73,25 +73,17 @@ const ViewMdDetails = (props) => {
                 className={classes.export_btn}
                 onClick={() => history.push(`/editMd/${match.params.id}`)}
               />
-              <PDFDownloadLink
-                document={<CardToPdf data={data} qr={qrImage} />}
-                fileName={`${data?.name}.pdf`}
-                style={{ textDecoration: "none" }}
-              >
-                {({ loading }) => {
-                  return (
-                    <button
-                      className={clsx(
-                        classes.export_btn,
-                        loading ? classes.loading : ""
-                      )}
-                      disabled={loading}
-                    >
-                      Download
-                    </button>
-                  );
+              <CustomButton
+                value={"Download"}
+                className={classes.export_btn}
+                onClick={async () => {
+                  const doc = <CardToPdf data={data} qr={qrImage} />;
+                  const asPdf = pdf([]); // {} is important, throws without an argument
+                  asPdf.updateContainer(doc);
+                  const blob = await asPdf.toBlob();
+                  saveAs(blob, `${data.name}.pdf`);
                 }}
-              </PDFDownloadLink>
+              />
               {adminType === "ceo" && (
                 <button
                   className={classes.export_btn}
