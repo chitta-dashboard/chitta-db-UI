@@ -91,6 +91,7 @@ const ViewCeoDetails = (props) => {
               <>
                 <CardContent>
                   <img
+                    draggable="false" 
                     src={Nerkathirlogo}
                     alt="Nerkathir logo"
                     className={classes.watermark}
@@ -99,6 +100,7 @@ const ViewCeoDetails = (props) => {
                     <div>
                       <img
                         className={classes.adminCardImage}
+                        draggable="false"
                         src={
                           data?.picture
                             ? `${config.app.APP_API_URL}${data.picture.url}`

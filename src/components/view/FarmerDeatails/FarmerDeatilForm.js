@@ -149,7 +149,7 @@ const FarmerDeatilForm = (Props) => {
                     ? require("../../../assets/images/female.svg").default
                     : require("../../../assets/images/male.svg").default
                 }
-                alt=""
+                alt="" draggable="false"
                 className={classes.user_profile}
               ></img>
             </div>
@@ -180,7 +180,7 @@ const FarmerDeatilForm = (Props) => {
               <div className={classes.farmerDetailWatermark}>
                 <img
                   src={Nerkathirlogo}
-                  alt="Nerkathir logo"
+                  alt="Nerkathir logo" draggable="false"
                   className={classes.farmerDetailWatermark_img}
                 />
               </div>

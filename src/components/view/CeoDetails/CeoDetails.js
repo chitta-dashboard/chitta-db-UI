@@ -109,6 +109,7 @@ const CeoDetails = (props) => {
                           >
                             <img
                               alt=""
+                              draggable="false"
                               src={
                                 data?.picture
                                   ? `${config.app.APP_API_URL}${data.picture.url}`

@@ -84,7 +84,7 @@ const ViewFarmerCard = (props) => {
               />
             ) : (
               <CardContent>
-                <img
+                <img draggable="false"
                   src={Nerkathirlogo}
                   alt="Nerkathir logo"
                   className={classes.watermark}
@@ -92,7 +92,7 @@ const ViewFarmerCard = (props) => {
                 />
                 <div className={classes.adminContent}>
                   <div>
-                    <img
+                    <img draggable="false"
                       className={classes.adminCardImage}
                       src={
                         data?.userImg

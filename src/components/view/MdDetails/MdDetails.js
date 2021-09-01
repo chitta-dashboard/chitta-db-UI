@@ -101,7 +101,7 @@ const MdDetails = (props) => {
                             padding="none"
                             className={classes.icontab_cell}
                           >
-                            <img
+                            <img draggable="false"
                               alt=""
                               src={
                                 data?.picture

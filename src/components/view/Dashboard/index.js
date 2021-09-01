@@ -169,6 +169,7 @@ const Dashboard = () => {
         <Grid item xs={6} className={classes.dashboard_welcomeContainer}>
           <img
             src={WavingHand}
+            draggable="false"
             className={classes.dashboard_wavingIcon}
             alt="wavinghand Logo"
           />
