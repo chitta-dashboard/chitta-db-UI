@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useLayoutEffect } from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
@@ -15,6 +15,9 @@ import { useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import clsx from "clsx";
+import CardToPdf from "../../widgets/CardToPdf";
 
 const ViewCeoDetails = (props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -25,7 +28,18 @@ const ViewCeoDetails = (props) => {
     ["getCeo", match.params.id],
     () => getAdminUser(match.params.id)
   );
-
+  
+  const [qrImage, setQrImage] = useState();
+  
+  useLayoutEffect(() => {
+    if (data) {
+      setTimeout(() => {
+        const qrCodeCanvas = document.querySelector("canvas");
+        const qrCodeDataUri = qrCodeCanvas.toDataURL("image/jpg", 0.3);
+        setQrImage(qrCodeDataUri);
+      }, 2000);
+    }
+  }, [data]);
   function addDefaultSrc(ev) {
     ev.target.src = tempImg;
   }
@@ -47,6 +61,25 @@ const ViewCeoDetails = (props) => {
               className={classes.export_btn}
               onClick={() => history.push(`/editCeo/${match.params.id}`)}
             />
+            <PDFDownloadLink
+              document={<CardToPdf farmerData={data} qr={qrImage} />}
+              fileName={`${data?.name}.pdf`}
+              style={{ textDecoration: "none" }}
+            >
+              {({ loading }) => {
+                return (
+                  <button
+                    className={clsx(
+                      classes.export_btn,
+                      loading ? classes.loading : ""
+                    )}
+                    disabled={loading}
+                  >
+                    Download
+                  </button>
+                );
+              }}
+            </PDFDownloadLink>
           </div>
         )}
       </div>
