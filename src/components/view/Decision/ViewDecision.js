@@ -6,7 +6,7 @@ import { Grid, Box, Table, TableHead, TableBody } from "@material-ui/core";
 import { deleteDecision, getDecisionById } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router-dom";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import { pdf, PDFDownloadLink } from "@react-pdf/renderer";
 import DecisionToPdf from "../Decision/DecisionToPdf";
 import CustomButton from "../../widgets/CustomButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -14,6 +14,7 @@ import { useQuery, useMutation } from "react-query";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
+import { saveAs } from "file-saver";
 
 export default function ViewDecision(props) {
   const history = useHistory();
@@ -81,27 +82,19 @@ export default function ViewDecision(props) {
               />
             </Box>
             <Box>
-              <PDFDownloadLink
-                document={
-                  <DecisionToPdf getDecision={decision} getDate={date} />
-                }
-                fileName={`${date}_decision.pdf`}
-                style={{ textDecoration: "none" }}
-              >
-                {({ loading }) => {
-                  return (
-                    <button
-                      className={clsx(
-                        classes.export_btn,
-                        loading ? classes.loading : ""
-                      )}
-                    >
-                      {" "}
-                      Download{" "}
-                    </button>
+              <CustomButton
+                value={"Download"}
+                className={classes.export_btn}
+                onClick={async () => {
+                  const doc = (
+                    <DecisionToPdf getDecision={decision} getDate={date} />
                   );
+                  const asPdf = pdf([]);
+                  asPdf.updateContainer(doc);
+                  const blob = await asPdf.toBlob();
+                  saveAs(blob, `${date}.pdf`);
                 }}
-              </PDFDownloadLink>
+              />
             </Box>
           </Box>
         </Box>
@@ -159,7 +152,10 @@ export default function ViewDecision(props) {
               <TableBody>
                 {data?.participants.map((data) => {
                   return (
-                    <TableRow key={data.id} className={classes.decision_tab_row}>
+                    <TableRow
+                      key={data.id}
+                      className={classes.decision_tab_row}
+                    >
                       <TableCell className={classes.decision_tab_cell}>
                         {data.name}
                       </TableCell>

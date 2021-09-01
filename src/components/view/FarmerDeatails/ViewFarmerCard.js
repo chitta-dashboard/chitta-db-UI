@@ -63,7 +63,7 @@ const ViewFarmerCard = (props) => {
               className={classes.export_btn}
               onClick={async () => {
                 const doc = <CardToPdf data={data} qr={qrImage} />;
-                const asPdf = pdf([]); // {} is important, throws without an argument
+                const asPdf = pdf([]);
                 asPdf.updateContainer(doc);
                 const blob = await asPdf.toBlob();
                 saveAs(blob, `${data.name}.pdf`);
@@ -84,7 +84,8 @@ const ViewFarmerCard = (props) => {
               />
             ) : (
               <CardContent>
-                <img draggable="false"
+                <img
+                  draggable="false"
                   src={Nerkathirlogo}
                   alt="Nerkathir logo"
                   className={classes.watermark}
@@ -92,7 +93,8 @@ const ViewFarmerCard = (props) => {
                 />
                 <div className={classes.adminContent}>
                   <div>
-                    <img draggable="false"
+                    <img
+                      draggable="false"
                       className={classes.adminCardImage}
                       src={
                         data?.userImg
