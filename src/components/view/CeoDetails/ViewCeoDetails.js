@@ -40,9 +40,11 @@ const ViewCeoDetails = (props) => {
       }, 2000);
     }
   }, [data]);
+
   function addDefaultSrc(ev) {
     ev.target.src = tempImg;
   }
+
   return (
     <>
       <div className={classes.admin_btncontainer}>
