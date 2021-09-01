@@ -15,8 +15,8 @@ import { useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import clsx from "clsx";
+import { pdf } from "@react-pdf/renderer";
+import { saveAs } from "file-saver";
 import CardToPdf from "../../widgets/CardToPdf";
 
 const ViewCeoDetails = (props) => {
@@ -63,25 +63,17 @@ const ViewCeoDetails = (props) => {
               className={classes.export_btn}
               onClick={() => history.push(`/editCeo/${match.params.id}`)}
             />
-            <PDFDownloadLink
-              document={<CardToPdf data={data} qr={qrImage} />}
-              fileName={`${data?.name}.pdf`}
-              style={{ textDecoration: "none" }}
-            >
-              {({ loading }) => {
-                return (
-                  <button
-                    className={clsx(
-                      classes.export_btn,
-                      loading ? classes.loading : ""
-                    )}
-                    disabled={loading}
-                  >
-                    Download
-                  </button>
-                );
+            <CustomButton
+              value={"Download"}
+              className={classes.export_btn}
+              onClick={async () => {
+                const doc = <CardToPdf data={data} qr={qrImage} />;
+                const asPdf = pdf([]);
+                asPdf.updateContainer(doc);
+                const blob = await asPdf.toBlob();
+                saveAs(blob, `${data.name}.pdf`);
               }}
-            </PDFDownloadLink>
+            />
           </div>
         )}
       </div>
