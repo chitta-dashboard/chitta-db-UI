@@ -870,12 +870,11 @@ export const useStyles = makeStyles((theme) => ({
     width: "500px",
     margin: "0px 20px",
   },
-  adminCardImage: {
-    width: "100px",
-    height: "111px",
-    paddingBottom: "0.7rem",
-    borderRadius: "50px",
-  },
+  // adminCardImage: {
+  //   width: "100px",
+  //   height: "111px",
+  //   borderRadius: "50px",
+  // },
   adminCardQr: {
     width: "50px",
     height: "50px",
@@ -888,6 +887,11 @@ export const useStyles = makeStyles((theme) => ({
   adminContent: {
     justifyContent: "space-around",
     display: "flex",
+  },
+  adminCardImage: {
+    height: 100,
+    width: 100,
+    borderRadius: "50%",
   },
   adminHeaderTitle: {
     color: "#36574C",
