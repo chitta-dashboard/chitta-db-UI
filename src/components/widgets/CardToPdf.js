@@ -97,7 +97,9 @@ const CardToPdf = (props) => {
           <View style={styles.profileContainer}>
             <Image
               src={
-                data?.userImg?.url
+                data?.picture?.url
+                  ? `${config.app.APP_API_URL}${data.picture.url}` 
+                  : data?.userImg?.url
                   ? `${config.app.APP_API_URL}${data.userImg.url}`
                   : require("../../assets/images/ProfileImg.jpg").default
               }
