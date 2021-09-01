@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useLayoutEffect } from "react";
+import React, { useContext, useState, useLayoutEffect } from "react";
 import Card from "@material-ui/core/Card";
 import clsx from "clsx";
 import { PDFDownloadLink } from "@react-pdf/renderer";

@@ -10,7 +10,6 @@ import {
 } from "../../../constants";
 import config, { deleteFarmer, getFarmerById } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
-import FarmerDetailsToPdf from "./FarmerDetailsToPdf";
 import { useHistory } from "react-router-dom";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import { useQuery } from "react-query";

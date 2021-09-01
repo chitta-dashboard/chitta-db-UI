@@ -8,7 +8,6 @@ import {
   CardContent,
 } from "@material-ui/core";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
-import CloseIcon from "@material-ui/icons/Close";
 import { Chart } from "react-charts";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import WavingHand from "../../../assets/images/wavingHand.svg";
