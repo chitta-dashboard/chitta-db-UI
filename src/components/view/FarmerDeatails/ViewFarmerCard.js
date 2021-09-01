@@ -1,7 +1,5 @@
 import React, { useContext, useState, useLayoutEffect } from "react";
 import Card from "@material-ui/core/Card";
-import clsx from "clsx";
-import { PDFDownloadLink } from "@react-pdf/renderer";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -18,6 +16,9 @@ import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
 import CardToPdf from "../../widgets/CardToPdf";
+import { saveAs } from "file-saver";
+import { pdf } from "@react-pdf/renderer";
+
 const ViewFarmerCard = (props) => {
   const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
@@ -29,15 +30,6 @@ const ViewFarmerCard = (props) => {
   );
   console.log("match.params.id", match.params.id);
   const [qrImage, setQrImage] = useState();
-  // const { data, isLoading, isError, error } = useQuery(
-  //   ["getFarmer", match.params.id],
-  //   () => match.params.id && getFarmerById(match.params.id)
-  // );
-  // useEffect(() => {
-  //   if (match.params.id) {
-  //     getFarmerById(match.params.id).then((res) => setData(res));
-  //   }
-  // }, [match.params.id]);
 
   useLayoutEffect(() => {
     if (data) {
@@ -66,25 +58,17 @@ const ViewFarmerCard = (props) => {
         </div>
         {loginType === "Administrator" && (
           <div className={classes.btnContainer_custom}>
-            <PDFDownloadLink
-              document={<CardToPdf data={data} qr={qrImage} />}
-              fileName={`${data?.name}.pdf`}
-              style={{ textDecoration: "none" }}
-            >
-              {({ loading }) => {
-                return (
-                  <button
-                    className={clsx(
-                      classes.export_btn,
-                      loading ? classes.loading : ""
-                    )}
-                    disabled={loading}
-                  >
-                    Download
-                  </button>
-                );
+            <CustomButton
+              value={"Download"}
+              className={classes.addDetails_btn}
+              onClick={async () => {
+                const doc = <CardToPdf data={data} qr={qrImage} />;
+                const asPdf = pdf([]); // {} is important, throws without an argument
+                asPdf.updateContainer(doc);
+                const blob = await asPdf.toBlob();
+                saveAs(blob, `${data.name}.pdf`);
               }}
-            </PDFDownloadLink>
+            />
           </div>
         )}
       </div>
