@@ -80,6 +80,11 @@ const styles = StyleSheet.create({
     color: "#36574C",
     fontWeight: "bold",
   },
+  adminCardQr: {
+    width: 60,
+    height: 60,
+    marginLeft: 20,
+  },
 });
 
 const CardToPdf = (props) => {
@@ -87,13 +92,13 @@ const CardToPdf = (props) => {
 
   return (
     <Document>
-      <Page size={[800, 400]} style={styles.page}>
+      <Page size={[400, 200]} style={styles.page}>
         <View style={styles.section}>
           <View style={styles.profileContainer}>
             <Image
               src={
-                data?.picture?.url
-                  ? `${config.app.APP_API_URL}${data.picture.url}`
+                data?.userImg?.url
+                  ? `${config.app.APP_API_URL}${data.userImg.url}`
                   : require("../../assets/images/ProfileImg.jpg").default
               }
               alt=""

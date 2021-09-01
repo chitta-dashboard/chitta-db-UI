@@ -17,7 +17,7 @@ import { useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
-import ViewFarmerCardToPdf from "./ViewFarmerCardToPdf";
+import CardToPdf from "../../widgets/CardToPdf";
 const ViewFarmerCard = (props) => {
   const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
@@ -67,7 +67,7 @@ const ViewFarmerCard = (props) => {
         {loginType === "Administrator" && (
           <div className={classes.btnContainer_custom}>
             <PDFDownloadLink
-              document={<ViewFarmerCardToPdf farmerData={data} qr={qrImage} />}
+              document={<CardToPdf data={data} qr={qrImage} />}
               fileName={`${data?.name}.pdf`}
               style={{ textDecoration: "none" }}
             >

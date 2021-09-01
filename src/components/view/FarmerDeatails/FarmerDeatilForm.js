@@ -17,6 +17,7 @@ import { useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { Error } from "../../widgets/Error";
 import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
+import CardToPdf from "../../widgets/CardToPdf";
 
 const FarmerDeatilForm = (Props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -106,12 +107,7 @@ const FarmerDeatilForm = (Props) => {
               <div style={{ width: "100%" }}></div>
             )}
             <PDFDownloadLink
-              document={
-                <FarmerDetailsToPdf
-                  getFarmerData={getFarmerData}
-                  farmerData={data}
-                />
-              }
+              document={<CardToPdf data={getFarmerData} farmerData={data} />}
               fileName={`${data.name}.pdf`}
               style={{ textDecoration: "none" }}
             >
