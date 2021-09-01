@@ -43,7 +43,7 @@ const ViewFarmerCard = (props) => {
     if (data) {
       setTimeout(() => {
         const qrCodeCanvas = document.querySelector("canvas");
-        const qrCodeDataUri = qrCodeCanvas.toDataURL("image/jpg", 0.3);
+        const qrCodeDataUri = qrCodeCanvas?.toDataURL("image/jpg", 0.3);
         setQrImage(qrCodeDataUri);
       }, 2000);
     }
