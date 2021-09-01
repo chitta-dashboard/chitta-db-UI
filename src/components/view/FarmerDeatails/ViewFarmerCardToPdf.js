@@ -80,6 +80,10 @@ const styles = StyleSheet.create({
     color: "#36574C",
     fontWeight: "bold",
   },
+  adminCardQr: {
+    width: 200,
+    height: 200,
+  },
 });
 
 const ViewFarmerCardToPdf = (props) => {
