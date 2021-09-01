@@ -81,8 +81,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   adminCardQr: {
-    width: 200,
-    height: 200,
+    width: 60,
+    height: 60,
+    marginLeft: 20,
   },
 });
 
@@ -91,7 +92,7 @@ const ViewFarmerCardToPdf = (props) => {
 
   return (
     <Document>
-      <Page size={[800, 400]} style={styles.page}>
+      <Page size={[400, 200]} style={styles.page}>
         <View style={styles.section}>
           <View style={styles.profileContainer}>
             <Image
