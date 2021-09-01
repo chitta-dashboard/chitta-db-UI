@@ -15,10 +15,7 @@ import {
   searchWord,
   FarmerDetailsList,
 } from "../../../constants";
-import config, {
-  getFarmers,
-  getFarmerById,
-} from "../../../constants/config";
+import config, { getFarmers, getFarmerById } from "../../../constants/config";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import AddIcon from "@material-ui/icons/Add";
 import searchLogo from "../../../assets/images/search.svg";
@@ -157,7 +154,12 @@ const FarmerList = (props) => {
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
             />
-            <img src={searchLogo} alt=""  draggable="false" className={classes.searchIcon} />
+            <img
+              src={searchLogo}
+              alt=""
+              draggable="false"
+              className={classes.searchIcon}
+            />
           </div>
         </Box>
         <Box className={classes.farmerdetails_boxcontainer}>
@@ -257,7 +259,8 @@ const FarmerList = (props) => {
                   >
                     <TableCell padding="none" className={classes.icontab_cell}>
                       <img
-                        alt="" draggable="false"
+                        alt=""
+                        draggable="false"
                         src={
                           farmer.userImg?.url
                             ? `${config.app.APP_API_URL}${farmer.userImg.url}`

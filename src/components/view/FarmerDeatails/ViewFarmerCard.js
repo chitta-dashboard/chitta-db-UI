@@ -28,7 +28,6 @@ const ViewFarmerCard = (props) => {
     ["getFarmer", match.params.id],
     () => match.params.id && getFarmerById(match.params.id)
   );
-  console.log("match.params.id", match.params.id);
   const [qrImage, setQrImage] = useState();
 
   useLayoutEffect(() => {
@@ -89,7 +88,6 @@ const ViewFarmerCard = (props) => {
                   src={Nerkathirlogo}
                   alt="Nerkathir logo"
                   className={classes.watermark}
-                  draggable={false}
                 />
                 <div className={classes.adminContent}>
                   <div>
@@ -101,7 +99,6 @@ const ViewFarmerCard = (props) => {
                           ? `${config.app.APP_API_URL}${data.userImg.url}`
                           : tempImg
                       }
-                      draggable={false}
                       alt="Farmer Profile"
                       onError={addDefaultSrc}
                     />

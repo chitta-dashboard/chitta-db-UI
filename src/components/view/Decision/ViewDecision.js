@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import clsx from "clsx";
 import { useEffect } from "react";
 import { useStyles } from "../../../assets/styles";
 import { Grid, Box, Table, TableHead, TableBody } from "@material-ui/core";
 import { deleteDecision, getDecisionById } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router-dom";
-import { pdf, PDFDownloadLink } from "@react-pdf/renderer";
+import { pdf } from "@react-pdf/renderer";
 import DecisionToPdf from "../Decision/DecisionToPdf";
 import CustomButton from "../../widgets/CustomButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
