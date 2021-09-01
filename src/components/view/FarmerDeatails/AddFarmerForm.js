@@ -15,6 +15,7 @@ import {
   uploadFile,
   postNotification,
   getFarmers,
+  getFarmersCount,
 } from "../../../constants/config";
 import { colors } from "../../../theme";
 import { uuid } from "../../../constants";
@@ -37,6 +38,7 @@ const AddFarmerForm = (Props) => {
   const [surveyArr, setSurveyArr] = useState([]);
   const [makeAdmin, setMakeAdmin] = useState(false);
   const [farmerGroupValue, setFarmerGroupValue] = useState();
+  const [farmersCount, setFarmersCount] = useState();
   const { loginType } = useContext(UserLoginContext);
   const { match } = Props;
 
@@ -50,6 +52,13 @@ const AddFarmerForm = (Props) => {
     setValue,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    getFarmersCount().then((res) => {
+      setFarmersCount(res);
+    });
+  }, []);
+
   useEffect(() => {
     if (match.params.id) {
       getFarmerById(match.params.id)
@@ -229,6 +238,7 @@ const AddFarmerForm = (Props) => {
       cropType: data.cropType,
       cattle: data.cattle,
       isGroupAdmin: !makeAdmin && data.groupAdmin === "true" ? true : false,
+      membershipId: farmersCount + 1,
     };
 
     // console.log(params);
