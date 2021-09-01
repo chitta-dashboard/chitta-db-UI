@@ -28,9 +28,9 @@ const ViewCeoDetails = (props) => {
     ["getCeo", match.params.id],
     () => getAdminUser(match.params.id)
   );
-  
+
   const [qrImage, setQrImage] = useState();
-  
+
   useLayoutEffect(() => {
     if (data) {
       setTimeout(() => {
@@ -40,9 +40,11 @@ const ViewCeoDetails = (props) => {
       }, 2000);
     }
   }, [data]);
+
   function addDefaultSrc(ev) {
     ev.target.src = tempImg;
   }
+
   return (
     <>
       <div className={classes.admin_btncontainer}>
@@ -62,7 +64,7 @@ const ViewCeoDetails = (props) => {
               onClick={() => history.push(`/editCeo/${match.params.id}`)}
             />
             <PDFDownloadLink
-              document={<CardToPdf farmerData={data} qr={qrImage} />}
+              document={<CardToPdf data={data} qr={qrImage} />}
               fileName={`${data?.name}.pdf`}
               style={{ textDecoration: "none" }}
             >
