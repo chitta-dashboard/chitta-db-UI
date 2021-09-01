@@ -9,7 +9,7 @@ import {
 } from "@react-pdf/renderer";
 import { Font } from "@react-pdf/renderer";
 import config from "../../constants/config";
-import font from  "../../assets/fonts/Baloo_Thambi_2/BalooThambi2-Regular.ttf"
+import font from "../../assets/fonts/Baloo_Thambi_2/BalooThambi2-Regular.ttf";
 import Nerkathirlogo from "../../assets/images/nerkathir_logo.png";
 
 //Register styles
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
 });
 
 const CardToPdf = (props) => {
-  const { farmerData } = props;
+  const { data } = props;
 
   return (
     <Document>
@@ -92,8 +92,8 @@ const CardToPdf = (props) => {
           <View style={styles.profileContainer}>
             <Image
               src={
-                farmerData?.picture?.url
-                  ? `${config.app.APP_API_URL}${farmerData.picture.url}`
+                data?.picture?.url
+                  ? `${config.app.APP_API_URL}${data.picture.url}`
                   : require("../../assets/images/ProfileImg.jpg").default
               }
               alt=""
@@ -112,11 +112,11 @@ const CardToPdf = (props) => {
         </View>
         <View style={styles.DetailsContainer}>
           <View style={styles.details}>
-            <Text style={styles.formtext}>பெயர் : {farmerData?.name}</Text>
+            <Text style={styles.formtext}>பெயர் : {data?.name}</Text>
             <Text style={styles.formtext}>
-              கைப்பேசி எண் : {farmerData?.phoneNumber}
+              கைப்பேசி எண் : {data?.phoneNumber}
             </Text>
-            <Text style={styles.formtext}>பிறந்த தேதி : {farmerData?.DOB}</Text>
+            <Text style={styles.formtext}>பிறந்த தேதி : {data?.DOB}</Text>
           </View>
           <View style={styles.qrContainer}>
             {
