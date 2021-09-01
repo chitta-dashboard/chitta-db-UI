@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext,useEffect,useState } from "react";
 import Card from "@material-ui/core/Card";
 import clsx from "clsx";
 import { PDFDownloadLink } from "@react-pdf/renderer";
@@ -13,24 +13,33 @@ import { useStyles } from "../../../assets/styles";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import QRCode from "qrcode.react";
 import { UserLoginContext } from "../../context/UserLoginContext";
-import { useQuery } from "react-query";
+// import { useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
-import { Loader } from "../../widgets/Loader";
-import { Error } from "../../widgets/Error";
+// import { Loader } from "../../widgets/Loader";
+// import { Error } from "../../widgets/Error";
 import ViewFarmerCardToPdf from "./ViewFarmerCardToPdf";
 
 const ViewFarmerCard = (props) => {
   const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
   const { match, history } = props;
+  console.log("match.params.id",match.params.id)
+  const [ data ,setData ]= useState({})
+  // const { data, isLoading, isError, error } = useQuery(
+  //   ["getFarmer", match.params.id],
+  //   () => match.params.id && getFarmerById(match.params.id)
+  // );
 
-  const { data, isLoading, isError, error } = useQuery(
-    ["getFarmer", match.params.id],
-    () => match.params.id && getFarmerById(match.params.id)
-  );
+  useEffect(()=>{
+    if(match.params.id){
+      getFarmerById(match.params.id).then((res)=>setData(res))
+    }
+  },[match.params.id])
+
   function addDefaultSrc(ev) {
     ev.target.src = tempImg;
   }
+  console.log("data",data)
 
   return (
     <>
@@ -70,7 +79,7 @@ const ViewFarmerCard = (props) => {
       <Container fixed className={classes.adminCardContainer}>
         <Card className={classes.adminCardRoot}>
           <CardActionArea>
-            {isLoading ? (
+            {/* {isLoading ? (
               <Loader className={classes.no_data} />
             ) : isError ? (
               <Error
@@ -78,7 +87,7 @@ const ViewFarmerCard = (props) => {
                 error={error.message.toString()}
               />
             ) : (
-              <>
+              <> */}
                 <CardContent>
                   <img
                     src={Nerkathirlogo}
@@ -138,8 +147,8 @@ const ViewFarmerCard = (props) => {
                     </div>
                   </div>
                 </CardContent>
-              </>
-            )}
+              {/* </>
+            )} */}
           </CardActionArea>
         </Card>
       </Container>
