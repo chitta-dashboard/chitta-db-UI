@@ -120,14 +120,14 @@ const ViewMdDetails = (props) => {
             ) : (
               <>
                 <CardContent>
-                  <img
+                  <img draggable="false"
                     src={Nerkathirlogo}
                     alt="Nerkathir logo"
                     className={classes.watermark}
                   />
                   <div className={classes.adminContent}>
                     <div>
-                      <img
+                      <img draggable="false"
                         className={classes.adminCardImage}
                         alt="Md Profile"
                         src={

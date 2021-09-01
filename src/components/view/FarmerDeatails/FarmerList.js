@@ -157,7 +157,7 @@ const FarmerList = (props) => {
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
             />
-            <img src={searchLogo} alt="" className={classes.searchIcon} />
+            <img src={searchLogo} alt=""  draggable="false" className={classes.searchIcon} />
           </div>
         </Box>
         <Box className={classes.farmerdetails_boxcontainer}>
@@ -257,7 +257,7 @@ const FarmerList = (props) => {
                   >
                     <TableCell padding="none" className={classes.icontab_cell}>
                       <img
-                        alt=""
+                        alt="" draggable="false"
                         src={
                           farmer.userImg?.url
                             ? `${config.app.APP_API_URL}${farmer.userImg.url}`
