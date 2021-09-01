@@ -154,9 +154,9 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    "@media (min-width: 600px)":{
+    "@media (min-width: 600px)": {
       minHeight: "auto !important ",
-    }
+    },
   },
 
   HeaderTitle: {
@@ -811,10 +811,10 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "space-around",
   },
   decision_tab: {
-    width:"10rem"
+    width: "10rem",
     // padding: "0.2rem 1rem 0.2rem 1rem",
   },
-  decision_tab_row:{
+  decision_tab_row: {
     borderBottom: "1px solid #e0e0e0",
   },
   decision_tab_cell: {
@@ -877,8 +877,8 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: "50px",
   },
   adminCardQr: {
-    width: "100px",
-    height: "111px",
+    width: "50px",
+    height: "50px",
     paddingBottom: "0.7rem",
   },
   adminDetails: {
