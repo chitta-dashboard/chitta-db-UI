@@ -1,9 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useLayoutEffect } from "react";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import config, { getAdminUser,deleteAdminUser } from "../../../constants/config";
+import clsx from "clsx";
+import config, {
+  getAdminUser,
+  deleteAdminUser,
+} from "../../../constants/config";
 import Container from "@material-ui/core/Container";
 import tempImg from "../../../assets/images/male.svg";
 import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
@@ -16,9 +20,11 @@ import { customToast } from "../../widgets/Toast";
 import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import CardToPdf from "../../widgets/CardToPdf";
 
 const ViewMdDetails = (props) => {
-  const { loginType,adminType } = useContext(UserLoginContext);
+  const { loginType, adminType } = useContext(UserLoginContext);
   const classes = useStyles();
   const { match, history } = props;
 
@@ -26,6 +32,19 @@ const ViewMdDetails = (props) => {
     ["getMd", match.params.id],
     () => getAdminUser(match.params.id)
   );
+
+  const [qrImage, setQrImage] = useState();
+
+  useLayoutEffect(() => {
+    if (data) {
+      setTimeout(() => {
+        const qrCodeCanvas = document.querySelector("canvas");
+        const qrCodeDataUri = qrCodeCanvas.toDataURL("image/jpg", 0.3);
+        setQrImage(qrCodeDataUri);
+      }, 2000);
+    }
+  }, [data]);
+
   function addDefaultSrc(ev) {
     ev.target.src = tempImg;
   }
@@ -33,8 +52,7 @@ const ViewMdDetails = (props) => {
     deleteAdminUser(id).then((data) => {
       customToast("success", "MD Deleted successfully..");
       history.goBack();
-  })
-
+    });
   };
   return (
     <>
@@ -49,24 +67,45 @@ const ViewMdDetails = (props) => {
         </div>
         <div className={classes.btnContainer_custom}>
           {loginType === "Administrator" ? (
-              <>
-            <CustomButton
-              value="Edit"
-              className={classes.export_btn}
-              onClick={() => history.push(`/editMd/${match.params.id}`)}
-            />
-            {adminType === "ceo" && <button
+            <>
+              <CustomButton
+                value="Edit"
+                className={classes.export_btn}
+                onClick={() => history.push(`/editMd/${match.params.id}`)}
+              />
+              <PDFDownloadLink
+                document={<CardToPdf data={data} qr={qrImage} />}
+                fileName={`${data?.name}.pdf`}
+                style={{ textDecoration: "none" }}
+              >
+                {({ loading }) => {
+                  return (
+                    <button
+                      className={clsx(
+                        classes.export_btn,
+                        loading ? classes.loading : ""
+                      )}
+                      disabled={loading}
+                    >
+                      Download
+                    </button>
+                  );
+                }}
+              </PDFDownloadLink>
+              {adminType === "ceo" && (
+                <button
                   className={classes.export_btn}
                   style={{ textDecoration: "none" }}
                   onClick={() => formerDeleteHandler(match.params.id)}
                 >
                   Delete
-                </button> }    
-              </>
-            ) : (
-              <div style={{ width: "100%" }}></div>
-            )}
-        </div>        
+                </button>
+              )}
+            </>
+          ) : (
+            <div style={{ width: "100%" }}></div>
+          )}
+        </div>
       </div>
       <Container fixed className={classes.adminCardContainer}>
         <Card className={classes.adminCardRoot}>
