@@ -107,7 +107,7 @@ const FarmerDeatilForm = (Props) => {
             ) : (
               <div style={{ width: "100%" }}></div>
             )}
-            <PDFDownloadLink
+            {/* <PDFDownloadLink
               document={
                 <FarmerDetailsToPdf
                   getFarmerData={getFarmerData}
@@ -130,8 +130,8 @@ const FarmerDeatilForm = (Props) => {
                   </button>
                 );
               }}
-            </PDFDownloadLink>
-            {/* <CustomButton
+            </PDFDownloadLink> */}
+            <CustomButton
               value={"Download"}
               className={classes.export_btn}
               onClick={async () => {
@@ -146,7 +146,7 @@ const FarmerDeatilForm = (Props) => {
                 const blob = await asPdf.toBlob();
                 saveAs(blob, `${data.name}.pdf`);
               }}
-            /> */}
+            />
           </div>
         </div>
         <div className={classes.userdetail_container}>
