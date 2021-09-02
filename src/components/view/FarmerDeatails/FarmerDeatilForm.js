@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import clsx from "clsx";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import { pdf, PDFDownloadLink } from "@react-pdf/renderer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { useStyles } from "../../../assets/styles";
 import {
@@ -17,6 +17,8 @@ import CustomButton from "../../widgets/CustomButton";
 import { Error } from "../../widgets/Error";
 import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
 import CardToPdf from "../../widgets/CardToPdf";
+import FarmerDetailsToPdf from "./FarmerDetailsToPdf";
+import { saveAs } from "file-saver";
 
 const FarmerDeatilForm = (Props) => {
   const { loginType } = useContext(UserLoginContext);
@@ -106,7 +108,12 @@ const FarmerDeatilForm = (Props) => {
               <div style={{ width: "100%" }}></div>
             )}
             <PDFDownloadLink
-              document={<CardToPdf data={getFarmerData} farmerData={data} />}
+              document={
+                <FarmerDetailsToPdf
+                  getFarmerData={getFarmerData}
+                  farmerData={data}
+                />
+              }
               fileName={`${data.name}.pdf`}
               style={{ textDecoration: "none" }}
             >
@@ -124,6 +131,22 @@ const FarmerDeatilForm = (Props) => {
                 );
               }}
             </PDFDownloadLink>
+            {/* <CustomButton
+              value={"Download"}
+              className={classes.export_btn}
+              onClick={async () => {
+                const doc = (
+                  <FarmerDetailsToPdf
+                    getFarmerData={getFarmerData}
+                    farmerData={data}
+                  />
+                );
+                const asPdf = pdf([]);
+                asPdf.updateContainer(doc);
+                const blob = await asPdf.toBlob();
+                saveAs(blob, `${data.name}.pdf`);
+              }}
+            /> */}
           </div>
         </div>
         <div className={classes.userdetail_container}>
@@ -149,7 +172,8 @@ const FarmerDeatilForm = (Props) => {
                     ? require("../../../assets/images/female.svg").default
                     : require("../../../assets/images/male.svg").default
                 }
-                alt="" draggable="false"
+                alt=""
+                draggable="false"
                 className={classes.user_profile}
               ></img>
             </div>
@@ -180,7 +204,8 @@ const FarmerDeatilForm = (Props) => {
               <div className={classes.farmerDetailWatermark}>
                 <img
                   src={Nerkathirlogo}
-                  alt="Nerkathir logo" draggable="false"
+                  alt="Nerkathir logo"
+                  draggable="false"
                   className={classes.farmerDetailWatermark_img}
                 />
               </div>

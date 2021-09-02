@@ -95,8 +95,9 @@ const CardToPdf = (props) => {
       return `${config.app.APP_API_URL}${data.picture.url}`;
     } else if (data?.userImg) {
       return `${config.app.APP_API_URL}${data.userImg.url}`;
+    } else {
+      return require("../../assets/images/ProfileImg.jpg").default;
     }
-    return require("../../assets/images/ProfileImg.jpg").default;
   };
 
   return (
