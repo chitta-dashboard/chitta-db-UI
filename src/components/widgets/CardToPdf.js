@@ -90,19 +90,29 @@ const styles = StyleSheet.create({
 const CardToPdf = (props) => {
   const { data } = props;
 
+  const imageSource = () => {
+    if (data?.picture) {
+      return `${config.app.APP_API_URL}${data.picture.url}`;
+    } else if (data?.userImg) {
+      return `${config.app.APP_API_URL}${data.userImg.url}`;
+    }
+    return require("../../assets/images/ProfileImg.jpg").default;
+  };
+
   return (
     <Document>
       <Page size={[400, 200]} style={styles.page}>
         <View style={styles.section}>
           <View style={styles.profileContainer}>
             <Image
-              src={
-                data?.picture?.url
-                  ? `${config.app.APP_API_URL}${data.picture.url}` 
-                  : data?.userImg?.url
-                  ? `${config.app.APP_API_URL}${data.userImg.url}`
-                  : require("../../assets/images/ProfileImg.jpg").default
-              }
+              // src={
+              //   data?.picture?.url
+              //     ? `${config.app.APP_API_URL}${data.picture.url}`
+              //     : data?.userImg?.url
+              //     ? `${config.app.APP_API_URL}${data.userImg.url}`
+              //     : require("../../assets/images/ProfileImg.jpg").default
+              // }
+              src={imageSource}
               alt=""
               cache
               style={styles.profileimg}
