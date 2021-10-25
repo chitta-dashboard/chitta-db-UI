@@ -920,4 +920,12 @@ export const useStyles = makeStyles((theme) => ({
     display: "grid",
     placeContent: "center",
   },
+  cultivation_container_btn: {
+    width: "80%",
+    margin: "0 auto",
+    display: "flex",
+    justifyContent: "center",
+    marginTop: "2rem",
+    marginBottom: "7vh",
+  },
 }));

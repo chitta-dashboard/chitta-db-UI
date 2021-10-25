@@ -8,22 +8,33 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import CustomButton from "../../widgets/CustomButton";
 import AddIcon from "@material-ui/icons/Add";
 import SelectSearch, { fuzzySearch } from "react-select-search";
+import { getFarmers } from "../../../constants/config";
+import { useQuery } from "react-query";
 
 const Cultivation = () => {
   const { loginType } = useContext(UserLoginContext);
   const classes = useStyles();
   const [selectedUser, setSelectedUser] = useState(null);
-  const options = [
-    { name: "Swedish", value: "sv" },
-    { name: "English", value: "en" },
-  ];
+  const [filteredData, setFilteredData] = useState(null);
+  const { data: initialFarmersData } = useQuery("usersdata", () =>
+    getFarmers()
+  );
+  useEffect(() => {
+    const filteredData = initialFarmersData?.map((data) => {
+      return {
+        name: data.name,
+        value: data.id,
+      };
+    });
+    setFilteredData(filteredData);
+  }, [initialFarmersData]);
 
   return (
     <div className={classes.cultivation_root}>
@@ -36,7 +47,11 @@ const Cultivation = () => {
                 search
                 disabled={loginType === "Farmer"}
                 filterOptions={fuzzySearch}
-                options={options}
+                options={
+                  filteredData !== null && filteredData !== undefined
+                    ? filteredData
+                    : [{ name: "", value: "" }]
+                }
                 placeholder="Select User"
                 onChange={setSelectedUser}
                 value={selectedUser}

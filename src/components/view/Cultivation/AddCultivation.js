@@ -18,43 +18,32 @@ const AddCultivation = (props) => {
   const [season2, setSeason2] = useState(null);
   const [season3, setSeason3] = useState(null);
   const [filteredData, setFilteredData] = useState(null);
-  const [farmerData, setFarmerData] = useState(null);
 
   const options = [
-    { name: "Swedish", value: "sv" },
-    { name: "English", value: "en" },
+    { name: "அரிசி", value: "1" },
+    { name: "கோதுமை", value: "2" },
+    { name: "சோளம்", value: "3" },
+    { name: "தினை", value: "4" },
+    { name: "பருப்பு வகைகள்", value: "5" },
   ];
 
   const { match } = props;
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
-  const {
-    data: initialFarmersData,
-    isLoading,
-    isError,
-    error,
-  } = useQuery("getFarmerddDataE", () => getFarmers());
+  const { data: initialFarmersData } = useQuery("getFarmerddDataE", () =>
+    getFarmers()
+  );
 
   useEffect(() => {
     const filteredData = initialFarmersData?.map((data) => {
       return {
         name: data.name,
-        value: data.name,
+        value: data.id,
       };
     });
     setFilteredData(filteredData);
   }, [initialFarmersData]);
 
-  console.log(
-    filteredData !== null && filteredData !== undefined ? true : false
-  );
-
-  console.log(filteredData);
   return (
     <div className={classes.form}>
       <form
@@ -78,7 +67,7 @@ const AddCultivation = (props) => {
             spacing={3}
           >
             <Grid item xs={6}>
-              {/* <SelectSearch
+              <SelectSearch
                 className={"filterform-btn"}
                 search
                 filterOptions={fuzzySearch}
@@ -90,7 +79,7 @@ const AddCultivation = (props) => {
                 placeholder="Select User"
                 onChange={setSelectedUser}
                 value={selectedUser}
-              /> */}
+              />
             </Grid>
             <Grid item xs={6}>
               <select
@@ -143,7 +132,7 @@ const AddCultivation = (props) => {
               />
             </Grid>
           </Grid>
-          <Grid className={classes.forminput_container_btn} container>
+          <Grid className={classes.cultivation_container_btn} container>
             <button type="submit" className={classes.submit_btn}>
               SUBMIT
             </button>
