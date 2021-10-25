@@ -909,4 +909,15 @@ export const useStyles = makeStyles((theme) => ({
     height: "70%",
     margin: "1rem 8rem",
   },
+  cultivation_root: {
+    height: "100vh",
+    width: "100%",
+    padding: "0 1rem",
+  },
+  selectUserContainer: {
+    height: "100%",
+    width: "100%",
+    display: "grid",
+    placeContent: "center",
+  },
 }));

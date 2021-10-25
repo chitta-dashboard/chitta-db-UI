@@ -42,6 +42,8 @@ import Decision from "../Decision/Decision";
 import AddDecision from "../Decision/AddDecision";
 import ViewDecision from "../Decision/ViewDecision";
 import ViewFarmerCard from "../FarmerDeatails/ViewFarmerCard";
+import Cultivation from "../Cultivation/Cultivation";
+import AddCultivation from "../Cultivation/AddCultivation";
 
 const Layout = () => {
   const classes = useStyles();
@@ -206,6 +208,8 @@ const Layout = () => {
             <Route exact path="/decision" component={Decision} />
             <Route exact path="/decision/:id" component={ViewDecision} />
             <Route path="/editdecision/:id" component={AddDecision} />
+            <Route path="/cultivation" component={Cultivation} />
+            <Route path="/addcultivation" component={AddCultivation} />
             <Route
               exact
               path="/farmersdetails/:id"

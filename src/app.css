@@ -37,6 +37,46 @@
 .filter-btn input:active {
   outline: 0;
 }
+.filterform-btn {
+  z-index: 10;
+}
+.filterform-btn__select {
+  background-color: #f3f6f9;
+  min-width: 15rem;
+  height: 40vh;
+  overflow: auto;
+  border-radius: 5px;
+  position: absolute;
+}
+.filterform-btn__options {
+  padding: 0;
+  list-style-type: none;
+}
+.filterform-btn__option {
+  border: none;
+  background-color: inherit;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem;
+}
+.filterform-btn__option:hover {
+  background-color: #085c49;
+  color: white;
+}
+.filterform-btn input {
+  padding: 0rem 1rem;
+  height: 3.2rem;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #3333331f;
+      background: #131e2f0d;
+
+}
+.filterform-btn input:hover,
+.filterform-btn input:focus,
+.filterform-btn input:active {
+  outline: 0;
+}
 .farmer_input {
       height: 50px;
       padding: 0 12px;
@@ -50,7 +90,6 @@
   background-color: #f3f6f9;
   height: 35vh;
   overflow: auto;
-  z-index: -1;
 }
 .farmer_input__options {
   padding: 0;

@@ -141,7 +141,7 @@ const FarmerDeatilForm = (Props) => {
                     farmerData={data}
                   />
                 );
-                const asPdf = pdf([]);
+                const asPdf = pdf([]); // {} is important, throws without an argument
                 asPdf.updateContainer(doc);
                 const blob = await asPdf.toBlob();
                 saveAs(blob, `${data.name}.pdf`);

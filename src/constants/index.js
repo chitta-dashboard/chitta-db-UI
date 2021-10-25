@@ -71,12 +71,18 @@ export const ListItems = [
   },
   {
     id: "6",
+    name: "Cultivation",
+    Router: "/cultivation",
+    icon: "farmerDetails",
+  },
+  {
+    id: "7",
     name: "Register",
     Router: "/register",
     icon: "register",
   },
   {
-    id: "7",
+    id: "8",
     name: "Decision",
     Router: "/decision",
     icon: "decision",
