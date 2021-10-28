@@ -123,6 +123,12 @@ export const postDecisions = (params) => {
 export const deleteDecision = (id) => {
   return httpClient.delete(`decisions/${id}`);
 };
+export const getCrops = () => {
+  return httpClient.get(`crops`);
+};
+export const postCultivation = (params) => {
+  return httpClient.post(`cultivations`, params);
+};
 
 export const uploadFile = (data) => {
   const formData = new FormData();

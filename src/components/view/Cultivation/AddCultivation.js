@@ -1,34 +1,49 @@
 import { Grid } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useStyles } from "../../../assets/styles";
 import CustomButton from "../../widgets/CustomButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { FieldError } from "../Common/FieldError";
 import SelectSearch, { fuzzySearch } from "react-select-search";
-import { getFarmers } from "../../../constants/config";
+import {
+  getCrops,
+  getFarmers,
+  postCultivation,
+} from "../../../constants/config";
 import { useQuery } from "react-query";
+import { useHistory } from "react-router";
 
 const AddCultivation = (props) => {
   const classes = useStyles();
-  const [farmers, setFarmers] = useState(null);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [season1, setSeason1] = useState(null);
-  const [season2, setSeason2] = useState(null);
-  const [season3, setSeason3] = useState(null);
+  const history = useHistory();
   const [filteredData, setFilteredData] = useState(null);
+  const [crops, setCrops] = useState([{}, {}]);
 
-  const options = [
-    { name: "அரிசி", value: "1" },
-    { name: "கோதுமை", value: "2" },
-    { name: "சோளம்", value: "3" },
-    { name: "தினை", value: "4" },
-    { name: "பருப்பு வகைகள்", value: "5" },
-  ];
+  useEffect(() => {
+    getCropsList();
+  }, []);
+
+  const getCropsList = async () => {
+    await getCrops().then((res) => {
+      const filteredCrops = res.map((data) => {
+        return {
+          name: data.cropname,
+          value: data.id,
+        };
+      });
+      setCrops(filteredCrops);
+    });
+  };
 
   const { match } = props;
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm();
 
   const { data: initialFarmersData } = useQuery("getFarmerddDataE", () =>
     getFarmers()
@@ -48,7 +63,8 @@ const AddCultivation = (props) => {
     <div className={classes.form}>
       <form
         onSubmit={handleSubmit((data) => {
-          console.log(data);
+          postCultivation(data);
+          history.push("/cultivation");
         })}
       >
         <Grid className={classes.form_container} container spacing={3}>
@@ -67,19 +83,29 @@ const AddCultivation = (props) => {
             spacing={3}
           >
             <Grid item xs={6}>
-              <SelectSearch
-                className={"filterform-btn"}
-                search
-                filterOptions={fuzzySearch}
-                options={
-                  filteredData !== null && filteredData !== undefined
-                    ? filteredData
-                    : [{ name: "", value: "" }]
-                }
-                placeholder="Select User"
-                onChange={setSelectedUser}
-                value={selectedUser}
+              <Controller
+                name="farmer"
+                control={control}
+                defaultValue=""
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <SelectSearch
+                    className={"filterform-btn"}
+                    search
+                    filterOptions={fuzzySearch}
+                    options={
+                      filteredData !== null && filteredData !== undefined
+                        ? filteredData
+                        : [{ name: "", value: "" }]
+                    }
+                    placeholder="Select User"
+                    {...field}
+                  />
+                )}
               />
+              {errors?.farmer?.type === "required" && (
+                <p style={{ color: "red" }}>required *</p>
+              )}
             </Grid>
             <Grid item xs={6}>
               <select
@@ -99,36 +125,57 @@ const AddCultivation = (props) => {
               </select>
             </Grid>
             <Grid item xs={4}>
-              <SelectSearch
-                className={"filterform-btn"}
-                search
-                filterOptions={fuzzySearch}
-                options={options}
-                placeholder="பருவம் 1"
-                onChange={setSeason1}
-                value={season1}
+              <Controller
+                name="s1"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <SelectSearch
+                    className={"filterform-btn"}
+                    search
+                    filterOptions={fuzzySearch}
+                    options={crops}
+                    placeholder="பருவம் 1"
+                    value={crops}
+                    {...field}
+                  />
+                )}
               />
             </Grid>
             <Grid item xs={4}>
-              <SelectSearch
-                className={"filterform-btn"}
-                search
-                filterOptions={fuzzySearch}
-                options={options}
-                placeholder="பருவம் 2"
-                onChange={setSeason2}
-                value={season2}
+              <Controller
+                name="s2"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <SelectSearch
+                    className={"filterform-btn"}
+                    search
+                    filterOptions={fuzzySearch}
+                    options={crops}
+                    placeholder="பருவம் 2"
+                    value={crops}
+                    {...field}
+                  />
+                )}
               />
             </Grid>
             <Grid item xs={4}>
-              <SelectSearch
-                className={"filterform-btn"}
-                search
-                filterOptions={fuzzySearch}
-                options={options}
-                placeholder="பருவம் 3"
-                onChange={setSeason3}
-                value={season3}
+              <Controller
+                name="s3"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <SelectSearch
+                    className={"filterform-btn"}
+                    search
+                    filterOptions={fuzzySearch}
+                    options={crops}
+                    placeholder="பருவம் 3"
+                    value={crops}
+                    {...field}
+                  />
+                )}
               />
             </Grid>
           </Grid>
