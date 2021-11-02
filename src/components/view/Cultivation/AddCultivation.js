@@ -14,6 +14,7 @@ import {
 } from "../../../constants/config";
 import { useQuery } from "react-query";
 import { useHistory } from "react-router";
+import { customToast } from "../../widgets/Toast";
 
 const AddCultivation = (props) => {
   const classes = useStyles();
@@ -59,14 +60,16 @@ const AddCultivation = (props) => {
     setFilteredData(filteredData);
   }, [initialFarmersData]);
 
+  const postCultivationHandler = (data) => {
+    postCultivation(data)
+      .then((res) => customToast("success", "Form submitted successfully."))
+      .catch((err) => customToast("error", "An Error occured."));
+    history.push("/cultivation");
+  };
+
   return (
     <div className={classes.form}>
-      <form
-        onSubmit={handleSubmit((data) => {
-          postCultivation(data);
-          history.push("/cultivation");
-        })}
-      >
+      <form onSubmit={handleSubmit((data) => postCultivationHandler(data))}>
         <Grid className={classes.form_container} container spacing={3}>
           <Grid className={classes.adddetails_header} item xs={12}>
             <Link to="/cultivation" style={{ textDecoration: "none" }}>
