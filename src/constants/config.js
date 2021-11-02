@@ -126,6 +126,9 @@ export const deleteDecision = (id) => {
 export const getCrops = () => {
   return httpClient.get(`crops`);
 };
+export const getCultivation = (id) => {
+  return httpClient.get(`cultivations?farmer.id=${id}`);
+};
 export const postCultivation = (params) => {
   return httpClient.post(`cultivations`, params);
 };

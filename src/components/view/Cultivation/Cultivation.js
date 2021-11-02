@@ -15,7 +15,7 @@ import { UserLoginContext } from "../../context/UserLoginContext";
 import CustomButton from "../../widgets/CustomButton";
 import AddIcon from "@material-ui/icons/Add";
 import SelectSearch, { fuzzySearch } from "react-select-search";
-import { getFarmers } from "../../../constants/config";
+import { getFarmers, getCultivation } from "../../../constants/config";
 import { useQuery } from "react-query";
 
 const Cultivation = () => {
@@ -23,6 +23,7 @@ const Cultivation = () => {
   const classes = useStyles();
   const [selectedUser, setSelectedUser] = useState(null);
   const [filteredData, setFilteredData] = useState(null);
+  const [cultivationData, setCultivationData] = useState(null);
   const { data: initialFarmersData } = useQuery("usersdata", () =>
     getFarmers()
   );
@@ -35,6 +36,11 @@ const Cultivation = () => {
     });
     setFilteredData(filteredData);
   }, [initialFarmersData]);
+
+  const handleSelect = (id) => {
+    setSelectedUser(id);
+    getCultivation(id).then((res) => setCultivationData(res));
+  };
 
   return (
     <div className={classes.cultivation_root}>
@@ -53,7 +59,7 @@ const Cultivation = () => {
                     : [{ name: "", value: "" }]
                 }
                 placeholder="Select User"
-                onChange={setSelectedUser}
+                onChange={(id) => handleSelect(id)}
                 value={selectedUser}
               />
             </div>
@@ -107,36 +113,41 @@ const Cultivation = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow
-                  role="checkbox"
-                  tabIndex={-1}
-                  className={classes.tab_row}
-                >
-                  <TableCell
-                    className={classes.tab_cell}
-                    style={{ color: "#464E5F" }}
-                  >
-                    2020-2021
-                  </TableCell>
-                  <TableCell
-                    className={classes.tab_cell}
-                    style={{ color: "#464E5F" }}
-                  >
-                    cultivation 1
-                  </TableCell>
-                  <TableCell
-                    className={classes.tab_cell}
-                    style={{ color: "#464E5F" }}
-                  >
-                    cultivation 2
-                  </TableCell>
-                  <TableCell
-                    className={classes.tab_cell}
-                    style={{ color: "#464E5F" }}
-                  >
-                    cultivation 3
-                  </TableCell>
-                </TableRow>
+                {cultivationData?.map((cultivation) => {
+                  return (
+                    <TableRow
+                      role="checkbox"
+                      tabIndex={-1}
+                      className={classes.tab_row}
+                      key={cultivation.id}
+                    >
+                      <TableCell
+                        className={classes.tab_cell}
+                        style={{ color: "#464E5F" }}
+                      >
+                        {cultivation?.year}
+                      </TableCell>
+                      <TableCell
+                        className={classes.tab_cell}
+                        style={{ color: "#464E5F" }}
+                      >
+                        {cultivation.s1.cropname}
+                      </TableCell>
+                      <TableCell
+                        className={classes.tab_cell}
+                        style={{ color: "#464E5F" }}
+                      >
+                        {cultivation.s2.cropname}
+                      </TableCell>
+                      <TableCell
+                        className={classes.tab_cell}
+                        style={{ color: "#464E5F" }}
+                      >
+                        {cultivation.s3.cropname}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           ) : (
