@@ -615,7 +615,7 @@ export const useStyles = makeStyles((theme) => ({
     height: "2rem",
     width: "5rem",
     border: 0,
-    backgroundColor: colors.primary,
+    backgroundColor: `${colors.primary}`,
     color: colors.text1,
     borderRadius: "5px",
     cursor: "pointer",
@@ -691,20 +691,31 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   user_profilepic: {
-    height: "100px",
-    maxHeight: "100px",
+    // height: "100px",
+    // maxHeight: "100px",
     display: "flex",
-    justifyContent: "center",
-    alignItems: "Center",
+    justifyContent: "space-between",
+    alignItems: "center",
     position: "absolute",
+    flexDirection: "column",
     right: 0,
+    flexWrap: "wrap",
+    gap: "0.5rem",
+    zIndex: 1,
+    // width: "128px",
   },
-
   user_profile: {
     height: "100px",
     width: "110px",
   },
-
+  user_profile_upload: {
+    position: "absolute",
+    right: 0,
+    background: "green",
+    height: "25px",
+    width: "25px",
+    boxSizing: "border-box",
+  },
   user_subheader: {
     width: "100%",
     position: "relative",

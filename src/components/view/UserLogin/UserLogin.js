@@ -21,7 +21,7 @@ export default function UserLogin() {
           passwordRef.current.value
         ) {
           loginHandler(res);
-          console.log("res",res)
+          // console.log("res",res)
           loginTypeHandler("Administrator");
         } else if (res.length === 0) {
           checkFarmer(phoneNumberRef.current.value)
@@ -30,7 +30,7 @@ export default function UserLogin() {
                 res[0]?.DOB.indexOf("/") > 0
                   ? res[0].DOB.split("/")[0]
                   : res[0].DOB.split("-")[0];
-              console.log(dob, passwordRef.current.value);
+              // console.log(dob, passwordRef.current.value);
               if (
                 res[0]?.phoneNumber.toString().substring(0, 4) + dob ===
                 passwordRef.current.value

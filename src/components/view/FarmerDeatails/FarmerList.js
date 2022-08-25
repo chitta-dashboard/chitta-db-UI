@@ -102,7 +102,7 @@ const FarmerList = (props) => {
     };
   });
 
-  console.log(farmersData);
+  // console.log(farmersData);
 
   useEffect(() => {
     const FormData = filteredList.length

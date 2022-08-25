@@ -24,7 +24,6 @@ export default function UserLoginContextProvider(props) {
     Cookies.set("isAuthenticated", true, { expires: 7 });
     Cookies.set("userId", data[0].id, { expires: 7 });
     Cookies.set("adminType", data[0].adminType, { expires: 7 });
-    console.log("loginType", data)
   };
   const logoutHandler = () => {
     setIsAuthenticated(false);
@@ -35,7 +34,6 @@ export default function UserLoginContextProvider(props) {
     Cookies.remove("adminType");
   };
   // Cookies.get();
-  // console.log("loginType", loginType);
   return (
     <UserLoginContext.Provider
       value={{

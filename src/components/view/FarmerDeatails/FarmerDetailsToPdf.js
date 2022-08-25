@@ -117,7 +117,9 @@ const FarmerDetailsToPdf = (props) => {
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.section}>
-          <Text style={styles.Title}>உழவர் உற்பத்தியாளர் நிறுவனம்</Text>
+          <Text style={styles.Title}>
+            நெற்கதிர் உழவர் உற்பத்தியாளர் நிறுவனம்
+          </Text>
           <Text style={styles.Nabard}>நபார்டு</Text>
           <Text style={styles.district}>கள்ளக்குறிச்சி மாவட்டம்</Text>
           <Text style={styles.formtitle}>உறுப்பினர் விண்ணப்பம்</Text>
