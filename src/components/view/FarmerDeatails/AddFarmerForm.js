@@ -251,8 +251,8 @@ const AddFarmerForm = (Props) => {
     );
   };
 
-  console.log(farmerGroupValue);
-  console.log(makeAdmin);
+  // console.log(farmerGroupValue);
+  // console.log(makeAdmin);
   return (
     <div className={classes.form}>
       <form onSubmit={handleSubmit((data) => postFarmerData(data))}>

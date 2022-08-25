@@ -97,7 +97,7 @@ export default function AddDecision(props) {
       hosts:host,
       participants:participant,
     };
-    console.log("params",params.hosts)
+    // console.log("params",params.hosts)
     match.params.id
       ? updateDecision.mutate(params)
       : addDecision.mutate(params);

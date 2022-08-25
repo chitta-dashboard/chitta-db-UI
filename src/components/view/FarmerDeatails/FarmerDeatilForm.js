@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import clsx from "clsx";
 import { pdf, PDFDownloadLink } from "@react-pdf/renderer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -8,35 +8,43 @@ import {
   getFormattedDate,
   toGetTamilGender,
 } from "../../../constants";
-import config, { deleteFarmer, getFarmerById } from "../../../constants/config";
+import config, { deleteFarmer, getFarmerById, putFarmer, uploadFile } from "../../../constants/config";
 import { customToast } from "../../widgets/Toast";
 import { useHistory } from "react-router-dom";
 import { UserLoginContext } from "../../context/UserLoginContext";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { Error } from "../../widgets/Error";
 import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
 import CardToPdf from "../../widgets/CardToPdf";
 import FarmerDetailsToPdf from "./FarmerDetailsToPdf";
 import { saveAs } from "file-saver";
+import IconButton from "@material-ui/core/IconButton";
+import EditIcon from "@material-ui/icons/Edit";
 
 const FarmerDeatilForm = (Props) => {
   const { loginType } = useContext(UserLoginContext);
   const { match } = Props;
   const history = useHistory();
   const classes = useStyles();
+  const [farmerPhoto, setFarmerPhoto] = useState(null);
+
   let initialObj = {};
   const {
     data = initialObj,
     isLoading,
     isError,
     error,
+    refetch,
   } = useQuery(
     ["getFarmer", match.params.id],
     () => match.params.id && getFarmerById(match.params.id)
   );
+  const editFarmer = useMutation((data) => putFarmer(data, match.params.id), {
+    onSuccess: (data) => farmerPicHandler(data),
+    onError: (error) => customToast("error", "Former image upload failed."),
+  });
 
-  console.log(data);
   const d = new Date();
   const getFarmerData = (type) => {
     switch (type) {
@@ -63,6 +71,39 @@ const FarmerDeatilForm = (Props) => {
       history.goBack();
     });
   };
+
+  const _onProfilePicChange =(e) => {
+     e.preventDefault();
+    let file = e.target.files[0];
+    setFarmerPhoto(file);
+    getFarmerById(match.params.id).then((val)=>{
+      editFarmer.mutate(val);
+    }).catch((e)=>{
+      console.log("err",e)
+    });
+  };
+
+  const farmerPicHandler = (data) => {
+    const success = () => {
+      customToast("success", "Former image upload successfully ");
+      refetch();
+    };
+    if (farmerPhoto) {
+      uploadFile({
+        ref: "farmer",
+        refId: data.id,
+        field: "userImg",
+        files: farmerPhoto,
+      })
+        .then((data) => {
+          success();
+        })
+        .catch((_err) => {
+          console.log(_err);
+        });
+    }
+  };
+
   return (
     <>
       <div className={classes.farmerDetail_root}>
@@ -83,7 +124,7 @@ const FarmerDeatilForm = (Props) => {
                 Props.history.push(`/farmerCard/${match.params.id}`)
               }
             >
-              View
+              Id Card
             </button>
             {loginType === "Administrator" ? (
               <>
@@ -153,7 +194,7 @@ const FarmerDeatilForm = (Props) => {
           <div className={classes.user_header}>
             <div className={classes.user_title}>
               <h1 className={classes.main_title}>
-                உழவர் உற்பத்தியாளர் நிறுவனம்
+                நெற்கதிர் உழவர் உற்பத்தியாளர் நிறுவனம்
               </h1>
               <h4 className={classes.nabard_title}>நபார்டு </h4>
               <h4 className={classes.district_title}>
@@ -176,6 +217,26 @@ const FarmerDeatilForm = (Props) => {
                 draggable="false"
                 className={classes.user_profile}
               ></img>
+              <div
+                className={classes.user_profile_upload}
+              >
+                <input
+                  style={{ display: "none" }}
+                  accept="image/*"
+                  id="contained-button-file"
+                  onChange={_onProfilePicChange}
+                  type="file"
+                />
+                <label htmlFor="contained-button-file">
+                  <IconButton
+                    style={{ color: "white", height: "25px", width: "25px" }}
+                    aria-label="upload picture"
+                    component="span"
+                  >
+                    <EditIcon fontSize="small" />
+                  </IconButton>
+                </label>
+              </div>
             </div>
           </div>
           <div className={classes.user_subheader}>
@@ -186,7 +247,10 @@ const FarmerDeatilForm = (Props) => {
             <p className={classes.user_subheadersubmainbelow}>
               நிர்வாக அலுவலகம்:எண்.6, காந்திரோடு, கள்ளக்குறிச்சி - 606202
             </p>
-            <div className={classes.formnum_container}>
+            <div
+              className={classes.formnum_container}
+              style={{ marginTop: "1rem" }}
+            >
               <p className={classes.formnum_text}>
                 உறுப்பினர் எண் <span>: NER-FPC-{data.membershipId}</span>
               </p>
