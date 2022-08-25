@@ -30,7 +30,8 @@ import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
 
 const FarmerList = (props) => {
-  const { loginType } = useContext(UserLoginContext);
+  const { loginType, searchFormarDetail, setSearchFormarDetail } =
+    useContext(UserLoginContext);
   const classes = useStyles();
   const [searchValue, setSearchValue] = useState("");
   const [filteredList, setFilteredList] = useState([]);
@@ -54,9 +55,7 @@ const FarmerList = (props) => {
 
   useEffect(() => {
     if (Cookies.get("loginType") === "Farmer") {
-      console.log(initialFarmersData);
       getFarmerById(Cookies.get("userId")).then((data) => {
-        console.log(data);
         const tempArr = initialFarmersData
           ?.filter((value) => data.farmerGroup === value.farmerGroup)
           .map((value) => {
@@ -83,7 +82,7 @@ const FarmerList = (props) => {
 
   useEffect(() => {
     let filteredList = [];
-    if (searchValue.trim().length > 0) {
+    if (searchValue !== "") {
       filteredList = farmerList.filter((e) => {
         return (
           searchWord(e.name, searchValue) ||
@@ -94,6 +93,12 @@ const FarmerList = (props) => {
       setFilteredList(filteredList);
     } else setFilteredList(filteredList);
   }, [searchValue, farmersData]);
+
+  useEffect(() => {
+    if (searchFormarDetail !== "" && farmerGrpId === "") {
+      setFarmerGrpId(searchFormarDetail);
+    }
+  }, [searchFormarDetail, farmerGrpId]);
 
   const customisedData = farmersData?.map((item) => {
     return {
@@ -107,6 +112,8 @@ const FarmerList = (props) => {
   useEffect(() => {
     const FormData = filteredList.length
       ? filteredList
+      : farmerGrpId !== ""
+      ? farmerList
       : !searchValue.length
       ? farmersData
       : [];
@@ -118,12 +125,21 @@ const FarmerList = (props) => {
       FormData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
     setPagedFarmer(newFarmersList);
     // }
-  }, [page, rowsPerPage, farmerList, filteredList, farmersData, searchValue]);
+  }, [
+    page,
+    rowsPerPage,
+    farmerList,
+    filteredList,
+    farmersData,
+    searchValue,
+    searchFormarDetail,
+    farmerGrpId,
+  ]);
 
   useEffect(() => {
     if (farmerGrpId !== "") {
       setPage(0);
-      let updated = farmerList.filter((item) => {
+      let updated = farmersData.filter((item) => {
         return item.farmerGroup === farmerGrpId;
       });
       setFarmerList(updated);
@@ -132,6 +148,7 @@ const FarmerList = (props) => {
       setFarmerList(farmersData);
     }
   }, [farmerGrpId, filteredList, farmersData, searchValue]);
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -142,6 +159,7 @@ const FarmerList = (props) => {
   const clearGrp = () => {
     setCloseIcon(false);
     setFarmerGrpId("");
+    setSearchFormarDetail("");
   };
   return (
     <>

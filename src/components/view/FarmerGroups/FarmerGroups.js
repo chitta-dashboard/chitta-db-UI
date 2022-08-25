@@ -9,7 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { useStyles } from "../../../assets/styles";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
 import { getFarmersGroup } from "../../../constants/config";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import searchLogo from "../../../assets/images/search.svg";
@@ -22,8 +22,9 @@ import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
 
 const FarmerGroups = () => {
-  const { loginType } = useContext(UserLoginContext);
+  const { loginType, setSearchFormarDetail } = useContext(UserLoginContext);
   const classes = useStyles();
+  const history = useHistory();
   const [searchValue, setSearchValue] = useState("");
   const [filteredList, setFilteredList] = useState([]);
 
@@ -109,6 +110,10 @@ const FarmerGroups = () => {
                         role="checkbox"
                         tabIndex={-1}
                         className={classes.tab_row}
+                        onClick={() => {
+                          history.push(`/farmersdetails`)
+                          setSearchFormarDetail(data.groupName);
+                        }}
                       >
                         <TableCell className={classes.tab_cell}>
                           {data.groupName ? data.groupName : ""}

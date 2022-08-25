@@ -13,6 +13,7 @@ export default function UserLoginContextProvider(props) {
     return Cookies.get("loginType") ? Cookies.get("loginType") : "";
   });
   const [adminType, setAdminType] = useState();
+  const [searchFormarDetail, setSearchFormarDetail] = useState("");
 
   const loginTypeHandler = (data) => {
     setLoginType(data);
@@ -42,6 +43,8 @@ export default function UserLoginContextProvider(props) {
         loginTypeHandler,
         loginType,
         adminType,
+        searchFormarDetail,
+        setSearchFormarDetail,
         logoutHandler,
         setIsAuthenticated,
         setLoginType,
