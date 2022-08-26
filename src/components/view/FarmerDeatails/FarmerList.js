@@ -51,7 +51,7 @@ const FarmerList = (props) => {
     isLoading,
     isError,
     error,
-  } = useQuery("getFarmerddDataE", () => getFarmers());
+  } = useQuery("getFarmerData", () => getFarmers());
 
   useEffect(() => {
     if (Cookies.get("loginType") === "Farmer") {

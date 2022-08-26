@@ -8,7 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { useStyles } from "../../../assets/styles";
 import { NoRecordsFound } from "../../widgets/NoRecordsFound";
-import { getFarmersGroup } from "../../../constants/config";
+import { getFarmers, getFarmersGroup } from "../../../constants/config";
 import { NavLink, useHistory } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
@@ -27,8 +27,26 @@ const FarmerGroups = () => {
   const history = useHistory();
   const [searchValue, setSearchValue] = useState("");
   const [filteredList, setFilteredList] = useState([]);
+  const [initialFilterList, setInitialFilterList] = useState([]);
 
   const { isLoading,isError,data: groups, error } = useQuery("getGroups", () => getFarmersGroup());
+  const { data: farmersData } = useQuery("getFarmerData", () => getFarmers());
+
+  useEffect(() => {
+    if (farmersData?.length && groups?.length) {
+      let matchGroupList = groups.filter((value) => {
+        return farmersData.some((data) => {
+          return value.groupName === data.farmerGroup;
+        });
+      });
+      let unMatchGroupList = groups.filter((value) => {
+        return farmersData.some((data) => {
+          return value.groupName !== data.farmerGroup;
+        });
+      });
+      setInitialFilterList([...matchGroupList, ...unMatchGroupList]);
+    }
+  }, [groups, farmersData]);
 
   useEffect(() => {
     let filteredList = [];
@@ -44,8 +62,17 @@ const FarmerGroups = () => {
   const groupsData = filteredList.length
     ? filteredList
     : !searchValue.length
-    ? groups
+    // ? groups
+    ? initialFilterList
     : [];
+
+  const handleTableColor = (groupName) => {
+    let colors = farmersData.filter((val) => val.farmerGroup === groupName);
+    return {
+      color: colors.length > 0 ? "#085c49" : "",
+      fontWeight: colors.length > 0 ? "700" : "",
+    };
+  };
 
   return (
     <div className={classes.farmerdetails_root}>
@@ -111,14 +138,20 @@ const FarmerGroups = () => {
                         tabIndex={-1}
                         className={classes.tab_row}
                         onClick={() => {
-                          history.push(`/farmersdetails`)
+                          history.push(`/farmersdetails`);
                           setSearchFormarDetail(data.groupName);
                         }}
                       >
-                        <TableCell className={classes.tab_cell}>
+                        <TableCell
+                          className={classes.tab_cell}
+                          style={handleTableColor(data.groupName)}
+                        >
                           {data.groupName ? data.groupName : ""}
                         </TableCell>
-                        <TableCell className={classes.tab_cell}>
+                        <TableCell
+                          className={classes.tab_cell}
+                          style={handleTableColor(data.groupName)}
+                        >
                           {data.description ? data.description : ""}
                         </TableCell>
                       </TableRow>
