@@ -2,12 +2,28 @@
   height: 2.5rem;
   z-index: 10;
 }
+/* .porulalar-filter-btn{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.seyalalar-filter-btn{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+} */
+
+
 .filter-btn__select {
   background-color: #f3f6f9;
-  min-width: 15rem;
+  width: 21rem;
   height: 50vh;
   overflow: auto;
   border-radius: 5px;
+}
+farmer-group-filter-btn__select{
+  min-width: 300px !important;
 }
 .filter-btn__options {
   padding: 0;
@@ -31,6 +47,33 @@
   border-radius: 20px;
   border: none;
   background-color: rgba(0, 0, 0, 0.09);
+}
+.farmer-group-filter-btn input{
+  padding: 0rem 1rem;
+  height: 2.5rem;
+  width: 21rem;
+  border-radius: 5px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.09);
+}
+@media screen and (max-width: 900px){
+  .farmer-group-filter-btn input{
+    
+  }
+}
+.farmer-group-selector-container{
+  width: 78.5%;
+  margin: 10px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap:1rem;
+}
+@media screen and (max-width: 900px){
+  .farmer-group-selector-container{
+    flex-direction: column;
+    align-items: center;
+  }
 }
 .filter-btn input:hover,
 .filter-btn input:focus,

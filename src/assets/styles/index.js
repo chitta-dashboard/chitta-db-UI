@@ -516,7 +516,6 @@ export const useStyles = makeStyles((theme) => ({
     position: "relative",
     margin: "0 auto",
   },
-
   drpdown: {
     color: "#606365",
     border: 0,
@@ -538,6 +537,22 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     marginTop: "1rem",
     marginBottom: "7vh",
+  },
+
+  forminput_select_container_btn: {
+    width: "78.5%",
+    position: "relative",
+    margin: "10px auto",
+    display: "flex",
+    justifyContent: "center",
+    marginTop: "1rem",
+    marginBottom: "7vh",
+    flexWrap:'wrap',
+    '@media screen and (max-width: 1400px)':{
+      gap:'1rem',
+      flexDirection:'column',
+      alignItems:'flex-start'
+    }
   },
 
   submit_btn: {
