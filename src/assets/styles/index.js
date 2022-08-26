@@ -906,6 +906,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   adminHeaderTitle: {
     color: "#36574C",
+    lineHeight:"1.5rem"
   },
   admin_btncontainer: {
     margin: "3rem 2rem",

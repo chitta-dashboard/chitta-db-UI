@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import clsx from "clsx";
-import { pdf, PDFDownloadLink } from "@react-pdf/renderer";
+// import clsx from "clsx";
+import { pdf,  } from "@react-pdf/renderer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { useStyles } from "../../../assets/styles";
 import {
@@ -16,7 +16,7 @@ import { useMutation, useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { Error } from "../../widgets/Error";
 import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
-import CardToPdf from "../../widgets/CardToPdf";
+// import CardToPdf from "../../widgets/CardToPdf";
 import FarmerDetailsToPdf from "./FarmerDetailsToPdf";
 import { saveAs } from "file-saver";
 import IconButton from "@material-ui/core/IconButton";

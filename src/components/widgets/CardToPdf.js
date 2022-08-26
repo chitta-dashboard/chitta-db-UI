@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
   formtitle: {
     color: "#36574C",
     fontWeight: "bold",
+    fontSize: 14,
   },
   adminCardQr: {
     width: 60,
@@ -109,8 +110,8 @@ const CardToPdf = (props) => {
             ></Image>
           </View>
           <View style={styles.headerTextContainer}>
-            <Text style={styles.formtitle}>Nerkathir Farmer Producer</Text>
-            <Text style={styles.formtitle}>Company Limited</Text>
+            <Text style={styles.formtitle}>நெற்கதிர் உழவர் உற்பத்தியாளர்</Text>
+            <Text style={styles.formtitle}>நிறுவனம்</Text>
             <View style={styles.regContainer}>
               <Text>Reg No:139086</Text>
               <Text>CIN:UO1409TN2020PTC139086</Text>

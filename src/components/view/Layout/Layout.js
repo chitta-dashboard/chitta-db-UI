@@ -131,7 +131,8 @@ const Layout = () => {
               </IconButton>
             )}
             <h2 className={classes.HeaderTitle}>
-              Nerkathir Farmer Producer Company Limited
+              {/* Nerkathir Farmer Producer Company Limited */}
+              நெற்கதிர் உழவர் உற்பத்தியாளர் நிறுவனம்
             </h2>
             <div className={classes.HeaderSub}>
               <p>Reg No:139086</p>
