@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 });
 
 export default function DecisionToPdf(props) {
-  const { getDate, getDecision } = props;
+  const { getDate, getDecision, getDecisionTitle, getDecisionGroup } = props;
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -43,6 +43,14 @@ export default function DecisionToPdf(props) {
           <Text>
             <Text style={styles.bold_text}>தேதி : </Text>
             {getDate}
+          </Text>
+          <Text>
+            <Text style={styles.bold_text}>குழு : </Text>
+            {getDecisionGroup}
+          </Text>
+          <Text>
+            <Text style={styles.bold_text}>தீர்மானம் தலைப்பு : </Text>
+            {getDecisionTitle}
           </Text>
           <Text>
             <Text style={styles.bold_text}>தீர்மானம் :</Text> {getDecision}

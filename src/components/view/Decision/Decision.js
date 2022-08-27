@@ -23,7 +23,7 @@ const Decision = (props) => {
     dotColor: "#262626",
     borderDotColor: "#d0cdc4",
     titleColor: "#36574C",
-    subtitleColor: "#bf9765",
+    subtitleColor: "#262626",
     textColor: "#262626",
   };
 
@@ -40,10 +40,13 @@ const Decision = (props) => {
           if (count > 100) {
             value.decision = value.decision.slice(0, 100) + "  ....";
           }
+          // console.log(value)
           return {
             date: value.date.split("-").join("/"),
-            decision: value.decision,
+            decision: value?.decision,
+            decisionTitle: value?.decision_title,
             id: value.id,
+            decisionGroup: value?.farmer_group?.groupName,
             pdfDecision: pdfDecision,
           };
         });
@@ -78,9 +81,15 @@ const Decision = (props) => {
                 <Container key={value.id}>
                   <YearContent startDate={value.date} />
                   <BodyContent>
-                    <Section>
-                      <Description text={value.decision} />
-                      <div className={classes.decision_btncontainer}>
+                    <p className={classes.decision_label}>
+                      {value.decisionGroup}
+                    </p>
+                    <Section title={value.decisionTitle}>
+                      <Description variant="subtitle" text={value.decision} />
+                      <div
+                        className={classes.decision_btncontainer}
+                        style={{ marginTop: "0.5rem" }}
+                      >
                         <CustomButton
                           className={classes.export_btn}
                           value="View"

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const getClientAxios = () => {
   const options = {
-    baseURL: "https://citta-db-strapi.herokuapp.com/",
+    baseURL: "https://nerkathir-strapi.herokuapp.com/",
     headers: {
       Accept: "application/json",
     },

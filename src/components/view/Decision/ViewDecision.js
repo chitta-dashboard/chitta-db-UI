@@ -21,6 +21,8 @@ export default function ViewDecision(props) {
   const classes = useStyles();
   const [date, setDate] = useState("");
   const [decision, setDecision] = useState("");
+  const [decisionTitle, setDecisionTitle] = useState("");
+  const [decisionGroup, setDecisionGroup] = useState("");
 
   const { data } = useQuery(
     ["View Decision", match.params.id],
@@ -31,6 +33,8 @@ export default function ViewDecision(props) {
     if (match.params.id) {
       setDate(data?.date.split("-").join("/"));
       setDecision(data?.decision);
+      setDecisionTitle(data?.decision_title);
+      setDecisionGroup(data?.farmer_group?.groupName);
     }
   }, [match.params.id, data]);
 
@@ -86,7 +90,12 @@ export default function ViewDecision(props) {
                 className={classes.export_btn}
                 onClick={async () => {
                   const doc = (
-                    <DecisionToPdf getDecision={decision} getDate={date} />
+                    <DecisionToPdf
+                      getDecision={decision}
+                      getDate={date}
+                      getDecisionTitle={decisionTitle}
+                      getDecisionGroup={decisionGroup}
+                    />
                   );
                   const asPdf = pdf([]);
                   asPdf.updateContainer(doc);
@@ -100,6 +109,18 @@ export default function ViewDecision(props) {
         <div className={classes.decision}>
           <div>
             <h3>தேதி : {date}</h3>
+            <p>
+              <span style={{ fontWeight: "700", fontSize: "1.2rem" }}>
+                குழு:{" "}
+              </span>
+              {decisionGroup}
+            </p>
+            <p>
+              <span style={{ fontWeight: "700", fontSize: "1.2rem" }}>
+                தீர்மானம் தலைப்பு :{" "}
+              </span>
+              {decisionTitle}
+            </p>
             <p>
               <span style={{ fontWeight: "700", fontSize: "1.2rem" }}>
                 தீர்மானம் :{" "}

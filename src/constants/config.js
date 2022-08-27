@@ -3,7 +3,7 @@ import { HttpClient } from "./httpClient";
 
 const appData = {
   app: {
-    APP_API_URL: "https://citta-db-strapi.herokuapp.com",
+    APP_API_URL: "https://nerkathir-strapi.herokuapp.com",
   },
 };
 let httpClient = new HttpClient();

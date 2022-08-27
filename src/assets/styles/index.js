@@ -547,12 +547,12 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     marginTop: "1rem",
     marginBottom: "7vh",
-    flexWrap:'wrap',
-    '@media screen and (max-width: 1400px)':{
-      gap:'1rem',
-      flexDirection:'column',
-      alignItems:'flex-start'
-    }
+    flexWrap: "wrap",
+    "@media screen and (max-width: 1400px)": {
+      gap: "1rem",
+      flexDirection: "column",
+      alignItems: "flex-start",
+    },
   },
 
   submit_btn: {
@@ -921,7 +921,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   adminHeaderTitle: {
     color: "#36574C",
-    lineHeight:"1.5rem"
+    lineHeight: "1.5rem",
   },
   admin_btncontainer: {
     margin: "3rem 2rem",
@@ -954,5 +954,16 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     marginTop: "2rem",
     marginBottom: "7vh",
+  },
+  decision_label: {
+    position: "absolute",
+    left: 0,
+    background: "#36574C",
+    color: "white",
+    fontSize: "12px",
+    padding: "0.1rem 0.5rem",
+    width: "90px",
+    textAlign: "center",
+    borderRadius: "10px",
   },
 }));
