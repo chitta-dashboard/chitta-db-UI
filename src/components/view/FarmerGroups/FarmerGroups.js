@@ -138,8 +138,10 @@ const FarmerGroups = () => {
                         tabIndex={-1}
                         className={classes.tab_row}
                         onClick={() => {
-                          history.push(`/farmersdetails`);
-                          setSearchFormarDetail(data.groupName);
+                          if(loginType === "Administrator"){
+                            history.push(`/farmersdetails`);
+                            setSearchFormarDetail(data.groupName);
+                          }
                         }}
                       >
                         <TableCell

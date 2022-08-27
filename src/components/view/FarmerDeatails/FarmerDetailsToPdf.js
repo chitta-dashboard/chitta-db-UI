@@ -134,11 +134,10 @@ const FarmerDetailsToPdf = (props) => {
             style={styles.profileimg}
           ></Image>
           <Text style={styles.address}>
-            ஒருங்கிணைப்பாளர்:மஹிமா பசுமை அறக்கட்டளை, எண்.66/c, கிழக்கு தெரு,
-            கச்சிராயப்பாளையம் - 606207
+            ஒருங்கிணைப்பாளர்: நேச்சர் ஃபார்ம் & ரூரல் டெவல்மென்ட் சொசைட்டிஎண்,453,பவர் ஆபீஸ் மெயின் ரோடு,
           </Text>
           <Text style={styles.officeaddress}>
-            நிர்வாக அலுவலகம்:எண்.6, காந்திரோடு, கள்ளக்குறிச்சி - 606202
+            சடையம்பட்டு,சோமண்டார்குடி அஞ்சல்,கள்ளக்குறிச்சி தாலுக்கா&மாவட்டம்,606213
           </Text>
           <View style={styles.formnumbercontainer}>
             <Text style={styles.formnumber}>உறுப்பினர் எண் :NER-FPC-12343</Text>

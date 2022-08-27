@@ -95,7 +95,11 @@ const FarmerList = (props) => {
   }, [searchValue, farmersData]);
 
   useEffect(() => {
-    if (searchFormarDetail !== "" && farmerGrpId === "") {
+    if (
+      loginType === "Administrator" &&
+      searchFormarDetail !== "" &&
+      farmerGrpId === ""
+    ) {
       setFarmerGrpId(searchFormarDetail);
     }
   }, [searchFormarDetail, farmerGrpId]);

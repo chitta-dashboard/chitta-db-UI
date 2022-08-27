@@ -237,7 +237,7 @@ const Dashboard = () => {
                 <CardContent>
                   {notification.map((data) => {
                     return (
-                      <Box className={classes.dashboard_notificationSubCard}>
+                      <Box key={data.id} className={classes.dashboard_notificationSubCard}>
                         <Typography variant="p">*</Typography>
                         <Typography variant="p" spacing="2">
                           {data.notification}
