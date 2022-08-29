@@ -19,10 +19,9 @@ export default function ViewDecision(props) {
   const history = useHistory();
   const { match } = props;
   const classes = useStyles();
-  const [date, setDate] = useState("");
-  const [decision, setDecision] = useState("");
-  const [decisionTitle, setDecisionTitle] = useState("");
+  const [date, setDate] = useState("")
   const [decisionGroup, setDecisionGroup] = useState("");
+  const [hosts, setHosts] = useState();
 
   const { data } = useQuery(
     ["View Decision", match.params.id],
@@ -30,11 +29,10 @@ export default function ViewDecision(props) {
   );
 
   useEffect(() => {
-    if (match.params.id) {
+    if (match.params.id && data !== undefined) {
       setDate(data?.date.split("-").join("/"));
-      setDecision(data?.decision);
-      setDecisionTitle(data?.decision_title);
-      setDecisionGroup(data?.farmer_group?.groupName);
+      setDecisionGroup(data?.farmer_group?.groupName ?? "குழு அனைத்தும்");
+      setHosts([...data?.hosts?.adminusers, ...data?.hosts?.farmers]);
     }
   }, [match.params.id, data]);
 
@@ -91,9 +89,9 @@ export default function ViewDecision(props) {
                 onClick={async () => {
                   const doc = (
                     <DecisionToPdf
-                      getDecision={decision}
+                      getDecision={data?.decision}
                       getDate={date}
-                      getDecisionTitle={decisionTitle}
+                      getDecisionTitle={data?.decision_title}
                       getDecisionGroup={decisionGroup}
                     />
                   );
@@ -119,13 +117,13 @@ export default function ViewDecision(props) {
               <span style={{ fontWeight: "700", fontSize: "1.2rem" }}>
                 தீர்மானம் தலைப்பு :{" "}
               </span>
-              {decisionTitle}
+              {data?.decision_title}
             </p>
             <p>
               <span style={{ fontWeight: "700", fontSize: "1.2rem" }}>
                 தீர்மானம் :{" "}
               </span>
-              {decision}
+              {data?.decision}
             </p>
           </div>
           <h3>தொகுப்பாளர் : </h3>
@@ -140,21 +138,22 @@ export default function ViewDecision(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data?.hosts.map((data) => {
-                  return (
-                    <TableRow
-                      key={data.id}
-                      className={classes.decision_tab_row}
-                    >
-                      <TableCell className={classes.decision_tab_cell}>
-                        {data.name}
-                      </TableCell>
-                      <TableCell
-                        className={classes.decision_tab_cell}
-                      ></TableCell>
-                    </TableRow>
-                  );
-                })}
+                {hosts?.length &&
+                  hosts.map((data) => {
+                    return (
+                      <TableRow
+                        key={data.id}
+                        className={classes.decision_tab_row}
+                      >
+                        <TableCell className={classes.decision_tab_cell}>
+                          {data.name}
+                        </TableCell>
+                        <TableCell
+                          className={classes.decision_tab_cell}
+                        ></TableCell>
+                      </TableRow>
+                    );
+                  })}
               </TableBody>
             </Table>
           </TableContainer>

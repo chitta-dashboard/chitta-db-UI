@@ -82,7 +82,7 @@ const Decision = (props) => {
                   <YearContent startDate={value.date} />
                   <BodyContent>
                     <p className={classes.decision_label}>
-                      {value.decisionGroup}
+                      {value.decisionGroup ?? "குழு அனைத்தும்"}
                     </p>
                     <Section title={value.decisionTitle}>
                       <Description variant="subtitle" text={value.decision} />
