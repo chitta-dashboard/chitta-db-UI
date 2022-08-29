@@ -28,6 +28,8 @@ export default function AddDecision(props) {
   const [host, setHost] = useState();
   const [group, setGroup] = useState();
   const [participant, setParticipant] = useState();
+  const [filterGroup, setFilterGroup] = useState([]);
+  const [filterFarmer, setFilterFarmer] = useState([]);
   const classes = useStyles();
   const { loginType } = useContext(UserLoginContext);
   const {
@@ -36,29 +38,21 @@ export default function AddDecision(props) {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  
+
   const { data } = useQuery(
     ["Edit Decision", match.params.id],
     () => match.params.id && getDecisionById(match.params.id)
   );
   const { data: ceoList } = useQuery("getCeoSearch", () =>
     getAdmin().then((res) =>
-    res.map((data) => ({
-      name: data?.name,
-      _id: data?.id,
-    }))
-    )
-    );
-    
-    const { data: farmerList } = useQuery("getFarmerSearch", () =>
-    getFarmers().then((res) =>
       res.map((data) => ({
         name: data?.name,
         _id: data?.id,
       }))
     )
   );
-  
+
+  const { data: farmerList } = useQuery("getFarmerSearch", () => getFarmers());
   const { data: farmerGroups } = useQuery("getFarmerGroups", () =>
     getFarmersGroup().then((res) =>
       res.map((data) => ({
@@ -67,6 +61,29 @@ export default function AddDecision(props) {
       }))
     )
   );
+
+  useEffect(() => {
+    if (farmerList?.length && farmerGroups?.length) {
+      let matchGroupList = farmerGroups.filter((value) => {
+        return farmerList.some((data) => {
+          return value.name === data.farmerGroup;
+        });
+      });
+      setFilterGroup(matchGroupList);
+    }
+  }, [farmerGroups, farmerList]);
+
+  useEffect(() => {
+    if (group?.length) {
+      let matchFarmerList = farmerList
+        .filter((value) => value.farmerGroup === group[0]?.name)
+        .map((data) => ({
+          name: data?.name,
+          _id: data?.id,
+        }));
+      setFilterFarmer(matchFarmerList);
+    }
+  }, [group]);
 
   // console.log("farmerGroups", farmerGroups);
   const updateDecision = useMutation(
@@ -80,53 +97,58 @@ export default function AddDecision(props) {
         customToast("error", error.message);
       },
     }
-    );
-    const addDecision = useMutation((data) => postDecisions(data), {
-      onSuccess: (data) => {
-        // console.log("data",data)
-        customToast("success", "Form submitted successfully.");
+  );
+  const addDecision = useMutation((data) => postDecisions(data), {
+    onSuccess: (data) => {
+      // console.log("data",data)
+      customToast("success", "Form submitted successfully.");
       history.goBack();
     },
     onError: (error) => {
       customToast("error", error.message);
     },
   });
-  
+
   useEffect(() => {
     if (match.params.id) {
       setValue("date", data?.date ?? null);
       setValue("title", data?.decision_title ?? null);
       setValue("decision", data?.decision ?? null);
       setHost(() =>
-      data?.hosts.map((data) => ({
-        name: data?.name,
-        _id: data?._id,
-      })));
-      setParticipant(() =>
-      data?.participants.map((data) => ({
-        name: data?.name,
-        _id: data?._id,
-      })))
-      setGroup([{
-        name: data?.farmer_group?.groupName,
-        _id: data?.farmer_group?._id
-      }]
+        data?.hosts.map((data) => ({
+          name: data?.name,
+          _id: data?._id,
+        }))
       );
+      setParticipant(() =>
+        data?.participants.map((data) => ({
+          name: data?.name,
+          _id: data?._id,
+        }))
+      );
+      setGroup([
+        {
+          name: data?.farmer_group?.groupName,
+          _id: data?.farmer_group?._id,
+        },
+      ]);
     }
   }, [data]);
-  
+
   useEffect(() => {
     const userId = Cookies.get("userId");
     if (loginType !== "Administrator") {
       getFarmerById(userId).then((val) => {
-        let result = farmerGroups.filter((res) => val?.farmerGroup === res?.name);
+        let result = farmerGroups.filter(
+          (res) => val?.farmerGroup === res?.name
+        );
         if (result.length > 0) {
           setGroup(result);
         }
       });
     }
   }, []);
-  
+
   const formSubmission = (data) => {
     const params = {
       decision_title: data.title,
@@ -186,7 +208,7 @@ export default function AddDecision(props) {
             {loginType === "Administrator" && (
               <Grid className={classes.forminput_container} item xs={12}>
                 <Multiselect
-                  options={farmerGroups}
+                  options={filterGroup}
                   showArrow
                   singleSelect
                   displayValue="name"
@@ -252,7 +274,7 @@ export default function AddDecision(props) {
             </Grid>
             <Grid item xs={6} style={{ zIndex: "5" }}>
               <Multiselect
-                options={farmerList}
+                options={filterFarmer}
                 displayValue="name"
                 onSelect={setParticipant}
                 placeholder="பங்கேற்பாளர்கள்"

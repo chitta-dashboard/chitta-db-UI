@@ -11,7 +11,7 @@ import { UserLoginContext } from "../../context/UserLoginContext";
 import SelectSearch, { fuzzySearch } from "react-select-search";
 import CustomButton from "../../widgets/CustomButton";
 import {getFarmers} from "../../../constants/config";
-import Multiselect from "multiselect-react-dropdown";
+// import Multiselect from "multiselect-react-dropdown";
 
 const AddFarmerGroup = () => {
   const classes = useStyles();
