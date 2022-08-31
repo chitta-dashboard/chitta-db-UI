@@ -21,10 +21,10 @@ export default function UserLoginContextProvider(props) {
   };
   const loginHandler = (data) => {
     setIsAuthenticated(true);
-    setAdminType(data[0].adminType);
+    setAdminType(data[0]?.adminType);
     Cookies.set("isAuthenticated", true, { expires: 7 });
-    Cookies.set("userId", data[0].id, { expires: 7 });
-    Cookies.set("adminType", data[0].adminType, { expires: 7 });
+    Cookies.set("userId", data[0]?.id, { expires: 7 });
+    Cookies.set("adminType", data[0]?.adminType, { expires: 7 });
   };
   const logoutHandler = () => {
     setIsAuthenticated(false);

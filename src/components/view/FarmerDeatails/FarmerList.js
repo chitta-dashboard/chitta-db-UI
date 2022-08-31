@@ -28,6 +28,9 @@ import { useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
+import ShareHolderPdf from "./ShareHolderPdf";
+import { pdf } from "@react-pdf/renderer";
+import { saveAs } from "file-saver";
 
 const FarmerList = (props) => {
   const { loginType, searchFormarDetail, setSearchFormarDetail } =
@@ -111,7 +114,6 @@ const FarmerList = (props) => {
     };
   });
 
-  // console.log(farmersData);
 
   useEffect(() => {
     const FormData = filteredList.length
@@ -228,15 +230,32 @@ const FarmerList = (props) => {
             </Workbook.Sheet>
           </Workbook>
           {loginType === "Administrator" && (
-            <Box>
-              <NavLink to="/addfarmer" className={classes.addDetails_link}>
-                <CustomButton
-                  className={classes.addDetails_btn}
-                  icon={<AddIcon />}
-                  value="Add"
-                />
-              </NavLink>
-            </Box>
+            <>
+              <Box>
+                <button
+                  disabled={disableBtn}
+                  className={classes.exportDetails_btn}
+                  onClick={async () => {
+                    const doc = <ShareHolderPdf data={pagedFarmer} />;
+                    const asPdf = pdf([]);
+                    asPdf.updateContainer(doc);
+                    const blob = await asPdf.toBlob();
+                    saveAs(blob, `shareHolder-${new Date().getFullYear()}.pdf`);
+                  }}
+                >
+                  Share Holder
+                </button>
+              </Box>
+              <Box>
+                <NavLink to="/addfarmer" className={classes.addDetails_link}>
+                  <CustomButton
+                    className={classes.addDetails_btn}
+                    icon={<AddIcon />}
+                    value="Add"
+                  />
+                </NavLink>
+              </Box>
+            </>
           )}
         </Box>
       </Box>
