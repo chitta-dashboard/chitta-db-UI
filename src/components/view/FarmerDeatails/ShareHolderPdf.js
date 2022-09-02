@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   address: {
     color: "#36574C",
     fontWeight: "bold",
-    fontSize: 11,
+    fontSize: 10,
   },
   adminCardQr: {
     width: 60,
@@ -190,8 +190,12 @@ const ShareHolderPdf = (props) => {
                   CIN : UO1409TN2020PTC139086
                 </Text>
                 <Text style={styles.address}>
-                  453, Sadayampattu, Kallakuruchi, Villupuram - 606 213 Tamil
-                  Nadu, India.
+                  Nature Farm & Rural Development Society No, 453, Power Office
+                  Main Road,
+                </Text>
+                <Text style={styles.address}>
+                  Sadiyampattu, Somandargudi Postal, Kallakurichi Taluk &
+                  District - 606213 Tamil Nadu, India.
                 </Text>
               </View>
             </View>
