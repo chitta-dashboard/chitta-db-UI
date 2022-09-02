@@ -1,20 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "@material-ui/core/Modal";
 import { useStyles } from "../../../assets/styles";
 import ShareHolderPdf from "./ShareHolderPdf";
 import { pdf } from "@react-pdf/renderer";
 import { saveAs } from "file-saver";
-import { Box, Typography } from "@material-ui/core";
-
-const ShareHolderModal = ({ open, handleClose, shareHolderData }) => {
+import { Box, Typography, CircularProgress } from "@material-ui/core";
+const ShareHolderModal = ({ open, handleClose,selected, shareHolderData }) => {
   const classes = useStyles();
   const [shareValue, setShareVale] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [shareHolderList, setShareHolderList] = useState([]);
+
+  useEffect(() => {
+    if (selected.length > 0) {
+      let list = shareHolderData.filter((res) => selected.includes(res.id));
+      setShareHolderList(list);
+    }
+  }, [selected]);
+
+  const handleModalClose = () => {
+    setShareVale("");
+    handleClose();
+    setLoading(false);
+  };
 
   return (
     <div>
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={handleModalClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -35,7 +49,7 @@ const ShareHolderModal = ({ open, handleClose, shareHolderData }) => {
             onChange={(e) => setShareVale(e.target.value)}
           />
           <Typography variant="p">
-            No of share holders - {shareHolderData?.length}
+            No of share holders - {shareHolderList?.length}
           </Typography>
           <Box
             style={{
@@ -45,12 +59,13 @@ const ShareHolderModal = ({ open, handleClose, shareHolderData }) => {
             }}
           >
             <button
-              disabled={shareValue === ""}
+              disabled={shareValue === "" || loading === true}
               className={classes.exportDetails_btn}
               onClick={async () => {
+                setLoading(true);
                 const doc = (
                   <ShareHolderPdf
-                    data={shareHolderData}
+                    data={shareHolderList}
                     shareValue={shareValue}
                   />
                 );
@@ -58,15 +73,18 @@ const ShareHolderModal = ({ open, handleClose, shareHolderData }) => {
                 asPdf.updateContainer(doc);
                 const blob = await asPdf.toBlob();
                 saveAs(blob, `shareHolder-${new Date().getFullYear()}.pdf`);
-                handleClose();
+                handleModalClose();
               }}
             >
-              Confirm
+              {loading === true
+                ? // <CircularProgress color="inherit" size={20} />
+                  "loading"
+                : "Confirm"}
             </button>
             <button
               className={classes.exportDetails_btn}
               onClick={() => {
-                handleClose();
+                handleModalClose();
               }}
             >
               Cancel

@@ -450,6 +450,9 @@ export const useStyles = makeStyles((theme) => ({
       cursor: "pointer",
       backgroundColor: colors.bg1,
     },
+    "&.Mui-selected, &.Mui-selected:hover": {
+      backgroundColor: "#d5e1ecd6",
+    },
   },
 
   tr: {
@@ -726,7 +729,7 @@ export const useStyles = makeStyles((theme) => ({
   user_profile_upload: {
     position: "absolute",
     right: 0,
-    background: "green",
+    background: "#085c49",
     height: "25px",
     width: "25px",
     boxSizing: "border-box",
@@ -977,10 +980,19 @@ export const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(3),
     transform: "translate(-50%, -50%)",
-    display:"flex",
-    alignItems:"center",
-    gap:"1rem",
+    display: "flex",
+    alignItems: "center",
+    gap: "1rem",
     // justifyContent:"center",
-    flexDirection:"column"
+    flexDirection: "column",
+  },
+  checkbox: {
+    "&:hover": {
+      background: "none",
+    },
+    "&.Mui-checked": {
+      color: "#085c49 !important",
+      background: "none",
+    },
   },
 }));
