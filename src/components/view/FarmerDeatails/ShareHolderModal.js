@@ -37,45 +37,41 @@ const ShareHolderModal = ({ open, handleClose, shareHolderData }) => {
           <Typography variant="p">
             No of share holders - {shareHolderData?.length}
           </Typography>
-
-          <button
-            disabled={shareValue === ""}
-            className={classes.exportDetails_btn}
-            onClick={async () => {
-              const doc = (
-                <ShareHolderPdf
-                  data={shareHolderData}
-                  shareValue={shareValue}
-                />
-              );
-              const asPdf = pdf([]);
-              asPdf.updateContainer(doc);
-              const blob = await asPdf.toBlob();
-              saveAs(blob, `shareHolder-${new Date().getFullYear()}.pdf`);
-              handleClose();
+          <Box
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              gap: "0.5rem",
             }}
           >
-            Confirm
-          </button>
-          <button
-            disabled={shareValue === ""}
-            className={classes.exportDetails_btn}
-            onClick={async () => {
-              const doc = (
-                <ShareHolderPdf
-                  data={shareHolderData}
-                  shareValue={shareValue}
-                />
-              );
-              const asPdf = pdf([]);
-              asPdf.updateContainer(doc);
-              const blob = await asPdf.toBlob();
-              saveAs(blob, `shareHolder-${new Date().getFullYear()}.pdf`);
-              handleClose();
-            }}
-          >
-            Cancel
-          </button>
+            <button
+              disabled={shareValue === ""}
+              className={classes.exportDetails_btn}
+              onClick={async () => {
+                const doc = (
+                  <ShareHolderPdf
+                    data={shareHolderData}
+                    shareValue={shareValue}
+                  />
+                );
+                const asPdf = pdf([]);
+                asPdf.updateContainer(doc);
+                const blob = await asPdf.toBlob();
+                saveAs(blob, `shareHolder-${new Date().getFullYear()}.pdf`);
+                handleClose();
+              }}
+            >
+              Confirm
+            </button>
+            <button
+              className={classes.exportDetails_btn}
+              onClick={() => {
+                handleClose();
+              }}
+            >
+              Cancel
+            </button>
+          </Box>
         </Box>
       </Modal>
     </div>
