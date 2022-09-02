@@ -966,4 +966,21 @@ export const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     borderRadius: "10px",
   },
+  share_modal_body: {
+    position: "absolute",
+    minWidth: 400,
+    top: "50%",
+    left: "50%",
+    backgroundColor: theme.palette.background.paper,
+    border: "none",
+    // outline: "none",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(3),
+    transform: "translate(-50%, -50%)",
+    display:"flex",
+    alignItems:"center",
+    gap:"1rem",
+    // justifyContent:"center",
+    flexDirection:"column"
+  },
 }));

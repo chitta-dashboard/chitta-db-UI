@@ -31,6 +31,7 @@ import { Error } from "../../widgets/Error";
 import ShareHolderPdf from "./ShareHolderPdf";
 import { pdf } from "@react-pdf/renderer";
 import { saveAs } from "file-saver";
+import ShareHolderModal from "./ShareHolderModal";
 
 const FarmerList = (props) => {
   const { loginType, searchFormarDetail, setSearchFormarDetail } =
@@ -48,6 +49,7 @@ const FarmerList = (props) => {
   const [page, setPage] = useState(0);
   const [farmersData, setFarmersData] = useState([]);
   const [pagedFarmer, setPagedFarmer] = useState([]);
+  const [isShareModal, setIsShareModal] = useState(false);
 
   const {
     data: initialFarmersData,
@@ -235,13 +237,14 @@ const FarmerList = (props) => {
                 <button
                   disabled={disableBtn}
                   className={classes.exportDetails_btn}
-                  onClick={async () => {
-                    const doc = <ShareHolderPdf data={pagedFarmer} />;
-                    const asPdf = pdf([]);
-                    asPdf.updateContainer(doc);
-                    const blob = await asPdf.toBlob();
-                    saveAs(blob, `shareHolder-${new Date().getFullYear()}.pdf`);
-                  }}
+                  // onClick={async () => {
+                  //   const doc = <ShareHolderPdf data={pagedFarmer} />;
+                  //   const asPdf = pdf([]);
+                  //   asPdf.updateContainer(doc);
+                  //   const blob = await asPdf.toBlob();
+                  //   saveAs(blob, `shareHolder-${new Date().getFullYear()}.pdf`);
+                  // }}
+                  onClick={() => setIsShareModal(true)}
                 >
                   Share Holder
                 </button>
@@ -372,6 +375,11 @@ const FarmerList = (props) => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </div>
+      <ShareHolderModal
+        shareHolderData={pagedFarmer}
+        open={isShareModal}
+        handleClose={() => setIsShareModal(false)}
+      />
     </>
   );
 };

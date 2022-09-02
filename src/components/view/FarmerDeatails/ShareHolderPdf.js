@@ -156,9 +156,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const ShareHolderPdf = (props) => {
-  const { data } = props;
-  // console.log("data", data);
+const ShareHolderPdf = ({ data, shareValue } ) => {
+  // console.log("data", data, shareValue);
   return (
     <Document>
       {data.map((val,i) => {
@@ -207,7 +206,7 @@ const ShareHolderPdf = (props) => {
                 <Text style={styles.formText}>Certificate No</Text>
                 <Text style={styles.formSubText}>NER-FPC-{1 + i}</Text>
                 <Text style={styles.formText}>No. of Shares</Text>
-                <Text style={styles.formSubText}></Text>
+                <Text style={styles.formSubText}>{shareValue}</Text>
                 <Text style={styles.formText}>Folio No</Text>
                 <Text style={styles.formSubText}></Text>
                 {/* </View> */}
