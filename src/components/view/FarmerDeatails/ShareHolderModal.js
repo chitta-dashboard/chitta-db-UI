@@ -4,7 +4,7 @@ import { useStyles } from "../../../assets/styles";
 import ShareHolderPdf from "./ShareHolderPdf";
 import { pdf } from "@react-pdf/renderer";
 import { saveAs } from "file-saver";
-import { Box, Typography, CircularProgress } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 const ShareHolderModal = ({ open, handleClose,selected, shareHolderData }) => {
   const classes = useStyles();
   const [shareValue, setShareVale] = useState("");
