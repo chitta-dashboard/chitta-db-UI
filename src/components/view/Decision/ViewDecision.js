@@ -93,6 +93,8 @@ export default function ViewDecision(props) {
                       getDate={date}
                       getDecisionTitle={data?.decision_title}
                       getDecisionGroup={decisionGroup}
+                      hosts={hosts}
+                      participants={data?.participants}
                     />
                   );
                   const asPdf = pdf([]);

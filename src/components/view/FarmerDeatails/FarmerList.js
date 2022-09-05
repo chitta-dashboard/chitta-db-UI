@@ -28,9 +28,9 @@ import { useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
-import ShareHolderPdf from "./ShareHolderPdf";
-import { pdf } from "@react-pdf/renderer";
-import { saveAs } from "file-saver";
+// import ShareHolderPdf from "./ShareHolderPdf";
+// import { pdf } from "@react-pdf/renderer";
+// import { saveAs } from "file-saver";
 import ShareHolderModal from "./ShareHolderModal";
 
 const FarmerList = (props) => {
