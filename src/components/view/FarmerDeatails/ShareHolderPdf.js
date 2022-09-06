@@ -114,12 +114,14 @@ const styles = StyleSheet.create({
   },
   formText: {
     fontSize: 14,
+    paddingTop: "2%",
     paddingLeft: "1%",
     paddingRight: "1%",
     // width: "100%",
   },
   formSubText: {
     fontSize: 14,
+    paddingTop: "2%",
     paddingLeft: "1%",
     paddingRight: "1%",
     fontWeight: "700",
@@ -142,7 +144,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 24,
     paddingBottom: "1%",
-    paddingTop: "1%",
+    paddingTop: "3%",
   },
   address: {
     color: "#36574C",

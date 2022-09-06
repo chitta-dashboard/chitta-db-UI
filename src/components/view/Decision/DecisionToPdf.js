@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
     paddingBottom: "5%",
     display: "flex",
     alignItems: "center",
-    // justifyContent: "flex-start",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    // justifyContent: "center",
   },
   section: {
     paddingLeft: 40,
@@ -110,14 +110,14 @@ const styles = StyleSheet.create({
 const DecisionHeader =()=>{
   return (
     <View style={styles.header_section}>
-      {/* <View style={styles.profileContainer}> */}
-        {/* <Image
+      <View style={styles.profileContainer}>
+        <Image
           src={Nerkathirlogo}
           alt="logo"
           cache
           style={styles.profileimg}
-        /> */}
-      {/* </View> */}
+        />
+      </View>
       <View style={styles.headerTextContainer}>
         <Text style={styles.headerText}>
           Nerkathir Farmer Producer Company Limited
@@ -152,11 +152,27 @@ export default function DecisionToPdf(props) {
     <Document>
       <Page size="A4" style={styles.page}>
         <View
-          render={({ pageNumber }) => (
-            <DecisionHeader key={pageNumber} />
-          )}
+          // render={({ pageNumber, subPageNumber }) => {
+          //   console.log("pageNumber", pageNumber);
+          //   console.log("subPageNumber", subPageNumber);
+          //   return (
+          //     <Image
+          //       src={Nerkathirlogo}
+          //       alt="logo"
+          //       cache
+          //       key={pageNumber}
+          //       style={styles.profileimg}
+          //     />
+          //   );
+          // }}
           fixed
-        />
+        >
+          <DecisionHeader />
+        </View>
+        {/* <View
+          render={({ pageNumber }) => }
+          fixed
+        /> */}
         <View style={styles.section}>
           <Text style={styles.section_row}>
             <Text style={styles.bold_text}>தேதி : </Text>
