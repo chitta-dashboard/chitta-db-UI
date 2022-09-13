@@ -112,8 +112,9 @@ const ViewCeoDetails = (props) => {
                     </div>
                     <div className={classes.details}>
                       <h2 className={classes.adminHeaderTitle}>
-                        Nerkathir Farmer Producer <br />
-                        Company Limited
+                        {/* Nerkathir Farmer Producer <br />
+                        Company Limited  */}
+                        நெற்கதிர் உழவர் உற்பத்தியாளர் <br/>நிறுவனம்
                       </h2>
                       <div className={classes.HeaderSub}>
                         <p>

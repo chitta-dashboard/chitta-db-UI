@@ -21,13 +21,17 @@ import AddIcon from "@material-ui/icons/Add";
 import searchLogo from "../../../assets/images/search.svg";
 import SelectSearch, { fuzzySearch } from "react-select-search";
 import ClearIcon from "@material-ui/icons/Clear";
-import { TableFooter, TablePagination } from "@material-ui/core";
+import { Checkbox, TableFooter, TablePagination } from "@material-ui/core";
 import { UserLoginContext } from "../../context/UserLoginContext";
 import Cookies from "js-cookie";
 import { useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { Loader } from "../../widgets/Loader";
 import { Error } from "../../widgets/Error";
+// import ShareHolderPdf from "./ShareHolderPdf";
+// import { pdf } from "@react-pdf/renderer";
+// import { saveAs } from "file-saver";
+import ShareHolderModal from "./ShareHolderModal";
 
 const FarmerList = (props) => {
   const { loginType, searchFormarDetail, setSearchFormarDetail } =
@@ -45,13 +49,15 @@ const FarmerList = (props) => {
   const [page, setPage] = useState(0);
   const [farmersData, setFarmersData] = useState([]);
   const [pagedFarmer, setPagedFarmer] = useState([]);
+  const [isShareModal, setIsShareModal] = useState(false);
+  const [selected, setSelected] = useState([]);
 
   const {
     data: initialFarmersData,
     isLoading,
     isError,
     error,
-  } = useQuery("getFarmerddDataE", () => getFarmers());
+  } = useQuery("getFarmerData", () => getFarmers());
 
   useEffect(() => {
     if (Cookies.get("loginType") === "Farmer") {
@@ -95,7 +101,11 @@ const FarmerList = (props) => {
   }, [searchValue, farmersData]);
 
   useEffect(() => {
-    if (searchFormarDetail !== "" && farmerGrpId === "") {
+    if (
+      loginType === "Administrator" &&
+      searchFormarDetail !== "" &&
+      farmerGrpId === ""
+    ) {
       setFarmerGrpId(searchFormarDetail);
     }
   }, [searchFormarDetail, farmerGrpId]);
@@ -106,8 +116,6 @@ const FarmerList = (props) => {
       DOB: item.DOB ? getFormattedDate(item.DOB) : "",
     };
   });
-
-  // console.log(farmersData);
 
   useEffect(() => {
     const FormData = filteredList.length
@@ -161,6 +169,25 @@ const FarmerList = (props) => {
     setFarmerGrpId("");
     setSearchFormarDetail("");
   };
+
+  const handleSelectAllClick = (event) => {
+    if (event.target.checked) {
+      const newSelecteds = initialFarmersData.map((n) => n.id);
+      setSelected(newSelecteds);
+      return;
+    }
+    setSelected([]);
+  };
+
+  const onSelectAllClick = (id, isItemSelected) => {
+    if (isItemSelected.length > 0) {
+      let isSelected = selected.filter((item) => item !== id);
+      setSelected(isSelected);
+    } else {
+      setSelected([...selected, id]);
+    }
+  };
+
   return (
     <>
       <Box className={classes.farmerdetails_subheader} xs={12}>
@@ -224,15 +251,33 @@ const FarmerList = (props) => {
             </Workbook.Sheet>
           </Workbook>
           {loginType === "Administrator" && (
-            <Box>
-              <NavLink to="/addfarmer" className={classes.addDetails_link}>
-                <CustomButton
-                  className={classes.addDetails_btn}
-                  icon={<AddIcon />}
-                  value="Add"
-                />
-              </NavLink>
-            </Box>
+            <>
+              <Box>
+                <button
+                  disabled={disableBtn || selected.length === 0}
+                  className={classes.exportDetails_btn}
+                  // onClick={async () => {
+                  //   const doc = <ShareHolderPdf data={pagedFarmer} />;
+                  //   const asPdf = pdf([]);
+                  //   asPdf.updateContainer(doc);
+                  //   const blob = await asPdf.toBlob();
+                  //   saveAs(blob, `shareHolder-${new Date().getFullYear()}.pdf`);
+                  // }}
+                  onClick={() => setIsShareModal(true)}
+                >
+                  Share Holder
+                </button>
+              </Box>
+              <Box>
+                <NavLink to="/addfarmer" className={classes.addDetails_link}>
+                  <CustomButton
+                    className={classes.addDetails_btn}
+                    icon={<AddIcon />}
+                    value="Add"
+                  />
+                </NavLink>
+              </Box>
+            </>
           )}
         </Box>
       </Box>
@@ -243,6 +288,17 @@ const FarmerList = (props) => {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow style={{ borderRadius: "20px" }}>
+              {isLoading === false && (
+                <TableCell
+                  padding="checkbox"
+                  className={classes.tab_headericoncell}
+                >
+                  <Checkbox
+                    className={classes.checkbox}
+                    onChange={handleSelectAllClick}
+                  />
+                </TableCell>
+              )}
               <TableCell className={classes.tab_headericoncell}>#</TableCell>
               <TableCell className={classes.tab_headericoncell}>
                 பெயர்
@@ -266,18 +322,43 @@ const FarmerList = (props) => {
               />
             ) : (
               pagedFarmer &&
-              pagedFarmer.map((farmer) => {
+              pagedFarmer.map((farmer, index) => {
+                const isItemSelected = selected.filter(
+                  (res) => res === farmer.id
+                );
+                const labelId = `enhanced-table-checkbox-${index}`;
                 return (
                   <TableRow
                     role="checkbox"
                     tabIndex={-1}
                     key={farmer.id}
                     className={classes.tab_row}
+                    aria-checked={isItemSelected.length > 0 ? true : false}
+                    selected={isItemSelected.length > 0 ? true : false}
                     onClick={() =>
                       props.history.push(`farmersdetails/${farmer.id}`)
                     }
                   >
-                    <TableCell padding="none" className={classes.icontab_cell}>
+                    <TableCell
+                      className={classes.icontab_cell}
+                      checked={isItemSelected.length > 0 ? true : false}
+                      inputProps={{ "aria-labelledby": labelId }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <Checkbox
+                        className={classes.checkbox}
+                        checked={isItemSelected.length > 0 ? true : false}
+                        onChange={() =>
+                          onSelectAllClick(farmer.id, isItemSelected)
+                        }
+                        // inputProps={{ "aria-label": "select all desserts" }}
+                      />
+                    </TableCell>
+                    <TableCell
+                      padding="none"
+                      id={labelId}
+                      className={classes.icontab_cell}
+                    >
                       <img
                         alt=""
                         draggable="false"
@@ -349,6 +430,12 @@ const FarmerList = (props) => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </div>
+      <ShareHolderModal
+        shareHolderData={initialFarmersData}
+        open={isShareModal}
+        selected={selected}
+        handleClose={() => setIsShareModal(false)}
+      />
     </>
   );
 };

@@ -450,6 +450,9 @@ export const useStyles = makeStyles((theme) => ({
       cursor: "pointer",
       backgroundColor: colors.bg1,
     },
+    "&.Mui-selected, &.Mui-selected:hover": {
+      backgroundColor: "#d5e1ecd6",
+    },
   },
 
   tr: {
@@ -516,7 +519,6 @@ export const useStyles = makeStyles((theme) => ({
     position: "relative",
     margin: "0 auto",
   },
-
   drpdown: {
     color: "#606365",
     border: 0,
@@ -538,6 +540,22 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     marginTop: "1rem",
     marginBottom: "7vh",
+  },
+
+  forminput_select_container_btn: {
+    width: "78.5%",
+    position: "relative",
+    margin: "10px auto",
+    display: "flex",
+    justifyContent: "center",
+    marginTop: "1rem",
+    marginBottom: "7vh",
+    flexWrap: "wrap",
+    "@media screen and (max-width: 1400px)": {
+      gap: "1rem",
+      flexDirection: "column",
+      alignItems: "flex-start",
+    },
   },
 
   submit_btn: {
@@ -711,7 +729,7 @@ export const useStyles = makeStyles((theme) => ({
   user_profile_upload: {
     position: "absolute",
     right: 0,
-    background: "green",
+    background: "#085c49",
     height: "25px",
     width: "25px",
     boxSizing: "border-box",
@@ -906,6 +924,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   adminHeaderTitle: {
     color: "#36574C",
+    lineHeight: "1.5rem",
   },
   admin_btncontainer: {
     margin: "3rem 2rem",
@@ -938,5 +957,42 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     marginTop: "2rem",
     marginBottom: "7vh",
+  },
+  decision_label: {
+    position: "absolute",
+    left: 0,
+    background: "#36574C",
+    color: "white",
+    fontSize: "12px",
+    padding: "0.1rem 0.5rem",
+    width: "90px",
+    textAlign: "center",
+    borderRadius: "10px",
+  },
+  share_modal_body: {
+    position: "absolute",
+    minWidth: 400,
+    top: "50%",
+    left: "50%",
+    backgroundColor: theme.palette.background.paper,
+    border: "none",
+    // outline: "none",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(3),
+    transform: "translate(-50%, -50%)",
+    display: "flex",
+    alignItems: "center",
+    gap: "1rem",
+    // justifyContent:"center",
+    flexDirection: "column",
+  },
+  checkbox: {
+    "&:hover": {
+      background: "none",
+    },
+    "&.Mui-checked": {
+      color: "#085c49 !important",
+      background: "none",
+    },
   },
 }));

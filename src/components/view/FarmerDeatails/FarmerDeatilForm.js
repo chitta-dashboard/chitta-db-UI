@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import clsx from "clsx";
-import { pdf, PDFDownloadLink } from "@react-pdf/renderer";
+// import clsx from "clsx";
+import { pdf,  } from "@react-pdf/renderer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { useStyles } from "../../../assets/styles";
 import {
@@ -16,7 +16,7 @@ import { useMutation, useQuery } from "react-query";
 import CustomButton from "../../widgets/CustomButton";
 import { Error } from "../../widgets/Error";
 import Nerkathirlogo from "../../../assets/images/nerkathir_logo.png";
-import CardToPdf from "../../widgets/CardToPdf";
+// import CardToPdf from "../../widgets/CardToPdf";
 import FarmerDetailsToPdf from "./FarmerDetailsToPdf";
 import { saveAs } from "file-saver";
 import IconButton from "@material-ui/core/IconButton";
@@ -217,9 +217,7 @@ const FarmerDeatilForm = (Props) => {
                 draggable="false"
                 className={classes.user_profile}
               ></img>
-              <div
-                className={classes.user_profile_upload}
-              >
+              <div className={classes.user_profile_upload}>
                 <input
                   style={{ display: "none" }}
                   accept="image/*"
@@ -241,11 +239,15 @@ const FarmerDeatilForm = (Props) => {
           </div>
           <div className={classes.user_subheader}>
             <p className={classes.user_subheadersubmain}>
-              ஒருங்கிணைப்பாளர்:மஹிமா பசுமை அறக்கட்டளை, எண்.66/c, கிழக்கு தெரு,
-              கச்சிராயப்பாளையம் - 606207
+              ஒருங்கிணைப்பாளர்: நேச்சர் ஃபார்ம் & ரூரல் டெவல்மென்ட் சொசைட்டிஎண்,
+              453,பவர் ஆபீஸ் மெயின் ரோடு,
+              {/* மஹிமா பசுமை அறக்கட்டளை, எண்.66/c, கிழக்கு தெரு, */}
+              {/* கச்சிராயப்பாளையம் - 606207 */}
             </p>
             <p className={classes.user_subheadersubmainbelow}>
-              நிர்வாக அலுவலகம்:எண்.6, காந்திரோடு, கள்ளக்குறிச்சி - 606202
+              {/* நிர்வாக அலுவலகம்:எண்.6, காந்திரோடு, கள்ளக்குறிச்சி - 606202 */}
+              சடையம்பட்டு,சோமண்டார்குடி அஞ்சல்,கள்ளக்குறிச்சி தாலுக்கா&மாவட்டம்,
+              606213
             </p>
             <div
               className={classes.formnum_container}
