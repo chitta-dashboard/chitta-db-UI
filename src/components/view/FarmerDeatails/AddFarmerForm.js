@@ -238,7 +238,7 @@ const AddFarmerForm = (Props) => {
       cropType: data.cropType,
       cattle: data.cattle,
       isGroupAdmin: !makeAdmin && data.groupAdmin === "true" ? true : false,
-      membershipId: farmersCount + 1,
+      membershipId: farmersCount + 2,
     };
 
     // console.log(params);
