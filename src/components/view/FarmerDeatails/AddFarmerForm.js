@@ -224,7 +224,7 @@ const AddFarmerForm = (Props) => {
         SurveyNoArray[0].length === 0
           ? farmerData.surveyNo
           : SurveyNoArray.toString(),
-      acre: data.acre,
+      acre: data.acre === "" ? null : data.acre,
       gender: data.gender,
       education: data.education,
       address: data.address,
